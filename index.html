@@ -1,0 +1,1977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>EchoShorts - AI Video Translation for Creators</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="EchoShorts is an AI-powered SaaS platform for content creators and video editors. We provide automated video processing services including subtitle generation and AI voice translation to help creators globalize their content." />
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-alt: #0b1020;
+      --accent: #5b8cff;
+      --accent-soft: rgba(91, 140, 255, 0.15);
+      --accent-2: #15c39a;
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --border: #1f2937;
+      --danger: #f97373;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.85);
+      --shadow-subtle: 0 8px 24px rgba(15, 23, 42, 0.7);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1f2937 0, #020617 55%, #000 100%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 16px 80px;
+    }
+
+    /* Top nav */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(to bottom, rgba(2, 6, 23, 0.9), transparent);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 14px 16px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: conic-gradient(
+        from 140deg,
+        #5b8cff,
+        #15c39a,
+        #eab308,
+        #5b8cff
+      );
+      position: relative;
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.9),
+        0 12px 30px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+    }
+
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      border-radius: 8px;
+      background: radial-gradient(circle at 20% 0, #111827, #020617 60%, #000);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand-name {
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      font-size: 18px;
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .nav-links a {
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(to right, var(--accent), var(--accent-2));
+      transition: width 0.25s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .lang-toggle {
+      display: inline-flex;
+      padding: 4px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+    }
+
+    .lang-btn {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .lang-btn.active {
+      background: linear-gradient(to right, var(--accent), var(--accent-2));
+      color: #020617;
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.75);
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--muted);
+      font-size: 12px;
+      cursor: default;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent-2);
+      box-shadow: 0 0 0 4px rgba(21, 195, 154, 0.18);
+    }
+
+    /* Layout helpers */
+    section {
+      margin-top: 40px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--accent-2);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .section-sub {
+      font-size: 14px;
+      color: var(--muted);
+      max-width: 560px;
+    }
+
+    /* Hero */
+    .hero {
+      margin-top: 26px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: 26px;
+      align-items: center;
+    }
+
+    .hero-left {
+      padding: 22px;
+      border-radius: 26px;
+      background: radial-gradient(circle at 0 0, rgba(91, 140, 255, 0.36), transparent 55%),
+        radial-gradient(circle at 100% 0, rgba(21, 195, 154, 0.3), transparent 50%),
+        rgba(15, 23, 42, 0.96);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 3px 10px 3px 4px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .hero-pill span {
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(21, 195, 154, 0.12);
+      color: var(--accent-2);
+      font-weight: 500;
+    }
+
+    .hero-title {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 10px;
+    }
+
+    .hero-title span {
+      background: linear-gradient(to right, #e5e7eb, #9ca3af);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 18px;
+    }
+
+    .hero-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 18px;
+      font-size: 12px;
+    }
+
+    .metric {
+      padding: 9px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted);
+    }
+
+    .metric strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-size: 14px;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease,
+        background 0.15s ease, color 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #020617;
+      box-shadow: 0 14px 32px rgba(37, 99, 235, 0.55);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 40px rgba(37, 99, 235, 0.7);
+    }
+
+    .btn-secondary {
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--muted);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(15, 23, 42, 1);
+      color: var(--text);
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.9);
+    }
+
+    .helper-text {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .helper-text strong {
+      color: var(--accent-2);
+      font-weight: 500;
+    }
+
+    .hero-right {
+      border-radius: 22px;
+      background: radial-gradient(circle at 0 0, rgba(91, 140, 255, 0.26), transparent 60%),
+        radial-gradient(circle at 100% 0, rgba(21, 195, 154, 0.32), transparent 55%),
+        var(--bg-alt);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      box-shadow: var(--shadow-subtle);
+      padding: 16px 16px 14px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .label-chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 12px;
+      gap: 6px;
+    }
+
+    .label-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.22);
+    }
+
+    .demo-card {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: rgba(15, 23, 42, 0.96);
+    }
+
+    .demo-header {
+      padding: 8px 10px;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: radial-gradient(circle at 0 0, rgba(79, 70, 229, 0.45), transparent 45%),
+        rgba(15, 23, 42, 0.96);
+    }
+
+    .demo-header-title {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .demo-header-badges {
+      display: flex;
+      gap: 6px;
+      font-size: 10px;
+    }
+
+    .badge {
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--muted);
+    }
+
+    .demo-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.3), transparent 55%),
+        #020617;
+    }
+
+    .demo-col {
+      padding: 12px 12px 14px;
+      border-right: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    .demo-col:last-child {
+      border-right: none;
+    }
+
+    .demo-col-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .demo-video {
+      aspect-ratio: 9 / 16;
+      border-radius: 12px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: radial-gradient(circle at center, #111827, #020617);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 11px;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .demo-video video,
+    .demo-video img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .demo-video-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(0, 0, 0, 0.2), transparent 60%);
+      pointer-events: none;
+    }
+
+    .demo-caption {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    /* Features */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .feature-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: radial-gradient(circle at 0 0, rgba(91, 140, 255, 0.18), transparent 55%),
+        rgba(15, 23, 42, 0.95);
+      padding: 14px 14px 16px;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .feature-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .feature-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .feature-body {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 9px;
+    }
+
+    .feature-meta {
+      font-size: 11px;
+      color: var(--accent-2);
+    }
+
+    /* Pricing */
+    .pricing-grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .pricing-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: radial-gradient(circle at 0 0, rgba(21, 195, 154, 0.22), transparent 60%),
+        rgba(15, 23, 42, 0.96);
+      padding: 16px 16px 18px;
+      box-shadow: var(--shadow-subtle);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .pricing-card.popular {
+      border-color: var(--accent);
+      box-shadow: 0 20px 40px rgba(37, 99, 235, 0.65);
+      transform: translateY(-2px);
+    }
+
+    .pricing-tag {
+      display: inline-flex;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      font-size: 10px;
+      color: var(--accent-2);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+
+    .pricing-name {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .pricing-desc {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .pricing-price {
+      font-size: 20px;
+      font-weight: 700;
+      margin-top: 10px;
+    }
+
+    .pricing-price span {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--muted);
+    }
+
+    .pricing-list {
+      margin-top: 10px;
+      list-style: none;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .pricing-list li {
+      display: flex;
+      gap: 6px;
+      align-items: flex-start;
+      margin-top: 4px;
+    }
+
+    .pricing-list li::before {
+      content: "✓";
+      color: var(--accent-2);
+      margin-top: 1px;
+      font-size: 11px;
+    }
+
+    .pricing-cta {
+      margin-top: 13px;
+    }
+
+    .pricing-cta button {
+      width: 100%;
+      justify-content: center;
+      font-size: 13px;
+      padding-block: 9px;
+    }
+
+    /* Demo section */
+    .demo-layout {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .demo-panel {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: radial-gradient(circle at 0 0, rgba(91, 140, 255, 0.22), transparent 60%),
+        rgba(15, 23, 42, 0.96);
+      padding: 14px 14px 16px;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .demo-panel h3 {
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .demo-panel p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .demo-steps {
+      font-size: 12px;
+      color: var(--muted);
+      list-style: decimal inside;
+      margin-top: 4px;
+    }
+
+    .demo-steps li {
+      margin-top: 3px;
+    }
+
+    /* FAQ & Contact */
+    .faq-grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    .faq-item {
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: rgba(15, 23, 42, 0.96);
+      padding: 12px 12px 13px;
+      margin-bottom: 8px;
+    }
+
+    .faq-q {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .faq-a {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .contact-card {
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: radial-gradient(circle at 0 0, rgba(21, 195, 154, 0.25), transparent 60%),
+        rgba(15, 23, 42, 0.96);
+      padding: 12px 12px 13px;
+    }
+
+    .contact-card h3 {
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .contact-card p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .contact-email {
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    .contact-email a {
+      color: var(--accent-2);
+    }
+
+    /* Legal sections */
+    .legal-section {
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(31, 41, 55, 0.95);
+    }
+
+    .legal-block {
+      margin-top: 18px;
+    }
+
+    .legal-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .legal-meta {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 6px;
+    }
+
+    .legal-text {
+      font-size: 13px;
+      color: var(--muted);
+      max-width: 840px;
+    }
+
+    .legal-text p + p {
+      margin-top: 8px;
+    }
+
+    .legal-list {
+      margin-top: 6px;
+      padding-left: 16px;
+    }
+
+    .legal-list li {
+      margin-top: 4px;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 32px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(31, 41, 55, 0.95);
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-links a {
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 2px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-right {
+        order: -1;
+      }
+      .features-grid,
+      .pricing-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .demo-layout,
+      .faq-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 720px) {
+      main {
+        padding-inline: 14px;
+      }
+      .nav-inner {
+        padding-inline: 14px;
+      }
+      .nav-links {
+        display: none;
+      }
+      .hero-left {
+        padding: 18px 16px;
+      }
+      .hero-title {
+        font-size: 26px;
+      }
+      .features-grid,
+      .pricing-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div class="brand-text">
+          <div class="brand-name">EchoShorts</div>
+          <div class="brand-sub" data-i18n-key="nav.tagline">
+            AI-POWERED VIDEO TRANSLATION
+          </div>
+        </div>
+      </div>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#top" data-i18n-key="nav.home">Home</a>
+        <a href="#features" data-i18n-key="nav.features">Features</a>
+        <a href="#pricing" data-i18n-key="nav.pricing">Pricing</a>
+        <a href="#demo" data-i18n-key="nav.demo">Demo</a>
+        <a href="#faq" data-i18n-key="nav.faq">FAQ</a>
+      </nav>
+      <div class="nav-actions">
+        <div class="lang-toggle" aria-label="Language toggle">
+          <button class="lang-btn active" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="zh">中文</button>
+        </div>
+        <div class="nav-cta">
+          <span class="status-dot"></span>
+          <span data-i18n-key="nav.status">AI video processing live</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero -->
+    <section aria-labelledby="hero-title">
+      <div class="hero">
+        <div class="hero-left">
+          <div class="hero-pill">
+            <span data-i18n-key="hero.pillLabel">For creators & editors</span>
+            <span data-i18n-key="hero.pillText">AI-powered productivity tool</span>
+          </div>
+          <h1 class="hero-title" id="hero-title">
+            <span data-i18n-key="hero.title.line1">
+              Translate your videos
+            </span>
+            <br />
+            <span data-i18n-key="hero.title.line2">
+              without losing emotion.
+            </span>
+          </h1>
+          <p class="hero-sub" data-i18n-key="hero.subtitle">
+            EchoShorts is an AI-powered SaaS platform for content creators and
+            video editors. We generate accurate subtitles and voice-cloned
+            multilingual audio so your videos can reach global audiences
+            without manual re-editing.
+          </p>
+          <div class="hero-metrics">
+            <div class="metric">
+              <strong>10x</strong>
+              <span data-i18n-key="hero.metric.speed">faster workflow</span>
+            </div>
+            <div class="metric">
+              <strong>95%+</strong>
+              <span data-i18n-key="hero.metric.accuracy">subtitle accuracy</span>
+            </div>
+            <div class="metric">
+              <strong data-i18n-key="hero.metric.useCases">Shorts, reels & long-form</strong>
+            </div>
+          </div>
+          <div class="hero-actions">
+            <button class="btn-primary" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'});">
+              <span data-i18n-key="hero.ctaPrimary">View transparent pricing</span>
+            </button>
+            <button class="btn-secondary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'});">
+              <span data-i18n-key="hero.ctaSecondary">Watch 30s AI demo</span>
+            </button>
+          </div>
+          <p class="helper-text" data-i18n-key="hero.helper">
+            EchoShorts is an AI-powered video processing productivity tool. We
+            help creators translate and repurpose their own content; we do not
+            provide movie downloads or copyright content distribution.
+          </p>
+        </div>
+
+        <aside class="hero-right" aria-label="Before and after AI translation demo">
+          <div class="label-chip">
+            <span class="label-dot"></span>
+            <span data-i18n-key="hero.demoLabel">Real processing preview</span>
+          </div>
+          <div class="demo-card">
+            <div class="demo-header">
+              <div class="demo-header-title" data-i18n-key="hero.demoTitle">
+                30s side-by-side video translation
+              </div>
+              <div class="demo-header-badges">
+                <span class="badge">AI</span>
+                <span class="badge">Voice cloning</span>
+              </div>
+            </div>
+            <div class="demo-body">
+              <div class="demo-col">
+                <div class="demo-col-title" data-i18n-key="hero.demoOriginal">
+                  Original language
+                </div>
+                <div class="demo-video">
+                  <!-- TODO: 替换为你自己的原始视频截图或片段 -->
+                  <!-- 示例：<video src="assets/echoshorts-before.mp4" controls muted></video> -->
+                  <span data-i18n-key="hero.demoPlaceholderBefore">
+                    Drop your original 30s video here to show what EchoShorts
+                    starts from.
+                  </span>
+                  <div class="demo-video-overlay"></div>
+                </div>
+                <div class="demo-caption" data-i18n-key="hero.demoCaptionBefore">
+                  Source video with original audio and language.
+                </div>
+              </div>
+              <div class="demo-col">
+                <div class="demo-col-title" data-i18n-key="hero.demoTranslated">
+                  AI-translated output
+                </div>
+                <div class="demo-video">
+                  <!-- TODO: 替换为你自己的 AI 翻译后视频截图或片段 -->
+                  <!-- 示例：<video src="assets/echoshorts-after.mp4" controls></video> -->
+                  <span data-i18n-key="hero.demoPlaceholderAfter">
+                    Show the same 30s clip with AI-generated voice and synced
+                    subtitles.
+                  </span>
+                  <div class="demo-video-overlay"></div>
+                </div>
+                <div class="demo-caption" data-i18n-key="hero.demoCaptionAfter">
+                  EchoShorts keeps your tone and emotions while translating
+                  into a new language.
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" aria-labelledby="features-title">
+      <div class="section-label" data-i18n-key="features.label">
+        For content creators
+      </div>
+      <h2 class="section-title" id="features-title" data-i18n-key="features.title">
+        AI-powered video processing, built for productivity
+      </h2>
+      <p class="section-sub" data-i18n-key="features.subtitle">
+        EchoShorts focuses on helping creators and editors translate and
+        repurpose their own content. We handle subtitles, AI voice cloning, and
+        timing, so you can focus on storytelling.
+      </p>
+
+      <div class="features-grid">
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">🎧</div>
+          <h3 class="feature-title" data-i18n-key="features.f1.title">
+            High-accuracy subtitles
+          </h3>
+          <p class="feature-body" data-i18n-key="features.f1.body">
+            Generate time-synced subtitles with speaker-aware segmentation.
+            Edit text directly before exporting for shorts, reels, and
+            long-form content.
+          </p>
+          <div class="feature-meta" data-i18n-key="features.f1.meta">
+            Designed for educational, commentary, and creator content.
+          </div>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">🗣️</div>
+          <h3 class="feature-title" data-i18n-key="features.f2.title">
+            Voice-cloned translation
+          </h3>
+          <p class="feature-body" data-i18n-key="features.f2.body">
+            Our AI models clone your voice tone and rhythm while translating
+            into new languages, so the localized version still sounds like you.
+          </p>
+          <div class="feature-meta" data-i18n-key="features.f2.meta">
+            We do not provide deepfake celebrity voices.
+          </div>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">📈</div>
+          <h3 class="feature-title" data-i18n-key="features.f3.title">
+            Creator-centric workflow
+          </h3>
+          <p class="feature-body" data-i18n-key="features.f3.body">
+            Upload your own content, choose target languages, and export ready
+            for YouTube, TikTok, and other creator platforms.
+          </p>
+          <div class="feature-meta" data-i18n-key="features.f3.meta">
+            We help you globalize existing content, not resell media.
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" aria-labelledby="pricing-title">
+      <div class="section-label" data-i18n-key="pricing.label">
+        Transparent pricing
+      </div>
+      <h2 class="section-title" id="pricing-title" data-i18n-key="pricing.title">
+        Pay for processing minutes, not empty promises
+      </h2>
+      <p class="section-sub" data-i18n-key="pricing.subtitle">
+        EchoShorts operates on a credit-based subscription model. Each plan
+        includes a specific number of AI video processing minutes. No hidden
+        fees, no lock-in.
+      </p>
+
+      <div class="pricing-grid">
+        <article class="pricing-card">
+          <div>
+            <div class="pricing-tag" data-i18n-key="pricing.starter.tag">
+              Starter
+            </div>
+            <div class="pricing-name" data-i18n-key="pricing.starter.name">
+              Creator Starter
+            </div>
+            <p class="pricing-desc" data-i18n-key="pricing.starter.desc">
+              Test EchoShorts on a few videos and shorts.
+            </p>
+            <div class="pricing-price" data-i18n-key="pricing.starter.price">
+              $9.9 <span>/ 100 minutes</span>
+            </div>
+            <ul class="pricing-list">
+              <li data-i18n-key="pricing.starter.l1">
+                100 minutes of AI video processing credits
+              </li>
+              <li data-i18n-key="pricing.starter.l2">
+                Subtitle generation in supported languages
+              </li>
+              <li data-i18n-key="pricing.starter.l3">
+                Basic voice translation for one target language
+              </li>
+            </ul>
+          </div>
+          <div class="pricing-cta">
+            <button class="btn-secondary">
+              <span data-i18n-key="pricing.starter.cta">
+                Ideal for first-time users
+              </span>
+            </button>
+          </div>
+        </article>
+
+        <article class="pricing-card popular" aria-label="Most popular plan">
+          <div>
+            <div class="pricing-tag" data-i18n-key="pricing.pro.tag">
+              Most popular
+            </div>
+            <div class="pricing-name" data-i18n-key="pricing.pro.name">
+              Creator Pro
+            </div>
+            <p class="pricing-desc" data-i18n-key="pricing.pro.desc">
+              For active creators publishing multiple videos every month.
+            </p>
+            <div class="pricing-price" data-i18n-key="pricing.pro.price">
+              $29 <span>/ 400 minutes</span>
+            </div>
+            <ul class="pricing-list">
+              <li data-i18n-key="pricing.pro.l1">
+                400 minutes of AI video processing credits
+              </li>
+              <li data-i18n-key="pricing.pro.l2">
+                Multi-language subtitles & voice translation
+              </li>
+              <li data-i18n-key="pricing.pro.l3">
+                Priority processing queue during peak hours
+              </li>
+            </ul>
+          </div>
+          <div class="pricing-cta">
+            <button class="btn-primary">
+              <span data-i18n-key="pricing.pro.cta">
+                Recommended for serious creators
+              </span>
+            </button>
+          </div>
+        </article>
+
+        <article class="pricing-card">
+          <div>
+            <div class="pricing-tag" data-i18n-key="pricing.studio.tag">
+              Studio
+            </div>
+            <div class="pricing-name" data-i18n-key="pricing.studio.name">
+              Studio & Teams
+            </div>
+            <p class="pricing-desc" data-i18n-key="pricing.studio.desc">
+              For agencies or teams managing multiple creator channels.
+            </p>
+            <div class="pricing-price" data-i18n-key="pricing.studio.price">
+              Custom <span>/ 2,000+ minutes</span>
+            </div>
+            <ul class="pricing-list">
+              <li data-i18n-key="pricing.studio.l1">
+                Volume-based pricing for 2,000+ minutes
+              </li>
+              <li data-i18n-key="pricing.studio.l2">
+                Team accounts and shared credits
+              </li>
+              <li data-i18n-key="pricing.studio.l3">
+                Dedicated support and onboarding
+              </li>
+            </ul>
+          </div>
+          <div class="pricing-cta">
+            <button class="btn-secondary">
+              <span data-i18n-key="pricing.studio.cta">
+                Contact us for a quote
+              </span>
+            </button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Demo -->
+    <section id="demo" aria-labelledby="demo-title">
+      <div class="section-label" data-i18n-key="demo.label">
+        Live demo
+      </div>
+      <h2 class="section-title" id="demo-title" data-i18n-key="demo.title">
+        Show, not tell — 30s translation before & after
+      </h2>
+      <p class="section-sub" data-i18n-key="demo.subtitle">
+        To prove EchoShorts is a real AI video processing service (not a
+        financial scheme), we provide a concrete before/after demo of the same
+        clip with translated audio and subtitles.
+      </p>
+
+      <div class="demo-layout">
+        <div class="demo-panel">
+          <h3 data-i18n-key="demo.howTitle">How the workflow looks</h3>
+          <p data-i18n-key="demo.howIntro">
+            The demo video on this page is processed by the same pipeline we
+            use for real customer content.
+          </p>
+          <ol class="demo-steps">
+            <li data-i18n-key="demo.step1">
+              Upload your own video (for example, an educational short or
+              commentary clip).
+            </li>
+            <li data-i18n-key="demo.step2">
+              EchoShorts generates accurate subtitles and detects your speaking
+              style.
+            </li>
+            <li data-i18n-key="demo.step3">
+              Our AI creates translated audio that keeps your tone and
+              emotions, then re-syncs everything into a new language.
+            </li>
+            <li data-i18n-key="demo.step4">
+              You download the processed video and publish on your creator
+              platforms.
+            </li>
+          </ol>
+        </div>
+
+        <div class="demo-panel">
+          <h3 data-i18n-key="demo.businessTitle">Business description</h3>
+          <p class="legal-text" style="font-size: 12px;">
+            <strong>Project Name:</strong> EchoShorts<br />
+            <strong>Description:</strong> EchoShorts is an AI-powered SaaS
+            platform designed for content creators and video editors. We
+            provide automated video processing services, including high-accuracy
+            subtitle generation and voice-cloning based audio translation. Our
+            tool helps creators globalize their content by syncing translated
+            audio with original video emotions. We operate on a credit-based
+            subscription model where users pay for processing minutes.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ & Contact -->
+    <section id="faq" aria-labelledby="faq-title">
+      <div class="section-label" data-i18n-key="faq.label">
+        Questions & compliance
+      </div>
+      <h2 class="section-title" id="faq-title" data-i18n-key="faq.title">
+        Designed as a productivity tool, not a copyright service
+      </h2>
+      <p class="section-sub" data-i18n-key="faq.subtitle">
+        EchoShorts focuses on empowering creators to work faster with their own
+        content. We do not encourage copyright infringement or redistribution
+        of protected media.
+      </p>
+
+      <div class="faq-grid">
+        <div>
+          <article class="faq-item">
+            <h3 class="faq-q" data-i18n-key="faq.q1">
+              Who is EchoShorts for?
+            </h3>
+            <p class="faq-a" data-i18n-key="faq.a1">
+              EchoShorts is built for content creators, educators, and video
+              editors who want to localize their own videos. Typical use cases
+              include tutorials, commentary videos, explainer content, and
+              creator-branded shorts.
+            </p>
+          </article>
+          <article class="faq-item">
+            <h3 class="faq-q" data-i18n-key="faq.q2">
+              Do you provide movie or TV downloads?
+            </h3>
+            <p class="faq-a" data-i18n-key="faq.a2">
+              No. EchoShorts is not a media download site. We do not provide
+              movie, TV, or other copyright video downloads. Users must upload
+              content they own or have permission to process.
+            </p>
+          </article>
+          <article class="faq-item">
+            <h3 class="faq-q" data-i18n-key="faq.q3">
+              Is this a financial or investment product?
+            </h3>
+            <p class="faq-a" data-i18n-key="faq.a3">
+              No. EchoShorts is a straightforward AI video processing
+              productivity tool. Users purchase processing credits to pay for
+              minutes of AI translation and subtitle generation. There are no
+              financial returns, investments, or referral commissions.
+            </p>
+          </article>
+        </div>
+        <aside class="contact-card" aria-label="Support contact information">
+          <h3 data-i18n-key="contact.title">Need help or compliance info?</h3>
+          <p data-i18n-key="contact.desc">
+            For questions about EchoShorts, billing, or compliance, please
+            contact our support team. We normally respond within 1–2 business
+            days.
+          </p>
+          <p class="contact-email">
+            <strong>Email:</strong>
+            <a href="mailto:support@echoshorts.win">
+              support@echoshorts.win
+            </a>
+          </p>
+          <p class="contact-email" data-i18n-key="contact.note">
+            Please do not send copyrighted videos that you do not own or do not
+            have permission to process.
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Legal sections (English only as required; headings support i18n) -->
+    <section class="legal-section" aria-label="Legal documents">
+      <div class="section-label" data-i18n-key="legal.label">Legal</div>
+      <h2 class="section-title" data-i18n-key="legal.title">
+        Legal policies for EchoShorts
+      </h2>
+      <p class="section-sub" data-i18n-key="legal.subtitle">
+        The following policies apply to all users of EchoShorts. These pages
+        are provided in English, as required by our payment and compliance
+        partners.
+      </p>
+
+      <!-- Terms of Service -->
+      <article id="terms-of-service" class="legal-block">
+        <div class="legal-meta">DOCUMENT</div>
+        <h3 class="legal-title" data-i18n-key="legal.terms.title">
+          Terms of Service
+        </h3>
+        <div class="legal-text">
+          <p data-i18n-key="legal.terms.service.heading">
+            Service description
+          </p>
+          <p data-i18n-key="legal.terms.service.body">
+            EchoShorts is an AI-powered SaaS platform that provides video
+            processing services for content creators and video editors. Our
+            services include, but are not limited to, automatic subtitle
+            generation, AI-based voice-cloning translation, and related tools
+            that help users localize and repurpose their own video content.
+          </p>
+          <p data-i18n-key="legal.terms.user.heading">
+            User responsibility
+          </p>
+          <p data-i18n-key="legal.terms.user.body1">
+            Users are solely responsible for ensuring they have all necessary
+            rights, licenses, and permissions for any video, audio, or other
+            content uploaded to EchoShorts. By using the service, you confirm
+            that your use of EchoShorts does not infringe the rights of any
+            third party, including copyright, trademark, privacy, or publicity
+            rights.
+          </p>
+          <p data-i18n-key="legal.terms.user.body2">
+            You agree not to use EchoShorts to upload or generate illegal,
+            harmful, violent, hateful, or misleading content, and not to use
+            the service to distribute copyrighted material that you do not own
+            or have permission to use.
+          </p>
+          <p data-i18n-key="legal.terms.availability.heading">
+            Service availability
+          </p>
+          <p data-i18n-key="legal.terms.availability.body">
+            EchoShorts is provided on an “as is” and “as available” basis. While
+            we strive for maximum uptime and reliability, we do not guarantee
+            100% availability of the service. Maintenance windows, network
+            issues, or third-party provider outages may temporarily impact
+            processing times.
+          </p>
+          <p data-i18n-key="legal.terms.subscription.heading">
+            Account and subscription
+          </p>
+          <p data-i18n-key="legal.terms.subscription.body">
+            EchoShorts operates on a credit-based subscription model. Users
+            purchase processing credits that correspond to a specific number of
+            video processing minutes. Credits may expire or change according to
+            the plan terms presented at checkout.
+          </p>
+          <p data-i18n-key="legal.terms.termination.heading">
+            Account termination
+          </p>
+          <p data-i18n-key="legal.terms.termination.body">
+            We reserve the right to suspend or terminate accounts, with or
+            without notice, if we have reason to believe that a user is:
+          </p>
+          <ul class="legal-list">
+            <li data-i18n-key="legal.terms.termination.l1">
+              Misusing our AI services to generate illegal, harmful, or
+              deceptive content;
+            </li>
+            <li data-i18n-key="legal.terms.termination.l2">
+              Uploading content for which they do not have the necessary rights;
+            </li>
+            <li data-i18n-key="legal.terms.termination.l3">
+              Attempting to bypass usage limits, abuse refunds, or otherwise
+              misuse the platform.
+            </li>
+          </ul>
+          <p data-i18n-key="legal.terms.changes.heading">
+            Changes to the service
+          </p>
+          <p data-i18n-key="legal.terms.changes.body">
+            We may update or modify EchoShorts from time to time, including
+            features, pricing, or terms. Any material changes to these Terms of
+            Service will be communicated on this page or via email when
+            appropriate.
+          </p>
+        </div>
+      </article>
+
+      <!-- Privacy Policy -->
+      <article id="privacy-policy" class="legal-block">
+        <div class="legal-meta">DOCUMENT</div>
+        <h3 class="legal-title" data-i18n-key="legal.privacy.title">
+          Privacy Policy
+        </h3>
+        <div class="legal-text">
+          <p data-i18n-key="legal.privacy.data.heading">
+            What data we process
+          </p>
+          <p data-i18n-key="legal.privacy.data.body">
+            When you use EchoShorts, we may process the following types of
+            information:
+          </p>
+          <ul class="legal-list">
+            <li data-i18n-key="legal.privacy.data.l1">
+              Account information: email address, password (stored in hashed
+              form), and basic profile data.
+            </li>
+            <li data-i18n-key="legal.privacy.data.l2">
+              Video and audio content: files you upload for AI processing,
+              along with any associated metadata (title, language, etc.).
+            </li>
+            <li data-i18n-key="legal.privacy.data.l3">
+              Usage and technical data: logs related to processing jobs,
+              approximate duration, error codes, and anonymized analytics.
+            </li>
+          </ul>
+          <p data-i18n-key="legal.privacy.use.heading">
+            How we use your video data
+          </p>
+          <p data-i18n-key="legal.privacy.use.body1">
+            We use your uploaded video and audio content solely for the purpose
+            of providing AI video processing services to you, such as subtitle
+            generation and voice-cloned translation. We do not sell your video
+            content to third parties.
+          </p>
+          <p data-i18n-key="legal.privacy.use.body2">
+            In limited cases, and only with your explicit consent (for example,
+            if you volunteer a sample for marketing or demo purposes), we may
+            use processed clips as anonymized examples to showcase EchoShorts.
+          </p>
+          <p data-i18n-key="legal.privacy.retention.heading">
+            Data retention
+          </p>
+          <p data-i18n-key="legal.privacy.retention.body">
+            Processed files and intermediate data may be stored for a limited
+            period to allow you to re-download your results and to improve
+            service reliability. You may request deletion of your processed
+            content via support, subject to applicable laws and technical
+            constraints.
+          </p>
+          <p data-i18n-key="legal.privacy.third.heading">
+            Third-party processors
+          </p>
+          <p data-i18n-key="legal.privacy.third.body">
+            We may rely on reputable third-party cloud providers and AI
+            infrastructure partners to host and process your content. These
+            providers are contractually required to protect your data and are
+            not permitted to use it for their own purposes beyond delivering
+            the contracted service.
+          </p>
+          <p data-i18n-key="legal.privacy.security.heading">
+            Security
+          </p>
+          <p data-i18n-key="legal.privacy.security.body">
+            We implement reasonable technical and organizational measures to
+            protect your data, including encrypted connections (HTTPS) and
+            access controls. However, no internet-based service can be
+            completely secure, and you use EchoShorts at your own risk.
+          </p>
+          <p data-i18n-key="legal.privacy.rights.heading">
+            Your rights
+          </p>
+          <p data-i18n-key="legal.privacy.rights.body">
+            Depending on your jurisdiction, you may have rights to access,
+            correct, or delete certain personal data. To exercise these rights,
+            please contact us at support@echoshorts.win.
+          </p>
+        </div>
+      </article>
+
+      <!-- Refund Policy -->
+      <article id="refund-policy" class="legal-block">
+        <div class="legal-meta">DOCUMENT</div>
+        <h3 class="legal-title" data-i18n-key="legal.refund.title">
+          Refund Policy
+        </h3>
+        <div class="legal-text">
+          <p data-i18n-key="legal.refund.overview.heading">
+            Refund Policy for EchoShorts
+          </p>
+          <p data-i18n-key="legal.refund.overview.body">
+            Since EchoShorts provides non-tangible, irrevocable digital goods
+            (AI processing credits), we do not provide refunds once a video has
+            been processed or credits have been consumed.
+          </p>
+          <p data-i18n-key="legal.refund.unused.heading">
+            Unused credits
+          </p>
+          <p data-i18n-key="legal.refund.unused.body">
+            You may request a refund within 7 days of purchase if no credits
+            have been used. After any portion of the credits has been consumed,
+            the purchase becomes non-refundable.
+          </p>
+          <p data-i18n-key="legal.refund.technical.heading">
+            Technical issues
+          </p>
+          <p data-i18n-key="legal.refund.technical.body">
+            If a system error on our side prevents a video from being processed
+            correctly, we will credit the processing minutes back to your
+            account or re-run the job at no additional cost. To help us
+            investigate, we may request technical logs or example files.
+          </p>
+          <p data-i18n-key="legal.refund.fraud.heading">
+            Fraud or abuse
+          </p>
+          <p data-i18n-key="legal.refund.fraud.body">
+            We reserve the right to decline or reverse refunds in cases of
+            suspected fraud, chargeback abuse, or violations of our Terms of
+            Service.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <footer>
+      <div>
+        © <span id="year"></span> EchoShorts. All rights reserved.
+      </div>
+      <div class="footer-links">
+        <a href="#terms-of-service">Terms of Service</a>
+        <a href="#privacy-policy">Privacy Policy</a>
+        <a href="#refund-policy">Refund Policy</a>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Simple i18n system (default: English)
+    const translations = {
+      en: {
+        "nav.tagline": "AI-POWERED VIDEO TRANSLATION",
+        "nav.home": "Home",
+        "nav.features": "Features",
+        "nav.pricing": "Pricing",
+        "nav.demo": "Demo",
+        "nav.faq": "FAQ",
+        "nav.status": "AI video processing live",
+
+        "hero.pillLabel": "For creators & editors",
+        "hero.pillText": "AI-powered productivity tool",
+        "hero.title.line1": "Translate your videos",
+        "hero.title.line2": "without losing emotion.",
+        "hero.subtitle":
+          "EchoShorts is an AI-powered SaaS platform for content creators and video editors. We generate accurate subtitles and voice-cloned multilingual audio so your videos can reach global audiences without manual re-editing.",
+        "hero.metric.speed": "faster workflow",
+        "hero.metric.accuracy": "subtitle accuracy",
+        "hero.metric.useCases": "Shorts, reels & long-form",
+        "hero.ctaPrimary": "View transparent pricing",
+        "hero.ctaSecondary": "Watch 30s AI demo",
+        "hero.helper":
+          "EchoShorts is an AI-powered video processing productivity tool. We help creators translate and repurpose their own content; we do not provide movie downloads or copyright content distribution.",
+        "hero.demoLabel": "Real processing preview",
+        "hero.demoTitle": "30s side-by-side video translation",
+        "hero.demoOriginal": "Original language",
+        "hero.demoTranslated": "AI-translated output",
+        "hero.demoPlaceholderBefore":
+          "Drop your original 30s video here to show what EchoShorts starts from.",
+        "hero.demoPlaceholderAfter":
+          "Show the same 30s clip with AI-generated voice and synced subtitles.",
+        "hero.demoCaptionBefore":
+          "Source video with original audio and language.",
+        "hero.demoCaptionAfter":
+          "EchoShorts keeps your tone and emotions while translating into a new language.",
+
+        "features.label": "For content creators",
+        "features.title": "AI-powered video processing, built for productivity",
+        "features.subtitle":
+          "EchoShorts focuses on helping creators and editors translate and repurpose their own content. We handle subtitles, AI voice cloning, and timing, so you can focus on storytelling.",
+        "features.f1.title": "High-accuracy subtitles",
+        "features.f1.body":
+          "Generate time-synced subtitles with speaker-aware segmentation. Edit text directly before exporting for shorts, reels, and long-form content.",
+        "features.f1.meta":
+          "Designed for educational, commentary, and creator content.",
+        "features.f2.title": "Voice-cloned translation",
+        "features.f2.body":
+          "Our AI models clone your voice tone and rhythm while translating into new languages, so the localized version still sounds like you.",
+        "features.f2.meta": "We do not provide deepfake celebrity voices.",
+        "features.f3.title": "Creator-centric workflow",
+        "features.f3.body":
+          "Upload your own content, choose target languages, and export ready for YouTube, TikTok, and other creator platforms.",
+        "features.f3.meta":
+          "We help you globalize existing content, not resell media.",
+
+        "pricing.label": "Transparent pricing",
+        "pricing.title": "Pay for processing minutes, not empty promises",
+        "pricing.subtitle":
+          "EchoShorts operates on a credit-based subscription model. Each plan includes a specific number of AI video processing minutes. No hidden fees, no lock-in.",
+        "pricing.starter.tag": "Starter",
+        "pricing.starter.name": "Creator Starter",
+        "pricing.starter.desc":
+          "Test EchoShorts on a few videos and shorts.",
+        "pricing.starter.price": "$9.9 / 100 minutes",
+        "pricing.starter.l1":
+          "100 minutes of AI video processing credits",
+        "pricing.starter.l2":
+          "Subtitle generation in supported languages",
+        "pricing.starter.l3":
+          "Basic voice translation for one target language",
+        "pricing.starter.cta": "Ideal for first-time users",
+
+        "pricing.pro.tag": "Most popular",
+        "pricing.pro.name": "Creator Pro",
+        "pricing.pro.desc":
+          "For active creators publishing multiple videos every month.",
+        "pricing.pro.price": "$29 / 400 minutes",
+        "pricing.pro.l1":
+          "400 minutes of AI video processing credits",
+        "pricing.pro.l2":
+          "Multi-language subtitles & voice translation",
+        "pricing.pro.l3":
+          "Priority processing queue during peak hours",
+        "pricing.pro.cta": "Recommended for serious creators",
+
+        "pricing.studio.tag": "Studio",
+        "pricing.studio.name": "Studio & Teams",
+        "pricing.studio.desc":
+          "For agencies or teams managing multiple creator channels.",
+        "pricing.studio.price": "Custom / 2,000+ minutes",
+        "pricing.studio.l1":
+          "Volume-based pricing for 2,000+ minutes",
+        "pricing.studio.l2": "Team accounts and shared credits",
+        "pricing.studio.l3":
+          "Dedicated support and onboarding",
+        "pricing.studio.cta": "Contact us for a quote",
+
+        "demo.label": "Live demo",
+        "demo.title":
+          "Show, not tell — 30s translation before & after",
+        "demo.subtitle":
+          "To prove EchoShorts is a real AI video processing service (not a financial scheme), we provide a concrete before/after demo of the same clip with translated audio and subtitles.",
+        "demo.howTitle": "How the workflow looks",
+        "demo.howIntro":
+          "The demo video on this page is processed by the same pipeline we use for real customer content.",
+        "demo.step1":
+          "Upload your own video (for example, an educational short or commentary clip).",
+        "demo.step2":
+          "EchoShorts generates accurate subtitles and detects your speaking style.",
+        "demo.step3":
+          "Our AI creates translated audio that keeps your tone and emotions, then re-syncs everything into a new language.",
+        "demo.step4":
+          "You download the processed video and publish on your creator platforms.",
+        "demo.businessTitle": "Business description",
+
+        "faq.label": "Questions & compliance",
+        "faq.title":
+          "Designed as a productivity tool, not a copyright service",
+        "faq.subtitle":
+          "EchoShorts focuses on empowering creators to work faster with their own content. We do not encourage copyright infringement or redistribution of protected media.",
+        "faq.q1": "Who is EchoShorts for?",
+        "faq.a1":
+          "EchoShorts is built for content creators, educators, and video editors who want to localize their own videos. Typical use cases include tutorials, commentary videos, explainer content, and creator-branded shorts.",
+        "faq.q2": "Do you provide movie or TV downloads?",
+        "faq.a2":
+          "No. EchoShorts is not a media download site. We do not provide movie, TV, or other copyright video downloads. Users must ensure that any sites and pages they access contain only videos that are properly licensed or authorized.",
+        "faq.q3": "Is this a financial or investment product?",
+        "faq.a3":
+          "No. EchoShorts is a straightforward AI video processing productivity tool. Users purchase processing credits to pay for minutes of AI translation and subtitle generation. There are no financial returns, investments, or referral commissions.",
+
+        "contact.title": "Need help or compliance info?",
+        "contact.desc":
+          "For questions about EchoShorts, billing, or compliance, please contact our support team. We normally respond within 1–2 business days.",
+        "contact.note":
+          "Please do not send copyrighted videos that you do not own or do not have permission to process.",
+
+        "legal.label": "Legal",
+        "legal.title": "Legal policies for EchoShorts",
+        "legal.subtitle":
+          "The following policies apply to all users of EchoShorts. These pages are provided in English, as required by our payment and compliance partners.",
+
+        "legal.terms.title": "Terms of Service",
+        "legal.terms.service.heading": "Service description",
+        "legal.terms.service.body":
+          "EchoShorts is an AI-powered SaaS platform that provides video processing services for content creators and video editors. Our services include, but are not limited to, automatic subtitle generation, AI-based voice-cloning translation, and related tools that help users localize and repurpose their own video content.",
+        "legal.terms.user.heading": "User responsibility",
+        "legal.terms.user.body1":
+          "Users are solely responsible for ensuring they have all necessary rights, licenses, and permissions for any video, audio, or other content uploaded to EchoShorts. By using the service, you confirm that your use of EchoShorts does not infringe the rights of any third party, including copyright, trademark, privacy, or publicity rights.",
+        "legal.terms.user.body2":
+          "You agree not to use EchoShorts to upload or generate illegal, harmful, violent, hateful, or misleading content, and not to use the service to distribute copyrighted material that you do not own or have permission to use.",
+        "legal.terms.availability.heading": "Service availability",
+        "legal.terms.availability.body":
+          "EchoShorts is provided on an “as is” and “as available” basis. While we strive for maximum uptime and reliability, we do not guarantee 100% availability of the service. Maintenance windows, network issues, or third-party provider outages may temporarily impact processing times.",
+        "legal.terms.subscription.heading": "Account and subscription",
+        "legal.terms.subscription.body":
+          "EchoShorts operates on a credit-based subscription model. Users purchase processing credits that correspond to a specific number of video processing minutes. Credits may expire or change according to the plan terms presented at checkout.",
+        "legal.terms.termination.heading": "Account termination",
+        "legal.terms.termination.body":
+          "We reserve the right to suspend or terminate accounts, with or without notice, if we have reason to believe that a user is:",
+        "legal.terms.termination.l1":
+          "Misusing our AI services to generate illegal, harmful, or deceptive content;",
+        "legal.terms.termination.l2":
+          "Uploading content for which they do not have the necessary rights;",
+        "legal.terms.termination.l3":
+          "Attempting to bypass usage limits, abuse refunds, or otherwise misuse the platform.",
+        "legal.terms.changes.heading": "Changes to the service",
+        "legal.terms.changes.body":
+          "We may update or modify EchoShorts from time to time, including features, pricing, or terms. Any material changes to these Terms of Service will be communicated on this page or via email when appropriate.",
+
+        "legal.privacy.title": "Privacy Policy",
+        "legal.privacy.data.heading": "What data we process",
+        "legal.privacy.data.body":
+          "When you use EchoShorts, we may process the following types of information:",
+        "legal.privacy.data.l1":
+          "Account information: email address, password (stored in hashed form), and basic profile data.",
+        "legal.privacy.data.l2":
+          "Video and audio content: files you upload for AI processing, along with any associated metadata (title, language, etc.).",
+        "legal.privacy.data.l3":
+          "Usage and technical data: logs related to processing jobs, approximate duration, error codes, and anonymized analytics.",
+        "legal.privacy.use.heading": "How we use your video data",
+        "legal.privacy.use.body1":
+          "We use your uploaded video and audio content solely for the purpose of providing AI video processing services to you, such as subtitle generation and voice-cloned translation. We do not sell your video content to third parties.",
+        "legal.privacy.use.body2":
+          "In limited cases, and only with your explicit consent (for example, if you volunteer a sample for marketing or demo purposes), we may use processed clips as anonymized examples to showcase EchoShorts.",
+        "legal.privacy.retention.heading": "Data retention",
+        "legal.privacy.retention.body":
+          "Processed files and intermediate data may be stored for a limited period to allow you to re-download your results and to improve service reliability. You may request deletion of your processed content via support, subject to applicable laws and technical constraints.",
+        "legal.privacy.third.heading": "Third-party processors",
+        "legal.privacy.third.body":
+          "We may rely on reputable third-party cloud providers and AI infrastructure partners to host and process your content. These providers are contractually required to protect your data and are not permitted to use it for their own purposes beyond delivering the contracted service.",
+        "legal.privacy.security.heading": "Security",
+        "legal.privacy.security.body":
+          "We implement reasonable technical and organizational measures to protect your data, including encrypted connections (HTTPS) and access controls. However, no internet-based service can be completely secure, and you use EchoShorts at your own risk.",
+        "legal.privacy.rights.heading": "Your rights",
+        "legal.privacy.rights.body":
+          "Depending on your jurisdiction, you may have rights to access, correct, or delete certain personal data. To exercise these rights, please contact us at support@echoshorts.win.",
+
+        "legal.refund.title": "Refund Policy",
+        "legal.refund.overview.heading": "Refund Policy for EchoShorts",
+        "legal.refund.overview.body":
+          "Since EchoShorts provides non-tangible, irrevocable digital goods (AI processing credits), we do not provide refunds once a video has been processed or credits have been consumed.",
+        "legal.refund.unused.heading": "Unused credits",
+        "legal.refund.unused.body":
+          "You may request a refund within 7 days of purchase if no credits have been used. After any portion of the credits has been consumed, the purchase becomes non-refundable.",
+        "legal.refund.technical.heading": "Technical issues",
+        "legal.refund.technical.body":
+          "If a system error on our side prevents a video from being processed correctly, we will credit the processing minutes back to your account or re-run the job at no additional cost. To help us investigate, we may request technical logs or example files.",
+        "legal.refund.fraud.heading": "Fraud or abuse",
+        "legal.refund.fraud.body":
+          "We reserve the right to decline or reverse refunds in cases of suspected fraud, chargeback abuse, or violations of our Terms of Service."
+      },
+      zh: {
+        "nav.tagline": "AI 视频翻译与处理",
+        "nav.home": "首页",
+        "nav.features": "功能亮点",
+        "nav.pricing": "价格方案",
+        "nav.demo": "演示示例",
+        "nav.faq": "常见问题",
+        "nav.status": "AI 视频处理服务在线",
+
+        "hero.pillLabel": "为创作者与剪辑师打造",
+        "hero.pillText": "提高效率的 AI 工具",
+        "hero.title.line1": "让你的视频说多种语言，",
+        "hero.title.line2": "情绪不打折。",
+        "hero.subtitle":
+          "EchoShorts 是面向内容创作者和视频剪辑师的 AI SaaS 平台，可自动生成高精准字幕，并用克隆声线进行多语言配音，让你的作品无需重新剪辑就能走向全球观众。",
+        "hero.metric.speed": "创作效率提升",
+        "hero.metric.accuracy": "字幕识别准确率",
+        "hero.metric.useCases": "适配短视频、长视频等场景",
+        "hero.ctaPrimary": "查看透明价格方案",
+        "hero.ctaSecondary": "观看 30 秒 AI 效果演示",
+        "hero.helper":
+          "EchoShorts 是面向创作者的 AI 视频处理生产力工具，帮助你翻译和再利用自己的内容；我们不提供影视下载，也不从事版权视频分发。",
+        "hero.demoLabel": "真实处理流程预览",
+        "hero.demoTitle": "30 秒前后对比翻译示例",
+        "hero.demoOriginal": "原始语言视频",
+        "hero.demoTranslated": "AI 翻译后视频",
+        "hero.demoPlaceholderBefore":
+          "在此放置你原始 30 秒视频的截图或片段，展示处理前效果。",
+        "hero.demoPlaceholderAfter":
+          "在此放置同一片段的 AI 翻译配音与字幕效果，展示处理后效果。",
+        "hero.demoCaptionBefore": "创作者上传的原始视频与音轨。",
+        "hero.demoCaptionAfter": "EchoShorts 在翻译成新语言时保留你的声音情绪。",
+
+        "features.label": "为内容创作者设计",
+        "features.title": "以生产力为中心的 AI 视频处理",
+        "features.subtitle":
+          "EchoShorts 专注帮助创作者和剪辑师翻译与再利用自己的内容。字幕、AI 配音与时间轴同步都由我们处理，你只需专注内容本身。",
+        "features.f1.title": "高准确率字幕",
+        "features.f1.body":
+          "自动生成时间轴精准的字幕，区分说话人段落，可在导出前直接在线微调，适配短视频与长视频。",
+        "features.f1.meta": "重点服务教学类、解说类与创作类内容。",
+        "features.f2.title": "保留情绪的 AI 配音翻译",
+        "features.f2.body":
+          "AI 模型会学习你的声线与节奏，在翻译为其他语言时尽量保持相同的语气与情绪，让观众依然感到“是你在说话”。",
+        "features.f2.meta": "不提供明星或虚构人物的深度伪造声线。",
+        "features.f3.title": "创作者友好的工作流",
+        "features.f3.body":
+          "上传你拥有权利的内容，选择目标语言，一键导出适配 YouTube、TikTok 等平台的成品视频。",
+        "features.f3.meta": "帮助你“出海”，而非转售他人媒体。",
+
+        "pricing.label": "透明价格",
+        "pricing.title": "按处理时长计费，不玩概念",
+        "pricing.subtitle":
+          "EchoShorts 采用按分钟计费的点数模式，每个套餐都对应明确的视频处理时长，无隐藏费用，无资金盘设计。",
+        "pricing.starter.tag": "入门",
+        "pricing.starter.name": "创作者入门版",
+        "pricing.starter.desc": "适合想先小规模测试 EchoShorts 的用户。",
+        "pricing.starter.price": "$9.9 / 100 分钟",
+        "pricing.starter.l1": "100 分钟 AI 视频处理点数",
+        "pricing.starter.l2": "支持多语言字幕自动生成",
+        "pricing.starter.l3": "单一目标语言的基础 AI 配音翻译",
+        "pricing.starter.cta": "适合第一次体验的用户",
+
+        "pricing.pro.tag": "热卖方案",
+        "pricing.pro.name": "创作者专业版",
+        "pricing.pro.desc": "面向每月持续更新内容的活跃创作者。",
+        "pricing.pro.price": "$29 / 400 分钟",
+        "pricing.pro.l1": "400 分钟 AI 视频处理点数",
+        "pricing.pro.l2": "多语言字幕与多目标语言配音翻译",
+        "pricing.pro.l3": "高峰期优先处理队列",
+        "pricing.pro.cta": "推荐给重度创作者",
+
+        "pricing.studio.tag": "工作室",
+        "pricing.studio.name": "工作室与团队版",
+        "pricing.studio.desc": "适合代运营机构与多账号创作团队。",
+        "pricing.studio.price": "定制 / 2,000+ 分钟",
+        "pricing.studio.l1": "2,000+ 分钟起的阶梯优惠价格",
+        "pricing.studio.l2": "团队账号与共享点数",
+        "pricing.studio.l3": "专属支持与使用培训",
+        "pricing.studio.cta": "联系我们获取报价",
+
+        "demo.label": "产品演示",
+        "demo.title": "用 30 秒前后对比证明真实能力",
+        "demo.subtitle":
+          "为证明 EchoShorts 是真实存在的 AI 视频处理服务（而非资金盘），我们展示同一片段在翻译前后的效果对比。",
+        "demo.howTitle": "典型使用流程",
+        "demo.howIntro":
+          "你在本页面看到的演示视频，将使用与实际用户相同的处理流程生成。",
+        "demo.step1":
+          "上传你自己拥有权利的视频，例如教学短视频或解说片段。",
+        "demo.step2":
+          "EchoShorts 自动生成准确字幕，并分析你的说话风格与节奏。",
+        "demo.step3":
+          "AI 在保持声线与情绪的前提下生成目标语言配音，并重新对齐时间轴。",
+        "demo.step4":
+          "下载处理后的视频，发布到你的内容平台。",
+
+        "demo.businessTitle": "业务描述（申请用）",
+
+        "faq.label": "常见问题与合规说明",
+        "faq.title": "定位为生产力工具，而非版权服务",
+        "faq.subtitle":
+          "EchoShorts 的定位是帮助创作者更高效处理自己的内容，而不是提供版权视频下载或分发服务。",
+        "faq.q1": "EchoShorts 适合哪些用户？",
+        "faq.a1":
+          "EchoShorts 面向内容创作者、知识博主、教育机构与剪辑师等群体，用于本人的课程视频、解说、讲解类内容的多语言本地化。",
+        "faq.q2": "你们提供影视剧或综艺下载吗？",
+        "faq.a2":
+          "不提供。EchoShorts 不是影视下载网站，也不销售或分发电影、电视剧等受版权保护的内容。用户必须确保访问的页面站点拥有或获得授权的视频。",
+        "faq.q3": "这算不算理财或返利项目？",
+        "faq.a3":
+          "不是。EchoShorts 只是一个按处理分钟数收费的 AI 视频处理工具。用户购买的是处理点数，不涉及收益、利息或拉人头返利等金融设计。",
+
+        "contact.title": "需要帮助或合规材料？",
+        "contact.desc":
+          "如需了解 EchoShorts 的产品细节、计费方式或合规说明，请联系我们的支持团队，我们通常会在 1–2 个工作日内回复。",
+        "contact.note":
+          "请不要上传你不拥有或未获授权处理的版权视频。",
+
+        "legal.label": "法律条款",
+        "legal.title": "EchoShorts 法律与合规政策",
+        "legal.subtitle":
+          "以下条款适用于所有 EchoShorts 用户。根据支付与合规合作方要求，正式法律文本以英文版本为准。",
+
+        "legal.terms.title": "服务条款（Terms of Service）",
+        "legal.terms.service.heading": "服务内容说明",
+        "legal.terms.service.body":
+          "EchoShorts 是一款面向内容创作者和剪辑师的 AI SaaS 平台，用于提供视频处理服务。包括但不限于：自动生成字幕、基于克隆声线的多语言配音翻译，以及帮助用户对自有视频内容进行本地化和再利用的相关工具。",
+        "legal.terms.user.heading": "用户责任",
+        "legal.terms.user.body1":
+          "用户应自行确保对上传至 EchoShorts 的任何视频、音频或其他内容享有必要的权利、许可和授权。使用本服务即表示你确认，你对 EchoShorts 的使用不会侵犯任何第三方的权利，包括但不限于著作权、商标权、隐私权或肖像权。",
+        "legal.terms.user.body2":
+          "你同意不利用 EchoShorts 上传或生成违法、侵权、暴力、仇恨、误导性或其他有害内容，也不会利用本服务分发你并不拥有或未经授权使用的受版权保护作品。",
+        "legal.terms.availability.heading": "服务可用性",
+        "legal.terms.availability.body":
+          "EchoShorts 以“现状”和“可用性”为基础提供服务。我们会尽力保持服务的稳定和高可用，但不保证 100% 不间断运行。维护、网络故障或第三方服务商问题，可能会在短时间内影响处理速度或可用性。",
+        "legal.terms.subscription.heading": "账户与订阅",
+        "legal.terms.subscription.body":
+          "EchoShorts 采用按分钟计费的点数订阅模式。用户购买的点数对应一定时长的视频处理分钟数。点数可能会根据你购买时展示的套餐条款，设定有效期或调整规则。",
+        "legal.terms.termination.heading": "账户终止",
+        "legal.terms.termination.body":
+          "如我们有合理理由相信用户存在以下行为，我们有权在有或无事先通知的情况下暂停或终止账户：",
+        "legal.terms.termination.l1":
+          "将我们的 AI 服务用于生成违法、有害、欺骗性或其它不当内容；",
+        "legal.terms.termination.l2":
+          "上传并不享有相应权利或授权的视频、音频等内容；",
+        "legal.terms.termination.l3":
+          "试图绕过使用限制、滥用退款政策，或以其他方式恶意使用平台。",
+        "legal.terms.changes.heading": "服务变更",
+        "legal.terms.changes.body":
+          "我们可能会不时更新或调整 EchoShorts 的功能、价格或条款。如对本《服务条款》进行重大修改，我们将通过本页面或电子邮件等方式给予合理提示。",
+
+        "legal.privacy.title": "隐私政策（Privacy Policy）",
+        "legal.privacy.data.heading": "我们处理的数据类型",
+        "legal.privacy.data.body":
+          "当你使用 EchoShorts 时，我们可能会处理以下几类信息：",
+        "legal.privacy.data.l1":
+          "账户信息：电子邮箱、密码（以哈希形式存储）以及基础个人资料信息等；",
+        "legal.privacy.data.l2":
+          "视频与音频内容：你上传至平台用于 AI 处理的文件，以及标题、语种等相关元数据；",
+        "legal.privacy.data.l3":
+          "使用与技术数据：与处理任务相关的日志、时长信息、错误代码以及匿名化统计数据等。",
+        "legal.privacy.use.heading": "我们如何使用你的视频数据",
+        "legal.privacy.use.body1":
+          "我们仅将你上传的视频与音频用于向你提供 AI 视频处理服务，例如字幕生成和克隆声线翻译。我们不会将你的视频内容出售给第三方。",
+        "legal.privacy.use.body2":
+          "在少数情况下，且仅在你明确同意的前提下（例如自愿提供样本用于展示），我们可能会将处理结果的片段用作匿名化的产品示例。",
+        "legal.privacy.retention.heading": "数据保留",
+        "legal.privacy.retention.body":
+          "为便于你重新下载结果并提升服务可靠性，处理后的文件及中间数据可能会保留一段有限时间。你可以通过支持渠道申请删除部分处理内容，我们会在法律与技术允许范围内尽力配合。",
+        "legal.privacy.third.heading": "第三方处理方",
+        "legal.privacy.third.body":
+          "我们可能会使用可信赖的第三方云服务和 AI 基础设施合作伙伴来托管和处理你的内容。这些服务商在合同中被要求妥善保护你的数据，不得将其用于提供约定服务之外的其他目的。",
+        "legal.privacy.security.heading": "安全性",
+        "legal.privacy.security.body":
+          "我们采取合理的技术和组织措施保护你的数据安全，例如使用加密连接（HTTPS）和访问控制。但任何基于互联网的服务都无法保证绝对安全，你需自行承担使用 EchoShorts 的相关风险。",
+        "legal.privacy.rights.heading": "你的权利",
+        "legal.privacy.rights.body":
+          "根据你所在司法辖区的法律，你可能对部分个人数据享有访问、更正或删除等权利。如需行使相关权利，请通过 support@echoshorts.win 与我们联系。",
+
+        "legal.refund.title": "退款政策（Refund Policy）",
+        "legal.refund.overview.heading": "EchoShorts 退款政策",
+        "legal.refund.overview.body":
+          "由于 EchoShorts 提供的是不可逆的虚拟数字商品（AI 处理点数），一旦视频已经开始处理或点数已被消耗，我们将不提供退款。",
+        "legal.refund.unused.heading": "未使用点数",
+        "legal.refund.unused.body":
+          "如果你在购买后 7 日内未使用任何处理点数，可以提出退款申请。一旦点数有任何部分被使用，本次购买即被视为不可退款。",
+        "legal.refund.technical.heading": "技术问题",
+        "legal.refund.technical.body":
+          "如因我们系统故障导致视频字幕无法正常显示，我们不会扣除分钟数，或为你返还相应分钟数。为便于排查问题，我们可能会在必要时向你索取相关日志或示例文件。",
+        "legal.refund.fraud.heading": "欺诈或滥用",
+        "legal.refund.fraud.body":
+          "如我们发现存在欺诈、恶意拒付或违反《服务条款》等情形，有权拒绝或撤销退款请求。"
+      }
+    };
+
+    function setLanguage(lang) {
+      const dict = translations[lang] || translations.en;
+      document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+
+      document.querySelectorAll("[data-i18n-key]").forEach((el) => {
+        const key = el.getAttribute("data-i18n-key");
+        if (dict[key]) {
+          el.textContent = dict[key];
+        }
+      });
+
+      document.querySelectorAll(".lang-btn").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.lang === lang);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // Default language: English
+      setLanguage("en");
+
+      document.querySelectorAll(".lang-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          setLanguage(btn.dataset.lang);
+        });
+      });
+
+      // Footer year
+      const yearEl = document.getElementById("year");
+      if (yearEl) {
+        yearEl.textContent = new Date().getFullYear();
+      }
+    });
+  </script>
+</body>
+</html>
