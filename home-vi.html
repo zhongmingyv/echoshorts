@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>EchoShorts</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f0f0f; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+    main { flex: 1; max-width: 860px; margin: 0 auto; padding: 60px 40px 40px; width: 100%; }
+    .intro { margin-bottom: 48px; }
+    .intro .logo { font-size: 13px; font-weight: 700; color: #4ade80; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
+    .intro h1 { font-size: 38px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 16px; }
+    .intro h1 span { color: #4ade80; }
+    .intro p { font-size: 15px; color: #999; line-height: 1.7; max-width: 580px; }
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
+    .card { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; padding: 22px; }
+    .card .icon { font-size: 22px; margin-bottom: 10px; }
+    .card h3 { font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+    .card p { font-size: 12px; color: #777; line-height: 1.6; }
+    .hint { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 10px; padding: 16px 20px; display: flex; align-items: center; gap: 14px; margin-bottom: 48px; }
+    .hint .key { background: #2a2a2a; border: 1px solid #3a3a3a; border-radius: 5px; padding: 3px 9px; font-size: 12px; font-family: monospace; color: #4ade80; white-space: nowrap; }
+    .hint p { font-size: 13px; color: #888; }
+    .privacy { background: #141414; border: 1px solid #222; border-radius: 14px; padding: 32px 36px; margin-bottom: 40px; }
+    .privacy h2 { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid #222; }
+    .section { margin-bottom: 22px; }
+    .section:last-child { margin-bottom: 0; }
+    .section h3 { font-size: 11px; font-weight: 600; color: #4ade80; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 7px; }
+    .section p { font-size: 13px; color: #888; line-height: 1.75; }
+    .section p + p { margin-top: 6px; }
+    footer { text-align: center; padding: 20px 40px; border-top: 1px solid #1a1a1a; display: flex; justify-content: center; align-items: center; gap: 28px; }
+    footer span { font-size: 12px; color: #444; }
+    footer a { font-size: 12px; color: #666; text-decoration: none; }
+    footer a:hover { color: #4ade80; }
+    .lang-switcher { position: fixed; top: 16px; right: 20px; z-index: 100; }
+    .lang-switcher select { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px; color: #e0e0e0; font-size: 12px; padding: 5px 8px; cursor: pointer; outline: none; }
+    .lang-switcher select:hover { border-color: #4ade80; }
+  </style>
+</head>
+<body>
+  <div class="lang-switcher">
+    <select onchange="location.href=this.value">
+      <option value="home.html">English</option>
+      <option value="home-zh.html">中文</option>
+      <option value="home-cht.html">繁體中文</option>
+      <option value="home-es.html">Español</option>
+      <option value="home-ar.html">العربية</option>
+      <option value="home-pt.html">Português</option>
+      <option value="home-fr.html">Français</option>
+      <option value="home-ru.html">Русский</option>
+      <option value="home-de.html">Deutsch</option>
+      <option value="home-ja.html">日本語</option>
+      <option value="home-ko.html">한국어</option>
+      <option value="home-hi.html">हिन्दी</option>
+      <option value="home-th.html">ภาษาไทย</option>
+      <option value="home-vi.html" selected>Tiếng Việt</option>
+      <option value="home-ms.html">Bahasa Melayu</option>
+    </select>
+  </div>
+  <main>
+    <div class="intro">
+      <div class="logo">EchoShorts</div>
+      <h1>Phụ đề video, <span>dịch tức thì</span><br>Hoàn toàn ngoại tuyến, quyền riêng tư trước</h1>
+      <p>EchoShorts thực hiện tất cả nhận dạng giọng nói và dịch thuật cục bộ trên thiết bị của bạn — không cần internet, không cần tài khoản, dữ liệu của bạn không bao giờ rời khỏi máy tính. Nhập URL vào thanh địa chỉ ở trên để bắt đầu duyệt web.</p>
+    </div>
+    <div class="features">
+      <div class="card">
+        <div class="icon">🎙️</div>
+        <h3>Nhận dạng giọng nói Whisper</h3>
+        <p>Dựa trên OpenAI Whisper, hỗ trợ phiên âm 99 ngôn ngữ, chạy cục bộ, không cần API.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🔍</div>
+        <h3>Nhận dạng phụ đề OCR</h3>
+        <p>Sử dụng PaddleOCR để nhận dạng phụ đề nhúng trong khung video, hỗ trợ tiếng Trung, Anh, Nhật, Hàn và nhiều ngôn ngữ khác.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🌐</div>
+        <h3>Công cụ dịch ngoại tuyến</h3>
+        <p>Dựa trên Helsinki-NLP OPUS-MT, hỗ trợ dịch đa ngôn ngữ, hoàn toàn ngoại tuyến, không tải lên dữ liệu.</p>
+      </div>
+    </div>
+    <div class="hint">
+      <span class="key">Alt + S</span>
+      <p>Nhấn phím tắt trên bất kỳ trang video nào để bật/tắt bảng phụ đề. Bạn cũng có thể nhấp vào nút <strong style="color:#4a9eff">Sub</strong> trên thanh công cụ.</p>
+    </div>
+    <div class="privacy">
+      <h2>Chính sách quyền riêng tư &amp; Tuyên bố miễn trách nhiệm</h2>
+      <div class="section">
+        <h3>Xử lý dữ liệu cục bộ</h3>
+        <p>Tất cả các tính năng cốt lõi của EchoShorts — bao gồm nhận dạng giọng nói, OCR và dịch thuật — chạy trên thiết bị cục bộ của bạn, được hỗ trợ bởi máy chủ cục bộ (127.0.0.1:8765).</p>
+        <p>Chúng tôi không thu thập, lưu trữ, truyền hoặc phân tích bất kỳ dữ liệu người dùng nào, bao gồm: nội dung video, văn bản phụ đề, kết quả dịch, lịch sử duyệt web hoặc thông tin cá nhân.</p>
+      </div>
+      <div class="section">
+        <h3>Không truyền dữ liệu qua mạng</h3>
+        <p>Ứng dụng này không gửi bất kỳ dữ liệu nào đến máy chủ bên ngoài trong quá trình sử dụng bình thường. Tất cả xử lý âm thanh, nhận dạng hình ảnh và dịch văn bản được hoàn thành cục bộ.</p>
+      </div>
+      <div class="section">
+        <h3>Không quảng cáo, không theo dõi, không đề xuất</h3>
+        <p>Ứng dụng này không chứa hệ thống quảng cáo, mã theo dõi hành vi người dùng hoặc cơ chế đề xuất dữ liệu. Chúng tôi không chia sẻ dữ liệu người dùng với bên thứ ba.</p>
+      </div>
+      <div class="section">
+        <h3>Safe Harbor và trách nhiệm người dùng</h3>
+        <p>EchoShorts là công cụ kỹ thuật đa năng được thiết kế chỉ để giúp người dùng hiểu nội dung video. Theo Học thuyết Safe Harbor, các nhà phát triển không chịu trách nhiệm pháp lý đối với nội dung mà người dùng truy cập.</p>
+        <p>Người dùng phải đảm bảo việc sử dụng của họ tuân thủ luật pháp địa phương và điều khoản dịch vụ của các nền tảng họ truy cập. Mọi trách nhiệm pháp lý phát sinh từ việc sử dụng sai mục đích đều thuộc về người dùng.</p>
+      </div>
+      <div class="section">
+        <h3>Giới hạn sử dụng</h3>
+        <p>Ứng dụng này được định nghĩa là một công cụ hỗ trợ, dành riêng cho việc sử dụng cá nhân tại chỗ bởi người khiếm thính hoặc người học ngôn ngữ. Không được phép sử dụng cho bất kỳ mục đích nào khác.</p>
+      </div>
+      <div class="section">
+        <h3>Giới hạn kỹ thuật</h3>
+        <p>Ứng dụng này sử dụng công nghệ nhận dạng luồng âm thanh thời gian thực và chỉ hỗ trợ phân tích nội dung video công khai không được bảo vệ bởi Quản lý Quyền Kỹ thuật số (DRM). Do các hạn chế của giao thức bảo vệ bản quyền (như Widevine, PlayReady, v.v.), luồng âm thanh từ nội dung HD được bảo vệ DRM hoặc video từ các nền tảng bị hạn chế có thể không thể trích xuất được, ngăn chặn việc tạo phụ đề thời gian thực. Nếu bạn gặp sự cố tạo phụ đề khi phát video định dạng chuẩn, vui lòng gửi địa chỉ video cho chúng tôi qua email và chúng tôi sẽ liên tục cải thiện khả năng tương thích của công cụ nhận dạng.</p>
+      </div>
+      <div class="section">
+        <h3>Tuyên bố miễn trách nhiệm</h3>
+        <p>Ứng dụng này được cung cấp "nguyên trạng" không có bất kỳ bảo đảm nào. Nhà phát triển không đảm bảo hoạt động chính xác trong mọi môi trường và không chấp nhận trách nhiệm về tổn thất phát sinh từ việc sử dụng.</p>
+        <p>Phụ đề và bản dịch do ứng dụng này cung cấp được tạo tự động bằng máy và chỉ mang tính tham khảo. Nhà phát triển không đảm bảo về độ chính xác, tính đầy đủ hoặc sự phù hợp của bản dịch máy và không chịu trách nhiệm về hậu quả phát sinh từ việc tin tưởng vào nội dung đã dịch.</p>
+      </div>
+      <div class="section">
+        <h3>Cập nhật chính sách</h3>
+        <p>Chính sách quyền riêng tư này có thể được cập nhật với các phiên bản mới. Các thay đổi quan trọng sẽ được thông báo qua nhật ký cập nhật của ứng dụng.</p>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <span>© 2025 EchoShorts. All rights reserved.</span>
+    <a href="mailto:supports@echoshorts.win">Liên hệ chúng tôi</a>
+  </footer>
+</body>
+</html>

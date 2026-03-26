@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>EchoShorts</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f0f0f; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+    main { flex: 1; max-width: 860px; margin: 0 auto; padding: 60px 40px 40px; width: 100%; }
+    .intro { margin-bottom: 48px; }
+    .intro .logo { font-size: 13px; font-weight: 700; color: #4ade80; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
+    .intro h1 { font-size: 38px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 16px; }
+    .intro h1 span { color: #4ade80; }
+    .intro p { font-size: 15px; color: #999; line-height: 1.7; max-width: 580px; }
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
+    .card { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; padding: 22px; }
+    .card .icon { font-size: 22px; margin-bottom: 10px; }
+    .card h3 { font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+    .card p { font-size: 12px; color: #777; line-height: 1.6; }
+    .hint { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 10px; padding: 16px 20px; display: flex; align-items: center; gap: 14px; margin-bottom: 48px; }
+    .hint .key { background: #2a2a2a; border: 1px solid #3a3a3a; border-radius: 5px; padding: 3px 9px; font-size: 12px; font-family: monospace; color: #4ade80; white-space: nowrap; }
+    .hint p { font-size: 13px; color: #888; }
+    .privacy { background: #141414; border: 1px solid #222; border-radius: 14px; padding: 32px 36px; margin-bottom: 40px; }
+    .privacy h2 { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid #222; }
+    .section { margin-bottom: 22px; }
+    .section:last-child { margin-bottom: 0; }
+    .section h3 { font-size: 11px; font-weight: 600; color: #4ade80; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 7px; }
+    .section p { font-size: 13px; color: #888; line-height: 1.75; }
+    .section p + p { margin-top: 6px; }
+    footer { text-align: center; padding: 20px 40px; border-top: 1px solid #1a1a1a; display: flex; justify-content: center; align-items: center; gap: 28px; }
+    footer span { font-size: 12px; color: #444; }
+    footer a { font-size: 12px; color: #666; text-decoration: none; }
+    footer a:hover { color: #4ade80; }
+    .lang-switcher { position: fixed; top: 16px; right: 20px; z-index: 100; }
+    .lang-switcher select { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px; color: #e0e0e0; font-size: 12px; padding: 5px 8px; cursor: pointer; outline: none; }
+    .lang-switcher select:hover { border-color: #4ade80; }
+  </style>
+</head>
+<body>
+  <div class="lang-switcher">
+    <select onchange="location.href=this.value">
+      <option value="home.html">English</option>
+      <option value="home-zh.html">中文</option>
+      <option value="home-cht.html">繁體中文</option>
+      <option value="home-es.html">Español</option>
+      <option value="home-ar.html">العربية</option>
+      <option value="home-pt.html" selected>Português</option>
+      <option value="home-fr.html">Français</option>
+      <option value="home-ru.html">Русский</option>
+      <option value="home-de.html">Deutsch</option>
+      <option value="home-ja.html">日本語</option>
+      <option value="home-ko.html">한국어</option>
+      <option value="home-hi.html">हिन्दी</option>
+      <option value="home-th.html">ภาษาไทย</option>
+      <option value="home-vi.html">Tiếng Việt</option>
+      <option value="home-ms.html">Bahasa Melayu</option>
+    </select>
+  </div>
+
+  <main>
+    <div class="intro">
+      <div class="logo">EchoShorts</div>
+      <h1>Legendas de vídeo, <span>tradução instantânea</span><br>Totalmente offline, privacidade em primeiro lugar</h1>
+      <p>O EchoShorts realiza todo o reconhecimento de fala e tradução localmente no seu dispositivo — sem internet, sem conta, seus dados nunca saem do seu computador. Digite uma URL na barra de endereços para começar a navegar.</p>
+    </div>
+
+    <div class="features">
+      <div class="card">
+        <div class="icon">🎙️</div>
+        <h3>Reconhecimento de fala Whisper</h3>
+        <p>Baseado no OpenAI Whisper, suporta transcrição em 99 idiomas, executa localmente, sem API.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🔍</div>
+        <h3>Reconhecimento OCR de legendas</h3>
+        <p>Usa PaddleOCR para reconhecer legendas incorporadas em quadros de vídeo, suportando chinês, inglês, japonês, coreano e mais.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🌐</div>
+        <h3>Motor de tradução offline</h3>
+        <p>Baseado no Helsinki-NLP OPUS-MT, suporta tradução multilíngue, totalmente offline, sem upload de dados.</p>
+      </div>
+    </div>
+
+    <div class="hint">
+      <span class="key">Alt + S</span>
+      <p>Pressione o atalho em qualquer página de vídeo para alternar o painel de legendas. Você também pode clicar no botão <strong style="color:#4a9eff">Sub</strong> na barra de ferramentas.</p>
+    </div>
+
+    <div class="privacy">
+      <h2>Política de Privacidade &amp; Aviso Legal</h2>
+      <div class="section">
+        <h3>Processamento local de dados</h3>
+        <p>Todos os recursos principais do EchoShorts — incluindo reconhecimento de fala, OCR e tradução — são executados no seu dispositivo local, com suporte de um servidor local (127.0.0.1:8765).</p>
+        <p>Não coletamos, armazenamos, transmitimos ou analisamos nenhum dado do usuário, incluindo: conteúdo de vídeo, texto de legendas, resultados de tradução, histórico de navegação ou informações pessoais.</p>
+      </div>
+      <div class="section">
+        <h3>Sem transmissão de dados pela rede</h3>
+        <p>Este aplicativo não envia nenhum dado para servidores externos durante o uso normal. Todo o processamento de áudio, reconhecimento de imagens e tradução de texto é feito localmente. Os modelos de IA são baixados de fontes públicas no primeiro uso e podem ser executados offline depois.</p>
+      </div>
+      <div class="section">
+        <h3>Sem anúncios, sem rastreamento, sem recomendações</h3>
+        <p>Este aplicativo não contém sistemas de publicidade, código de rastreamento de comportamento do usuário ou mecanismos de recomendação de dados. Não compartilhamos dados do usuário com terceiros.</p>
+      </div>
+      <div class="section">
+        <h3>Porto seguro e responsabilidade do usuário</h3>
+        <p>O EchoShorts é uma ferramenta técnica de uso geral projetada apenas para ajudar os usuários a entender o conteúdo de vídeo. Sob a Doutrina do Porto Seguro, os desenvolvedores não assumem responsabilidade legal pelo conteúdo acessado pelos usuários.</p>
+        <p>Os usuários devem garantir que seu uso esteja em conformidade com as leis locais e os termos de serviço das plataformas que acessam. Toda responsabilidade legal decorrente do uso indevido recai exclusivamente sobre o usuário.</p>
+      </div>
+      <div class="section">
+        <h3>Uso pretendido</h3>
+        <p>Este aplicativo é definido como uma ferramenta de assistência destinada exclusivamente ao uso pessoal local por pessoas com deficiência auditiva ou aprendizes de idiomas. Qualquer outro uso não é permitido.</p>
+      </div>
+      <div class="section">
+        <h3>Limitações técnicas</h3>
+        <p>Este aplicativo usa tecnologia de reconhecimento de fluxo de áudio em tempo real e suporta apenas a análise de conteúdo de vídeo público não protegido por gerenciamento de direitos digitais (DRM). Devido às restrições impostas pelos protocolos de proteção de direitos autorais (como Widevine, PlayReady, etc.), os fluxos de áudio de conteúdo HD protegido por DRM ou vídeos de plataformas restritas podem não ser extraíveis, impedindo a geração de legendas em tempo real. Se você encontrar problemas de geração de legendas ao reproduzir vídeos em formato padrão, envie-nos a URL do vídeo por e-mail e melhoraremos continuamente a compatibilidade do nosso mecanismo de reconhecimento.</p>
+      </div>
+      <div class="section">
+        <h3>Isenção de responsabilidade</h3>
+        <p>Este aplicativo é fornecido "como está" sem garantias de qualquer tipo. O desenvolvedor não garante o funcionamento correto em todos os ambientes nem aceita responsabilidade por perdas decorrentes de seu uso. O uso deste aplicativo constitui aceitação de todos os termos acima.</p>
+        <p>As legendas e traduções fornecidas por este aplicativo são geradas automaticamente por máquina e são apenas para referência. O desenvolvedor não oferece garantias sobre a precisão, integridade ou adequação das traduções automáticas e não aceita responsabilidade pelas consequências decorrentes da confiança no conteúdo traduzido.</p>
+      </div>
+      <div class="section">
+        <h3>Atualizações de política</h3>
+        <p>Esta política de privacidade pode ser atualizada com novas versões. Mudanças significativas serão comunicadas através do registro de atualizações do aplicativo. O uso continuado constitui aceitação da versão mais recente.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <span>© 2025 EchoShorts. All rights reserved.</span>
+    <a href="mailto:supports@echoshorts.win">Contate-nos</a>
+  </footer>
+</body>
+</html>

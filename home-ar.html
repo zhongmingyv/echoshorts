@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>EchoShorts</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f0f0f; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; direction: rtl; }
+    main { flex: 1; max-width: 860px; margin: 0 auto; padding: 60px 40px 40px; width: 100%; }
+    .intro { margin-bottom: 48px; }
+    .intro .logo { font-size: 13px; font-weight: 700; color: #4ade80; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
+    .intro h1 { font-size: 38px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 16px; }
+    .intro h1 span { color: #4ade80; }
+    .intro p { font-size: 15px; color: #999; line-height: 1.7; max-width: 580px; }
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
+    .card { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; padding: 22px; }
+    .card .icon { font-size: 22px; margin-bottom: 10px; }
+    .card h3 { font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+    .card p { font-size: 12px; color: #777; line-height: 1.6; }
+    .hint { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 10px; padding: 16px 20px; display: flex; align-items: center; gap: 14px; margin-bottom: 48px; }
+    .hint .key { background: #2a2a2a; border: 1px solid #3a3a3a; border-radius: 5px; padding: 3px 9px; font-size: 12px; font-family: monospace; color: #4ade80; white-space: nowrap; direction: ltr; }
+    .hint p { font-size: 13px; color: #888; }
+    .privacy { background: #141414; border: 1px solid #222; border-radius: 14px; padding: 32px 36px; margin-bottom: 40px; }
+    .privacy h2 { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid #222; }
+    .section { margin-bottom: 22px; }
+    .section:last-child { margin-bottom: 0; }
+    .section h3 { font-size: 11px; font-weight: 600; color: #4ade80; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 7px; }
+    .section p { font-size: 13px; color: #888; line-height: 1.75; }
+    .section p + p { margin-top: 6px; }
+    footer { text-align: center; padding: 20px 40px; border-top: 1px solid #1a1a1a; display: flex; justify-content: center; align-items: center; gap: 28px; }
+    footer span { font-size: 12px; color: #444; }
+    footer a { font-size: 12px; color: #666; text-decoration: none; }
+    footer a:hover { color: #4ade80; }
+    .lang-switcher { position: fixed; top: 16px; left: 20px; z-index: 100; }
+    .lang-switcher select { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px; color: #e0e0e0; font-size: 12px; padding: 5px 8px; cursor: pointer; outline: none; direction: ltr; }
+    .lang-switcher select:hover { border-color: #4ade80; }
+  </style>
+</head>
+<body>
+  <div class="lang-switcher">
+    <select onchange="location.href=this.value">
+      <option value="home.html">English</option>
+      <option value="home-zh.html">中文</option>
+      <option value="home-cht.html">繁體中文</option>
+      <option value="home-es.html">Español</option>
+      <option value="home-ar.html" selected>العربية</option>
+      <option value="home-pt.html">Português</option>
+      <option value="home-fr.html">Français</option>
+      <option value="home-ru.html">Русский</option>
+      <option value="home-de.html">Deutsch</option>
+      <option value="home-ja.html">日本語</option>
+      <option value="home-ko.html">한국어</option>
+      <option value="home-hi.html">हिन्दी</option>
+      <option value="home-th.html">ภาษาไทย</option>
+      <option value="home-vi.html">Tiếng Việt</option>
+      <option value="home-ms.html">Bahasa Melayu</option>
+    </select>
+  </div>
+
+  <main>
+    <div class="intro">
+      <div class="logo">EchoShorts</div>
+      <h1>ترجمة <span>فورية</span> للترجمات المرئية<br>دون اتصال بالإنترنت، الخصوصية أولاً</h1>
+      <p>يُنجز EchoShorts جميع عمليات التعرف على الكلام والترجمة محلياً على جهازك — دون إنترنت، دون حساب، بياناتك لا تغادر جهاز الكمبيوتر أبداً. أدخل عنوان URL في شريط العناوين للبدء.</p>
+    </div>
+
+    <div class="features">
+      <div class="card">
+        <div class="icon">🎙️</div>
+        <h3>التعرف على الكلام Whisper</h3>
+        <p>مدعوم بـ OpenAI Whisper، يدعم النسخ بـ 99 لغة، يعمل محلياً، لا يحتاج API.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🔍</div>
+        <h3>التعرف على الترجمات بـ OCR</h3>
+        <p>يستخدم PaddleOCR للتعرف على الترجمات المضمنة في إطارات الفيديو، يدعم الصينية والإنجليزية واليابانية والكورية وغيرها.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🌐</div>
+        <h3>محرك ترجمة دون اتصال</h3>
+        <p>مبني على Helsinki-NLP OPUS-MT، يدعم الترجمة متعددة اللغات، دون اتصال كامل، لا يُرفع أي بيانات.</p>
+      </div>
+    </div>
+
+    <div class="hint">
+      <span class="key">Alt + S</span>
+      <p>اضغط الاختصار في أي صفحة فيديو لتبديل لوحة الترجمة. يمكنك أيضاً النقر على زر <strong style="color:#4a9eff">Sub</strong> في شريط الأدوات.</p>
+    </div>
+
+    <div class="privacy">
+      <h2>سياسة الخصوصية &amp; إخلاء المسؤولية</h2>
+      <div class="section">
+        <h3>معالجة البيانات محلياً</h3>
+        <p>جميع الميزات الأساسية لـ EchoShorts — بما فيها التعرف على الكلام وOCR والترجمة — تعمل على جهازك المحلي، مدعومة بخادم محلي (127.0.0.1:8765).</p>
+        <p>لا نجمع أو نخزن أو ننقل أو نحلل أي بيانات مستخدم، بما في ذلك: محتوى الفيديو، نصوص الترجمة، نتائج الترجمة، سجل التصفح، أو أي معلومات شخصية.</p>
+      </div>
+      <div class="section">
+        <h3>لا نقل بيانات عبر الشبكة</h3>
+        <p>لا يرسل هذا التطبيق أي بيانات إلى خوادم خارجية أثناء الاستخدام العادي. تتم جميع عمليات معالجة الصوت والتعرف على الصور وترجمة النصوص محلياً. تُنزَّل نماذج الذكاء الاصطناعي من مصادر عامة عند الاستخدام الأول ويمكن تشغيلها دون اتصال بعد ذلك.</p>
+      </div>
+      <div class="section">
+        <h3>لا إعلانات، لا تتبع، لا توصيات</h3>
+        <p>لا يحتوي هذا التطبيق على أنظمة إعلانية أو كود تتبع سلوك المستخدم أو آليات توصية البيانات. لا نشارك بيانات المستخدم مع أطراف ثالثة.</p>
+      </div>
+      <div class="section">
+        <h3>الملاذ الآمن ومسؤولية المستخدم</h3>
+        <p>EchoShorts أداة تقنية للأغراض العامة مصممة فقط لمساعدة المستخدمين على فهم محتوى الفيديو. بموجب مبدأ الملاذ الآمن، لا يتحمل المطورون أي مسؤولية قانونية عن المحتوى الذي يصل إليه المستخدمون.</p>
+        <p>يجب على المستخدمين التأكد من أن استخدامهم يتوافق مع القوانين المحلية وشروط خدمة المنصات التي يصلون إليها. تقع جميع المسؤوليات القانونية الناجمة عن سوء الاستخدام على عاتق المستخدم وحده.</p>
+      </div>
+      <div class="section">
+        <h3>قيود الاستخدام</h3>
+        <p>يُعرَّف هذا التطبيق بأنه أداة مساعدة مخصصة حصريًا للاستخدام الشخصي المحلي من قِبل الأشخاص ذوي الإعاقة السمعية أو متعلمي اللغات. لا يُسمح بأي استخدام آخر.</p>
+      </div>
+      <div class="section">
+        <h3>القيود التقنية</h3>
+        <p>يستخدم هذا التطبيق تقنية التعرف على تدفق الصوت في الوقت الفعلي ويدعم فقط تحليل محتوى الفيديو العام غير المحمي بإدارة الحقوق الرقمية (DRM). بسبب القيود التي تفرضها بروتوكولات حماية حقوق الطبع والنشر (مثل Widevine وPlayReady وغيرها)، قد لا يمكن استخراج تدفقات الصوت من المحتوى عالي الدقة المحمي بـ DRM أو مقاطع الفيديو من المنصات المقيدة، مما يمنع توليد الترجمة في الوقت الفعلي. إذا واجهت مشاكل في توليد الترجمة أثناء تشغيل مقاطع الفيديو بالتنسيق القياسي، يرجى إرسال رابط الفيديو إلينا عبر البريد الإلكتروني وسنعمل باستمرار على تحسين توافق محرك التعرف لدينا.</p>
+      </div>
+      <div class="section">
+        <h3>إخلاء المسؤولية</h3>
+        <p>يُقدَّم هذا التطبيق "كما هو" دون أي ضمانات. لا يضمن المطور التشغيل الصحيح في جميع البيئات ولا يقبل المسؤولية عن أي خسائر ناجمة عن استخدامه. استخدام هذا التطبيق يعني قبول جميع الشروط المذكورة أعلاه.</p>
+        <p>الترجمات والترجمات الفورية المقدمة من هذا التطبيق يتم إنشاؤها تلقائيًا بواسطة الآلة وهي للإشارة فقط. لا يقدم المطور أي ضمانات بشأن دقة أو اكتمال أو ملاءمة الترجمة الآلية، ولا يتحمل أي مسؤولية عن العواقب الناجمة عن الاعتماد على المحتوى المترجم.</p>
+      </div>
+      <div class="section">
+        <h3>تحديثات السياسة</h3>
+        <p>قد تُحدَّث سياسة الخصوصية هذه مع الإصدارات الجديدة. ستُبلَّغ التغييرات الجوهرية عبر سجل تحديثات التطبيق. الاستمرار في الاستخدام يعني قبول أحدث إصدار.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <span>© 2025 EchoShorts. All rights reserved.</span>
+    <a href="mailto:supports@echoshorts.win">اتصل بنا</a>
+  </footer>
+</body>
+</html>

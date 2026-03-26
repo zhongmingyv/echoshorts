@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <title>EchoShorts</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f0f0f; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+    main { flex: 1; max-width: 860px; margin: 0 auto; padding: 60px 40px 40px; width: 100%; }
+    .intro { margin-bottom: 48px; }
+    .intro .logo { font-size: 13px; font-weight: 700; color: #4ade80; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
+    .intro h1 { font-size: 38px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 16px; }
+    .intro h1 span { color: #4ade80; }
+    .intro p { font-size: 15px; color: #999; line-height: 1.7; max-width: 580px; }
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
+    .card { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; padding: 22px; }
+    .card .icon { font-size: 22px; margin-bottom: 10px; }
+    .card h3 { font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+    .card p { font-size: 12px; color: #777; line-height: 1.6; }
+    .hint { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 10px; padding: 16px 20px; display: flex; align-items: center; gap: 14px; margin-bottom: 48px; }
+    .hint .key { background: #2a2a2a; border: 1px solid #3a3a3a; border-radius: 5px; padding: 3px 9px; font-size: 12px; font-family: monospace; color: #4ade80; white-space: nowrap; }
+    .hint p { font-size: 13px; color: #888; }
+    .privacy { background: #141414; border: 1px solid #222; border-radius: 14px; padding: 32px 36px; margin-bottom: 40px; }
+    .privacy h2 { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid #222; }
+    .section { margin-bottom: 22px; }
+    .section:last-child { margin-bottom: 0; }
+    .section h3 { font-size: 11px; font-weight: 600; color: #4ade80; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 7px; }
+    .section p { font-size: 13px; color: #888; line-height: 1.75; }
+    .section p + p { margin-top: 6px; }
+    footer { text-align: center; padding: 20px 40px; border-top: 1px solid #1a1a1a; display: flex; justify-content: center; align-items: center; gap: 28px; }
+    footer span { font-size: 12px; color: #444; }
+    footer a { font-size: 12px; color: #666; text-decoration: none; }
+    footer a:hover { color: #4ade80; }
+    .lang-switcher { position: fixed; top: 16px; right: 20px; z-index: 100; }
+    .lang-switcher select { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px; color: #e0e0e0; font-size: 12px; padding: 5px 8px; cursor: pointer; outline: none; }
+    .lang-switcher select:hover { border-color: #4ade80; }
+  </style>
+</head>
+<body>
+  <div class="lang-switcher">
+    <select onchange="location.href=this.value">
+      <option value="home.html">English</option>
+      <option value="home-zh.html">中文</option>
+      <option value="home-cht.html">繁體中文</option>
+      <option value="home-es.html">Español</option>
+      <option value="home-ar.html">العربية</option>
+      <option value="home-pt.html">Português</option>
+      <option value="home-fr.html">Français</option>
+      <option value="home-ru.html">Русский</option>
+      <option value="home-de.html">Deutsch</option>
+      <option value="home-ja.html">日本語</option>
+      <option value="home-ko.html">한국어</option>
+      <option value="home-hi.html" selected>हिन्दी</option>
+      <option value="home-th.html">ภาษาไทย</option>
+      <option value="home-vi.html">Tiếng Việt</option>
+      <option value="home-ms.html">Bahasa Melayu</option>
+    </select>
+  </div>
+  <main>
+    <div class="intro">
+      <div class="logo">EchoShorts</div>
+      <h1>वीडियो सबटाइटल, <span>तत्काल अनुवाद</span><br>पूरी तरह ऑफलाइन, गोपनीयता पहले</h1>
+      <p>EchoShorts सभी वाक् पहचान और अनुवाद आपके डिवाइस पर स्थानीय रूप से करता है — इंटरनेट की जरूरत नहीं, खाते की जरूरत नहीं, आपका डेटा कभी आपके कंप्यूटर से बाहर नहीं जाता। ब्राउज़ करना शुरू करने के लिए ऊपर एड्रेस बार में URL दर्ज करें।</p>
+    </div>
+    <div class="features">
+      <div class="card">
+        <div class="icon">🎙️</div>
+        <h3>Whisper वाक् पहचान</h3>
+        <p>OpenAI Whisper पर आधारित, 99 भाषाओं में ट्रांसक्रिप्शन का समर्थन, स्थानीय रूप से चलता है, कोई API नहीं।</p>
+      </div>
+      <div class="card">
+        <div class="icon">🔍</div>
+        <h3>OCR सबटाइटल पहचान</h3>
+        <p>वीडियो फ्रेम में एम्बेडेड सबटाइटल पहचानने के लिए PaddleOCR का उपयोग, चीनी, अंग्रेजी, जापानी, कोरियाई आदि का समर्थन।</p>
+      </div>
+      <div class="card">
+        <div class="icon">🌐</div>
+        <h3>ऑफलाइन अनुवाद इंजन</h3>
+        <p>Helsinki-NLP OPUS-MT पर आधारित, बहुभाषी अनुवाद का समर्थन, पूरी तरह ऑफलाइन, कोई डेटा अपलोड नहीं।</p>
+      </div>
+    </div>
+    <div class="hint">
+      <span class="key">Alt + S</span>
+      <p>किसी भी वीडियो पेज पर शॉर्टकट दबाएं सबटाइटल पैनल को टॉगल करने के लिए। आप टूलबार में <strong style="color:#4a9eff">Sub</strong> बटन भी क्लिक कर सकते हैं।</p>
+    </div>
+    <div class="privacy">
+      <h2>गोपनीयता नीति &amp; अस्वीकरण</h2>
+      <div class="section">
+        <h3>स्थानीय डेटा प्रसंस्करण</h3>
+        <p>EchoShorts की सभी मुख्य सुविधाएं — वाक् पहचान, OCR और अनुवाद सहित — स्थानीय सर्वर (127.0.0.1:8765) के समर्थन से आपके स्थानीय डिवाइस पर चलती हैं।</p>
+        <p>हम कोई भी उपयोगकर्ता डेटा एकत्र, संग्रहीत, प्रसारित या विश्लेषण नहीं करते, जिसमें शामिल हैं: वीडियो सामग्री, सबटाइटल टेक्स्ट, अनुवाद परिणाम, ब्राउज़िंग इतिहास या व्यक्तिगत जानकारी।</p>
+      </div>
+      <div class="section">
+        <h3>कोई नेटवर्क डेटा ट्रांसमिशन नहीं</h3>
+        <p>यह एप्लिकेशन सामान्य उपयोग के दौरान बाहरी सर्वर को कोई डेटा नहीं भेजता। सभी ऑडियो प्रसंस्करण, छवि पहचान और टेक्स्ट अनुवाद स्थानीय रूप से पूरा होता है।</p>
+      </div>
+      <div class="section">
+        <h3>कोई विज्ञापन नहीं, कोई ट्रैकिंग नहीं, कोई अनुशंसा नहीं</h3>
+        <p>इस एप्लिकेशन में कोई विज्ञापन प्रणाली, उपयोगकर्ता व्यवहार ट्रैकिंग कोड या डेटा अनुशंसा तंत्र नहीं है। हम उपयोगकर्ता डेटा किसी तीसरे पक्ष के साथ साझा नहीं करते।</p>
+      </div>
+      <div class="section">
+        <h3>सेफ हार्बर और उपयोगकर्ता जिम्मेदारी</h3>
+        <p>EchoShorts एक सामान्य उद्देश्य तकनीकी उपकरण है जो केवल उपयोगकर्ताओं को वीडियो सामग्री समझने में मदद करने के लिए डिज़ाइन किया गया है। सेफ हार्बर सिद्धांत के तहत, डेवलपर्स उपयोगकर्ताओं द्वारा एक्सेस की गई सामग्री के लिए कोई कानूनी दायित्व नहीं लेते।</p>
+      </div>
+      <div class="section">
+        <h3>उपयोग सीमा</h3>
+        <p>यह एप्लिकेशन एक सहायक उपकरण के रूप में परिभाषित है, जो केवल श्रवण बाधित व्यक्तियों या भाषा सीखने वालों के व्यक्तिगत स्थानीय उपयोग के लिए है। किसी अन्य उद्देश्य के लिए उपयोग की अनुमति नहीं है।</p>
+      </div>
+      <div class="section">
+        <h3>तकनीकी सीमाएं</h3>
+        <p>यह एप्लिकेशन रियल-टाइम ऑडियो स्ट्रीम पहचान तकनीक का उपयोग करता है और केवल डिजिटल राइट्स मैनेजमेंट (DRM) द्वारा असुरक्षित सार्वजनिक वीडियो सामग्री के विश्लेषण का समर्थन करता है। कॉपीराइट सुरक्षा प्रोटोकॉल (जैसे Widevine, PlayReady आदि) की सीमाओं के कारण, DRM-संरक्षित HD सामग्री या प्रतिबंधित प्लेटफ़ॉर्म वीडियो से ऑडियो स्ट्रीम निकालना संभव नहीं हो सकता, जिससे रियल-टाइम सबटाइटल जनरेशन बाधित होती है। यदि आप मानक प्रारूप वीडियो चलाते समय सबटाइटल जनरेशन में समस्या का सामना करते हैं, तो कृपया ईमेल के माध्यम से हमें वीडियो का पता भेजें और हम पहचान इंजन की संगतता में निरंतर सुधार करते रहेंगे।</p>
+      </div>
+      <div class="section">
+        <h3>अस्वीकरण</h3>
+        <p>यह एप्लिकेशन किसी भी वारंटी के बिना "जैसा है" प्रदान किया जाता है। डेवलपर सभी वातावरणों में सही संचालन की गारंटी नहीं देता और उपयोग से होने वाले नुकसान के लिए जिम्मेदारी स्वीकार नहीं करता।</p>
+        <p>इस एप्लिकेशन द्वारा प्रदान की गई उपशीर्षक और अनुवाद सामग्री मशीन द्वारा स्वचालित रूप से उत्पन्न की जाती है और केवल संदर्भ के लिए है। डेवलपर मशीन अनुवाद की सटीकता, पूर्णता या उपयुक्तता के बारे में कोई गारंटी नहीं देता और अनुवादित सामग्री पर निर्भरता से उत्पन्न किसी भी परिणाम के लिए जिम्मेदारी स्वीकार नहीं करता।</p>
+      </div>
+      <div class="section">
+        <h3>नीति अपडेट</h3>
+        <p>यह गोपनीयता नीति नए संस्करणों के साथ अपडेट हो सकती है। महत्वपूर्ण परिवर्तन एप्लिकेशन के अपडेट लॉग के माध्यम से सूचित किए जाएंगे।</p>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <span>© 2025 EchoShorts. All rights reserved.</span>
+    <a href="mailto:supports@echoshorts.win">संपर्क करें</a>
+  </footer>
+</body>
+</html>

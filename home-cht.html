@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>EchoShorts</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f0f0f; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+    main { flex: 1; max-width: 860px; margin: 0 auto; padding: 60px 40px 40px; width: 100%; }
+    .intro { margin-bottom: 48px; }
+    .intro .logo { font-size: 13px; font-weight: 700; color: #4ade80; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
+    .intro h1 { font-size: 38px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 16px; }
+    .intro h1 span { color: #4ade80; }
+    .intro p { font-size: 15px; color: #999; line-height: 1.7; max-width: 580px; }
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
+    .card { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; padding: 22px; }
+    .card .icon { font-size: 22px; margin-bottom: 10px; }
+    .card h3 { font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+    .card p { font-size: 12px; color: #777; line-height: 1.6; }
+    .hint { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 10px; padding: 16px 20px; display: flex; align-items: center; gap: 14px; margin-bottom: 48px; }
+    .hint .key { background: #2a2a2a; border: 1px solid #3a3a3a; border-radius: 5px; padding: 3px 9px; font-size: 12px; font-family: monospace; color: #4ade80; white-space: nowrap; }
+    .hint p { font-size: 13px; color: #888; }
+    .privacy { background: #141414; border: 1px solid #222; border-radius: 14px; padding: 32px 36px; margin-bottom: 40px; }
+    .privacy h2 { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid #222; }
+    .section { margin-bottom: 22px; }
+    .section:last-child { margin-bottom: 0; }
+    .section h3 { font-size: 11px; font-weight: 600; color: #4ade80; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 7px; }
+    .section p { font-size: 13px; color: #888; line-height: 1.75; }
+    .section p + p { margin-top: 6px; }
+    footer { text-align: center; padding: 20px 40px; border-top: 1px solid #1a1a1a; display: flex; justify-content: center; align-items: center; gap: 28px; }
+    footer span { font-size: 12px; color: #444; }
+    footer a { font-size: 12px; color: #666; text-decoration: none; }
+    footer a:hover { color: #4ade80; }
+    .lang-switcher { position: fixed; top: 16px; right: 20px; z-index: 100; }
+    .lang-switcher select { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px; color: #e0e0e0; font-size: 12px; padding: 5px 8px; cursor: pointer; outline: none; }
+    .lang-switcher select:hover { border-color: #4ade80; }
+  </style>
+</head>
+<body>
+  <div class="lang-switcher">
+    <select onchange="location.href=this.value">
+      <option value="home.html">English</option>
+      <option value="home-zh.html">中文</option>
+      <option value="home-cht.html" selected>繁體中文</option>
+      <option value="home-es.html">Español</option>
+      <option value="home-ar.html">العربية</option>
+      <option value="home-pt.html">Português</option>
+      <option value="home-fr.html">Français</option>
+      <option value="home-ru.html">Русский</option>
+      <option value="home-de.html">Deutsch</option>
+      <option value="home-ja.html">日本語</option>
+      <option value="home-ko.html">한국어</option>
+      <option value="home-hi.html">हिन्दी</option>
+      <option value="home-th.html">ภาษาไทย</option>
+      <option value="home-vi.html">Tiếng Việt</option>
+      <option value="home-ms.html">Bahasa Melayu</option>
+    </select>
+  </div>
+
+  <main>
+    <div class="intro">
+      <div class="logo">EchoShorts</div>
+      <h1>影片字幕，<span>即時翻譯</span><br>完全離線，隱私優先</h1>
+      <p>EchoShorts 在您的裝置本地完成所有語音辨識與翻譯工作，無需聯網，無需帳號，資料從不離開您的電腦。在上方網址列輸入網址即可開始瀏覽。</p>
+    </div>
+
+    <div class="features">
+      <div class="card">
+        <div class="icon">🎙️</div>
+        <h3>Whisper 語音辨識</h3>
+        <p>基於 OpenAI Whisper，支援 99 種語言音訊轉錄，本地執行，無需 API。</p>
+      </div>
+      <div class="card">
+        <div class="icon">🔍</div>
+        <h3>OCR 字幕辨識</h3>
+        <p>使用 PaddleOCR 辨識影片畫面中的硬字幕，支援中、英、日、韓等多種語言。</p>
+      </div>
+      <div class="card">
+        <div class="icon">🌐</div>
+        <h3>離線翻譯引擎</h3>
+        <p>基於 Helsinki-NLP OPUS-MT，支援多語言互譯，全程離線，無資料上傳。</p>
+      </div>
+    </div>
+
+    <div class="hint">
+      <span class="key">Alt + S</span>
+      <p>在任意影片頁面按下快捷鍵，即可開啟／關閉字幕面板。也可點擊工具列 <strong style="color:#4a9eff">Sub</strong> 按鈕進行控制。</p>
+    </div>
+
+    <div class="privacy">
+      <h2>隱私政策 &amp; 免責聲明</h2>
+      <div class="section">
+        <h3>資料本地處理</h3>
+        <p>EchoShorts 的所有核心功能——包括語音辨識、OCR 文字辨識及語言翻譯——均在您的本地裝置上執行，由本地伺服器（127.0.0.1:8765）提供運算支援。</p>
+        <p>我們不收集、不儲存、不傳輸、不分析任何使用者資料，包括但不限於：您觀看的影片內容、辨識出的字幕文字、翻譯結果、瀏覽歷史及任何個人資訊。</p>
+      </div>
+      <div class="section">
+        <h3>無網路資料傳輸</h3>
+        <p>本應用程式在正常使用過程中不會向任何外部伺服器傳送任何資料。所有音訊處理、影像辨識與文字翻譯均在本機完成。AI 模型在首次使用時從公開來源下載至本地，此後無需聯網即可執行。</p>
+      </div>
+      <div class="section">
+        <h3>無廣告、無追蹤、無推薦</h3>
+        <p>本應用程式不包含任何廣告系統、使用者行為追蹤程式碼或資料推薦機制。我們不與任何第三方共享使用者資料，也不基於使用者行為進行任何形式的畫像或推播。</p>
+      </div>
+      <div class="section">
+        <h3>避風港原則與使用者責任</h3>
+        <p>EchoShorts 是一款通用技術工具，其功能僅為輔助使用者理解影片內容。根據「避風港原則」，本應用程式的開發者及發布者對使用者使用本工具存取、翻譯或處理的任何內容不承擔版權侵權或其他法律責任。</p>
+        <p>使用者須自行確保其使用行為符合所在地區的法律法規，以及所存取平台的服務條款。因使用者使用本應用程式存取受版權保護內容、違反平台規定或從事任何違法活動所產生的一切法律責任，由使用者本人獨立承擔。</p>
+        <p>本應用程式不對使用者存取內容的合法性作出任何判斷或保證，亦不對因使用本應用程式而產生的任何直接或間接損失負責。</p>
+      </div>
+      <div class="section">
+        <h3>用途限制</h3>
+        <p>本應用程式定義為一款輔助工具，目的為幫助聽力障礙人士或語言學習者個人本地使用，不可他用。</p>
+      </div>
+      <div class="section">
+        <h3>技術限制</h3>
+        <p>本應用程式採用即時音訊串流辨識技術，僅支援分析未受數位版權管理 (DRM) 保護的公開視訊資源。由於版權保護協議（如 Widevine、PlayReady 等）的限制，受保護的高畫質內容或受限平台視訊可能無法提取音訊串流，導致無法生成即時字幕。如果您在播放標準格式視訊時遇到字幕生成問題，請透過電子郵件向我們反饋視訊網址，我們將持續優化辨識引擎的相容性。</p>
+      </div>
+      <div class="section">
+        <h3>免責聲明</h3>
+        <p>本應用程式按「現狀」提供，不附帶任何明示或暗示的保證。開發者不保證本應用程式在所有環境下均能正常執行，亦不對因使用本應用程式導致的任何損失、資料遺失或裝置問題承擔責任。使用本應用程式即表示接受上述全部條款。</p>
+        <p>本應用程式提供的字幕及翻譯內容由機器自動生成，僅供參考。開發者不對機器翻譯結果的準確性、完整性或適用性作任何保證，亦不承擔因依賴翻譯內容而產生的任何後果。</p>
+      </div>
+      <div class="section">
+        <h3>政策更新</h3>
+        <p>本隱私政策可能隨版本更新而調整。如有重大變更，將透過應用程式更新日誌告知使用者。繼續使用本應用程式即視為接受最新版本的隱私政策。</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <span>© 2025 EchoShorts. All rights reserved.</span>
+    <a href="mailto:supports@echoshorts.win">聯絡我們</a>
+  </footer>
+</body>
+</html>

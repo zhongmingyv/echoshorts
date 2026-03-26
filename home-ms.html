@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <title>EchoShorts</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f0f0f; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+    main { flex: 1; max-width: 860px; margin: 0 auto; padding: 60px 40px 40px; width: 100%; }
+    .intro { margin-bottom: 48px; }
+    .intro .logo { font-size: 13px; font-weight: 700; color: #4ade80; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
+    .intro h1 { font-size: 38px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 16px; }
+    .intro h1 span { color: #4ade80; }
+    .intro p { font-size: 15px; color: #999; line-height: 1.7; max-width: 580px; }
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
+    .card { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; padding: 22px; }
+    .card .icon { font-size: 22px; margin-bottom: 10px; }
+    .card h3 { font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+    .card p { font-size: 12px; color: #777; line-height: 1.6; }
+    .hint { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 10px; padding: 16px 20px; display: flex; align-items: center; gap: 14px; margin-bottom: 48px; }
+    .hint .key { background: #2a2a2a; border: 1px solid #3a3a3a; border-radius: 5px; padding: 3px 9px; font-size: 12px; font-family: monospace; color: #4ade80; white-space: nowrap; }
+    .hint p { font-size: 13px; color: #888; }
+    .privacy { background: #141414; border: 1px solid #222; border-radius: 14px; padding: 32px 36px; margin-bottom: 40px; }
+    .privacy h2 { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid #222; }
+    .section { margin-bottom: 22px; }
+    .section:last-child { margin-bottom: 0; }
+    .section h3 { font-size: 11px; font-weight: 600; color: #4ade80; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 7px; }
+    .section p { font-size: 13px; color: #888; line-height: 1.75; }
+    .section p + p { margin-top: 6px; }
+    footer { text-align: center; padding: 20px 40px; border-top: 1px solid #1a1a1a; display: flex; justify-content: center; align-items: center; gap: 28px; }
+    footer span { font-size: 12px; color: #444; }
+    footer a { font-size: 12px; color: #666; text-decoration: none; }
+    footer a:hover { color: #4ade80; }
+    .lang-switcher { position: fixed; top: 16px; right: 20px; z-index: 100; }
+    .lang-switcher select { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px; color: #e0e0e0; font-size: 12px; padding: 5px 8px; cursor: pointer; outline: none; }
+    .lang-switcher select:hover { border-color: #4ade80; }
+  </style>
+</head>
+<body>
+  <div class="lang-switcher">
+    <select onchange="location.href=this.value">
+      <option value="home.html">English</option>
+      <option value="home-zh.html">中文</option>
+      <option value="home-cht.html">繁體中文</option>
+      <option value="home-es.html">Español</option>
+      <option value="home-ar.html">العربية</option>
+      <option value="home-pt.html">Português</option>
+      <option value="home-fr.html">Français</option>
+      <option value="home-ru.html">Русский</option>
+      <option value="home-de.html">Deutsch</option>
+      <option value="home-ja.html">日本語</option>
+      <option value="home-ko.html">한국어</option>
+      <option value="home-hi.html">हिन्दी</option>
+      <option value="home-th.html">ภาษาไทย</option>
+      <option value="home-vi.html">Tiếng Việt</option>
+      <option value="home-ms.html" selected>Bahasa Melayu</option>
+    </select>
+  </div>
+  <main>
+    <div class="intro">
+      <div class="logo">EchoShorts</div>
+      <h1>Sari kata video, <span>terjemahan segera</span><br>Sepenuhnya luar talian, privasi diutamakan</h1>
+      <p>EchoShorts melakukan semua pengecaman pertuturan dan terjemahan secara tempatan pada peranti anda — tanpa internet, tanpa akaun, data anda tidak pernah meninggalkan komputer anda. Masukkan URL dalam bar alamat di atas untuk mula melayari.</p>
+    </div>
+    <div class="features">
+      <div class="card">
+        <div class="icon">🎙️</div>
+        <h3>Pengecaman Pertuturan Whisper</h3>
+        <p>Berasaskan OpenAI Whisper, menyokong transkripsi dalam 99 bahasa, berjalan secara tempatan, tanpa API.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🔍</div>
+        <h3>Pengecaman Sari Kata OCR</h3>
+        <p>Menggunakan PaddleOCR untuk mengenal pasti sari kata yang tertanam dalam bingkai video, menyokong Cina, Inggeris, Jepun, Korea dan lain-lain.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🌐</div>
+        <h3>Enjin Terjemahan Luar Talian</h3>
+        <p>Berasaskan Helsinki-NLP OPUS-MT, menyokong terjemahan pelbagai bahasa, sepenuhnya luar talian, tiada data dimuat naik.</p>
+      </div>
+    </div>
+    <div class="hint">
+      <span class="key">Alt + S</span>
+      <p>Tekan pintasan pada mana-mana halaman video untuk togol panel sari kata. Anda juga boleh klik butang <strong style="color:#4a9eff">Sub</strong> pada bar alat.</p>
+    </div>
+    <div class="privacy">
+      <h2>Dasar Privasi &amp; Penafian</h2>
+      <div class="section">
+        <h3>Pemprosesan Data Tempatan</h3>
+        <p>Semua ciri utama EchoShorts — termasuk pengecaman pertuturan, OCR dan terjemahan — berjalan pada peranti tempatan anda, disokong oleh pelayan tempatan (127.0.0.1:8765).</p>
+        <p>Kami tidak mengumpul, menyimpan, menghantar atau menganalisis sebarang data pengguna, termasuk: kandungan video, teks sari kata, keputusan terjemahan, sejarah pelayaran atau maklumat peribadi.</p>
+      </div>
+      <div class="section">
+        <h3>Tiada Penghantaran Data Rangkaian</h3>
+        <p>Aplikasi ini tidak menghantar sebarang data ke pelayan luaran semasa penggunaan biasa. Semua pemprosesan audio, pengecaman imej dan terjemahan teks diselesaikan secara tempatan.</p>
+      </div>
+      <div class="section">
+        <h3>Tiada Iklan, Tiada Penjejakan, Tiada Cadangan</h3>
+        <p>Aplikasi ini tidak mengandungi sistem pengiklanan, kod penjejakan tingkah laku pengguna atau mekanisme cadangan data. Kami tidak berkongsi data pengguna dengan pihak ketiga.</p>
+      </div>
+      <div class="section">
+        <h3>Safe Harbor dan Tanggungjawab Pengguna</h3>
+        <p>EchoShorts adalah alat teknikal tujuan umum yang direka hanya untuk membantu pengguna memahami kandungan video. Di bawah Doktrin Safe Harbor, pembangun tidak menanggung tanggungjawab undang-undang terhadap kandungan yang diakses pengguna.</p>
+        <p>Pengguna mesti memastikan penggunaan mereka mematuhi undang-undang tempatan dan terma perkhidmatan platform yang mereka akses. Semua tanggungjawab undang-undang yang timbul daripada penyalahgunaan terletak sepenuhnya pada pengguna.</p>
+      </div>
+      <div class="section">
+        <h3>Had Penggunaan</h3>
+        <p>Aplikasi ini ditakrifkan sebagai alat bantuan yang bertujuan khusus untuk kegunaan peribadi tempatan oleh individu yang mengalami masalah pendengaran atau pelajar bahasa. Sebarang penggunaan lain tidak dibenarkan.</p>
+      </div>
+      <div class="section">
+        <h3>Had Teknikal</h3>
+        <p>Aplikasi ini menggunakan teknologi pengecaman strim audio masa nyata dan hanya menyokong analisis kandungan video awam yang tidak dilindungi oleh Pengurusan Hak Digital (DRM). Disebabkan oleh sekatan protokol perlindungan hak cipta (seperti Widevine, PlayReady, dll.), strim audio daripada kandungan HD yang dilindungi DRM atau video platform terhad mungkin tidak dapat diekstrak, menghalang penjanaan sari kata masa nyata. Jika anda menghadapi masalah penjanaan sari kata semasa memainkan video format standard, sila hantar alamat video kepada kami melalui e-mel dan kami akan terus meningkatkan keserasian enjin pengecaman kami.</p>
+      </div>
+      <div class="section">
+        <h3>Penafian</h3>
+        <p>Aplikasi ini disediakan "seadanya" tanpa sebarang jaminan. Pembangun tidak menjamin operasi yang betul dalam semua persekitaran dan tidak menerima tanggungjawab atas kerugian yang timbul daripada penggunaannya.</p>
+        <p>Sari kata dan terjemahan yang disediakan oleh aplikasi ini dijana secara automatik oleh mesin dan adalah untuk rujukan sahaja. Pembangun tidak memberi sebarang jaminan tentang ketepatan, kelengkapan atau kesesuaian terjemahan mesin dan tidak menerima tanggungjawab atas akibat yang timbul daripada pergantungan pada kandungan yang diterjemahkan.</p>
+      </div>
+      <div class="section">
+        <h3>Kemas Kini Dasar</h3>
+        <p>Dasar privasi ini mungkin dikemas kini dengan versi baharu. Perubahan penting akan disampaikan melalui log kemas kini aplikasi. Penggunaan berterusan bermakna penerimaan versi terkini.</p>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <span>© 2025 EchoShorts. All rights reserved.</span>
+    <a href="mailto:supports@echoshorts.win">Hubungi Kami</a>
+  </footer>
+</body>
+</html>

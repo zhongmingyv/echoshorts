@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>EchoShorts</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f0f0f; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+    main { flex: 1; max-width: 860px; margin: 0 auto; padding: 60px 40px 40px; width: 100%; }
+    .intro { margin-bottom: 48px; }
+    .intro .logo { font-size: 13px; font-weight: 700; color: #4ade80; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
+    .intro h1 { font-size: 38px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 16px; }
+    .intro h1 span { color: #4ade80; }
+    .intro p { font-size: 15px; color: #999; line-height: 1.7; max-width: 580px; }
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
+    .card { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; padding: 22px; }
+    .card .icon { font-size: 22px; margin-bottom: 10px; }
+    .card h3 { font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+    .card p { font-size: 12px; color: #777; line-height: 1.6; }
+    .hint { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 10px; padding: 16px 20px; display: flex; align-items: center; gap: 14px; margin-bottom: 48px; }
+    .hint .key { background: #2a2a2a; border: 1px solid #3a3a3a; border-radius: 5px; padding: 3px 9px; font-size: 12px; font-family: monospace; color: #4ade80; white-space: nowrap; }
+    .hint p { font-size: 13px; color: #888; }
+    .privacy { background: #141414; border: 1px solid #222; border-radius: 14px; padding: 32px 36px; margin-bottom: 40px; }
+    .privacy h2 { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid #222; }
+    .section { margin-bottom: 22px; }
+    .section:last-child { margin-bottom: 0; }
+    .section h3 { font-size: 11px; font-weight: 600; color: #4ade80; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 7px; }
+    .section p { font-size: 13px; color: #888; line-height: 1.75; }
+    .section p + p { margin-top: 6px; }
+    footer { text-align: center; padding: 20px 40px; border-top: 1px solid #1a1a1a; display: flex; justify-content: center; align-items: center; gap: 28px; }
+    footer span { font-size: 12px; color: #444; }
+    footer a { font-size: 12px; color: #666; text-decoration: none; }
+    footer a:hover { color: #4ade80; }
+    .lang-switcher { position: fixed; top: 16px; right: 20px; z-index: 100; }
+    .lang-switcher select { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px; color: #e0e0e0; font-size: 12px; padding: 5px 8px; cursor: pointer; outline: none; }
+    .lang-switcher select:hover { border-color: #4ade80; }
+  </style>
+</head>
+<body>
+  <div class="lang-switcher">
+    <select onchange="location.href=this.value">
+      <option value="home.html">English</option>
+      <option value="home-zh.html">中文</option>
+      <option value="home-cht.html">繁體中文</option>
+      <option value="home-es.html">Español</option>
+      <option value="home-ar.html">العربية</option>
+      <option value="home-pt.html">Português</option>
+      <option value="home-fr.html">Français</option>
+      <option value="home-ru.html">Русский</option>
+      <option value="home-de.html">Deutsch</option>
+      <option value="home-ja.html" selected>日本語</option>
+      <option value="home-ko.html">한국어</option>
+      <option value="home-hi.html">हिन्दी</option>
+      <option value="home-th.html">ภาษาไทย</option>
+      <option value="home-vi.html">Tiếng Việt</option>
+      <option value="home-ms.html">Bahasa Melayu</option>
+    </select>
+  </div>
+  <main>
+    <div class="intro">
+      <div class="logo">EchoShorts</div>
+      <h1>動画字幕、<span>即時翻訳</span><br>完全オフライン、プライバシー優先</h1>
+      <p>EchoShorts はすべての音声認識と翻訳をデバイス上でローカルに実行します — インターネット不要、アカウント不要、データはコンピューターから外に出ません。上のアドレスバーにURLを入力してブラウジングを開始してください。</p>
+    </div>
+    <div class="features">
+      <div class="card">
+        <div class="icon">🎙️</div>
+        <h3>Whisper 音声認識</h3>
+        <p>OpenAI Whisper をベースに、99言語の音声文字起こしをサポート、ローカル実行、API不要。</p>
+      </div>
+      <div class="card">
+        <div class="icon">🔍</div>
+        <h3>OCR 字幕認識</h3>
+        <p>PaddleOCR を使用して動画フレームに埋め込まれた字幕を認識、中国語・英語・日本語・韓国語などをサポート。</p>
+      </div>
+      <div class="card">
+        <div class="icon">🌐</div>
+        <h3>オフライン翻訳エンジン</h3>
+        <p>Helsinki-NLP OPUS-MT をベースに、多言語翻訳をサポート、完全オフライン、データアップロードなし。</p>
+      </div>
+    </div>
+    <div class="hint">
+      <span class="key">Alt + S</span>
+      <p>任意の動画ページでショートカットを押すと字幕パネルのオン/オフを切り替えられます。ツールバーの <strong style="color:#4a9eff">Sub</strong> ボタンをクリックしても操作できます。</p>
+    </div>
+    <div class="privacy">
+      <h2>プライバシーポリシー &amp; 免責事項</h2>
+      <div class="section">
+        <h3>ローカルデータ処理</h3>
+        <p>EchoShorts のすべてのコア機能 — 音声認識、OCR、翻訳を含む — はローカルサーバー（127.0.0.1:8765）のサポートのもと、お使いのデバイス上で実行されます。</p>
+        <p>視聴した動画コンテンツ、認識した字幕テキスト、翻訳結果、閲覧履歴、個人情報を含む一切のユーザーデータを収集・保存・送信・分析しません。</p>
+      </div>
+      <div class="section">
+        <h3>ネットワークデータ送信なし</h3>
+        <p>このアプリケーションは通常使用中に外部サーバーにデータを送信しません。すべての音声処理、画像認識、テキスト翻訳はローカルで完結します。AIモデルは初回使用時に公開ソースからダウンロードされ、以降はオフラインで実行できます。</p>
+      </div>
+      <div class="section">
+        <h3>広告なし、追跡なし、レコメンドなし</h3>
+        <p>このアプリケーションには広告システム、ユーザー行動追跡コード、データレコメンドメカニズムは含まれていません。ユーザーデータを第三者と共有しません。</p>
+      </div>
+      <div class="section">
+        <h3>セーフハーバーとユーザー責任</h3>
+        <p>EchoShorts は動画コンテンツの理解を支援するための汎用技術ツールです。セーフハーバー原則に基づき、開発者はユーザーがアクセスするコンテンツに対して法的責任を負いません。</p>
+        <p>ユーザーは自身の使用が地域の法律およびアクセスするプラットフォームの利用規約に準拠していることを確認する必要があります。不正使用から生じるすべての法的責任はユーザー本人が負います。</p>
+      </div>
+      <div class="section">
+        <h3>使用目的の制限</h3>
+        <p>本アプリケーションは補助ツールとして定義されており、聴覚障害者または語学学習者が個人的にローカルで使用することを目的としています。その他の用途での使用は認められません。</p>
+      </div>
+      <div class="section">
+        <h3>技術的制限</h3>
+        <p>本アプリケーションはリアルタイム音声ストリーム認識技術を使用しており、デジタル著作権管理 (DRM) で保護されていない公開動画コンテンツの分析のみをサポートしています。Widevine、PlayReady などの著作権保護プロトコルの制限により、DRM 保護された高画質コンテンツや制限されたプラットフォームの動画では音声ストリームを抽出できず、リアルタイム字幕を生成できない場合があります。標準フォーマットの動画で字幕生成に問題が発生した場合は、動画の URL をメールでお知らせください。認識エンジンの互換性を継続的に改善してまいります。</p>
+      </div>
+      <div class="section">
+        <h3>免責事項</h3>
+        <p>このアプリケーションはいかなる保証もなく「現状のまま」提供されます。開発者はすべての環境での正常動作を保証せず、使用から生じる損失に対して責任を負いません。このアプリケーションの使用は上記すべての条件への同意を意味します。</p>
+        <p>本アプリケーションが提供する字幕および翻訳は機械により自動生成されたものであり、参考情報としてのみご利用ください。開発者は機械翻訳の正確性・完全性・適切性について一切保証せず、翻訳内容への依存により生じたいかなる結果についても責任を負いません。</p>
+      </div>
+      <div class="section">
+        <h3>ポリシーの更新</h3>
+        <p>このプライバシーポリシーは新バージョンとともに更新される場合があります。重要な変更はアプリケーションの更新ログを通じて通知されます。継続使用は最新バージョンへの同意を意味します。</p>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <span>© 2025 EchoShorts. All rights reserved.</span>
+    <a href="mailto:supports@echoshorts.win">お問い合わせ</a>
+  </footer>
+</body>
+</html>
