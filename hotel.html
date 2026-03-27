@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <title>Hotel Management System</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f0f0f; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+    main { flex: 1; max-width: 860px; margin: 0 auto; padding: 60px 40px 40px; width: 100%; }
+    .intro { margin-bottom: 48px; }
+    .intro .logo { font-size: 13px; font-weight: 700; color: #4ade80; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
+    .intro h1 { font-size: 38px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 16px; }
+    .intro h1 span { color: #4ade80; }
+    .intro p { font-size: 15px; color: #999; line-height: 1.7; max-width: 580px; }
+
+    .features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 40px; }
+    .card { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; padding: 22px; }
+    .card .icon { font-size: 22px; margin-bottom: 10px; }
+    .card h3 { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+    .card p { font-size: 13px; color: #777; line-height: 1.6; }
+
+    .hint { background: #3a1a1a; border: 1px solid #5a2a2a; border-radius: 10px; padding: 16px 20px; display: flex; align-items: flex-start; gap: 14px; margin-bottom: 48px; }
+    .hint h4 { font-size: 14px; color: #ff6b6b; margin-bottom: 4px; }
+    .hint p { font-size: 13px; color: #ccc;line-height:1.6; }
+
+    .privacy { background: #141414; border: 1px solid #222; border-radius: 14px; padding: 32px 36px; margin-bottom: 40px; }
+    .privacy h2 { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid #222; }
+    .section { margin-bottom: 22px; }
+    .section:last-child { margin-bottom: 0; }
+    .section h3 { font-size: 12px; font-weight: 600; color: #4ade80; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 7px; }
+    .section p { font-size: 13px; color: #888; line-height: 1.75; }
+    .section p { margin-top: 6px; }
+    .section ul { padding-left: 20px; margin-top: 6px; font-size: 13px; color: #888; line-height: 1.75;}
+    .section li { margin-bottom: 4px; }
+
+    footer { text-align: center; padding: 20px 40px; border-top: 1px solid #1a1a1a; display: flex; justify-content: center; align-items: center; gap: 28px; }
+    footer span { font-size: 12px; color: #444; }
+    footer a { font-size: 12px; color: #666; text-decoration: none; }
+    footer a:hover { color: #4ade80; }
+    
+    .lang-switcher { width: 100%; max-width: 860px; margin: 0 auto; padding: 20px 40px 0; display: flex; justify-content: flex-end; }
+    .lang-switcher select { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px; color: #e0e0e0; font-size: 12px; padding: 5px 8px; cursor: pointer; outline: none; }
+    .lang-switcher select:hover { border-color: #4ade80; }
+  </style>
+</head>
+<body>
+  <div class="lang-switcher">
+    <select onchange="location.href=this.value">
+      <option value="hotel.html" selected>English</option>\n      <option value="hotel-zh-CN.html">简体中文</option>\n      <option value="hotel-zh-TW.html">繁體中文</option>\n      <option value="hotel-de-DE.html">Deutsch</option>\n      <option value="hotel-es-ES.html">Español</option>\n      <option value="hotel-fr-FR.html">Français</option>\n      <option value="hotel-id-ID.html">Bahasa Indonesia</option>\n      <option value="hotel-ja-JP.html">日本語</option>\n      <option value="hotel-ko-KR.html">한국어</option>\n      <option value="hotel-pt-BR.html">Português</option>\n      <option value="hotel-ru-RU.html">Русский</option>\n      <option value="hotel-th-TH.html">ภาษาไทย</option>\n      <option value="hotel-vi-VN.html">Tiếng Việt</option>
+    </select>
+  </div>
+
+  <main>
+    <div class="intro">
+      <div class="logo">Hotel Management System</div>
+      <h1>Local<br><span><span>Hotel Management System</span></h1>
+      <p>Designed for hotel branches, providing a one-stop local solution for room reservations, check-ins, financial management, and permission control.</p>
+    </div>
+
+    <h2 style="font-size: 15px; margin-bottom:20px;border-bottom: 1px solid #222;padding-bottom:14px;">Default Accounts & Permissions</h2>
+    <div class="features">
+      <div class="card">
+        <h3>admin (123456)</h3>
+        <p>Supreme admin. Highest permissions (menus, departments, permissions).</p>
+      </div>
+      <div class="card">
+        <h3>boss (123456)</h3>
+        <p>Hotel boss. All permissions except adding system menus.</p>
+      </div>
+      <div class="card">
+        <h3>manager (123456)</h3>
+        <p>Hotel manager. All business permissions. Can only add users in their own department.</p>
+      </div>
+      <div class="card">
+        <h3>qiantai (123456)</h3>
+        <p>Front desk. Only check-in and reservation permissions.</p>
+      </div>
+    </div>
+
+    <div class="hint">
+      <div>
+        <h4>⚠️ Crucial First Login Notice</h4>
+        <p>After the first login of admin, immediately change the passwords for all default accounts and securely remember the admin password!</p>
+      </div>
+    </div>
+
+    <div class="privacy">
+      <h2>Privacy Policy & Disclaimer</h2>
+      <div class="section">
+        <h3>Local Execution & No Internet Required</h3>
+        <p>This software runs entirely locally. It never collects, uploads, or shares your business data (customer info, orders, financials). Your data is 100% saved on your local hard drive.</p>
+      </div>
+      <div class="section">
+        <h3>Data Security & User Responsibility</h3>
+        <p>No cloud sync is provided. You are fully responsible for the security, integrity, and correctness of the data. Please assign employee permissions reasonably to prevent unauthorized access.</p>
+      </div>
+      <div class="section">
+        <h3>Data Backup (Critical)</h3>
+        <ul>
+          <li>Regular Backup: Please frequently go to the "Backup & Import" page to back up data.</li>
+          <li>Multi-backup: Strong recommendation to save backups to an external USB drive or cloud storage.</li>
+          <li><strong style="color: #ff6b6b">Before System Changes: BEFORE reinstalling your OS, migrating computers, or uninstalling this software, you MUST first backup and export your data.</strong></li>
+          <li>Failure to backup will result in permanent loss of historical orders, finance, and customer info.</li>
+        </ul>
+      </div>
+      <div class="section">
+        <h3>Disclaimer</h3>
+        <p>The developer bears no legal or financial responsibility for data loss due to hardware damage, viruses, ransomware, employee misconduct, forgetting passwords, or failure to perform regular backups as instructed.</p>
+      </div>
+    </div>
+  </main>
+  <footer style="flex-direction: column;">
+    <span>© 2026 Hotel Management System. All rights reserved.</span>
+    <a href="mailto:mingyvzhong@gmail.com" style="margin-top: 8px;">
+      For privacy-related inquiries, please email mingyvzhong@gmail.com
+    </a>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+  <meta charset="UTF-8">
+  <title>Система Управления Отелем</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f0f0f; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+    main { flex: 1; max-width: 860px; margin: 0 auto; padding: 60px 40px 40px; width: 100%; }
+    .intro { margin-bottom: 48px; }
+    .intro .logo { font-size: 13px; font-weight: 700; color: #4ade80; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
+    .intro h1 { font-size: 38px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 16px; }
+    .intro h1 span { color: #4ade80; }
+    .intro p { font-size: 15px; color: #999; line-height: 1.7; max-width: 580px; }
+
+    .features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 40px; }
+    .card { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; padding: 22px; }
+    .card .icon { font-size: 22px; margin-bottom: 10px; }
+    .card h3 { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+    .card p { font-size: 13px; color: #777; line-height: 1.6; }
+
+    .hint { background: #3a1a1a; border: 1px solid #5a2a2a; border-radius: 10px; padding: 16px 20px; display: flex; align-items: flex-start; gap: 14px; margin-bottom: 48px; }
+    .hint h4 { font-size: 14px; color: #ff6b6b; margin-bottom: 4px; }
+    .hint p { font-size: 13px; color: #ccc;line-height:1.6; }
+
+    .privacy { background: #141414; border: 1px solid #222; border-radius: 14px; padding: 32px 36px; margin-bottom: 40px; }
+    .privacy h2 { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid #222; }
+    .section { margin-bottom: 22px; }
+    .section:last-child { margin-bottom: 0; }
+    .section h3 { font-size: 12px; font-weight: 600; color: #4ade80; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 7px; }
+    .section p { font-size: 13px; color: #888; line-height: 1.75; }
+    .section p { margin-top: 6px; }
+    .section ul { padding-left: 20px; margin-top: 6px; font-size: 13px; color: #888; line-height: 1.75;}
+    .section li { margin-bottom: 4px; }
+
+    footer { text-align: center; padding: 20px 40px; border-top: 1px solid #1a1a1a; display: flex; justify-content: center; align-items: center; gap: 28px; }
+    footer span { font-size: 12px; color: #444; }
+    footer a { font-size: 12px; color: #666; text-decoration: none; }
+    footer a:hover { color: #4ade80; }
+    
+    .lang-switcher { width: 100%; max-width: 860px; margin: 0 auto; padding: 20px 40px 0; display: flex; justify-content: flex-end; }
+    .lang-switcher select { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px; color: #e0e0e0; font-size: 12px; padding: 5px 8px; cursor: pointer; outline: none; }
+    .lang-switcher select:hover { border-color: #4ade80; }
+  </style>
+</head>
+<body>
+  <div class="lang-switcher">
+    <select onchange="location.href=this.value">
+      <option value="hotel.html">English</option>\n      <option value="hotel-zh-CN.html">简体中文</option>\n      <option value="hotel-zh-TW.html">繁體中文</option>\n      <option value="hotel-de-DE.html">Deutsch</option>\n      <option value="hotel-es-ES.html">Español</option>\n      <option value="hotel-fr-FR.html">Français</option>\n      <option value="hotel-id-ID.html">Bahasa Indonesia</option>\n      <option value="hotel-ja-JP.html">日本語</option>\n      <option value="hotel-ko-KR.html">한국어</option>\n      <option value="hotel-pt-BR.html">Português</option>\n      <option value="hotel-ru-RU.html" selected>Русский</option>\n      <option value="hotel-th-TH.html">ภาษาไทย</option>\n      <option value="hotel-vi-VN.html">Tiếng Việt</option>
+    </select>
+  </div>
+
+  <main>
+    <div class="intro">
+      <div class="logo">Система Управления Отелем</div>
+      <h1>Локальная<br><span>Система Управления Отелем</span></h1>
+      <p>Разработана для филиалов отелей, обеспечивая комплексное локальное решение для бронирования номеров, регистрации, финансового управления и контроля прав доступа.</p>
+    </div>
+
+    <h2 style="font-size: 15px; margin-bottom:20px;border-bottom: 1px solid #222;padding-bottom:14px;">Стандартные Аккаунты и Права Доступа</h2>
+    <div class="features">
+      <div class="card">
+        <h3>admin (123456)</h3>
+        <p>Главный администратор. Высшие права доступа (меню, отделы, права).</p>
+      </div>
+      <div class="card">
+        <h3>boss (123456)</h3>
+        <p>Владелец отеля. Все права, кроме добавления системных меню.</p>
+      </div>
+      <div class="card">
+        <h3>manager (123456)</h3>
+        <p>Менеджер отеля. Все деловые права. Может добавлять пользователей только в свой отдел.</p>
+      </div>
+      <div class="card">
+        <h3>qiantai (123456)</h3>
+        <p>Стойка регистрации. Только права на регистрацию и бронирование.</p>
+      </div>
+    </div>
+
+    <div class="hint">
+      <div>
+        <h4>⚠️ Важное уведомление при первом входе</h4>
+        <p>После первого входа admin немедленно измените пароли для всех стандартных аккаунтов и надежно запомните пароль admin!</p>
+      </div>
+    </div>
+
+    <div class="privacy">
+      <h2>Политика Конфиденциальности и Отказ от Ответственности</h2>
+      <div class="section">
+        <h3>Локальное Исполнение и Отсутствие Интернета</h3>
+        <p>Это программное обеспечение работает полностью локально. Оно никогда не собирает, не загружает и не передает ваши бизнес-данные. Ваши данные 100% хранятся на локальном жестком диске.</p>
+      </div>
+      <div class="section">
+        <h3>Безопасность Данных и Ответственность Пользователя</h3>
+        <p>Облачная синхронизация не предусмотрена. Вы несете полную ответственность за безопасность, целостность и правильность данных.</p>
+      </div>
+      <div class="section">
+        <h3>Резервное Копирование Данных (Критически)</h3>
+        <ul>
+          <li>Регулярное Копирование: Часто заходите на страницу "Резервное копирование и импорт" для создания резервных копий.</li>
+          <li>Множественное Копирование: Настоятельно рекомендуется сохранять резервные копии на внешний USB-накопитель или в облако.</li>
+          <li><strong style="color: #ff6b6b">Перед Изменениями Системы: ПЕРЕД переустановкой ОС, переносом компьютеров или удалением этого ПО вы ДОЛЖНЫ сделать резервную копию.</strong></li>
+          <li>Отсутствие резервной копии приведет к безвозвратной потере исторических заказов, финансов и информации о клиентах.</li>
+        </ul>
+      </div>
+      <div class="section">
+        <h3>Отказ от Ответственности</h3>
+        <p>Разработчик не несет юридической или финансовой ответственности за потерю данных из-за повреждения оборудования, вирусов, программ-вымогателей или отсутствия регулярного резервного копирования.</p>
+      </div>
+    </div>
+  </main>
+  <footer style="flex-direction: column;">
+    <span>© 2026 Система Управления Отелем. Все права защищены.</span>
+    <a href="mailto:mingyvzhong@gmail.com" style="margin-top: 8px;">
+      For privacy-related inquiries, please email mingyvzhong@gmail.com
+    </a>
+  </footer>
+</body>
+</html>
