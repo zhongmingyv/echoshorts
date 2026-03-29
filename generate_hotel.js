@@ -41,7 +41,7 @@ const t = {
     privacy3Desc4: 'Failure to backup will result in permanent loss of historical orders, finance, and customer info.',
     privacy4Title: 'Disclaimer',
     privacy4Desc: 'The developer bears no legal or financial responsibility for data loss due to hardware damage, viruses, ransomware, employee misconduct, forgetting passwords, or failure to perform regular backups as instructed.',
-    footer: '© 2026 Hotel Management System. All rights reserved.',
+    footer: '© 2026 echoshorts.win. All rights reserved.',
     contact: 'Contact Us'
   },
   'zh-CN': {
@@ -67,7 +67,7 @@ const t = {
     privacy3Desc4: '未备份可能导致历史订单、财务与客户信息永久丢失。',
     privacy4Title: '免责条款',
     privacy4Desc: '开发者对因硬件损坏、电脑病毒、遭遇勒索软件、员工破坏、或未按提示定期备份而导致的数据丢失，不承担任何法律与经济赔偿责任。使用本软件即代表您同意自行承担上述数据安全风险。',
-    footer: '© 2026 酒店管理系统. 保留所有权利.',
+    footer: '© 2026 echoshorts.win. 保留所有权利.',
     contact: '联系我们'
   },
   'zh-TW': {
@@ -93,7 +93,7 @@ const t = {
     privacy3Desc4: '未備份可能導致歷史訂單、財務與客戶信息永久丟失。',
     privacy4Title: '免責條款',
     privacy4Desc: '開發者對因硬件損壞、電腦病毒、遭遇勒索軟件、員工破壞、或未按提示定期備份而導致的數據丟失，不承擔任何法律與經濟賠償責任。',
-    footer: '© 2026 酒店管理系統. 保留所有權利.',
+    footer: '© 2026 echoshorts.win. 保留所有權利.',
     contact: '聯繫我們'
   },
   'ja-JP': {
@@ -119,7 +119,7 @@ const t = {
     privacy3Desc4: 'バックアップを怠ると、履歴の注文、財務、顧客情報が完全に失われます。',
     privacy4Title: '免責事項',
     privacy4Desc: 'ハードウェアの損傷、ウイルス、ランサムウェア、従業員の不正行為、パスワードの忘却、または定期的なバックアップを怠ったことによるデータ損失について、開発者は法的または経済的な責任を負いません。',
-    footer: '© 2026 ホテル管理システム. 全著作権所有.',
+    footer: '© 2026 echoshorts.win. 全著作権所有.',
     contact: 'お問い合わせ'
   },
   'ko-KR': {
@@ -145,7 +145,7 @@ const t = {
     privacy3Desc4: '백업을 하지 않으면 이전 주문, 재무 및 고객 정보가 영구적으로 손실될 수 있습니다.',
     privacy4Title: '면책 조항',
     privacy4Desc: '개발자는 하드웨어 손상, 바이러스, 랜섬웨어, 직원의 부당 행위, 비밀번호 분실 또는 지시된 정기 백업을 수행하지 않음으로 인한 데이터 손실에 대해 어떠한 법적 및 재정적 책임도 지지 않습니다.',
-    footer: '© 2026 호텔 관리 시스템. 판권 소유.',
+    footer: '© 2026 echoshorts.win. 판권 소유.',
     contact: '문의하기'
   },
   'pt-BR': {
@@ -171,7 +171,7 @@ const t = {
     privacy3Desc4: 'A falha em fazer backup resultará na perda permanente de pedidos históricos, finanças e informações de clientes.',
     privacy4Title: 'Isenção de Responsabilidade',
     privacy4Desc: 'O desenvolvedor não assume responsabilidade legal ou financeira por perda de dados devido a danos de hardware, vírus, ransomware, má conduta de funcionários ou falha em realizar backups regulares.',
-    footer: '© 2026 Sistema de Gestão Hoteleira. Todos os direitos reservados.',
+    footer: '© 2026 echoshorts.win. Todos os direitos reservados.',
     contact: 'Contate-nos'
   },
   'ru-RU': {
@@ -197,7 +197,7 @@ const t = {
     privacy3Desc4: 'Отсутствие резервной копии приведет к безвозвратной потере исторических заказов, финансов и информации о клиентах.',
     privacy4Title: 'Отказ от Ответственности',
     privacy4Desc: 'Разработчик не несет юридической или финансовой ответственности за потерю данных из-за повреждения оборудования, вирусов, программ-вымогателей или отсутствия регулярного резервного копирования.',
-    footer: '© 2026 Система Управления Отелем. Все права защищены.',
+    footer: '© 2026 echoshorts.win. Все права защищены.',
     contact: 'Связаться с нами'
   },
   'es-ES': {
@@ -223,7 +223,7 @@ const t = {
     privacy3Desc4: 'La falta de copia de seguridad puede causar pérdida de datos permanentemente.',
     privacy4Title: 'Descargo de Responsabilidad',
     privacy4Desc: 'El desarrollador no se hace responsable de las pérdidas de información en caso de fallo del hardware, ransomware o falta de una copia de seguridad regular.',
-    footer: '© 2026 Sistema de Gestión Hotelera. Todos los derechos reservados.',
+    footer: '© 2026 echoshorts.win. Todos los derechos reservados.',
     contact: 'Contáctenos'
   },
   'fr-FR': {
@@ -249,7 +249,7 @@ const t = {
     privacy3Desc4: 'Ne pas faire de sauvegarde entraînera une perte permanente des dossiers ou autres informations des clients.',
     privacy4Title: 'Avertissement',
     privacy4Desc: 'Le développeur décline toute responsabilité pour toute perte de données due à des pannes, virus, rançongiciels, ou le non-respect des sauvegardes régulières.',
-    footer: '© 2026 Système de Gestion Hôtelière. Tous droits réservés.',
+    footer: '© 2026 echoshorts.win. Tous droits réservés.',
     contact: 'Nous Contacter'
   },
   'de-DE': {
@@ -275,7 +275,7 @@ const t = {
     privacy3Desc4: 'Verpasste Sicherung kann zum Datenverlust der Bestellhistorie, Finanzen und Kundeninformationen führen.',
     privacy4Title: 'Haftungsausschluss',
     privacy4Desc: 'Der Entwickler haftet rechtlich oder finanziell nicht für Datenverlust durch Hardwarefehler, Viren, Ransomware, oder bei fehlender regelmäßiger Sicherung.',
-    footer: '© 2026 Hotel Management System. Alle Rechte vorbehalten.',
+    footer: '© 2026 echoshorts.win. Alle Rechte vorbehalten.',
     contact: 'Kontaktiere Uns'
   },
   'id-ID': {
@@ -301,7 +301,7 @@ const t = {
     privacy3Desc4: 'Kegagalan mencadangkan mengakibatkan kehilangan informasi pelanggan dan log keuangan secara permanen.',
     privacy4Title: 'Penafian',
     privacy4Desc: 'Pengembang tidak menanggung tanggung jawab hukum maupun keuangan untuk kerusakan perangkat keras, virus, ransomware, atau kegagalan untuk melakukan cadangan rutin.',
-    footer: '© 2026 Sistem Manajemen Hotel. Hak Cipta Dilindungi Undang-undang.',
+    footer: '© 2026 echoshorts.win. Hak Cipta Dilindungi Undang-undang.',
     contact: 'Hubungi Kami'
   },
   'vi-VN': {
@@ -327,7 +327,7 @@ const t = {
     privacy3Desc4: 'Việc không sao lưu khiến mất vĩnh viễn các lịch sử tài chính, đơn hàng.',
     privacy4Title: 'Tuyên bố Khước từ',
     privacy4Desc: 'Nhà phát triển từ chối quyền pháp lý/tài chính cho tổn thất dữ liệu do hỏng phần cứng, phần mềm độc hại, vi rút, hoặc không thực hiện sao lưu định kỳ.',
-    footer: '© 2026 Hệ thống Quản lý Khách sạn. Mọi quyền được bảo lưu.',
+    footer: '© 2026 echoshorts.win. Mọi quyền được bảo lưu.',
     contact: 'Liên hệ Chúng tôi'
   },
   'th-TH': {
@@ -353,7 +353,7 @@ const t = {
     privacy3Desc4: 'ในกรณีที่ไม่สำรองข้อมูล ข้อมูลรายการทางการเงินและลูกค้าอาจสูญหาย',
     privacy4Title: 'ข้อสงวนสิทธิ์',
     privacy4Desc: 'ผลเสียหายสำหรับข้อผิดพลาดของข้อมูลอันเนื่องมาจากปัญหาด้านฮาร์ดแวร์ ไวรัส ซอฟต์แวร์ประสงค์ร้าย หรือการละเว้นสำรองข้อมูล ผู้พัฒนาจะไม่รับผิดในกรณีข้างต้น',
-    footer: '© 2026 ระบบการจัดการโรงแรม สงวนลิขสิทธิ์ทั้งหมด',
+    footer: '© 2026 echoshorts.win สงวนลิขสิทธิ์ทั้งหมด',
     contact: 'ติดต่อเรา'
   }
 };
