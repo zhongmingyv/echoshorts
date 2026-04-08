@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+  <meta charset="UTF-8">
+  <title>당구장 관리 시스템</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f0f0f; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+    main { flex: 1; max-width: 900px; margin: 0 auto; padding: 60px 40px 40px; width: 100%; }
+    .intro { margin-bottom: 48px; }
+    .intro .logo { font-size: 13px; font-weight: 700; color: #4ade80; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
+    .intro h1 { font-size: 38px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 16px; }
+    .intro h1 span { color: #4ade80; }
+    .intro p { font-size: 15px; color: #999; line-height: 1.7; max-width: 580px; }
+
+    .features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 40px; }
+    .card { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; padding: 22px; }
+    .card .icon { font-size: 22px; margin-bottom: 10px; }
+    .card h3 { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+    .card p { font-size: 13px; color: #777; line-height: 1.6; }
+
+    .hint { background: #3a1a1a; border: 1px solid #5a2a2a; border-radius: 10px; padding: 16px 20px; display: flex; align-items: flex-start; gap: 14px; margin-bottom: 48px; }
+    .hint h4 { font-size: 14px; color: #ff6b6b; margin-bottom: 4px; }
+    .hint p { font-size: 13px; color: #ccc;line-height:1.6; }
+
+    .privacy { background: #141414; border: 1px solid #222; border-radius: 14px; padding: 32px 36px; margin-bottom: 40px; }
+    .privacy h2 { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid #222; }
+    .section { margin-bottom: 22px; }
+    .section:last-child { margin-bottom: 0; }
+    .section h3 { font-size: 12px; font-weight: 600; color: #4ade80; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 7px; }
+    .section p { font-size: 13px; color: #888; line-height: 1.75; }
+    .section p { margin-top: 6px; }
+    .section ul { padding-left: 20px; margin-top: 6px; font-size: 13px; color: #888; line-height: 1.75;}
+    .section li { margin-bottom: 4px; }
+
+    footer { text-align: center; padding: 20px 40px; border-top: 1px solid #1a1a1a; display: flex; justify-content: center; align-items: center; gap: 28px; }
+    footer span { font-size: 12px; color: #444; }
+    footer a { font-size: 12px; color: #666; text-decoration: none; }
+    footer a:hover { color: #4ade80; }
+    
+    .lang-switcher { width: 100%; max-width: 900px; margin: 0 auto; padding: 20px 40px 0; display: flex; justify-content: flex-end; }
+    .lang-switcher select { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px; color: #e0e0e0; font-size: 12px; padding: 5px 8px; cursor: pointer; outline: none; }
+    .lang-switcher select:hover { border-color: #4ade80; }
+
+    @media (max-width: 600px) {
+      .features { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="lang-switcher">
+    <select onchange="location.href=this.value">
+      <option value="billiard.html">English</option>
+      <option value="billiard-zh-CN.html">简体中文</option>
+      <option value="billiard-zh-TW.html">繁體中文</option>
+      <option value="billiard-de-DE.html">Deutsch</option>
+      <option value="billiard-es-ES.html">Español</option>
+      <option value="billiard-fr-FR.html">Français</option>
+      <option value="billiard-id-ID.html">Bahasa Indonesia</option>
+      <option value="billiard-ja-JP.html">日本語</option>
+      <option value="billiard-ko-KR.html" selected>한국어</option>
+      <option value="billiard-pt-BR.html">Português</option>
+      <option value="billiard-ru-RU.html">Русский</option>
+      <option value="billiard-th-TH.html">ภาษาไทย</option>
+      <option value="billiard-vi-VN.html">Tiếng Việt</option>
+    </select>
+  </div>
+
+  <main>
+    <div class="intro">
+      <div class="logo">당구장 관리 시스템</div>
+      <h1>로컬<br><span>당구장 관리 시스템</span></h1>
+      <p>당구장 지점을 위해 설계되었으며 테이블 관리, 기기 제어, 인력 관리, 재무 관리 및 회원 서비스를 위한 원스톱 로컬 솔루션을 제공합니다.</p>
+    </div>
+
+    <h2 style="font-size: 15px; margin-bottom:20px;border-bottom: 1px solid #222;padding-bottom:14px;">기본 계정 및 권한</h2>
+    <div class="features">
+      <div class="card">
+        <h3>admin (비밀번호: admin123)</h3>
+        <p>최고 관리자. 최고 권한(메뉴, 부서, 권한, 시스템 설정).</p>
+      </div>
+      <div class="card">
+        <h3>boss (비밀번호: boss123)</h3>
+        <p>당구장 사장. 모든 비즈니스 데이터, 재무 및 직원 관리에 대한 전체 액세스.</p>
+      </div>
+      <div class="card">
+        <h3>manager (비밀번호: manager123)</h3>
+        <p>매니저. 모든 운영 권한. 자신의 부서 내 사용자를 관리할 수 있습니다.</p>
+      </div>
+      <div class="card">
+        <h3>reception (비밀번호: reception123)</h3>
+        <p>카운터. 테이블 체크인, 회원 예약, 충전 및 결제를 처리합니다.</p>
+      </div>
+      <div class="card">
+        <h3>waiter (비밀번호: waiter123)</h3>
+        <p>접객 직원. 사용 중인 테이블, 고객 주문 및 보조 서비스를 관리합니다.</p>
+      </div>
+      <div class="card">
+        <h3>kitchen (비밀번호: kitchen123)</h3>
+        <p>주방 직원. 주방 준비 목록 및 주문 처리 상태에 액세스합니다.</p>
+      </div>
+    </div>
+
+    <div class="hint">
+      <div>
+        <h4>⚠️ 첫 로그인 시 중요 공지</h4>
+        <p>admin 첫 로그인 후 즉시 모든 기본 계정의 비밀번호를 변경하고 admin 비밀번호를 안전하게 기억하세요!</p>
+      </div>
+    </div>
+
+    <div class="privacy">
+      <h2>개인정보 보호정책 및 면책 조항</h2>
+      <div class="section">
+        <h3>로컬 실행 및 인터넷 불필요</h3>
+        <p>이 소프트웨어는 완전히 로컬에서 실행됩니다. 귀하의 비즈니스 데이터(고객 정보, 테이블 주문, 재무)를 절대로 수집, 업로드 또는 공유하지 않습니다. 귀하의 데이터는 100% 로컬 하드 드라이브에 저장됩니다.</p>
+      </div>
+      <div class="section">
+        <h3>데이터 보안 및 사용자 책임</h3>
+        <p>클라우드 동기화는 제공되지 않습니다. 귀하는 데이터의 보안, 무결성 및 정확성에 대한 전적인 책임이 있습니다. 권한 없는 접근을 방지하기 위해 직원 권한을 합리적으로 할당하십시오.</p>
+      </div>
+      <div class="section">
+        <h3>데이터 백업 (중요)</h3>
+        <ul>
+          <li>정기 백업: 자주 "데이터베이스 관리" 페이지로 이동하여 데이터를 백업하십시오.</li>
+          <li>다중 백업: 백업을 외부 USB 드라이브나 클라우드 스토리지에 저장하는 것을 강력히 권장합니다.</li>
+          <li><strong style="color: #ff6b6b">시스템 변경 전: OS 재설치, 컴퓨터 마이그레이션 또는 이 소프트웨어의 제거를 수행하기 전에 반드시 데이터를 백업하고 내보내야 합니다.</strong></li>
+          <li>백업을 하지 않으면 이전 주문, 재무 및 고객 정보가 영구적으로 손실될 수 있습니다.</li>
+        </ul>
+      </div>
+      <div class="section">
+        <h3>면책 조항</h3>
+        <p>개발자는 하드웨어 손상, 바이러스, 랜섬웨어, 직원의 부당 행위, 비밀번호 분실 또는 지시된 정기 백업을 수행하지 않음으로 인한 데이터 손실에 대해 어떠한 법적 및 재정적 책임도 지지 않습니다.</p>
+      </div>
+    </div>
+  </main>
+  <footer style="flex-direction: column;">
+    <span>© 2026 echoshorts.win. 판권 소유.</span>
+    <a href="mailto:mingyvzhong@gmail.com" style="margin-top: 8px;">
+      For privacy-related inquiries, please email mingyvzhong@gmail.com
+    </a>
+  </footer>
+</body>
+</html>
