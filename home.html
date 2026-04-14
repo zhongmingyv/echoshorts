@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>EchoShorts</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EchoShortsPlayer - AI Video Subtitle Translation</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -17,46 +18,93 @@
 
     main {
       flex: 1;
-      max-width: 860px;
+      max-width: 900px;
       margin: 0 auto;
-      padding: 60px 40px 40px;
+      padding: 40px 40px 40px;
       width: 100%;
     }
 
-    .intro { margin-bottom: 48px; }
-    .intro .logo { font-size: 13px; font-weight: 700; color: #4ade80; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
-    .intro h1 { font-size: 38px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 16px; }
-    .intro h1 span { color: #4ade80; }
-    .intro p { font-size: 15px; color: #999; line-height: 1.7; max-width: 580px; }
+    a { color: #4ade80; text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
-    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
+    /* --- Language Switcher --- */
+    .lang-switcher { width: 100%; max-width: 900px; margin: 0 auto; padding: 20px 40px 0; display: flex; justify-content: flex-end; }
+    .lang-switcher select { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px; color: #e0e0e0; font-size: 12px; padding: 5px 8px; cursor: pointer; outline: none; }
+    .lang-switcher select:hover { border-color: #4ade80; }
+
+    /* --- Hero --- */
+    .hero { margin-bottom: 56px; }
+    .hero .logo { font-size: 13px; font-weight: 700; color: #4ade80; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
+    .hero h1 { font-size: 36px; font-weight: 700; color: #fff; line-height: 1.25; margin-bottom: 16px; }
+    .hero h1 span { color: #4ade80; }
+    .hero p { font-size: 15px; color: #999; line-height: 1.7; max-width: 640px; }
+
+    /* --- Section Title --- */
+    .section-title { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #222; }
+    .section-title .num { color: #4ade80; margin-right: 8px; }
+
+    /* --- Feature Cards --- */
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 56px; }
     .card { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; padding: 22px; }
-    .card .icon { font-size: 22px; margin-bottom: 10px; }
-    .card h3 { font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 6px; }
-    .card p { font-size: 12px; color: #777; line-height: 1.6; }
+    .card .icon { font-size: 24px; margin-bottom: 10px; }
+    .card h3 { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 8px; }
+    .card p { font-size: 12.5px; color: #777; line-height: 1.65; }
+    .card ul { font-size: 12.5px; color: #777; line-height: 1.65; margin-top: 6px; padding-left: 16px; }
+    .card ul li { margin-bottom: 3px; }
 
-    .hint { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 10px; padding: 16px 20px; display: flex; align-items: center; gap: 14px; margin-bottom: 48px; }
-    .hint .key { background: #2a2a2a; border: 1px solid #3a3a3a; border-radius: 5px; padding: 3px 9px; font-size: 12px; font-family: monospace; color: #4ade80; white-space: nowrap; }
-    .hint p { font-size: 13px; color: #888; }
+    /* --- Usage Methods --- */
+    .method { background: #141414; border: 1px solid #222; border-radius: 14px; padding: 28px 32px; margin-bottom: 24px; }
+    .method h3 { font-size: 17px; font-weight: 600; color: #fff; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+    .method h3 .tag { font-size: 11px; font-weight: 600; color: #0f0f0f; background: #4ade80; border-radius: 4px; padding: 2px 8px; }
+    .method .subtitle { font-size: 13px; color: #4ade80; margin-bottom: 14px; }
+    .method p { font-size: 13px; color: #999; line-height: 1.75; margin-bottom: 10px; }
+    .method ol, .method ul { font-size: 13px; color: #999; line-height: 1.75; padding-left: 20px; margin-bottom: 12px; }
+    .method ol li, .method ul li { margin-bottom: 6px; }
+    .method .advantages { background: #1a2a1a; border: 1px solid #2a3a2a; border-radius: 8px; padding: 14px 18px; margin-top: 14px; }
+    .method .advantages h4 { font-size: 12px; font-weight: 600; color: #4ade80; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .method .advantages ul { margin-bottom: 0; padding-left: 16px; }
+    .method .advantages ul li { font-size: 12.5px; color: #8c8; }
 
+    pre { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 14px 18px; overflow-x: auto; margin: 10px 0; font-size: 12.5px; line-height: 1.6; color: #ccc; font-family: 'SF Mono', 'Fira Code', Consolas, monospace; }
+    code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 12.5px; color: #4ade80; background: #1a2a1a; padding: 1px 5px; border-radius: 3px; }
+
+    .btn-row { display: flex; gap: 10px; margin: 14px 0; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: 9px 20px; border-radius: 8px; font-size: 13px; font-weight: 600;
+      cursor: pointer; text-decoration: none !important; transition: opacity .15s;
+    }
+    .btn:hover { opacity: 0.85; }
+    .btn-green { background: #4ade80; color: #0f0f0f; }
+    .btn-outline { background: transparent; border: 1px solid #4ade80; color: #4ade80; }
+
+    /* --- Privacy --- */
     .privacy { background: #141414; border: 1px solid #222; border-radius: 14px; padding: 32px 36px; margin-bottom: 40px; }
-    .privacy h2 { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid #222; }
-    .section { margin-bottom: 22px; }
-    .section:last-child { margin-bottom: 0; }
-    .section h3 { font-size: 11px; font-weight: 600; color: #4ade80; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 7px; }
-    .section p { font-size: 13px; color: #888; line-height: 1.75; }
-    .section p + p { margin-top: 6px; }
+    .privacy h2 { font-size: 18px; font-weight: 600; color: #fff; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid #222; }
+    .priv-section { margin-bottom: 22px; }
+    .priv-section:last-child { margin-bottom: 0; }
+    .priv-section h3 { font-size: 11px; font-weight: 600; color: #4ade80; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 7px; }
+    .priv-section p { font-size: 13px; color: #888; line-height: 1.75; }
+    .priv-section p + p { margin-top: 6px; }
 
+    /* --- Footer --- */
     footer { text-align: center; padding: 20px 40px; border-top: 1px solid #1a1a1a; display: flex; justify-content: center; align-items: center; gap: 28px; }
     footer span { font-size: 12px; color: #444; }
     footer a { font-size: 12px; color: #666; text-decoration: none; }
     footer a:hover { color: #4ade80; }
-    .lang-switcher select { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px; color: #e0e0e0; font-size: 12px; padding: 5px 8px; cursor: pointer; outline: none; }
-    .lang-switcher select:hover { border-color: #4ade80; }
-    .lang-switcher { width: 100%; max-width: 860px; margin: 0 auto; padding: 20px 40px 0; display: flex; justify-content: flex-end; }
+
+    @media (max-width: 700px) {
+      main { padding: 24px 18px; }
+      .hero h1 { font-size: 26px; }
+      .features { grid-template-columns: 1fr; }
+      .method { padding: 20px; }
+      .privacy { padding: 20px; }
+      .lang-switcher { padding: 14px 18px 0; }
+      footer { flex-direction: column; gap: 8px; }
+    }
   </style>
 </head>
 <body>
+
   <div class="lang-switcher">
     <select onchange="location.href=this.value">
       <option value="home.html" selected>English</option>
@@ -78,76 +126,218 @@
   </div>
 
   <main>
-    <div class="intro">
-      <div class="logo">EchoShorts</div>
-      <h1>Video Subtitles, <span>Instant Translation</span><br>Fully Offline, Privacy First</h1>
-      <p>EchoShorts performs all speech recognition and translation locally on your device — no internet required, no account needed, your data never leaves your computer. Enter a URL in the address bar above to start browsing.</p>
+
+    <!-- ============ HERO ============ -->
+    <div class="hero">
+      <div class="logo">EchoShortsPlayer</div>
+      <h1>AI Video Translation &amp; Subtitles<br><span>Stream, Translate, Download &mdash; All Offline</span></h1>
+      <p>EchoShortsPlayer translates online videos in real-time while you watch &mdash; subtitles appear as the video plays, no waiting. Download publicly accessible videos for offline viewing. All speech recognition and translation run 100% locally on your device: no internet needed, no accounts, no data leaves your computer. Supports 99+ languages, m3u8 streams and MP4 files.</p>
     </div>
 
+    <!-- ============ FEATURES ============ -->
+    <h2 class="section-title"><span class="num">#1</span> Features</h2>
     <div class="features">
       <div class="card">
-        <div class="icon">🎙️</div>
-        <h3>Whisper Speech Recognition</h3>
-        <p>Powered by OpenAI Whisper, supports transcription in 99 languages, runs locally, no API required.</p>
+        <div class="icon">&#127908;</div>
+        <h3>Speech Recognition</h3>
+        <p>Powered by OpenAI Whisper. Supports 99 languages with automatic language detection. Multiple model sizes from tiny (fast) to large-v3 (highest accuracy).</p>
       </div>
       <div class="card">
-        <div class="icon">🔍</div>
-        <h3>OCR Subtitle Recognition</h3>
-        <p>Uses PaddleOCR to recognize hard-coded subtitles in video frames, supporting Chinese, English, Japanese, Korean and more.</p>
+        <div class="icon">&#127760;</div>
+        <h3>AI Translation</h3>
+        <p>Multiple translation engines:</p>
+        <ul>
+          <li>Opus-MT &mdash; fast, 9 languages</li>
+          <li>NLLB &mdash; 32+ languages, any-to-any</li>
+          <li>Qwen &mdash; best quality, CJK-optimized</li>
+        </ul>
       </div>
       <div class="card">
-        <div class="icon">🌐</div>
-        <h3>Offline Translation Engine</h3>
-        <p>Based on Helsinki-NLP OPUS-MT, supports multilingual translation, fully offline, no data uploaded.</p>
+        <div class="icon">&#128246;</div>
+        <h3>Media Detection</h3>
+        <p>Automatically detects m3u8/HLS streams and MP4 video links on any webpage. Download or translate with one click via browser extension or userscript.</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#9889;</div>
+        <h3>Real-time Subtitles</h3>
+        <p>Stream translation mode: subtitles appear in real-time as you watch. No need to wait for the full video to download first.</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#128274;</div>
+        <h3>100% Offline &amp; Private</h3>
+        <p>All processing happens locally. No data is sent to external servers. No accounts, no tracking, no ads. Your content stays on your device.</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#128204;</div>
+        <h3>Flexible Output</h3>
+        <p>Generates standard SRT subtitle files. Supports audio denoising (AI vocal isolation), batch processing, and GPU acceleration via CUDA.</p>
       </div>
     </div>
 
-    <div class="hint">
-      <span class="key">Alt + S</span>
-      <p>Press the shortcut on any video page to toggle the subtitle panel. You can also click the <strong style="color:#4a9eff">Sub</strong> button in the toolbar.</p>
+    <!-- ============ USAGE METHODS ============ -->
+    <h2 class="section-title"><span class="num">#2</span> How to Use</h2>
+
+    <!-- Method A: Tampermonkey -->
+    <div class="method" id="tampermonkey">
+      <h3>&#129668; Tampermonkey Userscript <span class="tag">Easiest</span></h3>
+      <div class="subtitle">Zero-install media detection for any browser</div>
+
+      <p>The Tampermonkey userscript injects a floating panel into every webpage that automatically detects m3u8 streams and MP4 video links. Detected media appears in a list with <strong>Download</strong> and <strong>Translate</strong> buttons.</p>
+
+      <p><strong>Step 1:</strong> Install the Tampermonkey browser extension:</p>
+      <div class="btn-row">
+        <a class="btn btn-outline" href="https://www.tampermonkey.net/" target="_blank">Tampermonkey Official Site</a>
+        <a class="btn btn-outline" href="https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo" target="_blank">Chrome Web Store</a>
+      </div>
+
+      <p><strong>Step 2:</strong> Install the EchoShortsPlayer userscript:</p>
+      <div class="btn-row">
+        <a class="btn btn-green" href="echoshorts-media-grabber.user.js">Install Userscript</a>
+      </div>
+
+      <p><strong>Step 3:</strong> Make sure EchoShortsPlayer desktop app is running (the userscript sends detected URLs to the local backend at <code>localhost:18632</code>).</p>
+
+      <p><strong>Step 4:</strong> Visit any video page. The floating panel (bottom-right corner) will auto-detect media. Click <strong>Download</strong> or <strong>Translate</strong>.</p>
+
+      <div class="advantages">
+        <h4>Why use the userscript?</h4>
+        <ul>
+          <li>Works in any browser that supports Tampermonkey (Chrome, Firefox, Edge, Safari, Opera)</li>
+          <li>No Chrome extension installation required &mdash; great when extensions are restricted</li>
+          <li>Lightweight: single file, easy to inspect and modify</li>
+          <li>Auto-updates via Tampermonkey's built-in update mechanism</li>
+          <li>Detects both m3u8/HLS streams and direct MP4 links on pages</li>
+        </ul>
+      </div>
     </div>
 
+    <!-- Method B: Chrome Extension -->
+    <div class="method" id="extension">
+      <h3>&#128268; Chrome Extension <span class="tag">Recommended</span></h3>
+      <div class="subtitle">Deep network-level media interception</div>
+
+      <p>The Chrome extension uses the <code>webRequest</code> API to intercept all network requests at the browser level, detecting m3u8/HLS streams, MP4 files, and other media formats. It also scans the page DOM for video elements and download links.</p>
+
+      <div class="btn-row">
+        <a class="btn btn-green" href="m3u8-extension.zip" download>Download Extension (.zip)</a>
+      </div>
+
+      <p><strong>Installation (developer mode):</strong></p>
+      <ol>
+        <li>Download the extension zip above and extract it to a folder.</li>
+        <li>Open Chrome and navigate to <code>chrome://extensions/</code>.</li>
+        <li>Enable <strong>Developer mode</strong> (top-right toggle).</li>
+        <li>Click <strong>Load unpacked</strong> and select the <code>m3u8-extension</code> folder.</li>
+        <li>The extension icon appears in the toolbar with a badge showing detected media count.</li>
+      </ol>
+
+      <p><strong>Usage:</strong></p>
+      <ol>
+        <li>Browse to any page with video content.</li>
+        <li>Click the extension icon to see detected m3u8/MP4 streams.</li>
+        <li>Click <strong>Download</strong> to save to local MP4, or <strong>Translate</strong> to start subtitle generation.</li>
+        <li>Hover over items to highlight the corresponding video element on the page.</li>
+      </ol>
+
+      <div class="advantages">
+        <h4>Why use the extension?</h4>
+        <ul>
+          <li>Intercepts network requests at the browser level &mdash; catches streams that DOM scanning misses</li>
+          <li>Automatic quality selection: groups variants by video ID and picks the best quality</li>
+          <li>Referer header injection for playing streams that require authentication</li>
+          <li>Badge counter shows detected media count per tab at a glance</li>
+          <li>Deeper detection than userscripts: hooks into <code>fetch</code>, <code>XHR</code>, <code>MediaSource</code>, and response body scanning</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Method C: CLI -->
+    <div class="method" id="cli">
+      <h3>&#128187; Command-Line Interface <span class="tag">Power Users</span></h3>
+      <div class="subtitle">Automation, batch processing, and scripting</div>
+
+      <p>The CLI provides direct access to all download and translation features from the terminal. It's designed for power users who need to process multiple videos, automate workflows, or integrate with other tools.</p>
+
+      <p><strong>Available commands:</strong></p>
+      <pre>
+# Translate a local video file to Chinese subtitles
+EchoShortsPlayer.exe --cli translate video.mp4 --target zh
+
+# Batch translate an entire folder
+EchoShortsPlayer.exe --cli translate C:\Videos\
+
+# Download a remote m3u8 or MP4
+EchoShortsPlayer.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
+
+# Download and translate in one step
+EchoShortsPlayer.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/"
+
+# Translate an existing SRT file
+EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
+
+      <div class="advantages">
+        <h4>Why use the CLI?</h4>
+        <ul>
+          <li>Batch processing: translate hundreds of videos with a single command</li>
+          <li>Scriptable: integrate into shell scripts, cron jobs, or CI/CD pipelines</li>
+          <li>Full control over models: choose Whisper model size, translation engine, denoising mode</li>
+          <li>No GUI overhead: ideal for servers, headless machines, or remote SSH sessions</li>
+          <li>Supports both serial (memory-efficient) and parallel (fast) processing modes</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ============ PRIVACY & DISCLAIMER ============ -->
+    <h2 class="section-title"><span class="num">#3</span> Privacy Policy &amp; Disclaimer</h2>
     <div class="privacy">
-      <h2>Privacy Policy &amp; Disclaimer</h2>
 
-      <div class="section">
+      <div class="priv-section">
         <h3>Local Data Processing</h3>
-        <p>All core features of EchoShorts — including speech recognition, OCR text recognition, and language translation — run on your local device, powered by a local server (127.0.0.1:8765).</p>
+        <p>All core features of EchoShortsPlayer &mdash; including speech recognition, translation, and media downloading &mdash; run entirely on your local device, powered by a local backend server (127.0.0.1:18632).</p>
         <p>We do not collect, store, transmit, or analyze any user data, including but not limited to: video content you watch, recognized subtitle text, translation results, browsing history, or any personal information.</p>
       </div>
 
-      <div class="section">
+      <div class="priv-section">
         <h3>No Network Data Transmission</h3>
-        <p>This application does not send any data to external servers during normal use. All audio processing, image recognition, and text translation are completed locally. AI models are downloaded from public sources on first use and can run offline thereafter.</p>
+        <p>This application does not send any user data to external servers during normal use. All audio processing and text translation are completed locally. AI models are downloaded from public sources (HuggingFace) on first use and can run fully offline thereafter.</p>
+        <p>The browser extension and userscript communicate only with the local backend at <code>localhost:18632</code>. No data is transmitted to any remote server operated by the developers.</p>
       </div>
 
-      <div class="section">
+      <div class="priv-section">
         <h3>No Ads, No Tracking, No Recommendations</h3>
-        <p>This application contains no advertising systems, user behavior tracking code, or data recommendation mechanisms. We do not share user data with any third parties, nor do we create profiles or push content based on user behavior.</p>
+        <p>This application contains no advertising systems, user behavior tracking code, analytics, or data recommendation mechanisms. We do not share user data with any third parties, nor do we create profiles or push content based on user behavior.</p>
       </div>
 
-      <div class="section">
+      <div class="priv-section">
+        <h3>Open Source &amp; Transparent</h3>
+        <p>The application's source code, including the Chrome extension, Tampermonkey userscript, and backend pipeline, is fully available for inspection. Users are encouraged to review the code to verify the privacy and security claims made in this policy.</p>
+      </div>
+
+      <div class="priv-section">
         <h3>Safe Harbor &amp; User Responsibility</h3>
-        <p>EchoShorts is a general-purpose technical tool designed solely to help users understand video content. Under the Safe Harbor Doctrine, the developers and publishers of this application bear no copyright infringement or other legal liability for any content accessed, translated, or processed by users.</p>
+        <p>EchoShortsPlayer is a general-purpose technical tool designed solely to help users understand video content. Under the Safe Harbor Doctrine, the developers and publishers of this application bear no copyright infringement or other legal liability for any content accessed, translated, or processed by users.</p>
         <p>Users must ensure their use complies with local laws and regulations, as well as the terms of service of the platforms they access. All legal liability arising from accessing copyrighted content, violating platform rules, or engaging in any illegal activity using this application rests solely with the user.</p>
         <p>This application makes no judgment or guarantee regarding the legality of content accessed by users, nor does it accept responsibility for any direct or indirect losses arising from its use.</p>
       </div>
 
-      <div class="section">
+      <div class="priv-section">
         <h3>Intended Use</h3>
-        <p>This application is defined as an assistive tool intended solely for personal local use by individuals with hearing impairments or language learners. Any other use is not permitted.</p>
-      </div>
-      <div class="section">
-        <h3>Technical Limitations</h3>
-        <p>This application uses real-time audio stream recognition technology and only supports analysis of publicly accessible video content not protected by Digital Rights Management (DRM). Due to restrictions imposed by copyright protection protocols (such as Widevine, PlayReady, etc.), audio streams from DRM-protected HD content or restricted platform videos may not be extractable, preventing real-time subtitle generation. If you encounter subtitle generation issues while playing standard-format videos, please send us the video URL by email and we will continuously improve the compatibility of our recognition engine.</p>
-      </div>
-      <div class="section">
-        <h3>Disclaimer</h3>
-        <p>This application is provided "as is" without any express or implied warranties. The developer does not guarantee that this application will function correctly in all environments, nor accepts responsibility for any losses, data loss, or device issues caused by its use. Using this application constitutes acceptance of all the above terms.</p>
-        <p>Subtitles and translations provided by this application are generated automatically by machine and are for reference only. The developer makes no warranties regarding the accuracy, completeness, or suitability of machine-translated content, and accepts no responsibility for any consequences arising from reliance on such translations.</p>
+        <p>This application is designed as an assistive tool intended for personal local use by individuals with hearing impairments, language learners, or those who need to understand video content in foreign languages. Any other use is the sole responsibility of the user.</p>
       </div>
 
-      <div class="section">
+      <div class="priv-section">
+        <h3>Technical Limitations</h3>
+        <p>This application supports analysis of publicly accessible video content not protected by Digital Rights Management (DRM). Due to restrictions imposed by copyright protection protocols (such as Widevine, PlayReady, etc.), audio streams from DRM-protected content may not be extractable, preventing subtitle generation.</p>
+        <p>For MP4 files that are not "fast-start" encoded (moov atom at end of file), the application requires a full download before translation can begin. Fast-start MP4 files support streaming translation while downloading.</p>
+      </div>
+
+      <div class="priv-section">
+        <h3>Disclaimer</h3>
+        <p>This application is provided "as is" without any express or implied warranties. The developer does not guarantee that this application will function correctly in all environments, nor accepts responsibility for any losses, data loss, or device issues caused by its use. Using this application constitutes acceptance of all the above terms.</p>
+        <p>Subtitles and translations are generated automatically by machine and are for reference only. The developer makes no warranties regarding the accuracy, completeness, or suitability of machine-translated content, and accepts no responsibility for any consequences arising from reliance on such translations.</p>
+      </div>
+
+      <div class="priv-section">
         <h3>Policy Updates</h3>
         <p>This privacy policy may be updated with new versions. Significant changes will be communicated through the application's update log. Continued use of this application constitutes acceptance of the latest version of the privacy policy.</p>
       </div>
@@ -155,13 +345,9 @@
   </main>
 
   <footer>
-    <span>© 2025 EchoShorts. All rights reserved.</span>
+    <span>&copy; 2025 EchoShortsPlayer. All rights reserved.</span>
     <a href="mailto:supports@echoshorts.win">Contact Us</a>
   </footer>
 
-  
-  </div>
-
-  
 </body>
 </html>
