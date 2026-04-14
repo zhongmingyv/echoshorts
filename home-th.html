@@ -65,7 +65,7 @@
     .method .advantages ul { margin-bottom: 0; padding-left: 16px; }
     .method .advantages ul li { font-size: 12.5px; color: #8c8; }
 
-    pre { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 14px 18px; overflow-x: auto; margin: 10px 0; font-size: 12.5px; line-height: 1.6; color: #ccc; font-family: 'SF Mono', 'Fira Code', Consolas, monospace; }
+    pre { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 14px 18px; overflow-x: auto; margin: 10px 0; font-size: 12.5px; line-height: 1.6; color: #ccc; font-family: 'SF Mono', 'Fira Code', Consolas, monospace; max-width: 100%; white-space: pre-wrap; word-break: break-word; }
     code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 12.5px; color: #4ade80; background: #1a2a1a; padding: 1px 5px; border-radius: 3px; }
 
     .btn-row { display: flex; gap: 10px; margin: 14px 0; flex-wrap: wrap; }
@@ -160,7 +160,7 @@
       <div class="card">
         <div class="icon">&#9889;</div>
         <h3>คำบรรยายแบบเรียลไทม์</h3>
-        <p>โหมดแปลสตรีม: คำบรรยายปรากฏแบบเรียลไทม์ขณะที่คุณดู ไม่ต้องรอให้ดาวน์โหลดวิดีโอทั้งหมดก่อน</p>
+        <p>โหมดแปลสตรีม: คำบรรยายปรากฏแบบเรียลไทม์ขณะที่คุณดู ไม่ต้องรอให้ดาวน์โหลดวิดีโอทั้งหมดก่อน ไฟล์คำบรรยาย SRT ถูกบันทึกไว้ในเครื่องเพื่อใช้งานในอนาคต</p>
       </div>
       <div class="card">
         <div class="icon">&#128274;</div>
@@ -168,14 +168,29 @@
         <p>การประมวลผลทั้งหมดเกิดขึ้นในเครื่อง ไม่มีข้อมูลถูกส่งไปยังเซิร์ฟเวอร์ภายนอก ไม่มีบัญชี ไม่มีการติดตาม ไม่มีโฆษณา เนื้อหาของคุณอยู่บนอุปกรณ์ของคุณ</p>
       </div>
       <div class="card">
-        <div class="icon">&#128204;</div>
-        <h3>เอาต์พุตยืดหยุ่น</h3>
-        <p>สร้างไฟล์คำบรรยาย SRT มาตรฐาน รองรับการลดเสียงรบกวน (AI แยกเสียงร้อง), การประมวลผลแบบแบตช์ และการเร่งความเร็ว GPU ผ่าน CUDA</p>
+        <div class="icon">&#128187;</div>
+        <h3>ข้อกำหนดฮาร์ดแวร์</h3>
+        <p>GPU NVIDIA ที่มี VRAM 8 GB ขึ้นไปและติดตั้งไดรเวอร์ CUDA รองรับการรู้จำเสียงและการแปลที่เร่งด้วย GPU เพื่อประสิทธิภาพสูงสุด</p>
       </div>
     </div>
 
     <!-- ============ USAGE METHODS ============ -->
     <h2 class="section-title"><span class="num">#2</span> วิธีใช้งาน</h2>
+
+    <!-- Method 0: Install EchoShortsPlayer -->
+    <div class="method" id="install">
+      <h3>&#128229; Install EchoShortsPlayer <span class="tag">Required</span></h3>
+      <div class="subtitle">Desktop application &mdash; the core engine for all features</div>
+
+      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension, userscript, and CLI all depend on it. Install it first before using any of the methods below.</p>
+
+      <div class="btn-row">
+        <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">Download EchoShortsPlayer</a>
+      </div>
+
+      <p><strong>System requirements:</strong> Windows 10/11, NVIDIA GPU with 8 GB+ VRAM, CUDA drivers installed.</p>
+      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension, userscript, and CLI communicate with.</p>
+    </div>
 
     <!-- Method A: Tampermonkey -->
     <div class="method" id="tampermonkey">
@@ -258,23 +273,6 @@
 
       <p>CLI ให้การเข้าถึงโดยตรงไปยังฟีเจอร์ดาวน์โหลดและแปลทั้งหมดจากเทอร์มินัล ออกแบบมาสำหรับผู้ใช้ขั้นสูงที่ต้องการประมวลผลวิดีโอหลายรายการ ทำให้เวิร์กโฟลว์เป็นอัตโนมัติ หรือรวมเข้ากับเครื่องมืออื่น</p>
 
-      <p><strong>คำสั่งที่ใช้ได้:</strong></p>
-      <pre>
-# แปลไฟล์วิดีโอในเครื่องเป็นคำบรรยายภาษาจีน
-EchoShortsPlayer.exe --cli translate video.mp4 --target zh
-
-# แปลทั้งโฟลเดอร์แบบแบตช์
-EchoShortsPlayer.exe --cli translate C:\Videos\
-
-# ดาวน์โหลด m3u8 หรือ MP4 ระยะไกล
-EchoShortsPlayer.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
-
-# ดาวน์โหลดและแปลในขั้นตอนเดียว
-EchoShortsPlayer.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/"
-
-# แปลไฟล์ SRT ที่มีอยู่
-EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
-
       <div class="advantages">
         <h4>ทำไมควรใช้ CLI?</h4>
         <ul>
@@ -285,6 +283,40 @@ EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation 
           <li>รองรับทั้งโหมดประมวลผลแบบอนุกรม (ประหยัดหน่วยความจำ) และแบบขนาน (เร็ว)</li>
         </ul>
       </div>
+
+      <p><strong>คำสั่งที่ใช้ได้:</strong></p>
+      <pre>
+# แปลไฟล์วิดีโอในเครื่องเป็นคำบรรยายภาษาจีน
+EchoShortsPlayer.exe --cli translate video.mp4 --target zh
+
+# แปลทั้งโฟลเดอร์แบบแบตช์
+EchoShortsPlayer.exe --cli translate C:\Videos\
+
+# ตัวเลือกทั้งหมด: ภาษาต้นทาง, โมเดล Whisper, เอนจินแปล, ลดเสียงรบกวน, โหมดประมวลผล
+EchoShortsPlayer.exe --cli translate video.mp4 --source auto --target ja --whisper large-v3-turbo --translation qwen3-8b --denoise vocal --mode parallel
+
+# ดาวน์โหลด m3u8 หรือ MP4 จากระยะไกล
+EchoShortsPlayer.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
+
+# ดาวน์โหลดและแปลในขั้นตอนเดียว
+EchoShortsPlayer.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
+
+# แปลไฟล์ SRT ที่มีอยู่
+EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
+
+      <p><strong>อ้างอิงพารามิเตอร์:</strong></p>
+      <pre>
+--source, -s      ภาษาต้นทางหรือ "auto" (ค่าเริ่มต้น: auto)
+--target, -t      ภาษาปลายทาง (ค่าเริ่มต้น: zh)
+--whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
+--translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--denoise, -d     off|light|vocal (ค่าเริ่มต้น: off)
+--mode            serial|parallel (ค่าเริ่มต้น: serial)
+--output, -o      เส้นทางไฟล์เอาต์พุต
+--url             URL สื่อ (m3u8 / MP4)
+--referer         ส่วนหัว Referer
+
+      <p>ดูรายการรหัสภาษาที่รองรับทั้งหมดสำหรับ <code>--source</code> และ <code>--target</code>: <a href="language-codes.html">อ้างอิงรหัสภาษา</a></p>
     </div>
 
     <!-- ============ PRIVACY & DISCLAIMER ============ -->

@@ -65,7 +65,7 @@
     .method .advantages ul { margin-bottom: 0; padding-left: 16px; }
     .method .advantages ul li { font-size: 12.5px; color: #8c8; }
 
-    pre { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 14px 18px; overflow-x: auto; margin: 10px 0; font-size: 12.5px; line-height: 1.6; color: #ccc; font-family: 'SF Mono', 'Fira Code', Consolas, monospace; }
+    pre { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 14px 18px; overflow-x: auto; margin: 10px 0; font-size: 12.5px; line-height: 1.6; color: #ccc; font-family: 'SF Mono', 'Fira Code', Consolas, monospace; max-width: 100%; white-space: pre-wrap; word-break: break-word; }
     code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 12.5px; color: #4ade80; background: #1a2a1a; padding: 1px 5px; border-radius: 3px; }
 
     .btn-row { display: flex; gap: 10px; margin: 14px 0; flex-wrap: wrap; }
@@ -160,7 +160,7 @@
       <div class="card">
         <div class="icon">&#9889;</div>
         <h3>リアルタイム字幕</h3>
-        <p>ストリーム翻訳モード：視聴中にリアルタイムで字幕が表示されます。動画全体のダウンロードを待つ必要はありません。</p>
+        <p>ストリーム翻訳モード：視聴中にリアルタイムで字幕が表示されます。動画全体のダウンロードを待つ必要はありません。SRT字幕ファイルはローカルに保存され、今後の使用に備えます。</p>
       </div>
       <div class="card">
         <div class="icon">&#128274;</div>
@@ -168,14 +168,29 @@
         <p>すべての処理はローカルで実行されます。外部サーバーにデータは送信されません。アカウント不要、トラッキングなし、広告なし。コンテンツはデバイス上に保持されます。</p>
       </div>
       <div class="card">
-        <div class="icon">&#128204;</div>
-        <h3>柔軟な出力</h3>
-        <p>標準SRT字幕ファイルを生成。音声ノイズ除去（AIボーカル分離）、バッチ処理、CUDAによるGPUアクセラレーションに対応。</p>
+        <div class="icon">&#128187;</div>
+        <h3>ハードウェア要件</h3>
+        <p>8 GB以上のVRAMを搭載したNVIDIA GPUとCUDAドライバーのインストールが必要です。GPU高速化による音声認識と翻訳をサポートし、最適なパフォーマンスを実現します。</p>
       </div>
     </div>
 
     <!-- ============ USAGE METHODS ============ -->
     <h2 class="section-title"><span class="num">#2</span> 使い方</h2>
+
+    <!-- Method 0: Install EchoShortsPlayer -->
+    <div class="method" id="install">
+      <h3>&#128229; Install EchoShortsPlayer <span class="tag">Required</span></h3>
+      <div class="subtitle">Desktop application &mdash; the core engine for all features</div>
+
+      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension, userscript, and CLI all depend on it. Install it first before using any of the methods below.</p>
+
+      <div class="btn-row">
+        <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">Download EchoShortsPlayer</a>
+      </div>
+
+      <p><strong>System requirements:</strong> Windows 10/11, NVIDIA GPU with 8 GB+ VRAM, CUDA drivers installed.</p>
+      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension, userscript, and CLI communicate with.</p>
+    </div>
 
     <!-- Method A: Tampermonkey -->
     <div class="method" id="tampermonkey">
@@ -258,23 +273,6 @@
 
       <p>CLIはターミナルからすべてのダウンロードおよび翻訳機能に直接アクセスできます。複数の動画を処理したり、ワークフローを自動化したり、他のツールと統合する必要があるパワーユーザー向けに設計されています。</p>
 
-      <p><strong>利用可能なコマンド：</strong></p>
-      <pre>
-# ローカル動画ファイルを中国語字幕に翻訳
-EchoShortsPlayer.exe --cli translate video.mp4 --target zh
-
-# フォルダ全体を一括翻訳
-EchoShortsPlayer.exe --cli translate C:\Videos\
-
-# リモートの m3u8 または MP4 をダウンロード
-EchoShortsPlayer.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
-
-# ダウンロードと翻訳を一度に実行
-EchoShortsPlayer.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/"
-
-# 既存の SRT ファイルを翻訳
-EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
-
       <div class="advantages">
         <h4>CLIを使う理由</h4>
         <ul>
@@ -285,6 +283,40 @@ EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation 
           <li>シリアル（メモリ効率）とパラレル（高速）の両方の処理モードに対応</li>
         </ul>
       </div>
+
+      <p><strong>利用可能なコマンド：</strong></p>
+      <pre>
+# ローカル動画ファイルを中国語字幕に翻訳する
+EchoShortsPlayer.exe --cli translate video.mp4 --target zh
+
+# フォルダ全体を一括翻訳する
+EchoShortsPlayer.exe --cli translate C:\Videos\
+
+# 全オプション：ソース言語、Whisperモデル、翻訳エンジン、ノイズ除去、処理モード
+EchoShortsPlayer.exe --cli translate video.mp4 --source auto --target ja --whisper large-v3-turbo --translation qwen3-8b --denoise vocal --mode parallel
+
+# リモートのm3u8またはMP4をダウンロードする
+EchoShortsPlayer.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
+
+# ダウンロードと翻訳を一度に実行する
+EchoShortsPlayer.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
+
+# 既存のSRTファイルを翻訳する
+EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
+
+      <p><strong>パラメータリファレンス：</strong></p>
+      <pre>
+--source, -s      ソース言語または "auto"（デフォルト: auto）
+--target, -t      ターゲット言語（デフォルト: zh）
+--whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
+--translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--denoise, -d     off|light|vocal（デフォルト: off）
+--mode            serial|parallel（デフォルト: serial）
+--output, -o      出力ファイルパス
+--url             メディアURL（m3u8 / MP4）
+--referer         Refererヘッダー
+
+      <p><code>--source</code> と <code>--target</code> でサポートされる言語コードの完全なリスト: <a href="language-codes.html">言語コード一覧</a></p>
     </div>
 
     <!-- ============ PRIVACY & DISCLAIMER ============ -->

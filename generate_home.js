@@ -24,9 +24,15 @@ const langs = {
       f1t: '语音识别', f1p: '基于 OpenAI Whisper。支持 99 种语言，自动语言检测。多种模型大小可选，从 tiny（快速）到 large-v3（最高精度）。',
       f2t: 'AI 翻译', f2p: '多种翻译引擎：', f2l1: 'Opus-MT — 快速，9 种语言', f2l2: 'NLLB — 32+ 种语言，任意互译', f2l3: 'Qwen — 最高质量，CJK 优化',
       f3t: '媒体检测', f3p: '自动检测网页上的 m3u8/HLS 流和 MP4 视频链接。通过浏览器扩展或油猴脚本一键下载或翻译。',
-      f4t: '实时字幕', f4p: '流式翻译模式：字幕在观看时实时显示。无需等待整个视频下载完成。',
+      f4t: '实时字幕', f4p: '流式翻译模式：字幕在观看时实时显示。无需等待整个视频下载完成。SRT 字幕文件保存在本地供后续使用。',
       f5t: '100% 离线 & 隐私', f5p: '所有处理都在本地完成。不向外部服务器发送任何数据。无需账号、无跟踪、无广告。您的内容留在您的设备上。',
-      f6t: '灵活输出', f6p: '生成标准 SRT 字幕文件。支持音频降噪（AI 人声分离）、批量处理和 CUDA GPU 加速。',
+      f6t: '硬件要求', f6p: 'NVIDIA 显卡，8 GB+ 显存，并安装 CUDA 驱动。支持 GPU 加速的语音识别和翻译，获得最佳性能。',
+      // Install section
+      instTitle: '&#128229; 安装 EchoShortsPlayer', instTag: '必需', instSub: '桌面应用——所有功能的核心引擎',
+      instP1: 'EchoShortsPlayer 是在本地运行 AI 模型的桌面应用。浏览器扩展、油猴脚本和 CLI 都依赖它。请先安装后再使用下列任何方式。',
+      instDlBtn: '下载 EchoShortsPlayer',
+      instReq: '<strong>系统要求：</strong>Windows 10/11，NVIDIA 显卡 8 GB+ 显存，已安装 CUDA 驱动。',
+      instAfter: '安装后启动应用。它会在 <code>localhost:18632</code> 启动本地后端服务器，扩展、油猴脚本和 CLI 都通过它通信。',
       // Tampermonkey
       tmTitle: '&#129668; 篡改猴脚本', tmTag: '最简单', tmSub: '任何浏览器的零安装媒体检测',
       tmP1: '篡改猴脚本在每个网页中注入一个浮动面板，自动检测 m3u8 流和 MP4 视频链接。检测到的媒体显示在列表中，带有 <strong>下载</strong> 和 <strong>翻译</strong> 按钮。',
@@ -67,7 +73,18 @@ const langs = {
       cliTitle: '&#128187; 命令行工具', cliTag: '高级用户', cliSub: '自动化、批处理和脚本集成',
       cliP1: 'CLI 提供从终端直接访问所有下载和翻译功能。专为需要批量处理视频、自动化工作流或与其他工具集成的高级用户设计。',
       cliCmds: '<strong>可用命令：</strong>',
-      cliC1: '# 将本地视频翻译为中文字幕', cliC2: '# 批量翻译整个文件夹', cliC3: '# 下载远程 m3u8 或 MP4', cliC4: '# 一步完成下载和翻译', cliC5: '# 翻译已有的 SRT 文件',
+      cliParams: '<strong>参数参考：</strong>',
+      cliParamsPre: `--source, -s      源语言或 "auto"（默认：auto）
+--target, -t      目标语言（默认：zh）
+--whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
+--translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--denoise, -d     off|light|vocal（默认：off）
+--mode            serial|parallel（默认：serial）
+--output, -o      输出文件路径
+--url             媒体 URL（m3u8 / MP4）
+--referer         Referer 请求头`,
+      cliLangLink: '查看 <code>--source</code> 和 <code>--target</code> 支持的完整语言代码列表：<a href="language-codes.html">语言代码参考</a>',
+      cliC1: '# 将本地视频翻译为中文字幕', cliC2: '# 批量翻译整个文件夹', cliC3: '# 全部参数：源语言、Whisper 模型、翻译引擎、降噪、处理模式', cliC4: '# 下载远程 m3u8 或 MP4', cliC5: '# 一步完成下载和翻译', cliC6: '# 翻译已有的 SRT 文件',
       cliAdvTitle: '为什么使用 CLI？',
       cliAdv1: '批量处理：一条命令翻译数百个视频',
       cliAdv2: '可脚本化：集成到 shell 脚本、定时任务或 CI/CD 管道',
@@ -99,9 +116,14 @@ const langs = {
       f1t: '語音辨識', f1p: '基於 OpenAI Whisper。支援 99 種語言，自動語言偵測。多種模型大小可選，從 tiny（快速）到 large-v3（最高精度）。',
       f2t: 'AI 翻譯', f2p: '多種翻譯引擎：', f2l1: 'Opus-MT — 快速，9 種語言', f2l2: 'NLLB — 32+ 種語言，任意互譯', f2l3: 'Qwen — 最高品質，CJK 最佳化',
       f3t: '媒體偵測', f3p: '自動偵測網頁上的 m3u8/HLS 串流和 MP4 影片連結。透過瀏覽器擴充功能或油猴腳本一鍵下載或翻譯。',
-      f4t: '即時字幕', f4p: '串流翻譯模式：字幕在觀看時即時顯示。無需等待整部影片下載完成。',
+      f4t: '即時字幕', f4p: '串流翻譯模式：字幕在觀看時即時顯示。無需等待整部影片下載完成。SRT 字幕檔案儲存在本機供後續使用。',
       f5t: '100% 離線 & 隱私', f5p: '所有處理都在本機完成。不向外部伺服器傳送任何資料。無需帳號、無追蹤、無廣告。您的內容留在您的裝置上。',
-      f6t: '彈性輸出', f6p: '產生標準 SRT 字幕檔案。支援音訊降噪（AI 人聲分離）、批次處理和 CUDA GPU 加速。',
+      f6t: '硬體需求', f6p: 'NVIDIA 顯示卡，8 GB+ 視訊記憶體，並安裝 CUDA 驅動程式。支援 GPU 加速的語音辨識和翻譯，獲得最佳效能。',
+      instTitle: '&#128229; 安裝 EchoShortsPlayer', instTag: '必需', instSub: '桌面應用——所有功能的核心引擎',
+      instP1: 'EchoShortsPlayer 是在本機執行 AI 模型的桌面應用。瀏覽器擴充功能、油猴腳本和 CLI 都依賴它。請先安裝後再使用下列任何方式。',
+      instDlBtn: '下載 EchoShortsPlayer',
+      instReq: '<strong>系統需求：</strong>Windows 10/11，NVIDIA 顯示卡 8 GB+ 視訊記憶體，已安裝 CUDA 驅動程式。',
+      instAfter: '安裝後啟動應用。它會在 <code>localhost:18632</code> 啟動本機後端伺服器，擴充功能、油猴腳本和 CLI 都透過它通訊。',
       tmTitle: '&#129668; 篡改猴腳本', tmTag: '最簡單', tmSub: '任何瀏覽器的零安裝媒體偵測',
       tmP1: '篡改猴腳本在每個網頁中注入一個浮動面板，自動偵測 m3u8 串流和 MP4 影片連結。偵測到的媒體顯示在清單中，附有 <strong>下載</strong> 和 <strong>翻譯</strong> 按鈕。',
       tmStep1: '<strong>步驟 1：</strong>安裝篡改猴瀏覽器擴充功能：', tmSite: '篡改猴官網', tmChrome: 'Chrome 商店',
@@ -123,7 +145,18 @@ const langs = {
       cliTitle: '&#128187; 命令列工具', cliTag: '進階使用者', cliSub: '自動化、批次處理和腳本整合',
       cliP1: 'CLI 提供從終端直接存取所有下載和翻譯功能。專為需要批次處理影片、自動化工作流程或與其他工具整合的進階使用者設計。',
       cliCmds: '<strong>可用命令：</strong>',
-      cliC1: '# 將本機影片翻譯為中文字幕', cliC2: '# 批次翻譯整個資料夾', cliC3: '# 下載遠端 m3u8 或 MP4', cliC4: '# 一步完成下載和翻譯', cliC5: '# 翻譯已有的 SRT 檔案',
+      cliParams: '<strong>參數參考：</strong>',
+      cliParamsPre: `--source, -s      來源語言或 "auto"（預設：auto）
+--target, -t      目標語言（預設：zh）
+--whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
+--translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--denoise, -d     off|light|vocal（預設：off）
+--mode            serial|parallel（預設：serial）
+--output, -o      輸出檔案路徑
+--url             媒體 URL（m3u8 / MP4）
+--referer         Referer 請求標頭`,
+      cliLangLink: '查看 <code>--source</code> 和 <code>--target</code> 支援的完整語言代碼列表：<a href="language-codes.html">語言代碼參考</a>',
+      cliC1: '# 將本機影片翻譯為中文字幕', cliC2: '# 批次翻譯整個資料夾', cliC3: '# 全部參數：來源語言、Whisper 模型、翻譯引擎、降噪、處理模式', cliC4: '# 下載遠端 m3u8 或 MP4', cliC5: '# 一步完成下載和翻譯', cliC6: '# 翻譯已有的 SRT 檔案',
       cliAdvTitle: '為什麼使用 CLI？', cliAdv1: '批次處理：一條命令翻譯數百部影片', cliAdv2: '可腳本化：整合到 shell 腳本、排程工作或 CI/CD 管線', cliAdv3: '完全控制模型：選擇 Whisper 模型大小、翻譯引擎、降噪模式', cliAdv4: '無 GUI 開銷：適合伺服器、無頭裝置或遠端 SSH 工作階段', cliAdv5: '支援序列（省記憶體）和平行（快速）處理模式',
       pr1t: '本機資料處理', pr1p1: 'EchoShortsPlayer 的所有核心功能——包括語音辨識、翻譯和媒體下載——完全在您的本機裝置上執行，由本機後端伺服器（127.0.0.1:18632）驅動。', pr1p2: '我們不收集、儲存、傳輸或分析任何使用者資料。',
       pr2t: '無網路資料傳輸', pr2p1: '本應用在正常使用期間不會向外部伺服器傳送任何使用者資料。所有音訊處理和文字翻譯都在本機完成。', pr2p2: '瀏覽器擴充功能和油猴腳本僅與本機後端 <code>localhost:18632</code> 通訊。',
@@ -364,9 +397,16 @@ function buildTranslated(key, data) {
     .replace('>AI Translation<', `>${t.f2t}<`).replace('Multiple translation engines:', t.f2p)
     .replace('Opus-MT &mdash; fast, 9 languages', t.f2l1).replace('NLLB &mdash; 32+ languages, any-to-any', t.f2l2).replace('Qwen &mdash; best quality, CJK-optimized', t.f2l3)
     .replace('>Media Detection<', `>${t.f3t}<`).replace(/Automatically detects m3u8\/HLS.*?userscript\./, t.f3p)
-    .replace('>Real-time Subtitles<', `>${t.f4t}<`).replace(/Stream translation mode.*?download first\./, t.f4p)
+    .replace('>Real-time Subtitles<', `>${t.f4t}<`).replace(/Stream translation mode.*?future use\./, t.f4p)
     .replace('>100% Offline &amp; Private<', `>${t.f5t}<`).replace(/All processing happens locally.*?on your device\./, t.f5p)
-    .replace('>Flexible Output<', `>${t.f6t}<`).replace(/Generates standard SRT.*?via CUDA\./, t.f6p)
+    .replace('>Hardware Requirements<', `>${t.f6t}<`).replace(/NVIDIA GPU with 8 GB\+.*?optimal performance\./, t.f6p)
+    // Install section
+    .replace('Install EchoShortsPlayer <span class="tag">Required', `${t.instTitle.replace('&#128229; ', '')} <span class="tag">${t.instTag}`)
+    .replace('Desktop application &mdash; the core engine for all features', t.instSub)
+    .replace(/EchoShortsPlayer is the desktop application.*?methods below\./, t.instP1)
+    .replace('>Download EchoShortsPlayer<', `>${t.instDlBtn}<`)
+    .replace(/<p><strong>System requirements:<\/strong>.*?installed\.<\/p>/, `<p>${t.instReq}</p>`)
+    .replace(/After installation, launch the application\..*?communicate with\.<\/p>/, `<p>${t.instAfter}</p>`)
     // Tampermonkey
     .replace('Tampermonkey Userscript <span class="tag">Easiest', `${t.tmTitle.replace('&#129668; ', '')} <span class="tag">${t.tmTag}`)
     .replace('Zero-install media detection for any browser', t.tmSub)
@@ -410,11 +450,27 @@ function buildTranslated(key, data) {
     .replace('Automation, batch processing, and scripting', t.cliSub)
     .replace(/The CLI provides direct access.*?other tools\./, t.cliP1)
     .replace('<strong>Available commands:</strong>', t.cliCmds)
+    .replace('<strong>Parameter reference:</strong>', t.cliParams || '<strong>Parameter reference:</strong>')
     .replace('# Translate a local video file to Chinese subtitles', t.cliC1)
     .replace('# Batch translate an entire folder', t.cliC2)
-    .replace('# Download a remote m3u8 or MP4', t.cliC3)
-    .replace('# Download and translate in one step', t.cliC4)
-    .replace('# Translate an existing SRT file', t.cliC5)
+    .replace('# Full options: source language, whisper model, translation engine, denoising, processing mode', t.cliC3)
+    .replace('# Download a remote m3u8 or MP4', t.cliC4)
+    .replace('# Download and translate in one step', t.cliC5)
+    .replace('# Translate an existing SRT file', t.cliC6);
+
+  // Replace parameter reference pre block and lang link
+  if (t.cliParamsPre) {
+    html = html.replace(
+      /--source, -s[\s\S]*?--referer\s+[^\n]+/,
+      t.cliParamsPre
+    );
+    html = html.replace(
+      /See the full list of supported language codes[\s\S]*?Language Code Reference<\/a>/,
+      t.cliLangLink
+    );
+  }
+
+  html = html
     .replace('Why use the CLI?', t.cliAdvTitle)
     .replace('Batch processing: translate hundreds of videos with a single command', t.cliAdv1)
     .replace(/Scriptable: integrate into shell scripts.*?pipelines/, t.cliAdv2)
@@ -486,9 +542,9 @@ function buildOther(key, data) {
     .replace('>AI Translation<', `>${t.f2t}<`).replace('Multiple translation engines:', t.f2p)
     .replace('Opus-MT &mdash; fast, 9 languages', t.f2l1).replace('NLLB &mdash; 32+ languages, any-to-any', t.f2l2).replace('Qwen &mdash; best quality, CJK-optimized', t.f2l3)
     .replace('>Media Detection<', `>${t.f3t}<`).replace(/Automatically detects m3u8\/HLS.*?userscript\./, t.f3p)
-    .replace('>Real-time Subtitles<', `>${t.f4t}<`).replace(/Stream translation mode.*?download first\./, t.f4p)
+    .replace('>Real-time Subtitles<', `>${t.f4t}<`).replace(/Stream translation mode.*?future use\./, t.f4p)
     .replace('>100% Offline &amp; Private<', `>${t.f5t}<`).replace(/All processing happens locally.*?on your device\./, t.f5p)
-    .replace('>Flexible Output<', `>${t.f6t}<`).replace(/Generates standard SRT.*?via CUDA\./, t.f6p);
+    .replace('>Hardware Requirements<', `>${t.f6t}<`).replace(/NVIDIA GPU with 8 GB\+.*?optimal performance\./, t.f6p);
 
   // Tampermonkey
   html = html
@@ -538,6 +594,21 @@ function buildOther(key, data) {
     .replace('Automation, batch processing, and scripting', t.cliSub)
     .replace(/The CLI provides direct access.*?other tools\./, t.cliP1)
     .replace('<strong>Available commands:</strong>', t.cliCmds)
+    .replace('<strong>Parameter reference:</strong>', t.cliParams || '<strong>Parameter reference:</strong>');
+
+  // Replace parameter reference pre block and lang link
+  if (t.cliParamsPre) {
+    html = html.replace(
+      /--source, -s[\s\S]*?--referer\s+[^\n]+/,
+      t.cliParamsPre
+    );
+    html = html.replace(
+      /See the full list of supported language codes[\s\S]*?Language Code Reference<\/a>/,
+      t.cliLangLink
+    );
+  }
+
+  html = html
     .replace('Why use the CLI?', t.cliAdvTitle)
     .replace('Batch processing: translate hundreds of videos with a single command', t.cliAdv1)
     .replace(/Scriptable: integrate into shell scripts.*?pipelines/, t.cliAdv2)
@@ -546,17 +617,14 @@ function buildOther(key, data) {
     .replace(/Supports both serial.*?modes/, t.cliAdv5);
 
   // CLI comments
-  if (data.cli) {
-    const enComments = [
-      '# Translate a local video file to Chinese subtitles',
-      '# Batch translate an entire folder',
-      '# Download a remote m3u8 or MP4',
-      '# Download and translate in one step',
-      '# Translate an existing SRT file',
-    ];
-    for (let i = 0; i < enComments.length; i++) {
-      html = html.replace(enComments[i], data.cli[i]);
-    }
+  if (t.cliC1) {
+    html = html
+      .replace('# Translate a local video file to Chinese subtitles', t.cliC1)
+      .replace('# Batch translate an entire folder', t.cliC2)
+      .replace('# Full options: source language, whisper model, translation engine, denoising, processing mode', t.cliC3)
+      .replace('# Download a remote m3u8 or MP4', t.cliC4)
+      .replace('# Download and translate in one step', t.cliC5)
+      .replace('# Translate an existing SRT file', t.cliC6);
   }
 
   // Privacy: full block replacement

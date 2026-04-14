@@ -65,7 +65,7 @@
     .method .advantages ul { margin-bottom: 0; padding-left: 16px; }
     .method .advantages ul li { font-size: 12.5px; color: #8c8; }
 
-    pre { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 14px 18px; overflow-x: auto; margin: 10px 0; font-size: 12.5px; line-height: 1.6; color: #ccc; font-family: 'SF Mono', 'Fira Code', Consolas, monospace; }
+    pre { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 14px 18px; overflow-x: auto; margin: 10px 0; font-size: 12.5px; line-height: 1.6; color: #ccc; font-family: 'SF Mono', 'Fira Code', Consolas, monospace; max-width: 100%; white-space: pre-wrap; word-break: break-word; }
     code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 12.5px; color: #4ade80; background: #1a2a1a; padding: 1px 5px; border-radius: 3px; }
 
     .btn-row { display: flex; gap: 10px; margin: 14px 0; flex-wrap: wrap; }
@@ -160,7 +160,7 @@
       <div class="card">
         <div class="icon">&#9889;</div>
         <h3>ترجمات فورية</h3>
-        <p>وضع الترجمة المباشرة: تظهر الترجمات في الوقت الفعلي أثناء المشاهدة. لا حاجة لانتظار تحميل الفيديو كاملاً أولاً.</p>
+        <p>وضع الترجمة المباشرة: تظهر الترجمات في الوقت الفعلي أثناء المشاهدة. لا حاجة لانتظار تحميل الفيديو كاملاً أولاً. يتم حفظ ملفات ترجمة SRT محلياً للاستخدام المستقبلي.</p>
       </div>
       <div class="card">
         <div class="icon">&#128274;</div>
@@ -168,14 +168,29 @@
         <p>تتم جميع العمليات محلياً. لا تُرسل أي بيانات إلى خوادم خارجية. لا حسابات، لا تتبع، لا إعلانات. يبقى محتواك على جهازك.</p>
       </div>
       <div class="card">
-        <div class="icon">&#128204;</div>
-        <h3>مخرجات مرنة</h3>
-        <p>ينشئ ملفات ترجمة SRT قياسية. يدعم إزالة ضوضاء الصوت (عزل الصوت البشري بالذكاء الاصطناعي)، والمعالجة الدفعية، وتسريع GPU عبر CUDA.</p>
+        <div class="icon">&#128187;</div>
+        <h3>متطلبات الأجهزة</h3>
+        <p>بطاقة رسومات NVIDIA بذاكرة فيديو 8 جيجابايت أو أكثر مع تثبيت تعريفات CUDA. يدعم التعرف على الكلام والترجمة المسرّعة بالـ GPU لأداء مثالي.</p>
       </div>
     </div>
 
     <!-- ============ USAGE METHODS ============ -->
     <h2 class="section-title"><span class="num">#2</span> كيفية الاستخدام</h2>
+
+    <!-- Method 0: Install EchoShortsPlayer -->
+    <div class="method" id="install">
+      <h3>&#128229; Install EchoShortsPlayer <span class="tag">Required</span></h3>
+      <div class="subtitle">Desktop application &mdash; the core engine for all features</div>
+
+      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension, userscript, and CLI all depend on it. Install it first before using any of the methods below.</p>
+
+      <div class="btn-row">
+        <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">Download EchoShortsPlayer</a>
+      </div>
+
+      <p><strong>System requirements:</strong> Windows 10/11, NVIDIA GPU with 8 GB+ VRAM, CUDA drivers installed.</p>
+      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension, userscript, and CLI communicate with.</p>
+    </div>
 
     <!-- Method A: Tampermonkey -->
     <div class="method" id="tampermonkey">
@@ -258,23 +273,6 @@
 
       <p>يوفر سطر الأوامر وصولاً مباشراً لجميع ميزات التحميل والترجمة من الطرفية. مصمم للمستخدمين المتقدمين الذين يحتاجون لمعالجة مقاطع فيديو متعددة أو أتمتة سير العمل أو الدمج مع أدوات أخرى.</p>
 
-      <p><strong>الأوامر المتاحة:</strong></p>
-      <pre>
-# ترجمة ملف فيديو محلي إلى ترجمات صينية
-EchoShortsPlayer.exe --cli translate video.mp4 --target zh
-
-# ترجمة مجلد كامل دفعة واحدة
-EchoShortsPlayer.exe --cli translate C:\Videos\
-
-# تنزيل m3u8 أو MP4 عن بعد
-EchoShortsPlayer.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
-
-# التنزيل والترجمة في خطوة واحدة
-EchoShortsPlayer.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/"
-
-# ترجمة ملف SRT موجود
-EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
-
       <div class="advantages">
         <h4>لماذا تستخدم سطر الأوامر؟</h4>
         <ul>
@@ -285,6 +283,40 @@ EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation 
           <li>يدعم أوضاع المعالجة التسلسلية (موفرة للذاكرة) والمتوازية (سريعة)</li>
         </ul>
       </div>
+
+      <p><strong>الأوامر المتاحة:</strong></p>
+      <pre>
+# ترجمة ملف فيديو محلي إلى ترجمات صينية
+EchoShortsPlayer.exe --cli translate video.mp4 --target zh
+
+# ترجمة مجلد كامل دفعة واحدة
+EchoShortsPlayer.exe --cli translate C:\Videos\
+
+# جميع الخيارات: لغة المصدر، نموذج Whisper، محرك الترجمة، إزالة الضوضاء، وضع المعالجة
+EchoShortsPlayer.exe --cli translate video.mp4 --source auto --target ja --whisper large-v3-turbo --translation qwen3-8b --denoise vocal --mode parallel
+
+# تحميل m3u8 أو MP4 عن بُعد
+EchoShortsPlayer.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
+
+# التحميل والترجمة في خطوة واحدة
+EchoShortsPlayer.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
+
+# ترجمة ملف SRT موجود
+EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
+
+      <p><strong>مرجع المعلمات:</strong></p>
+      <pre>
+--source, -s      اللغة المصدر أو "auto" (افتراضي: auto)
+--target, -t      اللغة الهدف (افتراضي: zh)
+--whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
+--translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--denoise, -d     off|light|vocal (افتراضي: off)
+--mode            serial|parallel (افتراضي: serial)
+--output, -o      مسار ملف الإخراج
+--url             رابط الوسائط (m3u8 / MP4)
+--referer         ترويسة Referer
+
+      <p>عرض القائمة الكاملة لرموز اللغات المدعومة لـ <code>--source</code> و <code>--target</code>: <a href="language-codes.html">مرجع رموز اللغات</a></p>
     </div>
 
     <!-- ============ PRIVACY & DISCLAIMER ============ -->

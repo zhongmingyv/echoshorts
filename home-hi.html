@@ -65,7 +65,7 @@
     .method .advantages ul { margin-bottom: 0; padding-left: 16px; }
     .method .advantages ul li { font-size: 12.5px; color: #8c8; }
 
-    pre { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 14px 18px; overflow-x: auto; margin: 10px 0; font-size: 12.5px; line-height: 1.6; color: #ccc; font-family: 'SF Mono', 'Fira Code', Consolas, monospace; }
+    pre { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 14px 18px; overflow-x: auto; margin: 10px 0; font-size: 12.5px; line-height: 1.6; color: #ccc; font-family: 'SF Mono', 'Fira Code', Consolas, monospace; max-width: 100%; white-space: pre-wrap; word-break: break-word; }
     code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 12.5px; color: #4ade80; background: #1a2a1a; padding: 1px 5px; border-radius: 3px; }
 
     .btn-row { display: flex; gap: 10px; margin: 14px 0; flex-wrap: wrap; }
@@ -160,7 +160,7 @@
       <div class="card">
         <div class="icon">&#9889;</div>
         <h3>रियल-टाइम सबटाइटल</h3>
-        <p>स्ट्रीम अनुवाद मोड: देखते समय सबटाइटल रियल-टाइम में दिखाई देते हैं। पूरा वीडियो डाउनलोड होने का इंतज़ार करने की ज़रूरत नहीं।</p>
+        <p>स्ट्रीम अनुवाद मोड: देखते समय सबटाइटल रियल-टाइम में दिखाई देते हैं। पूरा वीडियो डाउनलोड होने का इंतज़ार करने की ज़रूरत नहीं। SRT सबटाइटल फ़ाइलें भविष्य में उपयोग के लिए स्थानीय रूप से सहेजी जाती हैं।</p>
       </div>
       <div class="card">
         <div class="icon">&#128274;</div>
@@ -168,14 +168,29 @@
         <p>सारी प्रोसेसिंग स्थानीय रूप से होती है। बाहरी सर्वरों को कोई डेटा नहीं भेजा जाता। कोई अकाउंट नहीं, कोई ट्रैकिंग नहीं, कोई विज्ञापन नहीं। आपका कंटेंट आपके डिवाइस पर रहता है।</p>
       </div>
       <div class="card">
-        <div class="icon">&#128204;</div>
-        <h3>फ्लेक्सिबल आउटपुट</h3>
-        <p>मानक SRT सबटाइटल फ़ाइलें बनाता है। ऑडियो डीनॉइज़िंग (AI वोकल आइसोलेशन), बैच प्रोसेसिंग, और CUDA के ज़रिए GPU एक्सेलेरेशन को सपोर्ट करता है।</p>
+        <div class="icon">&#128187;</div>
+        <h3>हार्डवेयर आवश्यकताएँ</h3>
+        <p>8 GB या अधिक VRAM वाला NVIDIA GPU और CUDA ड्राइवर इंस्टॉल होना चाहिए। इष्टतम प्रदर्शन के लिए GPU-त्वरित स्पीच रिकग्निशन और अनुवाद को सपोर्ट करता है।</p>
       </div>
     </div>
 
     <!-- ============ USAGE METHODS ============ -->
     <h2 class="section-title"><span class="num">#2</span> कैसे उपयोग करें</h2>
+
+    <!-- Method 0: Install EchoShortsPlayer -->
+    <div class="method" id="install">
+      <h3>&#128229; Install EchoShortsPlayer <span class="tag">Required</span></h3>
+      <div class="subtitle">Desktop application &mdash; the core engine for all features</div>
+
+      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension, userscript, and CLI all depend on it. Install it first before using any of the methods below.</p>
+
+      <div class="btn-row">
+        <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">Download EchoShortsPlayer</a>
+      </div>
+
+      <p><strong>System requirements:</strong> Windows 10/11, NVIDIA GPU with 8 GB+ VRAM, CUDA drivers installed.</p>
+      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension, userscript, and CLI communicate with.</p>
+    </div>
 
     <!-- Method A: Tampermonkey -->
     <div class="method" id="tampermonkey">
@@ -258,23 +273,6 @@
 
       <p>CLI टर्मिनल से सभी डाउनलोड और अनुवाद सुविधाओं तक सीधी पहुँच प्रदान करता है। यह उन पावर यूज़र्स के लिए डिज़ाइन किया गया है जिन्हें कई वीडियो प्रोसेस करने, वर्कफ़्लो ऑटोमेट करने, या अन्य टूल्स के साथ इंटीग्रेट करने की ज़रूरत है।</p>
 
-      <p><strong>उपलब्ध कमांड:</strong></p>
-      <pre>
-# स्थानीय वीडियो फ़ाइल को चीनी उपशीर्षक में अनुवाद करें
-EchoShortsPlayer.exe --cli translate video.mp4 --target zh
-
-# पूरे फ़ोल्डर का बैच अनुवाद करें
-EchoShortsPlayer.exe --cli translate C:\Videos\
-
-# रिमोट m3u8 या MP4 डाउनलोड करें
-EchoShortsPlayer.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
-
-# एक ही चरण में डाउनलोड और अनुवाद करें
-EchoShortsPlayer.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/"
-
-# मौजूदा SRT फ़ाइल का अनुवाद करें
-EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
-
       <div class="advantages">
         <h4>CLI क्यों इस्तेमाल करें?</h4>
         <ul>
@@ -285,6 +283,40 @@ EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation 
           <li>सीरियल (मेमोरी-एफिशिएंट) और पैरेलल (तेज़) दोनों प्रोसेसिंग मोड सपोर्ट करता है</li>
         </ul>
       </div>
+
+      <p><strong>उपलब्ध कमांड:</strong></p>
+      <pre>
+# एक स्थानीय वीडियो फ़ाइल को चीनी उपशीर्षक में अनुवाद करें
+EchoShortsPlayer.exe --cli translate video.mp4 --target zh
+
+# पूरे फ़ोल्डर का बैच अनुवाद करें
+EchoShortsPlayer.exe --cli translate C:\Videos\
+
+# सभी विकल्प: स्रोत भाषा, Whisper मॉडल, अनुवाद इंजन, शोर हटाना, प्रोसेसिंग मोड
+EchoShortsPlayer.exe --cli translate video.mp4 --source auto --target ja --whisper large-v3-turbo --translation qwen3-8b --denoise vocal --mode parallel
+
+# एक रिमोट m3u8 या MP4 डाउनलोड करें
+EchoShortsPlayer.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
+
+# एक ही चरण में डाउनलोड और अनुवाद करें
+EchoShortsPlayer.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
+
+# एक मौजूदा SRT फ़ाइल का अनुवाद करें
+EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
+
+      <p><strong>पैरामीटर संदर्भ:</strong></p>
+      <pre>
+--source, -s      स्रोत भाषा या "auto" (डिफ़ॉल्ट: auto)
+--target, -t      लक्ष्य भाषा (डिफ़ॉल्ट: zh)
+--whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
+--translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--denoise, -d     off|light|vocal (डिफ़ॉल्ट: off)
+--mode            serial|parallel (डिफ़ॉल्ट: serial)
+--output, -o      आउटपुट फ़ाइल पथ
+--url             मीडिया URL (m3u8 / MP4)
+--referer         Referer हेडर
+
+      <p><code>--source</code> और <code>--target</code> के लिए समर्थित भाषा कोड की पूरी सूची देखें: <a href="language-codes.html">भाषा कोड संदर्भ</a></p>
     </div>
 
     <!-- ============ PRIVACY & DISCLAIMER ============ -->

@@ -65,7 +65,7 @@
     .method .advantages ul { margin-bottom: 0; padding-left: 16px; }
     .method .advantages ul li { font-size: 12.5px; color: #8c8; }
 
-    pre { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 14px 18px; overflow-x: auto; margin: 10px 0; font-size: 12.5px; line-height: 1.6; color: #ccc; font-family: 'SF Mono', 'Fira Code', Consolas, monospace; }
+    pre { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 14px 18px; overflow-x: auto; margin: 10px 0; font-size: 12.5px; line-height: 1.6; color: #ccc; font-family: 'SF Mono', 'Fira Code', Consolas, monospace; max-width: 100%; white-space: pre-wrap; word-break: break-word; }
     code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 12.5px; color: #4ade80; background: #1a2a1a; padding: 1px 5px; border-radius: 3px; }
 
     .btn-row { display: flex; gap: 10px; margin: 14px 0; flex-wrap: wrap; }
@@ -160,7 +160,7 @@
       <div class="card">
         <div class="icon">&#9889;</div>
         <h3>Legendas em Tempo Real</h3>
-        <p>Modo de tradução em streaming: as legendas aparecem em tempo real enquanto você assiste. Não é necessário esperar o download completo do vídeo.</p>
+        <p>Modo de tradução em streaming: as legendas aparecem em tempo real enquanto você assiste. Não é necessário esperar o download completo do vídeo. Os arquivos de legenda SRT são salvos localmente para uso futuro.</p>
       </div>
       <div class="card">
         <div class="icon">&#128274;</div>
@@ -168,14 +168,29 @@
         <p>Todo o processamento acontece localmente. Nenhum dado é enviado a servidores externos. Sem contas, sem rastreamento, sem anúncios. Seu conteúdo permanece no seu dispositivo.</p>
       </div>
       <div class="card">
-        <div class="icon">&#128204;</div>
-        <h3>Saída Flexível</h3>
-        <p>Gera arquivos de legenda SRT padrão. Suporta redução de ruído de áudio (isolamento vocal por IA), processamento em lote e aceleração por GPU via CUDA.</p>
+        <div class="icon">&#128187;</div>
+        <h3>Requisitos de Hardware</h3>
+        <p>GPU NVIDIA com 8 GB ou mais de VRAM e drivers CUDA instalados. Suporta reconhecimento de fala e tradução acelerados por GPU para desempenho ideal.</p>
       </div>
     </div>
 
     <!-- ============ USAGE METHODS ============ -->
     <h2 class="section-title"><span class="num">#2</span> Como Usar</h2>
+
+    <!-- Method 0: Install EchoShortsPlayer -->
+    <div class="method" id="install">
+      <h3>&#128229; Install EchoShortsPlayer <span class="tag">Required</span></h3>
+      <div class="subtitle">Desktop application &mdash; the core engine for all features</div>
+
+      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension, userscript, and CLI all depend on it. Install it first before using any of the methods below.</p>
+
+      <div class="btn-row">
+        <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">Download EchoShortsPlayer</a>
+      </div>
+
+      <p><strong>System requirements:</strong> Windows 10/11, NVIDIA GPU with 8 GB+ VRAM, CUDA drivers installed.</p>
+      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension, userscript, and CLI communicate with.</p>
+    </div>
 
     <!-- Method A: Tampermonkey -->
     <div class="method" id="tampermonkey">
@@ -258,23 +273,6 @@
 
       <p>O CLI oferece acesso direto a todos os recursos de download e tradução pelo terminal. Projetado para usuários avançados que precisam processar múltiplos vídeos, automatizar fluxos de trabalho ou integrar com outras ferramentas.</p>
 
-      <p><strong>Comandos disponíveis:</strong></p>
-      <pre>
-# Traduzir um arquivo de vídeo local para legendas em chinês
-EchoShortsPlayer.exe --cli translate video.mp4 --target zh
-
-# Traduzir em lote uma pasta inteira
-EchoShortsPlayer.exe --cli translate C:\Videos\
-
-# Baixar um m3u8 ou MP4 remoto
-EchoShortsPlayer.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
-
-# Baixar e traduzir em uma etapa
-EchoShortsPlayer.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/"
-
-# Traduzir um arquivo SRT existente
-EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
-
       <div class="advantages">
         <h4>Por que usar o CLI?</h4>
         <ul>
@@ -285,6 +283,40 @@ EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation 
           <li>Suporta modos de processamento serial (econômico em memória) e paralelo (rápido)</li>
         </ul>
       </div>
+
+      <p><strong>Comandos disponíveis:</strong></p>
+      <pre>
+# Traduzir um arquivo de vídeo local para legendas em chinês
+EchoShortsPlayer.exe --cli translate video.mp4 --target zh
+
+# Traduzir uma pasta inteira em lote
+EchoShortsPlayer.exe --cli translate C:\Videos\
+
+# Todas as opções: idioma de origem, modelo Whisper, motor de tradução, redução de ruído, modo de processamento
+EchoShortsPlayer.exe --cli translate video.mp4 --source auto --target ja --whisper large-v3-turbo --translation qwen3-8b --denoise vocal --mode parallel
+
+# Baixar um m3u8 ou MP4 remoto
+EchoShortsPlayer.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
+
+# Baixar e traduzir em uma única etapa
+EchoShortsPlayer.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
+
+# Traduzir um arquivo SRT existente
+EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
+
+      <p><strong>Referência de parâmetros:</strong></p>
+      <pre>
+--source, -s      Idioma de origem ou "auto" (padrão: auto)
+--target, -t      Idioma de destino (padrão: zh)
+--whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
+--translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--denoise, -d     off|light|vocal (padrão: off)
+--mode            serial|parallel (padrão: serial)
+--output, -o      Caminho do arquivo de saída
+--url             URL de mídia (m3u8 / MP4)
+--referer         Cabeçalho Referer
+
+      <p>Veja a lista completa de códigos de idioma suportados para <code>--source</code> e <code>--target</code>: <a href="language-codes.html">Referência de códigos de idioma</a></p>
     </div>
 
     <!-- ============ PRIVACY & DISCLAIMER ============ -->

@@ -15,11 +15,18 @@ module.exports = {
     f3t: 'Detecção de Mídia',
     f3p: 'Detecta automaticamente streams m3u8/HLS e links de vídeo MP4 em qualquer página web. Baixe ou traduza com um clique via extensão do navegador ou userscript.',
     f4t: 'Legendas em Tempo Real',
-    f4p: 'Modo de tradução em streaming: as legendas aparecem em tempo real enquanto você assiste. Não é necessário esperar o download completo do vídeo.',
+    f4p: 'Modo de tradução em streaming: as legendas aparecem em tempo real enquanto você assiste. Não é necessário esperar o download completo do vídeo. Os arquivos de legenda SRT são salvos localmente para uso futuro.',
     f5t: '100% Offline &amp; Privado',
     f5p: 'Todo o processamento acontece localmente. Nenhum dado é enviado a servidores externos. Sem contas, sem rastreamento, sem anúncios. Seu conteúdo permanece no seu dispositivo.',
-    f6t: 'Saída Flexível',
-    f6p: 'Gera arquivos de legenda SRT padrão. Suporta redução de ruído de áudio (isolamento vocal por IA), processamento em lote e aceleração por GPU via CUDA.',
+    f6t: 'Requisitos de Hardware',
+    f6p: 'GPU NVIDIA com 8 GB ou mais de VRAM e drivers CUDA instalados. Suporta reconhecimento de fala e tradução acelerados por GPU para desempenho ideal.',
+    instTitle: 'Instalar EchoShortsPlayer',
+    instTag: 'Obrigatório',
+    instSub: 'Aplicativo de desktop — o motor central de todos os recursos',
+    instP1: 'O EchoShortsPlayer é o aplicativo de desktop que executa os modelos de IA localmente. A extensão do navegador, o userscript e o CLI dependem dele. Instale-o primeiro antes de usar qualquer um dos métodos abaixo.',
+    instDlBtn: 'Baixar EchoShortsPlayer',
+    instReq: '<strong>Requisitos do sistema:</strong> Windows 10/11, GPU NVIDIA com 8 GB ou mais de VRAM, drivers CUDA instalados.',
+    instAfter: 'Após a instalação, inicie o aplicativo. Ele inicia um servidor backend local em <code>localhost:18632</code> com o qual a extensão, o userscript e o CLI se comunicam.',
     tmTitle: 'Userscript para Tampermonkey',
     tmTag: 'Mais Fácil',
     tmSub: 'Detecção de mídia sem instalação para qualquer navegador',
@@ -64,7 +71,24 @@ module.exports = {
     cliSub: 'Automação, processamento em lote e scripts',
     cliP1: 'O CLI oferece acesso direto a todos os recursos de download e tradução pelo terminal. Projetado para usuários avançados que precisam processar múltiplos vídeos, automatizar fluxos de trabalho ou integrar com outras ferramentas.',
     cliCmds: '<strong>Comandos disponíveis:</strong>',
+    cliParams: '<strong>Referência de parâmetros:</strong>',
+    cliParamsPre: `--source, -s      Idioma de origem ou "auto" (padrão: auto)
+--target, -t      Idioma de destino (padrão: zh)
+--whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
+--translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--denoise, -d     off|light|vocal (padrão: off)
+--mode            serial|parallel (padrão: serial)
+--output, -o      Caminho do arquivo de saída
+--url             URL de mídia (m3u8 / MP4)
+--referer         Cabeçalho Referer`,
+    cliLangLink: 'Veja a lista completa de códigos de idioma suportados para <code>--source</code> e <code>--target</code>: <a href="language-codes.html">Referência de códigos de idioma</a>',
     cliAdvTitle: 'Por que usar o CLI?',
+    cliC1: '# Traduzir um arquivo de vídeo local para legendas em chinês',
+    cliC2: '# Traduzir uma pasta inteira em lote',
+    cliC3: '# Todas as opções: idioma de origem, modelo Whisper, motor de tradução, redução de ruído, modo de processamento',
+    cliC4: '# Baixar um m3u8 ou MP4 remoto',
+    cliC5: '# Baixar e traduzir em uma única etapa',
+    cliC6: '# Traduzir um arquivo SRT existente',
     cliAdv1: 'Processamento em lote: traduza centenas de vídeos com um único comando',
     cliAdv2: 'Scriptável: integre em scripts shell, cron jobs ou pipelines CI/CD',
     cliAdv3: 'Controle total sobre modelos: escolha o tamanho do modelo Whisper, mecanismo de tradução e modo de redução de ruído',
@@ -87,11 +111,18 @@ module.exports = {
     f3t: 'كشف الوسائط',
     f3p: 'يكشف تلقائياً بث m3u8/HLS وروابط فيديو MP4 على أي صفحة ويب. حمّل أو ترجم بنقرة واحدة عبر إضافة المتصفح أو السكربت.',
     f4t: 'ترجمات فورية',
-    f4p: 'وضع الترجمة المباشرة: تظهر الترجمات في الوقت الفعلي أثناء المشاهدة. لا حاجة لانتظار تحميل الفيديو كاملاً أولاً.',
+    f4p: 'وضع الترجمة المباشرة: تظهر الترجمات في الوقت الفعلي أثناء المشاهدة. لا حاجة لانتظار تحميل الفيديو كاملاً أولاً. يتم حفظ ملفات ترجمة SRT محلياً للاستخدام المستقبلي.',
     f5t: '100% بدون إنترنت &amp; خاص',
     f5p: 'تتم جميع العمليات محلياً. لا تُرسل أي بيانات إلى خوادم خارجية. لا حسابات، لا تتبع، لا إعلانات. يبقى محتواك على جهازك.',
-    f6t: 'مخرجات مرنة',
-    f6p: 'ينشئ ملفات ترجمة SRT قياسية. يدعم إزالة ضوضاء الصوت (عزل الصوت البشري بالذكاء الاصطناعي)، والمعالجة الدفعية، وتسريع GPU عبر CUDA.',
+    f6t: 'متطلبات الأجهزة',
+    f6p: 'بطاقة رسومات NVIDIA بذاكرة فيديو 8 جيجابايت أو أكثر مع تثبيت تعريفات CUDA. يدعم التعرف على الكلام والترجمة المسرّعة بالـ GPU لأداء مثالي.',
+    instTitle: 'تثبيت EchoShortsPlayer',
+    instTag: 'مطلوب',
+    instSub: 'تطبيق سطح المكتب — المحرك الأساسي لجميع الميزات',
+    instP1: 'EchoShortsPlayer هو تطبيق سطح المكتب الذي يشغّل نماذج الذكاء الاصطناعي محلياً. تعتمد عليه إضافة المتصفح والسكربت وسطر الأوامر. ثبّته أولاً قبل استخدام أي من الطرق أدناه.',
+    instDlBtn: 'تحميل EchoShortsPlayer',
+    instReq: '<strong>متطلبات النظام:</strong> Windows 10/11، بطاقة رسومات NVIDIA بذاكرة فيديو 8 جيجابايت أو أكثر، تعريفات CUDA مثبتة.',
+    instAfter: 'بعد التثبيت، شغّل التطبيق. يبدأ خادم محلي على <code>localhost:18632</code> تتواصل معه الإضافة والسكربت وسطر الأوامر.',
     tmTitle: 'سكربت Tampermonkey',
     tmTag: 'الأسهل',
     tmSub: 'كشف الوسائط بدون تثبيت لأي متصفح',
@@ -136,7 +167,24 @@ module.exports = {
     cliSub: 'أتمتة ومعالجة دفعية وبرمجة نصية',
     cliP1: 'يوفر سطر الأوامر وصولاً مباشراً لجميع ميزات التحميل والترجمة من الطرفية. مصمم للمستخدمين المتقدمين الذين يحتاجون لمعالجة مقاطع فيديو متعددة أو أتمتة سير العمل أو الدمج مع أدوات أخرى.',
     cliCmds: '<strong>الأوامر المتاحة:</strong>',
+    cliParams: '<strong>مرجع المعلمات:</strong>',
+    cliParamsPre: `--source, -s      اللغة المصدر أو "auto" (افتراضي: auto)
+--target, -t      اللغة الهدف (افتراضي: zh)
+--whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
+--translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--denoise, -d     off|light|vocal (افتراضي: off)
+--mode            serial|parallel (افتراضي: serial)
+--output, -o      مسار ملف الإخراج
+--url             رابط الوسائط (m3u8 / MP4)
+--referer         ترويسة Referer`,
+    cliLangLink: 'عرض القائمة الكاملة لرموز اللغات المدعومة لـ <code>--source</code> و <code>--target</code>: <a href="language-codes.html">مرجع رموز اللغات</a>',
     cliAdvTitle: 'لماذا تستخدم سطر الأوامر؟',
+    cliC1: '# ترجمة ملف فيديو محلي إلى ترجمات صينية',
+    cliC2: '# ترجمة مجلد كامل دفعة واحدة',
+    cliC3: '# جميع الخيارات: لغة المصدر، نموذج Whisper، محرك الترجمة، إزالة الضوضاء، وضع المعالجة',
+    cliC4: '# تحميل m3u8 أو MP4 عن بُعد',
+    cliC5: '# التحميل والترجمة في خطوة واحدة',
+    cliC6: '# ترجمة ملف SRT موجود',
     cliAdv1: 'معالجة دفعية: ترجم مئات مقاطع الفيديو بأمر واحد',
     cliAdv2: 'قابل للبرمجة: ادمج في سكربتات shell أو مهام cron أو خطوط أنابيب CI/CD',
     cliAdv3: 'تحكم كامل في النماذج: اختر حجم نموذج Whisper ومحرك الترجمة ووضع إزالة الضوضاء',
@@ -159,11 +207,18 @@ module.exports = {
     f3t: 'मीडिया डिटेक्शन',
     f3p: 'किसी भी वेबपेज पर m3u8/HLS स्ट्रीम और MP4 वीडियो लिंक को स्वचालित रूप से पहचानता है। ब्राउज़र एक्सटेंशन या यूज़रस्क्रिप्ट के ज़रिए एक क्लिक में डाउनलोड या अनुवाद करें।',
     f4t: 'रियल-टाइम सबटाइटल',
-    f4p: 'स्ट्रीम अनुवाद मोड: देखते समय सबटाइटल रियल-टाइम में दिखाई देते हैं। पूरा वीडियो डाउनलोड होने का इंतज़ार करने की ज़रूरत नहीं।',
+    f4p: 'स्ट्रीम अनुवाद मोड: देखते समय सबटाइटल रियल-टाइम में दिखाई देते हैं। पूरा वीडियो डाउनलोड होने का इंतज़ार करने की ज़रूरत नहीं। SRT सबटाइटल फ़ाइलें भविष्य में उपयोग के लिए स्थानीय रूप से सहेजी जाती हैं।',
     f5t: '100% ऑफलाइन &amp; प्राइवेट',
     f5p: 'सारी प्रोसेसिंग स्थानीय रूप से होती है। बाहरी सर्वरों को कोई डेटा नहीं भेजा जाता। कोई अकाउंट नहीं, कोई ट्रैकिंग नहीं, कोई विज्ञापन नहीं। आपका कंटेंट आपके डिवाइस पर रहता है।',
-    f6t: 'फ्लेक्सिबल आउटपुट',
-    f6p: 'मानक SRT सबटाइटल फ़ाइलें बनाता है। ऑडियो डीनॉइज़िंग (AI वोकल आइसोलेशन), बैच प्रोसेसिंग, और CUDA के ज़रिए GPU एक्सेलेरेशन को सपोर्ट करता है।',
+    f6t: 'हार्डवेयर आवश्यकताएँ',
+    f6p: '8 GB या अधिक VRAM वाला NVIDIA GPU और CUDA ड्राइवर इंस्टॉल होना चाहिए। इष्टतम प्रदर्शन के लिए GPU-त्वरित स्पीच रिकग्निशन और अनुवाद को सपोर्ट करता है।',
+    instTitle: 'EchoShortsPlayer इंस्टॉल करें',
+    instTag: 'आवश्यक',
+    instSub: 'डेस्कटॉप एप्लिकेशन — सभी सुविधाओं का मुख्य इंजन',
+    instP1: 'EchoShortsPlayer वह डेस्कटॉप एप्लिकेशन है जो AI मॉडल को स्थानीय रूप से चलाता है। ब्राउज़र एक्सटेंशन, यूज़रस्क्रिप्ट और CLI सभी इस पर निर्भर हैं। नीचे दी गई किसी भी विधि का उपयोग करने से पहले इसे पहले इंस्टॉल करें।',
+    instDlBtn: 'EchoShortsPlayer डाउनलोड करें',
+    instReq: '<strong>सिस्टम आवश्यकताएँ:</strong> Windows 10/11, 8 GB या अधिक VRAM वाला NVIDIA GPU, CUDA ड्राइवर इंस्टॉल।',
+    instAfter: 'इंस्टॉलेशन के बाद, एप्लिकेशन लॉन्च करें। यह <code>localhost:18632</code> पर एक लोकल बैकएंड सर्वर शुरू करता है जिसके साथ एक्सटेंशन, यूज़रस्क्रिप्ट और CLI संवाद करते हैं।',
     tmTitle: 'Tampermonkey यूज़रस्क्रिप्ट',
     tmTag: 'सबसे आसान',
     tmSub: 'किसी भी ब्राउज़र के लिए बिना इंस्टॉलेशन मीडिया डिटेक्शन',
@@ -208,7 +263,24 @@ module.exports = {
     cliSub: 'ऑटोमेशन, बैच प्रोसेसिंग और स्क्रिप्टिंग',
     cliP1: 'CLI टर्मिनल से सभी डाउनलोड और अनुवाद सुविधाओं तक सीधी पहुँच प्रदान करता है। यह उन पावर यूज़र्स के लिए डिज़ाइन किया गया है जिन्हें कई वीडियो प्रोसेस करने, वर्कफ़्लो ऑटोमेट करने, या अन्य टूल्स के साथ इंटीग्रेट करने की ज़रूरत है।',
     cliCmds: '<strong>उपलब्ध कमांड:</strong>',
+    cliParams: '<strong>पैरामीटर संदर्भ:</strong>',
+    cliParamsPre: `--source, -s      स्रोत भाषा या "auto" (डिफ़ॉल्ट: auto)
+--target, -t      लक्ष्य भाषा (डिफ़ॉल्ट: zh)
+--whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
+--translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--denoise, -d     off|light|vocal (डिफ़ॉल्ट: off)
+--mode            serial|parallel (डिफ़ॉल्ट: serial)
+--output, -o      आउटपुट फ़ाइल पथ
+--url             मीडिया URL (m3u8 / MP4)
+--referer         Referer हेडर`,
+    cliLangLink: '<code>--source</code> और <code>--target</code> के लिए समर्थित भाषा कोड की पूरी सूची देखें: <a href="language-codes.html">भाषा कोड संदर्भ</a>',
     cliAdvTitle: 'CLI क्यों इस्तेमाल करें?',
+    cliC1: '# एक स्थानीय वीडियो फ़ाइल को चीनी उपशीर्षक में अनुवाद करें',
+    cliC2: '# पूरे फ़ोल्डर का बैच अनुवाद करें',
+    cliC3: '# सभी विकल्प: स्रोत भाषा, Whisper मॉडल, अनुवाद इंजन, शोर हटाना, प्रोसेसिंग मोड',
+    cliC4: '# एक रिमोट m3u8 या MP4 डाउनलोड करें',
+    cliC5: '# एक ही चरण में डाउनलोड और अनुवाद करें',
+    cliC6: '# एक मौजूदा SRT फ़ाइल का अनुवाद करें',
     cliAdv1: 'बैच प्रोसेसिंग: एक ही कमांड से सैकड़ों वीडियो का अनुवाद करें',
     cliAdv2: 'स्क्रिप्टेबल: शेल स्क्रिप्ट, क्रॉन जॉब या CI/CD पाइपलाइन में इंटीग्रेट करें',
     cliAdv3: 'मॉडल पर पूरा नियंत्रण: Whisper मॉडल साइज़, अनुवाद इंजन, डीनॉइज़िंग मोड चुनें',
@@ -231,11 +303,18 @@ module.exports = {
     f3t: 'ตรวจจับสื่อ',
     f3p: 'ตรวจจับสตรีม m3u8/HLS และลิงก์วิดีโอ MP4 บนหน้าเว็บใดก็ได้โดยอัตโนมัติ ดาวน์โหลดหรือแปลด้วยคลิกเดียวผ่านส่วนขยายเบราว์เซอร์หรือยูสเซอร์สคริปต์',
     f4t: 'คำบรรยายแบบเรียลไทม์',
-    f4p: 'โหมดแปลสตรีม: คำบรรยายปรากฏแบบเรียลไทม์ขณะที่คุณดู ไม่ต้องรอให้ดาวน์โหลดวิดีโอทั้งหมดก่อน',
+    f4p: 'โหมดแปลสตรีม: คำบรรยายปรากฏแบบเรียลไทม์ขณะที่คุณดู ไม่ต้องรอให้ดาวน์โหลดวิดีโอทั้งหมดก่อน ไฟล์คำบรรยาย SRT ถูกบันทึกไว้ในเครื่องเพื่อใช้งานในอนาคต',
     f5t: '100% ออฟไลน์ &amp; เป็นส่วนตัว',
     f5p: 'การประมวลผลทั้งหมดเกิดขึ้นในเครื่อง ไม่มีข้อมูลถูกส่งไปยังเซิร์ฟเวอร์ภายนอก ไม่มีบัญชี ไม่มีการติดตาม ไม่มีโฆษณา เนื้อหาของคุณอยู่บนอุปกรณ์ของคุณ',
-    f6t: 'เอาต์พุตยืดหยุ่น',
-    f6p: 'สร้างไฟล์คำบรรยาย SRT มาตรฐาน รองรับการลดเสียงรบกวน (AI แยกเสียงร้อง), การประมวลผลแบบแบตช์ และการเร่งความเร็ว GPU ผ่าน CUDA',
+    f6t: 'ข้อกำหนดฮาร์ดแวร์',
+    f6p: 'GPU NVIDIA ที่มี VRAM 8 GB ขึ้นไปและติดตั้งไดรเวอร์ CUDA รองรับการรู้จำเสียงและการแปลที่เร่งด้วย GPU เพื่อประสิทธิภาพสูงสุด',
+    instTitle: 'ติดตั้ง EchoShortsPlayer',
+    instTag: 'จำเป็น',
+    instSub: 'แอปพลิเคชันเดสก์ท็อป — เอนจินหลักสำหรับทุกฟีเจอร์',
+    instP1: 'EchoShortsPlayer คือแอปพลิเคชันเดสก์ท็อปที่รันโมเดล AI ในเครื่อง ส่วนขยายเบราว์เซอร์ ยูสเซอร์สคริปต์ และ CLI ทั้งหมดขึ้นอยู่กับมัน ติดตั้งก่อนเป็นอันดับแรกก่อนใช้วิธีใดๆ ด้านล่าง',
+    instDlBtn: 'ดาวน์โหลด EchoShortsPlayer',
+    instReq: '<strong>ข้อกำหนดระบบ:</strong> Windows 10/11, GPU NVIDIA ที่มี VRAM 8 GB ขึ้นไป, ติดตั้งไดรเวอร์ CUDA',
+    instAfter: 'หลังจากติดตั้งแล้ว เปิดแอปพลิเคชัน มันจะเริ่มเซิร์ฟเวอร์แบ็กเอนด์ในเครื่องที่ <code>localhost:18632</code> ซึ่งส่วนขยาย ยูสเซอร์สคริปต์ และ CLI ใช้สื่อสาร',
     tmTitle: 'ยูสเซอร์สคริปต์ Tampermonkey',
     tmTag: 'ง่ายที่สุด',
     tmSub: 'ตรวจจับสื่อแบบไม่ต้องติดตั้งสำหรับทุกเบราว์เซอร์',
@@ -280,7 +359,24 @@ module.exports = {
     cliSub: 'ระบบอัตโนมัติ, การประมวลผลแบบแบตช์ และการเขียนสคริปต์',
     cliP1: 'CLI ให้การเข้าถึงโดยตรงไปยังฟีเจอร์ดาวน์โหลดและแปลทั้งหมดจากเทอร์มินัล ออกแบบมาสำหรับผู้ใช้ขั้นสูงที่ต้องการประมวลผลวิดีโอหลายรายการ ทำให้เวิร์กโฟลว์เป็นอัตโนมัติ หรือรวมเข้ากับเครื่องมืออื่น',
     cliCmds: '<strong>คำสั่งที่ใช้ได้:</strong>',
+    cliParams: '<strong>อ้างอิงพารามิเตอร์:</strong>',
+    cliParamsPre: `--source, -s      ภาษาต้นทางหรือ "auto" (ค่าเริ่มต้น: auto)
+--target, -t      ภาษาปลายทาง (ค่าเริ่มต้น: zh)
+--whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
+--translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--denoise, -d     off|light|vocal (ค่าเริ่มต้น: off)
+--mode            serial|parallel (ค่าเริ่มต้น: serial)
+--output, -o      เส้นทางไฟล์เอาต์พุต
+--url             URL สื่อ (m3u8 / MP4)
+--referer         ส่วนหัว Referer`,
+    cliLangLink: 'ดูรายการรหัสภาษาที่รองรับทั้งหมดสำหรับ <code>--source</code> และ <code>--target</code>: <a href="language-codes.html">อ้างอิงรหัสภาษา</a>',
     cliAdvTitle: 'ทำไมควรใช้ CLI?',
+    cliC1: '# แปลไฟล์วิดีโอในเครื่องเป็นคำบรรยายภาษาจีน',
+    cliC2: '# แปลทั้งโฟลเดอร์แบบแบตช์',
+    cliC3: '# ตัวเลือกทั้งหมด: ภาษาต้นทาง, โมเดล Whisper, เอนจินแปล, ลดเสียงรบกวน, โหมดประมวลผล',
+    cliC4: '# ดาวน์โหลด m3u8 หรือ MP4 จากระยะไกล',
+    cliC5: '# ดาวน์โหลดและแปลในขั้นตอนเดียว',
+    cliC6: '# แปลไฟล์ SRT ที่มีอยู่',
     cliAdv1: 'การประมวลผลแบบแบตช์: แปลวิดีโอหลายร้อยรายการด้วยคำสั่งเดียว',
     cliAdv2: 'เขียนสคริปต์ได้: รวมเข้ากับ shell scripts, cron jobs หรือ CI/CD pipelines',
     cliAdv3: 'ควบคุมโมเดลได้เต็มที่: เลือกขนาดโมเดล Whisper, เอนจินแปล, โหมดลดเสียงรบกวน',
@@ -303,11 +399,18 @@ module.exports = {
     f3t: 'Phát Hiện Phương Tiện',
     f3p: 'Tự động phát hiện luồng m3u8/HLS và liên kết video MP4 trên bất kỳ trang web nào. Tải xuống hoặc dịch chỉ với một cú nhấp qua tiện ích mở rộng trình duyệt hoặc userscript.',
     f4t: 'Phụ Đề Thời Gian Thực',
-    f4p: 'Chế độ dịch trực tiếp: phụ đề hiện ra theo thời gian thực khi bạn xem. Không cần chờ tải xuống toàn bộ video trước.',
+    f4p: 'Chế độ dịch trực tiếp: phụ đề hiện ra theo thời gian thực khi bạn xem. Không cần chờ tải xuống toàn bộ video trước. Các tệp phụ đề SRT được lưu cục bộ để sử dụng sau.',
     f5t: '100% Ngoại Tuyến &amp; Riêng Tư',
     f5p: 'Mọi xử lý diễn ra cục bộ. Không có dữ liệu nào được gửi đến máy chủ bên ngoài. Không tài khoản, không theo dõi, không quảng cáo. Nội dung của bạn ở trên thiết bị của bạn.',
-    f6t: 'Đầu Ra Linh Hoạt',
-    f6p: 'Tạo tệp phụ đề SRT tiêu chuẩn. Hỗ trợ khử nhiễu âm thanh (tách giọng hát bằng AI), xử lý hàng loạt và tăng tốc GPU qua CUDA.',
+    f6t: 'Yêu Cầu Phần Cứng',
+    f6p: 'GPU NVIDIA có VRAM từ 8 GB trở lên và đã cài đặt trình điều khiển CUDA. Hỗ trợ nhận dạng giọng nói và dịch thuật tăng tốc bằng GPU để đạt hiệu suất tối ưu.',
+    instTitle: 'Cài Đặt EchoShortsPlayer',
+    instTag: 'Bắt buộc',
+    instSub: 'Ứng dụng desktop — công cụ cốt lõi cho tất cả tính năng',
+    instP1: 'EchoShortsPlayer là ứng dụng desktop chạy các mô hình AI cục bộ. Tiện ích trình duyệt, userscript và CLI đều phụ thuộc vào nó. Hãy cài đặt nó trước khi sử dụng bất kỳ phương pháp nào bên dưới.',
+    instDlBtn: 'Tải EchoShortsPlayer',
+    instReq: '<strong>Yêu cầu hệ thống:</strong> Windows 10/11, GPU NVIDIA có VRAM từ 8 GB trở lên, đã cài đặt trình điều khiển CUDA.',
+    instAfter: 'Sau khi cài đặt, khởi chạy ứng dụng. Nó sẽ khởi động máy chủ backend cục bộ tại <code>localhost:18632</code> mà tiện ích, userscript và CLI giao tiếp.',
     tmTitle: 'Userscript Tampermonkey',
     tmTag: 'Dễ Nhất',
     tmSub: 'Phát hiện phương tiện không cần cài đặt cho mọi trình duyệt',
@@ -352,7 +455,24 @@ module.exports = {
     cliSub: 'Tự động hóa, xử lý hàng loạt và viết script',
     cliP1: 'CLI cung cấp quyền truy cập trực tiếp vào tất cả tính năng tải xuống và dịch thuật từ terminal. Được thiết kế cho người dùng nâng cao cần xử lý nhiều video, tự động hóa quy trình làm việc hoặc tích hợp với các công cụ khác.',
     cliCmds: '<strong>Các lệnh khả dụng:</strong>',
+    cliParams: '<strong>Tham chiếu tham số:</strong>',
+    cliParamsPre: `--source, -s      Ngôn ngữ nguồn hoặc "auto" (mặc định: auto)
+--target, -t      Ngôn ngữ đích (mặc định: zh)
+--whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
+--translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--denoise, -d     off|light|vocal (mặc định: off)
+--mode            serial|parallel (mặc định: serial)
+--output, -o      Đường dẫn tệp đầu ra
+--url             URL phương tiện (m3u8 / MP4)
+--referer         Tiêu đề Referer`,
+    cliLangLink: 'Xem danh sách đầy đủ các mã ngôn ngữ được hỗ trợ cho <code>--source</code> và <code>--target</code>: <a href="language-codes.html">Tham chiếu mã ngôn ngữ</a>',
     cliAdvTitle: 'Tại sao nên dùng CLI?',
+    cliC1: '# Dịch một tệp video cục bộ sang phụ đề tiếng Trung',
+    cliC2: '# Dịch hàng loạt toàn bộ thư mục',
+    cliC3: '# Tất cả tùy chọn: ngôn ngữ nguồn, mô hình Whisper, công cụ dịch, khử nhiễu, chế độ xử lý',
+    cliC4: '# Tải xuống m3u8 hoặc MP4 từ xa',
+    cliC5: '# Tải xuống và dịch trong một bước',
+    cliC6: '# Dịch một tệp SRT hiện có',
     cliAdv1: 'Xử lý hàng loạt: dịch hàng trăm video chỉ với một lệnh',
     cliAdv2: 'Có thể viết script: tích hợp vào shell scripts, cron jobs hoặc CI/CD pipelines',
     cliAdv3: 'Toàn quyền kiểm soát mô hình: chọn kích thước mô hình Whisper, công cụ dịch, chế độ khử nhiễu',
@@ -375,11 +495,18 @@ module.exports = {
     f3t: 'Pengesanan Media',
     f3p: 'Mengesan strim m3u8/HLS dan pautan video MP4 secara automatik pada mana-mana laman web. Muat turun atau terjemah dengan satu klik melalui sambungan pelayar atau skrip pengguna.',
     f4t: 'Sari Kata Masa Nyata',
-    f4p: 'Mod terjemahan strim: sari kata muncul secara masa nyata semasa anda menonton. Tidak perlu menunggu muat turun penuh video terlebih dahulu.',
+    f4p: 'Mod terjemahan strim: sari kata muncul secara masa nyata semasa anda menonton. Tidak perlu menunggu muat turun penuh video terlebih dahulu. Fail sari kata SRT disimpan secara tempatan untuk kegunaan masa hadapan.',
     f5t: '100% Luar Talian &amp; Peribadi',
     f5p: 'Semua pemprosesan berlaku secara tempatan. Tiada data dihantar ke pelayan luaran. Tiada akaun, tiada penjejakan, tiada iklan. Kandungan anda kekal pada peranti anda.',
-    f6t: 'Output Fleksibel',
-    f6p: 'Menghasilkan fail sari kata SRT standard. Menyokong penyahbisingan audio (pengasingan vokal AI), pemprosesan kelompok dan pecutan GPU melalui CUDA.',
+    f6t: 'Keperluan Perkakasan',
+    f6p: 'GPU NVIDIA dengan VRAM 8 GB atau lebih dan pemacu CUDA dipasang. Menyokong pengecaman pertuturan dan terjemahan dipercepat GPU untuk prestasi optimum.',
+    instTitle: 'Pasang EchoShortsPlayer',
+    instTag: 'Diperlukan',
+    instSub: 'Aplikasi desktop — enjin teras untuk semua ciri',
+    instP1: 'EchoShortsPlayer ialah aplikasi desktop yang menjalankan model AI secara tempatan. Sambungan pelayar, skrip pengguna dan CLI semuanya bergantung padanya. Pasang ia dahulu sebelum menggunakan mana-mana kaedah di bawah.',
+    instDlBtn: 'Muat Turun EchoShortsPlayer',
+    instReq: '<strong>Keperluan sistem:</strong> Windows 10/11, GPU NVIDIA dengan VRAM 8 GB atau lebih, pemacu CUDA dipasang.',
+    instAfter: 'Selepas pemasangan, lancarkan aplikasi. Ia memulakan pelayan backend tempatan di <code>localhost:18632</code> yang digunakan oleh sambungan, skrip pengguna dan CLI untuk berkomunikasi.',
     tmTitle: 'Skrip Pengguna Tampermonkey',
     tmTag: 'Paling Mudah',
     tmSub: 'Pengesanan media tanpa pemasangan untuk mana-mana pelayar',
@@ -424,7 +551,24 @@ module.exports = {
     cliSub: 'Automasi, pemprosesan kelompok dan skrip',
     cliP1: 'CLI menyediakan akses terus ke semua ciri muat turun dan terjemahan dari terminal. Direka untuk pengguna kuasa yang perlu memproses berbilang video, mengautomasi aliran kerja atau mengintegrasikan dengan alat lain.',
     cliCmds: '<strong>Perintah yang tersedia:</strong>',
+    cliParams: '<strong>Rujukan parameter:</strong>',
+    cliParamsPre: `--source, -s      Bahasa sumber atau "auto" (lalai: auto)
+--target, -t      Bahasa sasaran (lalai: zh)
+--whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
+--translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--denoise, -d     off|light|vocal (lalai: off)
+--mode            serial|parallel (lalai: serial)
+--output, -o      Laluan fail output
+--url             URL media (m3u8 / MP4)
+--referer         Pengepala Referer`,
+    cliLangLink: 'Lihat senarai penuh kod bahasa yang disokong untuk <code>--source</code> dan <code>--target</code>: <a href="language-codes.html">Rujukan kod bahasa</a>',
     cliAdvTitle: 'Mengapa guna CLI?',
+    cliC1: '# Terjemah fail video tempatan ke sari kata Cina',
+    cliC2: '# Terjemah keseluruhan folder secara kelompok',
+    cliC3: '# Semua pilihan: bahasa sumber, model Whisper, enjin terjemahan, pengurangan hingar, mod pemprosesan',
+    cliC4: '# Muat turun m3u8 atau MP4 jauh',
+    cliC5: '# Muat turun dan terjemah dalam satu langkah',
+    cliC6: '# Terjemah fail SRT sedia ada',
     cliAdv1: 'Pemprosesan kelompok: terjemah ratusan video dengan satu perintah',
     cliAdv2: 'Boleh diskrip: integrasikan ke dalam skrip shell, tugas cron atau saluran paip CI/CD',
     cliAdv3: 'Kawalan penuh ke atas model: pilih saiz model Whisper, enjin terjemahan, mod penyahbisingan',

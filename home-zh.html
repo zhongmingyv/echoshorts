@@ -65,7 +65,7 @@
     .method .advantages ul { margin-bottom: 0; padding-left: 16px; }
     .method .advantages ul li { font-size: 12.5px; color: #8c8; }
 
-    pre { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 14px 18px; overflow-x: auto; margin: 10px 0; font-size: 12.5px; line-height: 1.6; color: #ccc; font-family: 'SF Mono', 'Fira Code', Consolas, monospace; }
+    pre { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 14px 18px; overflow-x: auto; margin: 10px 0; font-size: 12.5px; line-height: 1.6; color: #ccc; font-family: 'SF Mono', 'Fira Code', Consolas, monospace; max-width: 100%; white-space: pre-wrap; word-break: break-word; }
     code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 12.5px; color: #4ade80; background: #1a2a1a; padding: 1px 5px; border-radius: 3px; }
 
     .btn-row { display: flex; gap: 10px; margin: 14px 0; flex-wrap: wrap; }
@@ -160,7 +160,7 @@
       <div class="card">
         <div class="icon">&#9889;</div>
         <h3>实时字幕</h3>
-        <p>流式翻译模式：字幕在观看时实时显示。无需等待整个视频下载完成。</p>
+        <p>流式翻译模式：字幕在观看时实时显示。无需等待整个视频下载完成。SRT 字幕文件保存在本地供后续使用。</p>
       </div>
       <div class="card">
         <div class="icon">&#128274;</div>
@@ -168,14 +168,29 @@
         <p>所有处理都在本地完成。不向外部服务器发送任何数据。无需账号、无跟踪、无广告。您的内容留在您的设备上。</p>
       </div>
       <div class="card">
-        <div class="icon">&#128204;</div>
-        <h3>灵活输出</h3>
-        <p>生成标准 SRT 字幕文件。支持音频降噪（AI 人声分离）、批量处理和 CUDA GPU 加速。</p>
+        <div class="icon">&#128187;</div>
+        <h3>硬件要求</h3>
+        <p>NVIDIA 显卡，8 GB+ 显存，并安装 CUDA 驱动。支持 GPU 加速的语音识别和翻译，获得最佳性能。</p>
       </div>
     </div>
 
     <!-- ============ USAGE METHODS ============ -->
     <h2 class="section-title"><span class="num">#2</span> 使用方式</h2>
+
+    <!-- Method 0: Install EchoShortsPlayer -->
+    <div class="method" id="install">
+      <h3>&#128229; 安装 EchoShortsPlayer <span class="tag">必需</span></h3>
+      <div class="subtitle">桌面应用——所有功能的核心引擎</div>
+
+      <p>EchoShortsPlayer 是在本地运行 AI 模型的桌面应用。浏览器扩展、油猴脚本和 CLI 都依赖它。请先安装后再使用下列任何方式。</p>
+
+      <div class="btn-row">
+        <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">下载 EchoShortsPlayer</a>
+      </div>
+
+      <p><strong>系统要求：</strong>Windows 10/11，NVIDIA 显卡 8 GB+ 显存，已安装 CUDA 驱动。</p>
+      <p><p>安装后启动应用。它会在 <code>localhost:18632</code> 启动本地后端服务器，扩展、油猴脚本和 CLI 都通过它通信。</p>
+    </div>
 
     <!-- Method A: Tampermonkey -->
     <div class="method" id="tampermonkey">
@@ -258,23 +273,6 @@
 
       <p>CLI 提供从终端直接访问所有下载和翻译功能。专为需要批量处理视频、自动化工作流或与其他工具集成的高级用户设计。</p>
 
-      <p><strong>可用命令：</strong></p>
-      <pre>
-# 将本地视频翻译为中文字幕
-EchoShortsPlayer.exe --cli translate video.mp4 --target zh
-
-# 批量翻译整个文件夹
-EchoShortsPlayer.exe --cli translate C:\Videos\
-
-# 下载远程 m3u8 或 MP4
-EchoShortsPlayer.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
-
-# 一步完成下载和翻译
-EchoShortsPlayer.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/"
-
-# 翻译已有的 SRT 文件
-EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
-
       <div class="advantages">
         <h4>为什么使用 CLI？</h4>
         <ul>
@@ -285,6 +283,40 @@ EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation 
           <li>支持串行（省内存）和并行（快速）处理模式</li>
         </ul>
       </div>
+
+      <p><strong>可用命令：</strong></p>
+      <pre>
+# 将本地视频翻译为中文字幕
+EchoShortsPlayer.exe --cli translate video.mp4 --target zh
+
+# 批量翻译整个文件夹
+EchoShortsPlayer.exe --cli translate C:\Videos\
+
+# 全部参数：源语言、Whisper 模型、翻译引擎、降噪、处理模式
+EchoShortsPlayer.exe --cli translate video.mp4 --source auto --target ja --whisper large-v3-turbo --translation qwen3-8b --denoise vocal --mode parallel
+
+# 下载远程 m3u8 或 MP4
+EchoShortsPlayer.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
+
+# 一步完成下载和翻译
+EchoShortsPlayer.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
+
+# 翻译已有的 SRT 文件
+EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
+
+      <p><strong>参数参考：</strong></p>
+      <pre>
+--source, -s      源语言或 "auto"（默认：auto）
+--target, -t      目标语言（默认：zh）
+--whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
+--translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--denoise, -d     off|light|vocal（默认：off）
+--mode            serial|parallel（默认：serial）
+--output, -o      输出文件路径
+--url             媒体 URL（m3u8 / MP4）
+--referer         Referer 请求头
+
+      <p>查看 <code>--source</code> 和 <code>--target</code> 支持的完整语言代码列表：<a href="language-codes.html">语言代码参考</a></p>
     </div>
 
     <!-- ============ PRIVACY & DISCLAIMER ============ -->

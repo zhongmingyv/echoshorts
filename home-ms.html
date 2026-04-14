@@ -65,7 +65,7 @@
     .method .advantages ul { margin-bottom: 0; padding-left: 16px; }
     .method .advantages ul li { font-size: 12.5px; color: #8c8; }
 
-    pre { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 14px 18px; overflow-x: auto; margin: 10px 0; font-size: 12.5px; line-height: 1.6; color: #ccc; font-family: 'SF Mono', 'Fira Code', Consolas, monospace; }
+    pre { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 14px 18px; overflow-x: auto; margin: 10px 0; font-size: 12.5px; line-height: 1.6; color: #ccc; font-family: 'SF Mono', 'Fira Code', Consolas, monospace; max-width: 100%; white-space: pre-wrap; word-break: break-word; }
     code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 12.5px; color: #4ade80; background: #1a2a1a; padding: 1px 5px; border-radius: 3px; }
 
     .btn-row { display: flex; gap: 10px; margin: 14px 0; flex-wrap: wrap; }
@@ -160,7 +160,7 @@
       <div class="card">
         <div class="icon">&#9889;</div>
         <h3>Sari Kata Masa Nyata</h3>
-        <p>Mod terjemahan strim: sari kata muncul secara masa nyata semasa anda menonton. Tidak perlu menunggu muat turun penuh video terlebih dahulu.</p>
+        <p>Mod terjemahan strim: sari kata muncul secara masa nyata semasa anda menonton. Tidak perlu menunggu muat turun penuh video terlebih dahulu. Fail sari kata SRT disimpan secara tempatan untuk kegunaan masa hadapan.</p>
       </div>
       <div class="card">
         <div class="icon">&#128274;</div>
@@ -168,14 +168,29 @@
         <p>Semua pemprosesan berlaku secara tempatan. Tiada data dihantar ke pelayan luaran. Tiada akaun, tiada penjejakan, tiada iklan. Kandungan anda kekal pada peranti anda.</p>
       </div>
       <div class="card">
-        <div class="icon">&#128204;</div>
-        <h3>Output Fleksibel</h3>
-        <p>Menghasilkan fail sari kata SRT standard. Menyokong penyahbisingan audio (pengasingan vokal AI), pemprosesan kelompok dan pecutan GPU melalui CUDA.</p>
+        <div class="icon">&#128187;</div>
+        <h3>Keperluan Perkakasan</h3>
+        <p>GPU NVIDIA dengan VRAM 8 GB atau lebih dan pemacu CUDA dipasang. Menyokong pengecaman pertuturan dan terjemahan dipercepat GPU untuk prestasi optimum.</p>
       </div>
     </div>
 
     <!-- ============ USAGE METHODS ============ -->
     <h2 class="section-title"><span class="num">#2</span> Cara Penggunaan</h2>
+
+    <!-- Method 0: Install EchoShortsPlayer -->
+    <div class="method" id="install">
+      <h3>&#128229; Install EchoShortsPlayer <span class="tag">Required</span></h3>
+      <div class="subtitle">Desktop application &mdash; the core engine for all features</div>
+
+      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension, userscript, and CLI all depend on it. Install it first before using any of the methods below.</p>
+
+      <div class="btn-row">
+        <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">Download EchoShortsPlayer</a>
+      </div>
+
+      <p><strong>System requirements:</strong> Windows 10/11, NVIDIA GPU with 8 GB+ VRAM, CUDA drivers installed.</p>
+      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension, userscript, and CLI communicate with.</p>
+    </div>
 
     <!-- Method A: Tampermonkey -->
     <div class="method" id="tampermonkey">
@@ -258,23 +273,6 @@
 
       <p>CLI menyediakan akses terus ke semua ciri muat turun dan terjemahan dari terminal. Direka untuk pengguna kuasa yang perlu memproses berbilang video, mengautomasi aliran kerja atau mengintegrasikan dengan alat lain.</p>
 
-      <p><strong>Perintah yang tersedia:</strong></p>
-      <pre>
-# Terjemah fail video tempatan ke sari kata Cina
-EchoShortsPlayer.exe --cli translate video.mp4 --target zh
-
-# Terjemah kelompok seluruh folder
-EchoShortsPlayer.exe --cli translate C:\Videos\
-
-# Muat turun m3u8 atau MP4 jauh
-EchoShortsPlayer.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
-
-# Muat turun dan terjemah dalam satu langkah
-EchoShortsPlayer.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/"
-
-# Terjemah fail SRT sedia ada
-EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
-
       <div class="advantages">
         <h4>Mengapa guna CLI?</h4>
         <ul>
@@ -285,6 +283,40 @@ EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation 
           <li>Menyokong mod pemprosesan bersiri (jimat memori) dan selari (pantas)</li>
         </ul>
       </div>
+
+      <p><strong>Perintah yang tersedia:</strong></p>
+      <pre>
+# Terjemah fail video tempatan ke sari kata Cina
+EchoShortsPlayer.exe --cli translate video.mp4 --target zh
+
+# Terjemah keseluruhan folder secara kelompok
+EchoShortsPlayer.exe --cli translate C:\Videos\
+
+# Semua pilihan: bahasa sumber, model Whisper, enjin terjemahan, pengurangan hingar, mod pemprosesan
+EchoShortsPlayer.exe --cli translate video.mp4 --source auto --target ja --whisper large-v3-turbo --translation qwen3-8b --denoise vocal --mode parallel
+
+# Muat turun m3u8 atau MP4 jauh
+EchoShortsPlayer.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
+
+# Muat turun dan terjemah dalam satu langkah
+EchoShortsPlayer.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
+
+# Terjemah fail SRT sedia ada
+EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
+
+      <p><strong>Rujukan parameter:</strong></p>
+      <pre>
+--source, -s      Bahasa sumber atau "auto" (lalai: auto)
+--target, -t      Bahasa sasaran (lalai: zh)
+--whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
+--translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--denoise, -d     off|light|vocal (lalai: off)
+--mode            serial|parallel (lalai: serial)
+--output, -o      Laluan fail output
+--url             URL media (m3u8 / MP4)
+--referer         Pengepala Referer
+
+      <p>Lihat senarai penuh kod bahasa yang disokong untuk <code>--source</code> dan <code>--target</code>: <a href="language-codes.html">Rujukan kod bahasa</a></p>
     </div>
 
     <!-- ============ PRIVACY & DISCLAIMER ============ -->

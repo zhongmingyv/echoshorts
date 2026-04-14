@@ -65,7 +65,7 @@
     .method .advantages ul { margin-bottom: 0; padding-left: 16px; }
     .method .advantages ul li { font-size: 12.5px; color: #8c8; }
 
-    pre { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 14px 18px; overflow-x: auto; margin: 10px 0; font-size: 12.5px; line-height: 1.6; color: #ccc; font-family: 'SF Mono', 'Fira Code', Consolas, monospace; }
+    pre { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 14px 18px; overflow-x: auto; margin: 10px 0; font-size: 12.5px; line-height: 1.6; color: #ccc; font-family: 'SF Mono', 'Fira Code', Consolas, monospace; max-width: 100%; white-space: pre-wrap; word-break: break-word; }
     code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 12.5px; color: #4ade80; background: #1a2a1a; padding: 1px 5px; border-radius: 3px; }
 
     .btn-row { display: flex; gap: 10px; margin: 14px 0; flex-wrap: wrap; }
@@ -160,7 +160,7 @@
       <div class="card">
         <div class="icon">&#9889;</div>
         <h3>Phụ Đề Thời Gian Thực</h3>
-        <p>Chế độ dịch trực tiếp: phụ đề hiện ra theo thời gian thực khi bạn xem. Không cần chờ tải xuống toàn bộ video trước.</p>
+        <p>Chế độ dịch trực tiếp: phụ đề hiện ra theo thời gian thực khi bạn xem. Không cần chờ tải xuống toàn bộ video trước. Các tệp phụ đề SRT được lưu cục bộ để sử dụng sau.</p>
       </div>
       <div class="card">
         <div class="icon">&#128274;</div>
@@ -168,14 +168,29 @@
         <p>Mọi xử lý diễn ra cục bộ. Không có dữ liệu nào được gửi đến máy chủ bên ngoài. Không tài khoản, không theo dõi, không quảng cáo. Nội dung của bạn ở trên thiết bị của bạn.</p>
       </div>
       <div class="card">
-        <div class="icon">&#128204;</div>
-        <h3>Đầu Ra Linh Hoạt</h3>
-        <p>Tạo tệp phụ đề SRT tiêu chuẩn. Hỗ trợ khử nhiễu âm thanh (tách giọng hát bằng AI), xử lý hàng loạt và tăng tốc GPU qua CUDA.</p>
+        <div class="icon">&#128187;</div>
+        <h3>Yêu Cầu Phần Cứng</h3>
+        <p>GPU NVIDIA có VRAM từ 8 GB trở lên và đã cài đặt trình điều khiển CUDA. Hỗ trợ nhận dạng giọng nói và dịch thuật tăng tốc bằng GPU để đạt hiệu suất tối ưu.</p>
       </div>
     </div>
 
     <!-- ============ USAGE METHODS ============ -->
     <h2 class="section-title"><span class="num">#2</span> Cách Sử Dụng</h2>
+
+    <!-- Method 0: Install EchoShortsPlayer -->
+    <div class="method" id="install">
+      <h3>&#128229; Install EchoShortsPlayer <span class="tag">Required</span></h3>
+      <div class="subtitle">Desktop application &mdash; the core engine for all features</div>
+
+      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension, userscript, and CLI all depend on it. Install it first before using any of the methods below.</p>
+
+      <div class="btn-row">
+        <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">Download EchoShortsPlayer</a>
+      </div>
+
+      <p><strong>System requirements:</strong> Windows 10/11, NVIDIA GPU with 8 GB+ VRAM, CUDA drivers installed.</p>
+      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension, userscript, and CLI communicate with.</p>
+    </div>
 
     <!-- Method A: Tampermonkey -->
     <div class="method" id="tampermonkey">
@@ -258,23 +273,6 @@
 
       <p>CLI cung cấp quyền truy cập trực tiếp vào tất cả tính năng tải xuống và dịch thuật từ terminal. Được thiết kế cho người dùng nâng cao cần xử lý nhiều video, tự động hóa quy trình làm việc hoặc tích hợp với các công cụ khác.</p>
 
-      <p><strong>Các lệnh khả dụng:</strong></p>
-      <pre>
-# Dịch tệp video cục bộ sang phụ đề tiếng Trung
-EchoShortsPlayer.exe --cli translate video.mp4 --target zh
-
-# Dịch hàng loạt cả thư mục
-EchoShortsPlayer.exe --cli translate C:\Videos\
-
-# Tải xuống m3u8 hoặc MP4 từ xa
-EchoShortsPlayer.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
-
-# Tải xuống và dịch trong một bước
-EchoShortsPlayer.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/"
-
-# Dịch tệp SRT hiện có
-EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
-
       <div class="advantages">
         <h4>Tại sao nên dùng CLI?</h4>
         <ul>
@@ -285,6 +283,40 @@ EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation 
           <li>Hỗ trợ cả chế độ xử lý nối tiếp (tiết kiệm bộ nhớ) và song song (nhanh)</li>
         </ul>
       </div>
+
+      <p><strong>Các lệnh khả dụng:</strong></p>
+      <pre>
+# Dịch một tệp video cục bộ sang phụ đề tiếng Trung
+EchoShortsPlayer.exe --cli translate video.mp4 --target zh
+
+# Dịch hàng loạt toàn bộ thư mục
+EchoShortsPlayer.exe --cli translate C:\Videos\
+
+# Tất cả tùy chọn: ngôn ngữ nguồn, mô hình Whisper, công cụ dịch, khử nhiễu, chế độ xử lý
+EchoShortsPlayer.exe --cli translate video.mp4 --source auto --target ja --whisper large-v3-turbo --translation qwen3-8b --denoise vocal --mode parallel
+
+# Tải xuống m3u8 hoặc MP4 từ xa
+EchoShortsPlayer.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
+
+# Tải xuống và dịch trong một bước
+EchoShortsPlayer.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
+
+# Dịch một tệp SRT hiện có
+EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
+
+      <p><strong>Tham chiếu tham số:</strong></p>
+      <pre>
+--source, -s      Ngôn ngữ nguồn hoặc "auto" (mặc định: auto)
+--target, -t      Ngôn ngữ đích (mặc định: zh)
+--whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
+--translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--denoise, -d     off|light|vocal (mặc định: off)
+--mode            serial|parallel (mặc định: serial)
+--output, -o      Đường dẫn tệp đầu ra
+--url             URL phương tiện (m3u8 / MP4)
+--referer         Tiêu đề Referer
+
+      <p>Xem danh sách đầy đủ các mã ngôn ngữ được hỗ trợ cho <code>--source</code> và <code>--target</code>: <a href="language-codes.html">Tham chiếu mã ngôn ngữ</a></p>
     </div>
 
     <!-- ============ PRIVACY & DISCLAIMER ============ -->
