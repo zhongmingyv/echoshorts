@@ -155,7 +155,7 @@
       <div class="card">
         <div class="icon">&#128246;</div>
         <h3>Phát Hiện Phương Tiện</h3>
-        <p>Tự động phát hiện luồng m3u8/HLS và liên kết video MP4 trên bất kỳ trang web nào. Tải xuống hoặc dịch chỉ với một cú nhấp qua tiện ích mở rộng trình duyệt hoặc userscript.</p>
+        <p>Tự động phát hiện luồng m3u8/HLS và liên kết video MP4 trên bất kỳ trang web nào. Tải xuống hoặc dịch chỉ với một cú nhấp qua tiện ích mở rộng trình duyệt.</p>
       </div>
       <div class="card">
         <div class="icon">&#9889;</div>
@@ -182,50 +182,17 @@
       <h3>&#128229; Install EchoShortsPlayer <span class="tag">Required</span></h3>
       <div class="subtitle">Desktop application &mdash; the core engine for all features</div>
 
-      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension, userscript, and CLI all depend on it. Install it first before using any of the methods below.</p>
+      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension and CLI depend on it. Install it first before using any of the methods below.</p>
 
       <div class="btn-row">
         <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">Download EchoShortsPlayer</a>
       </div>
 
       <p><strong>System requirements:</strong> Windows 10/11, NVIDIA GPU with 8 GB+ VRAM, CUDA drivers installed.</p>
-      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension, userscript, and CLI communicate with.</p>
+      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension and CLI communicate with.</p>
     </div>
 
-    <!-- Method A: Tampermonkey -->
-    <div class="method" id="tampermonkey">
-      <h3>&#129668; Userscript Tampermonkey <span class="tag">Dễ Nhất</span></h3>
-      <div class="subtitle">Phát hiện phương tiện không cần cài đặt cho mọi trình duyệt</div>
-
-      <p>Userscript Tampermonkey chèn một bảng nổi vào mọi trang web, tự động phát hiện luồng m3u8 và liên kết video MP4. Phương tiện được phát hiện sẽ xuất hiện trong danh sách với các nút <strong>Tải Xuống</strong> và <strong>Dịch</strong>.</p>
-
-      <p><strong>Bước 1:</strong> Cài đặt tiện ích mở rộng Tampermonkey cho trình duyệt:</p>
-      <div class="btn-row">
-        <a class="btn btn-outline" href="https://www.tampermonkey.net/" target="_blank">Trang chính thức Tampermonkey</a>
-        <a class="btn btn-outline" href="https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo" target="_blank">Chrome Web Store</a>
-      </div>
-
-      <p><strong>Bước 2:</strong> Cài đặt userscript EchoShortsPlayer:</p>
-      <div class="btn-row">
-        <a class="btn btn-green" href="echoshorts-media-grabber.user.js">Cài Đặt Userscript</a>
-      </div>
-
-      <p><strong>Bước 3:</strong> Đảm bảo ứng dụng desktop EchoShortsPlayer đang chạy (userscript gửi các URL phát hiện được đến backend cục bộ tại <code>localhost:18632</code>).</p>
-
-      <p><strong>Bước 4:</strong> Truy cập bất kỳ trang video nào. Bảng nổi (góc dưới bên phải) sẽ tự động phát hiện phương tiện. Nhấp <strong>Tải Xuống</strong> hoặc <strong>Dịch</strong>.</p>
-
-      <div class="advantages">
-        <h4>Tại sao nên dùng userscript?</h4>
-        <ul>
-          <li>Hoạt động trên mọi trình duyệt hỗ trợ Tampermonkey (Chrome, Firefox, Edge, Safari, Opera)</li>
-          <li>Không cần cài đặt tiện ích Chrome — rất hữu ích khi tiện ích mở rộng bị hạn chế</li>
-          <li>Nhẹ: một tệp duy nhất, dễ kiểm tra và chỉnh sửa</li>
-          <li>Tự động cập nhật qua cơ chế cập nhật tích hợp của Tampermonkey</li>
-          <li>Phát hiện cả luồng m3u8/HLS và liên kết MP4 trực tiếp trên trang</li>
-        </ul>
-      </div>
-    </div>
-
+    
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
       <h3>&#128268; Tiện Ích Chrome <span class="tag">Khuyên Dùng</span></h3>
@@ -261,7 +228,6 @@
           <li>Tự động chọn chất lượng: nhóm các biến thể theo ID video và chọn chất lượng tốt nhất</li>
           <li>Chèn header Referer để phát các luồng yêu cầu xác thực</li>
           <li>Bộ đếm huy hiệu hiển thị số lượng phương tiện phát hiện được trên mỗi tab trong nháy mắt</li>
-          <li>Phát hiện sâu hơn userscript: móc vào fetch, XHR, MediaSource và quét nội dung phản hồi</li>
         </ul>
       </div>
     </div>
@@ -332,17 +298,12 @@ EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation 
       <div class="priv-section">
         <h3>Không Truyền Dữ Liệu Qua Mạng</h3>
         <p>Ứng dụng này không gửi dữ liệu người dùng đến máy chủ bên ngoài trong quá trình sử dụng bình thường.</p>
-        <p>Tiện ích mở rộng trình duyệt và userscript chỉ giao tiếp với backend cục bộ tại <code>localhost:18632</code>.</p>
+        <p>Tiện ích mở rộng trình duyệt chỉ giao tiếp với backend cục bộ tại <code>localhost:18632</code>.</p>
       </div>
 
       <div class="priv-section">
         <h3>Không Quảng Cáo, Không Theo Dõi, Không Đề Xuất</h3>
         <p>Ứng dụng này không chứa hệ thống quảng cáo, mã theo dõi hành vi người dùng, công cụ phân tích hoặc cơ chế đề xuất dữ liệu.</p>
-      </div>
-
-      <div class="priv-section">
-        <h3>Mã Nguồn Mở và Minh Bạch</h3>
-        <p>Mã nguồn của ứng dụng hoàn toàn sẵn có để kiểm tra.</p>
       </div>
 
       <div class="priv-section">

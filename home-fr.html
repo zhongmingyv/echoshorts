@@ -155,7 +155,7 @@
       <div class="card">
         <div class="icon">&#128246;</div>
         <h3>Détection des Médias</h3>
-        <p>Détecte automatiquement les flux m3u8/HLS et les liens vidéo MP4 sur toute page web. Téléchargez ou traduisez en un clic via l'extension de navigateur ou le userscript.</p>
+        <p>Détecte automatiquement les flux m3u8/HLS et les liens vidéo MP4 sur toute page web. Téléchargez ou traduisez en un clic via l'extension de navigateur.</p>
       </div>
       <div class="card">
         <div class="icon">&#9889;</div>
@@ -182,50 +182,17 @@
       <h3>&#128229; Install EchoShortsPlayer <span class="tag">Required</span></h3>
       <div class="subtitle">Desktop application &mdash; the core engine for all features</div>
 
-      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension, userscript, and CLI all depend on it. Install it first before using any of the methods below.</p>
+      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension and CLI depend on it. Install it first before using any of the methods below.</p>
 
       <div class="btn-row">
         <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">Download EchoShortsPlayer</a>
       </div>
 
       <p><strong>System requirements:</strong> Windows 10/11, NVIDIA GPU with 8 GB+ VRAM, CUDA drivers installed.</p>
-      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension, userscript, and CLI communicate with.</p>
+      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension and CLI communicate with.</p>
     </div>
 
-    <!-- Method A: Tampermonkey -->
-    <div class="method" id="tampermonkey">
-      <h3>&#129668; Userscript Tampermonkey <span class="tag">Le Plus Simple</span></h3>
-      <div class="subtitle">Détection de médias sans installation pour tout navigateur</div>
-
-      <p>Le userscript Tampermonkey injecte un panneau flottant dans chaque page web qui détecte automatiquement les flux m3u8 et les liens vidéo MP4. Les médias détectés apparaissent dans une liste avec des boutons <strong>Télécharger</strong> et <strong>Traduire</strong>.</p>
-
-      <p><strong>Étape 1 :</strong> Installez l'extension de navigateur Tampermonkey :</p>
-      <div class="btn-row">
-        <a class="btn btn-outline" href="https://www.tampermonkey.net/" target="_blank">Site Officiel de Tampermonkey</a>
-        <a class="btn btn-outline" href="https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo" target="_blank">Chrome Web Store</a>
-      </div>
-
-      <p><strong>Étape 2 :</strong> Installez le userscript EchoShortsPlayer :</p>
-      <div class="btn-row">
-        <a class="btn btn-green" href="echoshorts-media-grabber.user.js">Installer le Userscript</a>
-      </div>
-
-      <p><strong>Étape 3 :</strong> Assurez-vous que l'application de bureau EchoShortsPlayer est en cours d'exécution (le userscript envoie les URL détectées au backend local à <code>localhost:18632</code>).</p>
-
-      <p><strong>Étape 4 :</strong> Visitez n'importe quelle page vidéo. Le panneau flottant (coin inférieur droit) détectera automatiquement les médias. Cliquez sur <strong>Télécharger</strong> ou <strong>Traduire</strong>.</p>
-
-      <div class="advantages">
-        <h4>Pourquoi utiliser le userscript ?</h4>
-        <ul>
-          <li>Fonctionne dans tout navigateur compatible Tampermonkey (Chrome, Firefox, Edge, Safari, Opera)</li>
-          <li>Pas d'installation d'extension Chrome requise — idéal quand les extensions sont restreintes</li>
-          <li>Léger : fichier unique, facile à inspecter et modifier</li>
-          <li>Mises à jour automatiques via le mécanisme intégré de Tampermonkey</li>
-          <li>Détecte à la fois les flux m3u8/HLS et les liens MP4 directs sur les pages</li>
-        </ul>
-      </div>
-    </div>
-
+    
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
       <h3>&#128268; Extension Chrome <span class="tag">Recommandé</span></h3>
@@ -261,7 +228,6 @@
           <li>Sélection automatique de la qualité : regroupe les variantes par ID vidéo et choisit la meilleure qualité</li>
           <li>Injection d'en-tête Referer pour lire les flux nécessitant une authentification</li>
           <li>Le compteur de badge affiche le nombre de médias détectés par onglet en un coup d'œil</li>
-          <li>Détection plus approfondie que les userscripts : se connecte à fetch, XHR, MediaSource et au scan du corps de réponse</li>
         </ul>
       </div>
     </div>
@@ -332,17 +298,12 @@ EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation 
       <div class="priv-section">
         <h3>Aucune Transmission de Données Réseau</h3>
         <p>Cette application n'envoie aucune donnée utilisateur à des serveurs externes pendant l'utilisation normale. Tout le traitement audio et la traduction de texte sont effectués localement.</p>
-        <p>L'extension de navigateur et le script utilisateur communiquent uniquement avec le backend local sur <code>localhost:18632</code>.</p>
+        <p>L'extension de navigateur communique uniquement avec le backend local sur <code>localhost:18632</code>.</p>
       </div>
 
       <div class="priv-section">
         <h3>Pas de Publicité, Pas de Suivi, Pas de Recommandations</h3>
         <p>Cette application ne contient aucun système publicitaire, code de suivi du comportement des utilisateurs, outils d'analyse ou mécanismes de recommandation de données.</p>
-      </div>
-
-      <div class="priv-section">
-        <h3>Open Source et Transparent</h3>
-        <p>Le code source de l'application est entièrement disponible pour inspection. Les utilisateurs sont encouragés à examiner le code pour vérifier les déclarations de confidentialité et de sécurité faites dans cette politique.</p>
       </div>
 
       <div class="priv-section">

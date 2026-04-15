@@ -155,7 +155,7 @@
       <div class="card">
         <div class="icon">&#128246;</div>
         <h3>ตรวจจับสื่อ</h3>
-        <p>ตรวจจับสตรีม m3u8/HLS และลิงก์วิดีโอ MP4 บนหน้าเว็บใดก็ได้โดยอัตโนมัติ ดาวน์โหลดหรือแปลด้วยคลิกเดียวผ่านส่วนขยายเบราว์เซอร์หรือยูสเซอร์สคริปต์</p>
+        <p>ตรวจจับสตรีม m3u8/HLS และลิงก์วิดีโอ MP4 บนหน้าเว็บใดก็ได้โดยอัตโนมัติ ดาวน์โหลดหรือแปลด้วยคลิกเดียวผ่านส่วนขยายเบราว์เซอร์</p>
       </div>
       <div class="card">
         <div class="icon">&#9889;</div>
@@ -182,50 +182,17 @@
       <h3>&#128229; Install EchoShortsPlayer <span class="tag">Required</span></h3>
       <div class="subtitle">Desktop application &mdash; the core engine for all features</div>
 
-      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension, userscript, and CLI all depend on it. Install it first before using any of the methods below.</p>
+      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension and CLI depend on it. Install it first before using any of the methods below.</p>
 
       <div class="btn-row">
         <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">Download EchoShortsPlayer</a>
       </div>
 
       <p><strong>System requirements:</strong> Windows 10/11, NVIDIA GPU with 8 GB+ VRAM, CUDA drivers installed.</p>
-      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension, userscript, and CLI communicate with.</p>
+      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension and CLI communicate with.</p>
     </div>
 
-    <!-- Method A: Tampermonkey -->
-    <div class="method" id="tampermonkey">
-      <h3>&#129668; ยูสเซอร์สคริปต์ Tampermonkey <span class="tag">ง่ายที่สุด</span></h3>
-      <div class="subtitle">ตรวจจับสื่อแบบไม่ต้องติดตั้งสำหรับทุกเบราว์เซอร์</div>
-
-      <p>ยูสเซอร์สคริปต์ Tampermonkey แทรกแผงลอยในทุกหน้าเว็บที่ตรวจจับสตรีม m3u8 และลิงก์วิดีโอ MP4 โดยอัตโนมัติ สื่อที่ตรวจพบจะปรากฏในรายการพร้อมปุ่ม <strong>ดาวน์โหลด</strong> และ <strong>แปล</strong></p>
-
-      <p><strong>ขั้นตอนที่ 1:</strong> ติดตั้งส่วนขยาย Tampermonkey สำหรับเบราว์เซอร์:</p>
-      <div class="btn-row">
-        <a class="btn btn-outline" href="https://www.tampermonkey.net/" target="_blank">เว็บไซต์ทางการ Tampermonkey</a>
-        <a class="btn btn-outline" href="https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo" target="_blank">Chrome Web Store</a>
-      </div>
-
-      <p><strong>ขั้นตอนที่ 2:</strong> ติดตั้งยูสเซอร์สคริปต์ EchoShortsPlayer:</p>
-      <div class="btn-row">
-        <a class="btn btn-green" href="echoshorts-media-grabber.user.js">ติดตั้งยูสเซอร์สคริปต์</a>
-      </div>
-
-      <p><strong>ขั้นตอนที่ 3:</strong> ตรวจสอบให้แน่ใจว่าแอป EchoShortsPlayer เดสก์ท็อปกำลังทำงาน (ยูสเซอร์สคริปต์จะส่ง URL ที่ตรวจพบไปยังแบ็กเอนด์ในเครื่องที่ <code>localhost:18632</code>)</p>
-
-      <p><strong>ขั้นตอนที่ 4:</strong> เข้าชมหน้าวิดีโอใดก็ได้ แผงลอย (มุมขวาล่าง) จะตรวจจับสื่อโดยอัตโนมัติ คลิก <strong>ดาวน์โหลด</strong> หรือ <strong>แปล</strong></p>
-
-      <div class="advantages">
-        <h4>ทำไมควรใช้ยูสเซอร์สคริปต์?</h4>
-        <ul>
-          <li>ใช้งานได้ในทุกเบราว์เซอร์ที่รองรับ Tampermonkey (Chrome, Firefox, Edge, Safari, Opera)</li>
-          <li>ไม่ต้องติดตั้งส่วนขยาย Chrome — เหมาะเมื่อส่วนขยายถูกจำกัด</li>
-          <li>น้ำหนักเบา: ไฟล์เดียว ง่ายต่อการตรวจสอบและแก้ไข</li>
-          <li>อัปเดตอัตโนมัติผ่านกลไกอัปเดตในตัวของ Tampermonkey</li>
-          <li>ตรวจจับทั้งสตรีม m3u8/HLS และลิงก์ MP4 โดยตรงบนหน้าเว็บ</li>
-        </ul>
-      </div>
-    </div>
-
+    
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
       <h3>&#128268; ส่วนขยาย Chrome <span class="tag">แนะนำ</span></h3>
@@ -261,7 +228,6 @@
           <li>เลือกคุณภาพอัตโนมัติ: จัดกลุ่มตัวแปรตาม ID วิดีโอและเลือกคุณภาพดีที่สุด</li>
           <li>แทรกเฮดเดอร์ Referer สำหรับเล่นสตรีมที่ต้องการการยืนยันตัวตน</li>
           <li>ตัวนับตราแสดงจำนวนสื่อที่ตรวจพบต่อแท็บอย่างรวดเร็ว</li>
-          <li>ตรวจจับลึกกว่ายูสเซอร์สคริปต์: เชื่อมต่อกับ fetch, XHR, MediaSource และการสแกนเนื้อหาการตอบกลับ</li>
         </ul>
       </div>
     </div>
@@ -332,17 +298,12 @@ EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation 
       <div class="priv-section">
         <h3>ไม่มีการส่งข้อมูลผ่านเครือข่าย</h3>
         <p>แอปพลิเคชันนี้ไม่ส่งข้อมูลผู้ใช้ไปยังเซิร์ฟเวอร์ภายนอกระหว่างการใช้งานปกติ</p>
-        <p>ส่วนขยายเบราว์เซอร์และยูสเซอร์สคริปต์สื่อสารกับแบ็คเอนด์ในเครื่องที่ <code>localhost:18632</code> เท่านั้น</p>
+        <p>ส่วนขยายเบราว์เซอร์สื่อสารกับแบ็คเอนด์ในเครื่องที่ <code>localhost:18632</code> เท่านั้น</p>
       </div>
 
       <div class="priv-section">
         <h3>ไม่มีโฆษณา ไม่มีการติดตาม ไม่มีคำแนะนำ</h3>
         <p>แอปพลิเคชันนี้ไม่มีระบบโฆษณา โค้ดติดตามพฤติกรรมผู้ใช้ เครื่องมือวิเคราะห์ หรือกลไกแนะนำข้อมูล</p>
-      </div>
-
-      <div class="priv-section">
-        <h3>โอเพนซอร์สและโปร่งใส</h3>
-        <p>ซอร์สโค้ดของแอปพลิเคชันเปิดให้ตรวจสอบได้อย่างเต็มที่</p>
       </div>
 
       <div class="priv-section">

@@ -155,7 +155,7 @@
       <div class="card">
         <div class="icon">&#128246;</div>
         <h3>媒体检测</h3>
-        <p>自动检测网页上的 m3u8/HLS 流和 MP4 视频链接。通过浏览器扩展或油猴脚本一键下载或翻译。</p>
+        <p>自动检测网页上的 m3u8/HLS 流和 MP4 视频链接。通过浏览器扩展一键下载或翻译。</p>
       </div>
       <div class="card">
         <div class="icon">&#9889;</div>
@@ -182,50 +182,17 @@
       <h3>&#128229; 安装 EchoShortsPlayer <span class="tag">必需</span></h3>
       <div class="subtitle">桌面应用——所有功能的核心引擎</div>
 
-      <p>EchoShortsPlayer 是在本地运行 AI 模型的桌面应用。浏览器扩展、油猴脚本和 CLI 都依赖它。请先安装后再使用下列任何方式。</p>
+      <p>EchoShortsPlayer 是在本地运行 AI 模型的桌面应用。浏览器扩展和 CLI 都依赖它。请先安装后再使用下列任何方式。</p>
 
       <div class="btn-row">
         <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">下载 EchoShortsPlayer</a>
       </div>
 
       <p><strong>系统要求：</strong>Windows 10/11，NVIDIA 显卡 8 GB+ 显存，已安装 CUDA 驱动。</p>
-      <p><p>安装后启动应用。它会在 <code>localhost:18632</code> 启动本地后端服务器，扩展、油猴脚本和 CLI 都通过它通信。</p>
+      <p><p>安装后启动应用。它会在 <code>localhost:18632</code> 启动本地后端服务器，扩展和 CLI 都通过它通信。</p>
     </div>
 
-    <!-- Method A: Tampermonkey -->
-    <div class="method" id="tampermonkey">
-      <h3>&#129668; 篡改猴脚本 <span class="tag">最简单</span></h3>
-      <div class="subtitle">任何浏览器的零安装媒体检测</div>
-
-      <p>篡改猴脚本在每个网页中注入一个浮动面板，自动检测 m3u8 流和 MP4 视频链接。检测到的媒体显示在列表中，带有 <strong>下载</strong> 和 <strong>翻译</strong> 按钮。</p>
-
-      <p><strong>步骤 1：</strong>安装篡改猴浏览器扩展：</p>
-      <div class="btn-row">
-        <a class="btn btn-outline" href="https://www.tampermonkey.net/" target="_blank">篡改猴官网</a>
-        <a class="btn btn-outline" href="https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo" target="_blank">Chrome 商店</a>
-      </div>
-
-      <p><strong>步骤 2：</strong>安装 EchoShortsPlayer 脚本：</p>
-      <div class="btn-row">
-        <a class="btn btn-green" href="echoshorts-media-grabber.user.js">安装脚本</a>
-      </div>
-
-      <p><strong>步骤 3：</strong>确保 EchoShortsPlayer 桌面应用正在运行（脚本将检测到的 URL 发送到本地后端 <code>localhost:18632</code>）。</p>
-
-      <p><strong>步骤 4：</strong>访问任何视频页面。浮动面板（右下角）会自动检测媒体。点击 <strong>下载</strong> 或 <strong>翻译</strong>。</p>
-
-      <div class="advantages">
-        <h4>为什么使用油猴脚本？</h4>
-        <ul>
-          <li>适用于所有支持 Tampermonkey 的浏览器（Chrome、Firefox、Edge、Safari、Opera）</li>
-          <li>无需安装 Chrome 扩展——适合扩展受限的环境</li>
-          <li>轻量：单个文件，易于检查和修改</li>
-          <li>通过 Tampermonkey 内置机制自动更新</li>
-          <li>同时检测 m3u8/HLS 流和 MP4 直链</li>
-        </ul>
-      </div>
-    </div>
-
+    
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
       <h3>&#128268; Chrome 扩展 <span class="tag">推荐</span></h3>
@@ -261,7 +228,6 @@
           <li>自动质量选择：按视频 ID 分组并选择最佳质量</li>
           <li>Referer 头注入，播放需要认证的流</li>
           <li>徽章计数器一目了然显示每个标签页检测到的媒体数量</li>
-          <li>比油猴脚本更深度的检测：hook fetch、XHR、MediaSource 和响应体扫描</li>
         </ul>
       </div>
     </div>
@@ -332,17 +298,12 @@ EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation 
       <div class="priv-section">
         <h3>无网络数据传输</h3>
         <p>本应用在正常使用期间不会向外部服务器发送任何用户数据。所有音频处理和文本翻译都在本地完成。AI 模型首次使用时从公开来源（HuggingFace）下载，此后可完全离线运行。</p>
-        <p>浏览器扩展和油猴脚本仅与本地后端 <code>localhost:18632</code> 通信。不向开发者运营的任何远程服务器传输数据。</p>
+        <p>浏览器扩展仅与本地后端 <code>localhost:18632</code> 通信。不向开发者运营的任何远程服务器传输数据。</p>
       </div>
 
       <div class="priv-section">
         <h3>无广告、无跟踪、无推荐</h3>
         <p>本应用不包含任何广告系统、用户行为跟踪代码、分析工具或数据推荐机制。我们不与任何第三方共享用户数据，也不根据用户行为创建画像或推送内容。</p>
-      </div>
-
-      <div class="priv-section">
-        <h3>开源透明</h3>
-        <p>应用的源代码，包括 Chrome 扩展、篡改猴脚本和后端管道，完全开放供检查。鼓励用户审查代码以验证本政策中的隐私和安全声明。</p>
       </div>
 
       <div class="priv-section">

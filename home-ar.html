@@ -155,7 +155,7 @@
       <div class="card">
         <div class="icon">&#128246;</div>
         <h3>كشف الوسائط</h3>
-        <p>يكشف تلقائياً بث m3u8/HLS وروابط فيديو MP4 على أي صفحة ويب. حمّل أو ترجم بنقرة واحدة عبر إضافة المتصفح أو السكربت.</p>
+        <p>يكشف تلقائياً بث m3u8/HLS وروابط فيديو MP4 على أي صفحة ويب. حمّل أو ترجم بنقرة واحدة عبر إضافة المتصفح .</p>
       </div>
       <div class="card">
         <div class="icon">&#9889;</div>
@@ -182,50 +182,17 @@
       <h3>&#128229; Install EchoShortsPlayer <span class="tag">Required</span></h3>
       <div class="subtitle">Desktop application &mdash; the core engine for all features</div>
 
-      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension, userscript, and CLI all depend on it. Install it first before using any of the methods below.</p>
+      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension and CLI depend on it. Install it first before using any of the methods below.</p>
 
       <div class="btn-row">
         <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">Download EchoShortsPlayer</a>
       </div>
 
       <p><strong>System requirements:</strong> Windows 10/11, NVIDIA GPU with 8 GB+ VRAM, CUDA drivers installed.</p>
-      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension, userscript, and CLI communicate with.</p>
+      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension and CLI communicate with.</p>
     </div>
 
-    <!-- Method A: Tampermonkey -->
-    <div class="method" id="tampermonkey">
-      <h3>&#129668; سكربت Tampermonkey <span class="tag">الأسهل</span></h3>
-      <div class="subtitle">كشف الوسائط بدون تثبيت لأي متصفح</div>
-
-      <p>يضيف سكربت Tampermonkey لوحة عائمة في كل صفحة ويب تكشف تلقائياً بث m3u8 وروابط فيديو MP4. تظهر الوسائط المكتشفة في قائمة مع أزرار <strong>تحميل</strong> و<strong>ترجمة</strong>.</p>
-
-      <p><strong>الخطوة 1:</strong> ثبّت إضافة Tampermonkey للمتصفح:</p>
-      <div class="btn-row">
-        <a class="btn btn-outline" href="https://www.tampermonkey.net/" target="_blank">الموقع الرسمي لـ Tampermonkey</a>
-        <a class="btn btn-outline" href="https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo" target="_blank">متجر Chrome الإلكتروني</a>
-      </div>
-
-      <p><strong>الخطوة 2:</strong> ثبّت سكربت EchoShortsPlayer:</p>
-      <div class="btn-row">
-        <a class="btn btn-green" href="echoshorts-media-grabber.user.js">تثبيت السكربت</a>
-      </div>
-
-      <p><strong>الخطوة 3:</strong> تأكد من أن تطبيق EchoShortsPlayer يعمل على سطح المكتب (يرسل السكربت الروابط المكتشفة إلى الخادم المحلي على <code>localhost:18632</code>).</p>
-
-      <p><strong>الخطوة 4:</strong> زر أي صفحة فيديو. ستكشف اللوحة العائمة (الزاوية السفلية اليمنى) الوسائط تلقائياً. انقر <strong>تحميل</strong> أو <strong>ترجمة</strong>.</p>
-
-      <div class="advantages">
-        <h4>لماذا تستخدم السكربت؟</h4>
-        <ul>
-          <li>يعمل في أي متصفح يدعم Tampermonkey (Chrome، Firefox، Edge، Safari، Opera)</li>
-          <li>لا يتطلب تثبيت إضافة Chrome — مثالي عندما تكون الإضافات مقيّدة</li>
-          <li>خفيف الوزن: ملف واحد، سهل الفحص والتعديل</li>
-          <li>تحديث تلقائي عبر آلية التحديث المدمجة في Tampermonkey</li>
-          <li>يكشف بث m3u8/HLS وروابط MP4 المباشرة على الصفحات</li>
-        </ul>
-      </div>
-    </div>
-
+    
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
       <h3>&#128268; إضافة Chrome <span class="tag">موصى به</span></h3>
@@ -261,7 +228,6 @@
           <li>اختيار تلقائي للجودة: تجمّع المتغيرات حسب معرّف الفيديو وتختار أفضل جودة</li>
           <li>حقن رأس Referer لتشغيل البث الذي يتطلب مصادقة</li>
           <li>عدّاد الشارة يعرض عدد الوسائط المكتشفة لكل علامة تبويب بنظرة سريعة</li>
-          <li>كشف أعمق من السكربتات: يعترض fetch وXHR وMediaSource وفحص محتوى الاستجابة</li>
         </ul>
       </div>
     </div>
@@ -332,17 +298,12 @@ EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation 
       <div class="priv-section">
         <h3>عدم نقل البيانات عبر الشبكة</h3>
         <p>لا يرسل هذا التطبيق أي بيانات مستخدم إلى خوادم خارجية أثناء الاستخدام العادي. تتم جميع عمليات معالجة الصوت وترجمة النص محلياً. يتم تنزيل نماذج الذكاء الاصطناعي من مصادر عامة (HuggingFace) عند الاستخدام الأول ويمكن أن تعمل بالكامل دون اتصال بعد ذلك.</p>
-        <p>يتواصل امتداد المتصفح وسكريبت المستخدم فقط مع الخادم المحلي على <code>localhost:18632</code>. لا يتم نقل أي بيانات إلى أي خادم بعيد يديره المطورون.</p>
+        <p>يتواصل امتداد المتصفح فقط مع الخادم المحلي على <code>localhost:18632</code>. لا يتم نقل أي بيانات إلى أي خادم بعيد يديره المطورون.</p>
       </div>
 
       <div class="priv-section">
         <h3>بدون إعلانات، بدون تتبع، بدون توصيات</h3>
         <p>لا يحتوي هذا التطبيق على أنظمة إعلانية أو رموز تتبع سلوك المستخدم أو أدوات تحليل أو آليات توصية البيانات. نحن لا نشارك بيانات المستخدم مع أي أطراف ثالثة.</p>
-      </div>
-
-      <div class="priv-section">
-        <h3>مفتوح المصدر وشفاف</h3>
-        <p>الكود المصدري للتطبيق متاح بالكامل للفحص. نشجع المستخدمين على مراجعة الكود للتحقق من ادعاءات الخصوصية والأمان الواردة في هذه السياسة.</p>
       </div>
 
       <div class="priv-section">

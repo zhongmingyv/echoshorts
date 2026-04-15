@@ -155,7 +155,7 @@
       <div class="card">
         <div class="icon">&#128246;</div>
         <h3>Detección de Medios</h3>
-        <p>Detecta automáticamente transmisiones m3u8/HLS y enlaces de video MP4 en cualquier página web. Descarga o traduce con un solo clic mediante la extensión del navegador o el userscript.</p>
+        <p>Detecta automáticamente transmisiones m3u8/HLS y enlaces de video MP4 en cualquier página web. Descarga o traduce con un solo clic mediante la extensión del navegador.</p>
       </div>
       <div class="card">
         <div class="icon">&#9889;</div>
@@ -182,50 +182,17 @@
       <h3>&#128229; Install EchoShortsPlayer <span class="tag">Required</span></h3>
       <div class="subtitle">Desktop application &mdash; the core engine for all features</div>
 
-      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension, userscript, and CLI all depend on it. Install it first before using any of the methods below.</p>
+      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension and CLI depend on it. Install it first before using any of the methods below.</p>
 
       <div class="btn-row">
         <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">Download EchoShortsPlayer</a>
       </div>
 
       <p><strong>System requirements:</strong> Windows 10/11, NVIDIA GPU with 8 GB+ VRAM, CUDA drivers installed.</p>
-      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension, userscript, and CLI communicate with.</p>
+      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension and CLI communicate with.</p>
     </div>
 
-    <!-- Method A: Tampermonkey -->
-    <div class="method" id="tampermonkey">
-      <h3>&#129668; Userscript de Tampermonkey <span class="tag">Más Fácil</span></h3>
-      <div class="subtitle">Detección de medios sin instalación para cualquier navegador</div>
-
-      <p>El userscript de Tampermonkey inyecta un panel flotante en cada página web que detecta automáticamente transmisiones m3u8 y enlaces de video MP4. Los medios detectados aparecen en una lista con botones de <strong>Descargar</strong> y <strong>Traducir</strong>.</p>
-
-      <p><strong>Paso 1:</strong> Instala la extensión de navegador Tampermonkey:</p>
-      <div class="btn-row">
-        <a class="btn btn-outline" href="https://www.tampermonkey.net/" target="_blank">Sitio Oficial de Tampermonkey</a>
-        <a class="btn btn-outline" href="https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo" target="_blank">Chrome Web Store</a>
-      </div>
-
-      <p><strong>Paso 2:</strong> Instala el userscript de EchoShortsPlayer:</p>
-      <div class="btn-row">
-        <a class="btn btn-green" href="echoshorts-media-grabber.user.js">Instalar Userscript</a>
-      </div>
-
-      <p><strong>Paso 3:</strong> Asegúrate de que la aplicación de escritorio EchoShortsPlayer esté en ejecución (el userscript envía las URL detectadas al backend local en <code>localhost:18632</code>).</p>
-
-      <p><strong>Paso 4:</strong> Visita cualquier página de video. El panel flotante (esquina inferior derecha) detectará medios automáticamente. Haz clic en <strong>Descargar</strong> o <strong>Traducir</strong>.</p>
-
-      <div class="advantages">
-        <h4>¿Por qué usar el userscript?</h4>
-        <ul>
-          <li>Funciona en cualquier navegador compatible con Tampermonkey (Chrome, Firefox, Edge, Safari, Opera)</li>
-          <li>No requiere instalación de extensión de Chrome — ideal cuando las extensiones están restringidas</li>
-          <li>Ligero: archivo único, fácil de inspeccionar y modificar</li>
-          <li>Actualizaciones automáticas mediante el mecanismo integrado de Tampermonkey</li>
-          <li>Detecta tanto transmisiones m3u8/HLS como enlaces MP4 directos en las páginas</li>
-        </ul>
-      </div>
-    </div>
-
+    
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
       <h3>&#128268; Extensión de Chrome <span class="tag">Recomendado</span></h3>
@@ -261,7 +228,6 @@
           <li>Selección automática de calidad: agrupa variantes por ID de video y elige la mejor calidad</li>
           <li>Inyección de encabezado Referer para reproducir transmisiones que requieren autenticación</li>
           <li>El contador de insignia muestra el número de medios detectados por pestaña de un vistazo</li>
-          <li>Detección más profunda que los userscripts: se conecta a fetch, XHR, MediaSource y escaneo del cuerpo de respuesta</li>
         </ul>
       </div>
     </div>
@@ -332,17 +298,12 @@ EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation 
       <div class="priv-section">
         <h3>Sin Transmisión de Datos por Red</h3>
         <p>Esta aplicación no envía datos de usuario a servidores externos durante el uso normal. Todo el procesamiento de audio y la traducción de texto se completan localmente. Los modelos de IA se descargan de fuentes públicas (HuggingFace) en el primer uso y pueden funcionar completamente sin conexión a partir de entonces.</p>
-        <p>La extensión del navegador y el script de usuario se comunican únicamente con el backend local en <code>localhost:18632</code>. No se transmiten datos a ningún servidor remoto operado por los desarrolladores.</p>
+        <p>La extensión del navegador se comunica únicamente con el backend local en <code>localhost:18632</code>. No se transmiten datos a ningún servidor remoto operado por los desarrolladores.</p>
       </div>
 
       <div class="priv-section">
         <h3>Sin Publicidad, Sin Rastreo, Sin Recomendaciones</h3>
         <p>Esta aplicación no contiene sistemas publicitarios, código de rastreo de comportamiento de usuario, herramientas de análisis ni mecanismos de recomendación de datos. No compartimos datos de usuario con terceros, ni creamos perfiles ni enviamos contenido basado en el comportamiento del usuario.</p>
-      </div>
-
-      <div class="priv-section">
-        <h3>Código Abierto y Transparente</h3>
-        <p>El código fuente de la aplicación, incluyendo la extensión de Chrome, el script de Tampermonkey y el pipeline del backend, está completamente disponible para su inspección. Se alienta a los usuarios a revisar el código para verificar las afirmaciones de privacidad y seguridad realizadas en esta política.</p>
       </div>
 
       <div class="priv-section">

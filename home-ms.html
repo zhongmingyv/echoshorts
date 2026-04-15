@@ -155,7 +155,7 @@
       <div class="card">
         <div class="icon">&#128246;</div>
         <h3>Pengesanan Media</h3>
-        <p>Mengesan strim m3u8/HLS dan pautan video MP4 secara automatik pada mana-mana laman web. Muat turun atau terjemah dengan satu klik melalui sambungan pelayar atau skrip pengguna.</p>
+        <p>Mengesan strim m3u8/HLS dan pautan video MP4 secara automatik pada mana-mana laman web. Muat turun atau terjemah dengan satu klik melalui sambungan pelayar.</p>
       </div>
       <div class="card">
         <div class="icon">&#9889;</div>
@@ -182,50 +182,17 @@
       <h3>&#128229; Install EchoShortsPlayer <span class="tag">Required</span></h3>
       <div class="subtitle">Desktop application &mdash; the core engine for all features</div>
 
-      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension, userscript, and CLI all depend on it. Install it first before using any of the methods below.</p>
+      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension and CLI depend on it. Install it first before using any of the methods below.</p>
 
       <div class="btn-row">
         <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">Download EchoShortsPlayer</a>
       </div>
 
       <p><strong>System requirements:</strong> Windows 10/11, NVIDIA GPU with 8 GB+ VRAM, CUDA drivers installed.</p>
-      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension, userscript, and CLI communicate with.</p>
+      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension and CLI communicate with.</p>
     </div>
 
-    <!-- Method A: Tampermonkey -->
-    <div class="method" id="tampermonkey">
-      <h3>&#129668; Skrip Pengguna Tampermonkey <span class="tag">Paling Mudah</span></h3>
-      <div class="subtitle">Pengesanan media tanpa pemasangan untuk mana-mana pelayar</div>
-
-      <p>Skrip pengguna Tampermonkey menyuntik panel terapung ke dalam setiap laman web yang mengesan strim m3u8 dan pautan video MP4 secara automatik. Media yang dikesan muncul dalam senarai dengan butang <strong>Muat Turun</strong> dan <strong>Terjemah</strong>.</p>
-
-      <p><strong>Langkah 1:</strong> Pasang sambungan pelayar Tampermonkey:</p>
-      <div class="btn-row">
-        <a class="btn btn-outline" href="https://www.tampermonkey.net/" target="_blank">Laman Rasmi Tampermonkey</a>
-        <a class="btn btn-outline" href="https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo" target="_blank">Chrome Web Store</a>
-      </div>
-
-      <p><strong>Langkah 2:</strong> Pasang skrip pengguna EchoShortsPlayer:</p>
-      <div class="btn-row">
-        <a class="btn btn-green" href="echoshorts-media-grabber.user.js">Pasang Skrip Pengguna</a>
-      </div>
-
-      <p><strong>Langkah 3:</strong> Pastikan aplikasi desktop EchoShortsPlayer sedang berjalan (skrip pengguna menghantar URL yang dikesan ke backend tempatan di <code>localhost:18632</code>).</p>
-
-      <p><strong>Langkah 4:</strong> Lawati mana-mana halaman video. Panel terapung (sudut kanan bawah) akan mengesan media secara automatik. Klik <strong>Muat Turun</strong> atau <strong>Terjemah</strong>.</p>
-
-      <div class="advantages">
-        <h4>Mengapa guna skrip pengguna?</h4>
-        <ul>
-          <li>Berfungsi dalam mana-mana pelayar yang menyokong Tampermonkey (Chrome, Firefox, Edge, Safari, Opera)</li>
-          <li>Tidak perlu pemasangan sambungan Chrome — sesuai apabila sambungan dihadkan</li>
-          <li>Ringan: satu fail, mudah diperiksa dan diubah suai</li>
-          <li>Kemas kini automatik melalui mekanisme kemas kini terbina dalam Tampermonkey</li>
-          <li>Mengesan kedua-dua strim m3u8/HLS dan pautan MP4 terus pada halaman</li>
-        </ul>
-      </div>
-    </div>
-
+    
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
       <h3>&#128268; Sambungan Chrome <span class="tag">Disyorkan</span></h3>
@@ -261,7 +228,6 @@
           <li>Pemilihan kualiti automatik: mengumpulkan varian mengikut ID video dan memilih kualiti terbaik</li>
           <li>Suntikan pengepala Referer untuk memainkan strim yang memerlukan pengesahan</li>
           <li>Kaunter lencana menunjukkan bilangan media yang dikesan bagi setiap tab sepintas lalu</li>
-          <li>Pengesanan lebih mendalam daripada skrip pengguna: mengait ke fetch, XHR, MediaSource dan pengimbasan badan respons</li>
         </ul>
       </div>
     </div>
@@ -332,17 +298,12 @@ EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation 
       <div class="priv-section">
         <h3>Tiada Penghantaran Data Rangkaian</h3>
         <p>Aplikasi ini tidak menghantar sebarang data pengguna ke pelayan luaran semasa penggunaan biasa.</p>
-        <p>Sambungan pelayar dan skrip pengguna hanya berkomunikasi dengan backend tempatan di <code>localhost:18632</code>.</p>
+        <p>Sambungan pelayar hanya berkomunikasi dengan backend tempatan di <code>localhost:18632</code>.</p>
       </div>
 
       <div class="priv-section">
         <h3>Tiada Iklan, Tiada Penjejakan, Tiada Cadangan</h3>
         <p>Aplikasi ini tidak mengandungi sistem pengiklanan, kod penjejakan tingkah laku pengguna, alat analitik atau mekanisme cadangan data.</p>
-      </div>
-
-      <div class="priv-section">
-        <h3>Sumber Terbuka dan Telus</h3>
-        <p>Kod sumber aplikasi tersedia sepenuhnya untuk pemeriksaan.</p>
       </div>
 
       <div class="priv-section">

@@ -155,7 +155,7 @@
       <div class="card">
         <div class="icon">&#128246;</div>
         <h3>मीडिया डिटेक्शन</h3>
-        <p>किसी भी वेबपेज पर m3u8/HLS स्ट्रीम और MP4 वीडियो लिंक को स्वचालित रूप से पहचानता है। ब्राउज़र एक्सटेंशन या यूज़रस्क्रिप्ट के ज़रिए एक क्लिक में डाउनलोड या अनुवाद करें।</p>
+        <p>किसी भी वेबपेज पर m3u8/HLS स्ट्रीम और MP4 वीडियो लिंक को स्वचालित रूप से पहचानता है। ब्राउज़र एक्सटेंशन के ज़रिए एक क्लिक में डाउनलोड या अनुवाद करें।</p>
       </div>
       <div class="card">
         <div class="icon">&#9889;</div>
@@ -182,50 +182,17 @@
       <h3>&#128229; Install EchoShortsPlayer <span class="tag">Required</span></h3>
       <div class="subtitle">Desktop application &mdash; the core engine for all features</div>
 
-      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension, userscript, and CLI all depend on it. Install it first before using any of the methods below.</p>
+      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension and CLI depend on it. Install it first before using any of the methods below.</p>
 
       <div class="btn-row">
         <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">Download EchoShortsPlayer</a>
       </div>
 
       <p><strong>System requirements:</strong> Windows 10/11, NVIDIA GPU with 8 GB+ VRAM, CUDA drivers installed.</p>
-      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension, userscript, and CLI communicate with.</p>
+      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension and CLI communicate with.</p>
     </div>
 
-    <!-- Method A: Tampermonkey -->
-    <div class="method" id="tampermonkey">
-      <h3>&#129668; Tampermonkey यूज़रस्क्रिप्ट <span class="tag">सबसे आसान</span></h3>
-      <div class="subtitle">किसी भी ब्राउज़र के लिए बिना इंस्टॉलेशन मीडिया डिटेक्शन</div>
-
-      <p>Tampermonkey यूज़रस्क्रिप्ट हर वेबपेज में एक फ्लोटिंग पैनल जोड़ता है जो स्वचालित रूप से m3u8 स्ट्रीम और MP4 वीडियो लिंक का पता लगाता है। पहचानी गई मीडिया एक सूची में <strong>डाउनलोड</strong> और <strong>अनुवाद</strong> बटन के साथ दिखाई देती है।</p>
-
-      <p><strong>चरण 1:</strong> Tampermonkey ब्राउज़र एक्सटेंशन इंस्टॉल करें:</p>
-      <div class="btn-row">
-        <a class="btn btn-outline" href="https://www.tampermonkey.net/" target="_blank">Tampermonkey आधिकारिक साइट</a>
-        <a class="btn btn-outline" href="https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo" target="_blank">Chrome वेब स्टोर</a>
-      </div>
-
-      <p><strong>चरण 2:</strong> EchoShortsPlayer यूज़रस्क्रिप्ट इंस्टॉल करें:</p>
-      <div class="btn-row">
-        <a class="btn btn-green" href="echoshorts-media-grabber.user.js">यूज़रस्क्रिप्ट इंस्टॉल करें</a>
-      </div>
-
-      <p><strong>चरण 3:</strong> सुनिश्चित करें कि EchoShortsPlayer डेस्कटॉप ऐप चल रहा है (यूज़रस्क्रिप्ट पहचाने गए URL को <code>localhost:18632</code> पर लोकल बैकएंड को भेजता है)।</p>
-
-      <p><strong>चरण 4:</strong> किसी भी वीडियो पेज पर जाएँ। फ्लोटिंग पैनल (नीचे-दाएँ कोने में) स्वचालित रूप से मीडिया का पता लगाएगा। <strong>डाउनलोड</strong> या <strong>अनुवाद</strong> पर क्लिक करें।</p>
-
-      <div class="advantages">
-        <h4>यूज़रस्क्रिप्ट क्यों इस्तेमाल करें?</h4>
-        <ul>
-          <li>Tampermonkey सपोर्ट करने वाले किसी भी ब्राउज़र में काम करता है (Chrome, Firefox, Edge, Safari, Opera)</li>
-          <li>Chrome एक्सटेंशन इंस्टॉलेशन की ज़रूरत नहीं — जब एक्सटेंशन प्रतिबंधित हों तब बढ़िया</li>
-          <li>हल्का: सिंगल फ़ाइल, जाँचना और बदलना आसान</li>
-          <li>Tampermonkey के बिल्ट-इन अपडेट मैकेनिज़्म से ऑटो-अपडेट</li>
-          <li>पेजों पर m3u8/HLS स्ट्रीम और डायरेक्ट MP4 लिंक दोनों का पता लगाता है</li>
-        </ul>
-      </div>
-    </div>
-
+    
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
       <h3>&#128268; Chrome एक्सटेंशन <span class="tag">अनुशंसित</span></h3>
@@ -261,7 +228,6 @@
           <li>ऑटोमैटिक क्वालिटी सिलेक्शन: वीडियो ID के अनुसार वेरिएंट ग्रुप करता है और सबसे अच्छी क्वालिटी चुनता है</li>
           <li>ऑथेंटिकेशन की ज़रूरत वाली स्ट्रीम चलाने के लिए Referer हेडर इंजेक्शन</li>
           <li>बैज काउंटर एक नज़र में प्रति टैब पहचानी गई मीडिया की संख्या दिखाता है</li>
-          <li>यूज़रस्क्रिप्ट से गहरी डिटेक्शन: fetch, XHR, MediaSource और रिस्पॉन्स बॉडी स्कैनिंग को हुक करता है</li>
         </ul>
       </div>
     </div>
@@ -332,17 +298,12 @@ EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation 
       <div class="priv-section">
         <h3>कोई नेटवर्क डेटा ट्रांसमिशन नहीं</h3>
         <p>यह एप्लिकेशन सामान्य उपयोग के दौरान बाहरी सर्वरों को कोई उपयोगकर्ता डेटा नहीं भेजता है।</p>
-        <p>ब्राउज़र एक्सटेंशन और यूज़रस्क्रिप्ट केवल <code>localhost:18632</code> पर स्थानीय बैकएंड से संवाद करते हैं।</p>
+        <p>ब्राउज़र एक्सटेंशन केवल <code>localhost:18632</code> पर स्थानीय बैकएंड से संवाद करता है।</p>
       </div>
 
       <div class="priv-section">
         <h3>कोई विज्ञापन नहीं, कोई ट्रैकिंग नहीं, कोई अनुशंसाएं नहीं</h3>
         <p>इस एप्लिकेशन में कोई विज्ञापन प्रणाली, उपयोगकर्ता व्यवहार ट्रैकिंग कोड, एनालिटिक्स या डेटा अनुशंसा तंत्र नहीं है।</p>
-      </div>
-
-      <div class="priv-section">
-        <h3>ओपन सोर्स और पारदर्शी</h3>
-        <p>एप्लिकेशन का स्रोत कोड निरीक्षण के लिए पूरी तरह उपलब्ध है।</p>
       </div>
 
       <div class="priv-section">

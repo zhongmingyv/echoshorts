@@ -155,7 +155,7 @@
       <div class="card">
         <div class="icon">&#128246;</div>
         <h3>미디어 감지</h3>
-        <p>모든 웹페이지에서 m3u8/HLS 스트림과 MP4 동영상 링크를 자동 감지합니다. 브라우저 확장 프로그램이나 유저스크립트로 원클릭 다운로드 또는 번역.</p>
+        <p>모든 웹페이지에서 m3u8/HLS 스트림과 MP4 동영상 링크를 자동 감지합니다. 브라우저 확장 프로그램로 원클릭 다운로드 또는 번역.</p>
       </div>
       <div class="card">
         <div class="icon">&#9889;</div>
@@ -182,50 +182,17 @@
       <h3>&#128229; Install EchoShortsPlayer <span class="tag">Required</span></h3>
       <div class="subtitle">Desktop application &mdash; the core engine for all features</div>
 
-      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension, userscript, and CLI all depend on it. Install it first before using any of the methods below.</p>
+      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension and CLI depend on it. Install it first before using any of the methods below.</p>
 
       <div class="btn-row">
         <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">Download EchoShortsPlayer</a>
       </div>
 
       <p><strong>System requirements:</strong> Windows 10/11, NVIDIA GPU with 8 GB+ VRAM, CUDA drivers installed.</p>
-      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension, userscript, and CLI communicate with.</p>
+      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension and CLI communicate with.</p>
     </div>
 
-    <!-- Method A: Tampermonkey -->
-    <div class="method" id="tampermonkey">
-      <h3>&#129668; Tampermonkey 유저스크립트 <span class="tag">가장 쉬움</span></h3>
-      <div class="subtitle">모든 브라우저에서 설치 없이 미디어 감지</div>
-
-      <p>Tampermonkey 유저스크립트는 모든 웹페이지에 플로팅 패널을 삽입하여 m3u8 스트림과 MP4 동영상 링크를 자동 감지합니다. 감지된 미디어는 <strong>다운로드</strong>와 <strong>번역</strong> 버튼이 있는 목록에 표시됩니다.</p>
-
-      <p><strong>1단계:</strong> Tampermonkey 브라우저 확장 프로그램을 설치하세요:</p>
-      <div class="btn-row">
-        <a class="btn btn-outline" href="https://www.tampermonkey.net/" target="_blank">Tampermonkey 공식 사이트</a>
-        <a class="btn btn-outline" href="https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo" target="_blank">Chrome 웹 스토어</a>
-      </div>
-
-      <p><strong>2단계:</strong> EchoShortsPlayer 유저스크립트를 설치하세요:</p>
-      <div class="btn-row">
-        <a class="btn btn-green" href="echoshorts-media-grabber.user.js">유저스크립트 설치</a>
-      </div>
-
-      <p><strong>3단계:</strong> EchoShortsPlayer 데스크톱 앱이 실행 중인지 확인하세요 (유저스크립트는 감지된 URL을 <code>localhost:18632</code>의 로컬 백엔드로 전송합니다).</p>
-
-      <p><strong>4단계:</strong> 아무 동영상 페이지를 방문하세요. 플로팅 패널(오른쪽 하단)이 미디어를 자동 감지합니다. <strong>다운로드</strong> 또는 <strong>번역</strong>을 클릭하세요.</p>
-
-      <div class="advantages">
-        <h4>유저스크립트를 사용하는 이유</h4>
-        <ul>
-          <li>Tampermonkey를 지원하는 모든 브라우저에서 작동 (Chrome, Firefox, Edge, Safari, Opera)</li>
-          <li>Chrome 확장 프로그램 설치 불필요 — 확장 프로그램이 제한된 환경에 적합</li>
-          <li>가볍고 단일 파일로 검사 및 수정이 용이</li>
-          <li>Tampermonkey 내장 업데이트 메커니즘으로 자동 업데이트</li>
-          <li>페이지의 m3u8/HLS 스트림과 직접 MP4 링크를 모두 감지</li>
-        </ul>
-      </div>
-    </div>
-
+    
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
       <h3>&#128268; Chrome 확장 프로그램 <span class="tag">추천</span></h3>
@@ -261,7 +228,6 @@
           <li>자동 화질 선택: 동영상 ID별로 변형을 그룹화하고 최고 화질을 선택</li>
           <li>인증이 필요한 스트림 재생을 위한 Referer 헤더 삽입</li>
           <li>배지 카운터로 탭별 감지된 미디어 수를 한눈에 확인</li>
-          <li>유저스크립트보다 심층적인 감지: fetch, XHR, MediaSource, 응답 본문 스캔에 연결</li>
         </ul>
       </div>
     </div>
@@ -332,17 +298,12 @@ EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation 
       <div class="priv-section">
         <h3>네트워크 데이터 전송 없음</h3>
         <p>이 애플리케이션은 정상 사용 중 사용자 데이터를 외부 서버로 전송하지 않습니다. 모든 오디오 처리와 텍스트 번역은 로컬에서 완료됩니다.</p>
-        <p>브라우저 확장 프로그램과 유저스크립트는 <code>localhost:18632</code>의 로컬 백엔드와만 통신합니다.</p>
+        <p>브라우저 확장 프로그램은 <code>localhost:18632</code>의 로컬 백엔드와만 통신합니다.</p>
       </div>
 
       <div class="priv-section">
         <h3>광고 없음, 추적 없음, 추천 없음</h3>
         <p>이 애플리케이션에는 광고 시스템, 사용자 행동 추적 코드, 분석 도구 또는 데이터 추천 메커니즘이 포함되어 있지 않습니다.</p>
-      </div>
-
-      <div class="priv-section">
-        <h3>오픈 소스 및 투명성</h3>
-        <p>애플리케이션의 소스 코드는 검토를 위해 완전히 공개되어 있습니다. 사용자는 이 정책에서 주장하는 개인정보 보호 및 보안 사항을 확인하기 위해 코드를 검토하는 것이 좋습니다.</p>
       </div>
 
       <div class="priv-section">

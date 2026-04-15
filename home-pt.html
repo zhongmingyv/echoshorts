@@ -155,7 +155,7 @@
       <div class="card">
         <div class="icon">&#128246;</div>
         <h3>Detecção de Mídia</h3>
-        <p>Detecta automaticamente streams m3u8/HLS e links de vídeo MP4 em qualquer página web. Baixe ou traduza com um clique via extensão do navegador ou userscript.</p>
+        <p>Detecta automaticamente streams m3u8/HLS e links de vídeo MP4 em qualquer página web. Baixe ou traduza com um clique via extensão do navegador.</p>
       </div>
       <div class="card">
         <div class="icon">&#9889;</div>
@@ -182,50 +182,17 @@
       <h3>&#128229; Install EchoShortsPlayer <span class="tag">Required</span></h3>
       <div class="subtitle">Desktop application &mdash; the core engine for all features</div>
 
-      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension, userscript, and CLI all depend on it. Install it first before using any of the methods below.</p>
+      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension and CLI depend on it. Install it first before using any of the methods below.</p>
 
       <div class="btn-row">
         <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">Download EchoShortsPlayer</a>
       </div>
 
       <p><strong>System requirements:</strong> Windows 10/11, NVIDIA GPU with 8 GB+ VRAM, CUDA drivers installed.</p>
-      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension, userscript, and CLI communicate with.</p>
+      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension and CLI communicate with.</p>
     </div>
 
-    <!-- Method A: Tampermonkey -->
-    <div class="method" id="tampermonkey">
-      <h3>&#129668; Userscript para Tampermonkey <span class="tag">Mais Fácil</span></h3>
-      <div class="subtitle">Detecção de mídia sem instalação para qualquer navegador</div>
-
-      <p>O userscript do Tampermonkey injeta um painel flutuante em cada página web que detecta automaticamente streams m3u8 e links de vídeo MP4. A mídia detectada aparece em uma lista com botões <strong>Baixar</strong> e <strong>Traduzir</strong>.</p>
-
-      <p><strong>Passo 1:</strong> Instale a extensão Tampermonkey no navegador:</p>
-      <div class="btn-row">
-        <a class="btn btn-outline" href="https://www.tampermonkey.net/" target="_blank">Site Oficial do Tampermonkey</a>
-        <a class="btn btn-outline" href="https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo" target="_blank">Chrome Web Store</a>
-      </div>
-
-      <p><strong>Passo 2:</strong> Instale o userscript do EchoShortsPlayer:</p>
-      <div class="btn-row">
-        <a class="btn btn-green" href="echoshorts-media-grabber.user.js">Instalar Userscript</a>
-      </div>
-
-      <p><strong>Passo 3:</strong> Certifique-se de que o aplicativo desktop EchoShortsPlayer esteja em execução (o userscript envia as URLs detectadas para o backend local em <code>localhost:18632</code>).</p>
-
-      <p><strong>Passo 4:</strong> Visite qualquer página de vídeo. O painel flutuante (canto inferior direito) detectará a mídia automaticamente. Clique em <strong>Baixar</strong> ou <strong>Traduzir</strong>.</p>
-
-      <div class="advantages">
-        <h4>Por que usar o userscript?</h4>
-        <ul>
-          <li>Funciona em qualquer navegador compatível com Tampermonkey (Chrome, Firefox, Edge, Safari, Opera)</li>
-          <li>Não requer instalação de extensão do Chrome — ideal quando extensões são restritas</li>
-          <li>Leve: arquivo único, fácil de inspecionar e modificar</li>
-          <li>Atualização automática pelo mecanismo integrado do Tampermonkey</li>
-          <li>Detecta tanto streams m3u8/HLS quanto links MP4 diretos nas páginas</li>
-        </ul>
-      </div>
-    </div>
-
+    
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
       <h3>&#128268; Extensão para Chrome <span class="tag">Recomendado</span></h3>
@@ -261,7 +228,6 @@
           <li>Seleção automática de qualidade: agrupa variantes por ID de vídeo e escolhe a melhor qualidade</li>
           <li>Injeção de cabeçalho Referer para reproduzir streams que exigem autenticação</li>
           <li>Contador no badge mostra a quantidade de mídia detectada por aba de forma rápida</li>
-          <li>Detecção mais profunda que userscripts: intercepta fetch, XHR, MediaSource e varredura do corpo da resposta</li>
         </ul>
       </div>
     </div>
@@ -332,17 +298,12 @@ EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation 
       <div class="priv-section">
         <h3>Sem Transmissão de Dados pela Rede</h3>
         <p>Este aplicativo não envia nenhum dado do usuário para servidores externos durante o uso normal. Todo o processamento de áudio e tradução de texto são realizados localmente.</p>
-        <p>A extensão do navegador e o userscript se comunicam apenas com o backend local em <code>localhost:18632</code>.</p>
+        <p>A extensão do navegador se comunica apenas com o backend local em <code>localhost:18632</code>.</p>
       </div>
 
       <div class="priv-section">
         <h3>Sem Anúncios, Sem Rastreamento, Sem Recomendações</h3>
         <p>Este aplicativo não contém sistemas de publicidade, código de rastreamento de comportamento do usuário, análises ou mecanismos de recomendação de dados.</p>
-      </div>
-
-      <div class="priv-section">
-        <h3>Código Aberto e Transparente</h3>
-        <p>O código-fonte do aplicativo está totalmente disponível para inspeção. Os usuários são encorajados a revisar o código para verificar as alegações de privacidade e segurança feitas nesta política.</p>
       </div>
 
       <div class="priv-section">

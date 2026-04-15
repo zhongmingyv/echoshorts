@@ -155,7 +155,7 @@
       <div class="card">
         <div class="icon">&#128246;</div>
         <h3>Media Detection</h3>
-        <p>Automatically detects m3u8/HLS streams and MP4 video links on any webpage. Download or translate with one click via browser extension or userscript.</p>
+        <p>Automatically detects m3u8/HLS streams and MP4 video links on any webpage. Download or translate with one click via browser extension.</p>
       </div>
       <div class="card">
         <div class="icon">&#9889;</div>
@@ -182,48 +182,14 @@
       <h3>&#128229; Install EchoShortsPlayer <span class="tag">Required</span></h3>
       <div class="subtitle">Desktop application &mdash; the core engine for all features</div>
 
-      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension, userscript, and CLI all depend on it. Install it first before using any of the methods below.</p>
+      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension and CLI depend on it. Install it first before using any of the methods below.</p>
 
       <div class="btn-row">
         <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">Download EchoShortsPlayer</a>
       </div>
 
       <p><strong>System requirements:</strong> Windows 10/11, NVIDIA GPU with 8 GB+ VRAM, CUDA drivers installed.</p>
-      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension, userscript, and CLI communicate with.</p>
-    </div>
-
-    <!-- Method A: Tampermonkey -->
-    <div class="method" id="tampermonkey">
-      <h3>&#129668; Tampermonkey Userscript <span class="tag">Easiest</span></h3>
-      <div class="subtitle">Zero-install media detection for any browser</div>
-
-      <p>The Tampermonkey userscript injects a floating panel into every webpage that automatically detects m3u8 streams and MP4 video links. Detected media appears in a list with <strong>Download</strong> and <strong>Translate</strong> buttons.</p>
-
-      <p><strong>Step 1:</strong> Install the Tampermonkey browser extension:</p>
-      <div class="btn-row">
-        <a class="btn btn-outline" href="https://www.tampermonkey.net/" target="_blank">Tampermonkey Official Site</a>
-        <a class="btn btn-outline" href="https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo" target="_blank">Chrome Web Store</a>
-      </div>
-
-      <p><strong>Step 2:</strong> Install the EchoShortsPlayer userscript:</p>
-      <div class="btn-row">
-        <a class="btn btn-green" href="echoshorts-media-grabber.user.js">Install Userscript</a>
-      </div>
-
-      <p><strong>Step 3:</strong> Make sure EchoShortsPlayer desktop app is running (the userscript sends detected URLs to the local backend at <code>localhost:18632</code>).</p>
-
-      <p><strong>Step 4:</strong> Visit any video page. The floating panel (bottom-right corner) will auto-detect media. Click <strong>Download</strong> or <strong>Translate</strong>.</p>
-
-      <div class="advantages">
-        <h4>Why use the userscript?</h4>
-        <ul>
-          <li>Works in any browser that supports Tampermonkey (Chrome, Firefox, Edge, Safari, Opera)</li>
-          <li>No Chrome extension installation required &mdash; great when extensions are restricted</li>
-          <li>Lightweight: single file, easy to inspect and modify</li>
-          <li>Auto-updates via Tampermonkey's built-in update mechanism</li>
-          <li>Detects both m3u8/HLS streams and direct MP4 links on pages</li>
-        </ul>
-      </div>
+      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension and CLI communicate with.</p>
     </div>
 
     <!-- Method B: Chrome Extension -->
@@ -261,7 +227,6 @@
           <li>Automatic quality selection: groups variants by video ID and picks the best quality</li>
           <li>Referer header injection for playing streams that require authentication</li>
           <li>Badge counter shows detected media count per tab at a glance</li>
-          <li>Deeper detection than userscripts: hooks into <code>fetch</code>, <code>XHR</code>, <code>MediaSource</code>, and response body scanning</li>
         </ul>
       </div>
     </div>
@@ -332,17 +297,12 @@ EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation 
       <div class="priv-section">
         <h3>No Network Data Transmission</h3>
         <p>This application does not send any user data to external servers during normal use. All audio processing and text translation are completed locally. AI models are downloaded from public sources (HuggingFace) on first use and can run fully offline thereafter.</p>
-        <p>The browser extension and userscript communicate only with the local backend at <code>localhost:18632</code>. No data is transmitted to any remote server operated by the developers.</p>
+        <p>The browser extension communicates only with the local backend at <code>localhost:18632</code>. No data is transmitted to any remote server operated by the developers.</p>
       </div>
 
       <div class="priv-section">
         <h3>No Ads, No Tracking, No Recommendations</h3>
         <p>This application contains no advertising systems, user behavior tracking code, analytics, or data recommendation mechanisms. We do not share user data with any third parties, nor do we create profiles or push content based on user behavior.</p>
-      </div>
-
-      <div class="priv-section">
-        <h3>Open Source &amp; Transparent</h3>
-        <p>The application's source code, including the Chrome extension, Tampermonkey userscript, and backend pipeline, is fully available for inspection. Users are encouraged to review the code to verify the privacy and security claims made in this policy.</p>
       </div>
 
       <div class="priv-section">

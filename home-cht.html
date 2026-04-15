@@ -155,7 +155,7 @@
       <div class="card">
         <div class="icon">&#128246;</div>
         <h3>媒體偵測</h3>
-        <p>自動偵測網頁上的 m3u8/HLS 串流和 MP4 影片連結。透過瀏覽器擴充功能或油猴腳本一鍵下載或翻譯。</p>
+        <p>自動偵測網頁上的 m3u8/HLS 串流和 MP4 影片連結。透過瀏覽器擴充功能一鍵下載或翻譯。</p>
       </div>
       <div class="card">
         <div class="icon">&#9889;</div>
@@ -182,50 +182,17 @@
       <h3>&#128229; 安裝 EchoShortsPlayer <span class="tag">必需</span></h3>
       <div class="subtitle">桌面應用——所有功能的核心引擎</div>
 
-      <p>EchoShortsPlayer 是在本機執行 AI 模型的桌面應用。瀏覽器擴充功能、油猴腳本和 CLI 都依賴它。請先安裝後再使用下列任何方式。</p>
+      <p>EchoShortsPlayer 是在本機執行 AI 模型的桌面應用。瀏覽器擴充功能和 CLI 都依賴它。請先安裝後再使用下列任何方式。</p>
 
       <div class="btn-row">
         <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">下載 EchoShortsPlayer</a>
       </div>
 
       <p><strong>系統需求：</strong>Windows 10/11，NVIDIA 顯示卡 8 GB+ 視訊記憶體，已安裝 CUDA 驅動程式。</p>
-      <p><p>安裝後啟動應用。它會在 <code>localhost:18632</code> 啟動本機後端伺服器，擴充功能、油猴腳本和 CLI 都透過它通訊。</p>
+      <p><p>安裝後啟動應用。它會在 <code>localhost:18632</code> 啟動本機後端伺服器，擴充功能和 CLI 都透過它通訊。</p>
     </div>
 
-    <!-- Method A: Tampermonkey -->
-    <div class="method" id="tampermonkey">
-      <h3>&#129668; 篡改猴腳本 <span class="tag">最簡單</span></h3>
-      <div class="subtitle">任何瀏覽器的零安裝媒體偵測</div>
-
-      <p>篡改猴腳本在每個網頁中注入一個浮動面板，自動偵測 m3u8 串流和 MP4 影片連結。偵測到的媒體顯示在清單中，附有 <strong>下載</strong> 和 <strong>翻譯</strong> 按鈕。</p>
-
-      <p><strong>步驟 1：</strong>安裝篡改猴瀏覽器擴充功能：</p>
-      <div class="btn-row">
-        <a class="btn btn-outline" href="https://www.tampermonkey.net/" target="_blank">篡改猴官網</a>
-        <a class="btn btn-outline" href="https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo" target="_blank">Chrome 商店</a>
-      </div>
-
-      <p><strong>步驟 2：</strong>安裝 EchoShortsPlayer 腳本：</p>
-      <div class="btn-row">
-        <a class="btn btn-green" href="echoshorts-media-grabber.user.js">安裝腳本</a>
-      </div>
-
-      <p><strong>步驟 3：</strong>確保 EchoShortsPlayer 桌面應用正在執行（腳本將偵測到的 URL 傳送到本機後端 <code>localhost:18632</code>）。</p>
-
-      <p><strong>步驟 4：</strong>造訪任何影片頁面。浮動面板（右下角）會自動偵測媒體。點擊 <strong>下載</strong> 或 <strong>翻譯</strong>。</p>
-
-      <div class="advantages">
-        <h4>為什麼使用油猴腳本？</h4>
-        <ul>
-          <li>適用於所有支援 Tampermonkey 的瀏覽器（Chrome、Firefox、Edge、Safari、Opera）</li>
-          <li>無需安裝 Chrome 擴充功能——適合擴充功能受限的環境</li>
-          <li>輕量：單一檔案，易於檢查和修改</li>
-          <li>透過 Tampermonkey 內建機制自動更新</li>
-          <li>同時偵測 m3u8/HLS 串流和 MP4 直接連結</li>
-        </ul>
-      </div>
-    </div>
-
+    
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
       <h3>&#128268; Chrome 擴充功能 <span class="tag">推薦</span></h3>
@@ -261,7 +228,6 @@
           <li>自動品質選擇：按影片 ID 分組並選擇最佳品質</li>
           <li>Referer 標頭注入，播放需要驗證的串流</li>
           <li>徽章計數器一目了然顯示每個分頁偵測到的媒體數量</li>
-          <li>比油猴腳本更深度的偵測：hook fetch、XHR、MediaSource 和回應本體掃描</li>
         </ul>
       </div>
     </div>
@@ -332,17 +298,12 @@ EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation 
       <div class="priv-section">
         <h3>無網路資料傳輸</h3>
         <p>本應用在正常使用期間不會向外部伺服器傳送任何使用者資料。所有音訊處理和文字翻譯都在本機完成。AI 模型首次使用時從公開來源（HuggingFace）下載，此後可完全離線執行。</p>
-        <p>瀏覽器擴充功能和油猴腳本僅與本機後端 <code>localhost:18632</code> 通訊。不向開發者營運的任何遠端伺服器傳輸資料。</p>
+        <p>瀏覽器擴充功能僅與本機後端 <code>localhost:18632</code> 通訊。不向開發者營運的任何遠端伺服器傳輸資料。</p>
       </div>
 
       <div class="priv-section">
         <h3>無廣告、無追蹤、無推薦</h3>
         <p>本應用不包含任何廣告系統、使用者行為追蹤程式碼、分析工具或資料推薦機制。我們不與任何第三方共享使用者資料，也不根據使用者行為建立檔案或推送內容。</p>
-      </div>
-
-      <div class="priv-section">
-        <h3>開源透明</h3>
-        <p>應用的原始碼，包括 Chrome 擴充功能、篡改猴腳本和後端管線，完全開放供檢查。鼓勵使用者審查程式碼以驗證本政策中的隱私和安全聲明。</p>
       </div>
 
       <div class="priv-section">
