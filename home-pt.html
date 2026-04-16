@@ -253,22 +253,22 @@
       <p><strong>Comandos disponíveis:</strong></p>
       <pre>
 # Traduzir um arquivo de vídeo local para legendas em chinês
-EchoShortsPlayer.exe --cli translate video.mp4 --target zh
+resourcesbackendbackend.exe --cli translate video.mp4 --target zh
 
 # Traduzir uma pasta inteira em lote
-EchoShortsPlayer.exe --cli translate C:\Videos\
+resourcesbackendbackend.exe --cli translate C:\Videos\
 
 # Todas as opções: idioma de origem, modelo Whisper, motor de tradução, redução de ruído, modo de processamento
-EchoShortsPlayer.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
+resourcesbackendbackend.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
 
 # Baixar um m3u8 ou MP4 remoto
-EchoShortsPlayer.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
+resourcesbackendbackend.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
 
 # Baixar e traduzir em uma única etapa
-EchoShortsPlayer.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
+resourcesbackendbackend.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
 
 # Traduzir um arquivo SRT existente
-EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
+resourcesbackendbackend.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
 
       <p><strong>Referência de parâmetros:</strong></p>
       <pre>

@@ -253,22 +253,22 @@
       <p><strong>Các lệnh khả dụng:</strong></p>
       <pre>
 # Dịch một tệp video cục bộ sang phụ đề tiếng Trung
-EchoShortsPlayer.exe --cli translate video.mp4 --target zh
+resourcesbackendbackend.exe --cli translate video.mp4 --target zh
 
 # Dịch hàng loạt toàn bộ thư mục
-EchoShortsPlayer.exe --cli translate C:\Videos\
+resourcesbackendbackend.exe --cli translate C:\Videos\
 
 # Tất cả tùy chọn: ngôn ngữ nguồn, mô hình Whisper, công cụ dịch, khử nhiễu, chế độ xử lý
-EchoShortsPlayer.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
+resourcesbackendbackend.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
 
 # Tải xuống m3u8 hoặc MP4 từ xa
-EchoShortsPlayer.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
+resourcesbackendbackend.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
 
 # Tải xuống và dịch trong một bước
-EchoShortsPlayer.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
+resourcesbackendbackend.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
 
 # Dịch một tệp SRT hiện có
-EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
+resourcesbackendbackend.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
 
       <p><strong>Tham chiếu tham số:</strong></p>
       <pre>

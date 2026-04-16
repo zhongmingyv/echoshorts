@@ -253,22 +253,22 @@
       <p><strong>الأوامر المتاحة:</strong></p>
       <pre>
 # ترجمة ملف فيديو محلي إلى ترجمات صينية
-EchoShortsPlayer.exe --cli translate video.mp4 --target zh
+resourcesbackendbackend.exe --cli translate video.mp4 --target zh
 
 # ترجمة مجلد كامل دفعة واحدة
-EchoShortsPlayer.exe --cli translate C:\Videos\
+resourcesbackendbackend.exe --cli translate C:\Videos\
 
 # جميع الخيارات: لغة المصدر، نموذج Whisper، محرك الترجمة، إزالة الضوضاء، وضع المعالجة
-EchoShortsPlayer.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
+resourcesbackendbackend.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
 
 # تحميل m3u8 أو MP4 عن بُعد
-EchoShortsPlayer.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
+resourcesbackendbackend.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
 
 # التحميل والترجمة في خطوة واحدة
-EchoShortsPlayer.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
+resourcesbackendbackend.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
 
 # ترجمة ملف SRT موجود
-EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
+resourcesbackendbackend.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
 
       <p><strong>مرجع المعلمات:</strong></p>
       <pre>
