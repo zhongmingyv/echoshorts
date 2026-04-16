@@ -259,7 +259,7 @@ EchoShortsPlayer.exe --cli translate video.mp4 --target zh
 EchoShortsPlayer.exe --cli translate C:\Videos\
 
 # Tất cả tùy chọn: ngôn ngữ nguồn, mô hình Whisper, công cụ dịch, khử nhiễu, chế độ xử lý
-EchoShortsPlayer.exe --cli translate video.mp4 --source auto --target ja --whisper large-v3-turbo --translation qwen3-8b --denoise vocal --mode parallel
+EchoShortsPlayer.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
 
 # Tải xuống m3u8 hoặc MP4 từ xa
 EchoShortsPlayer.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
@@ -274,8 +274,8 @@ EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation 
       <pre>
 --source, -s      Ngôn ngữ nguồn hoặc "auto" (mặc định: auto)
 --target, -t      Ngôn ngữ đích (mặc định: zh)
---whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
---translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--whisper, -w     tiny|base|small|medium|distil-large-v3|large-v3
+--translation, -m opus-mt|nllb-distilled-600M|nllb-1.3B|nllb-3.3B|qwen2.5-3b|qwen3-8b
 --denoise, -d     off|light|vocal (mặc định: off)
 --mode            serial|parallel (mặc định: serial)
 --output, -o      Đường dẫn tệp đầu ra

@@ -74,8 +74,8 @@ module.exports = {
     cliParams: '<strong>パラメータリファレンス：</strong>',
     cliParamsPre: `--source, -s      ソース言語または "auto"（デフォルト: auto）
 --target, -t      ターゲット言語（デフォルト: zh）
---whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
---translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--whisper, -w     tiny|base|small|medium|distil-large-v3|large-v3
+--translation, -m opus-mt|nllb-distilled-600M|nllb-1.3B|nllb-3.3B|qwen2.5-3b|qwen3-8b
 --denoise, -d     off|light|vocal（デフォルト: off）
 --mode            serial|parallel（デフォルト: serial）
 --output, -o      出力ファイルパス
@@ -170,8 +170,8 @@ module.exports = {
     cliParams: '<strong>매개변수 참조:</strong>',
     cliParamsPre: `--source, -s      소스 언어 또는 "auto" (기본값: auto)
 --target, -t      대상 언어 (기본값: zh)
---whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
---translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--whisper, -w     tiny|base|small|medium|distil-large-v3|large-v3
+--translation, -m opus-mt|nllb-distilled-600M|nllb-1.3B|nllb-3.3B|qwen2.5-3b|qwen3-8b
 --denoise, -d     off|light|vocal (기본값: off)
 --mode            serial|parallel (기본값: serial)
 --output, -o      출력 파일 경로
@@ -266,8 +266,8 @@ module.exports = {
     cliParams: '<strong>Referencia de parámetros:</strong>',
     cliParamsPre: `--source, -s      Idioma de origen o "auto" (predeterminado: auto)
 --target, -t      Idioma de destino (predeterminado: zh)
---whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
---translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--whisper, -w     tiny|base|small|medium|distil-large-v3|large-v3
+--translation, -m opus-mt|nllb-distilled-600M|nllb-1.3B|nllb-3.3B|qwen2.5-3b|qwen3-8b
 --denoise, -d     off|light|vocal (predeterminado: off)
 --mode            serial|parallel (predeterminado: serial)
 --output, -o      Ruta de archivo de salida
@@ -362,8 +362,8 @@ module.exports = {
     cliParams: '<strong>Référence des paramètres :</strong>',
     cliParamsPre: `--source, -s      Langue source ou "auto" (par défaut : auto)
 --target, -t      Langue cible (par défaut : zh)
---whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
---translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--whisper, -w     tiny|base|small|medium|distil-large-v3|large-v3
+--translation, -m opus-mt|nllb-distilled-600M|nllb-1.3B|nllb-3.3B|qwen2.5-3b|qwen3-8b
 --denoise, -d     off|light|vocal (par défaut : off)
 --mode            serial|parallel (par défaut : serial)
 --output, -o      Chemin du fichier de sortie
@@ -458,8 +458,8 @@ module.exports = {
     cliParams: '<strong>Parameterreferenz:</strong>',
     cliParamsPre: `--source, -s      Quellsprache oder "auto" (Standard: auto)
 --target, -t      Zielsprache (Standard: zh)
---whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
---translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--whisper, -w     tiny|base|small|medium|distil-large-v3|large-v3
+--translation, -m opus-mt|nllb-distilled-600M|nllb-1.3B|nllb-3.3B|qwen2.5-3b|qwen3-8b
 --denoise, -d     off|light|vocal (Standard: off)
 --mode            serial|parallel (Standard: serial)
 --output, -o      Ausgabedateipfad
@@ -554,8 +554,8 @@ module.exports = {
     cliParams: '<strong>Справочник параметров:</strong>',
     cliParamsPre: `--source, -s      Исходный язык или "auto" (по умолчанию: auto)
 --target, -t      Целевой язык (по умолчанию: zh)
---whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
---translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--whisper, -w     tiny|base|small|medium|distil-large-v3|large-v3
+--translation, -m opus-mt|nllb-distilled-600M|nllb-1.3B|nllb-3.3B|qwen2.5-3b|qwen3-8b
 --denoise, -d     off|light|vocal (по умолчанию: off)
 --mode            serial|parallel (по умолчанию: serial)
 --output, -o      Путь выходного файла

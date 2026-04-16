@@ -74,8 +74,8 @@ module.exports = {
     cliParams: '<strong>Referência de parâmetros:</strong>',
     cliParamsPre: `--source, -s      Idioma de origem ou "auto" (padrão: auto)
 --target, -t      Idioma de destino (padrão: zh)
---whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
---translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--whisper, -w     tiny|base|small|medium|distil-large-v3|large-v3
+--translation, -m opus-mt|nllb-distilled-600M|nllb-1.3B|nllb-3.3B|qwen2.5-3b|qwen3-8b
 --denoise, -d     off|light|vocal (padrão: off)
 --mode            serial|parallel (padrão: serial)
 --output, -o      Caminho do arquivo de saída
@@ -170,8 +170,8 @@ module.exports = {
     cliParams: '<strong>مرجع المعلمات:</strong>',
     cliParamsPre: `--source, -s      اللغة المصدر أو "auto" (افتراضي: auto)
 --target, -t      اللغة الهدف (افتراضي: zh)
---whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
---translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--whisper, -w     tiny|base|small|medium|distil-large-v3|large-v3
+--translation, -m opus-mt|nllb-distilled-600M|nllb-1.3B|nllb-3.3B|qwen2.5-3b|qwen3-8b
 --denoise, -d     off|light|vocal (افتراضي: off)
 --mode            serial|parallel (افتراضي: serial)
 --output, -o      مسار ملف الإخراج
@@ -266,8 +266,8 @@ module.exports = {
     cliParams: '<strong>पैरामीटर संदर्भ:</strong>',
     cliParamsPre: `--source, -s      स्रोत भाषा या "auto" (डिफ़ॉल्ट: auto)
 --target, -t      लक्ष्य भाषा (डिफ़ॉल्ट: zh)
---whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
---translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--whisper, -w     tiny|base|small|medium|distil-large-v3|large-v3
+--translation, -m opus-mt|nllb-distilled-600M|nllb-1.3B|nllb-3.3B|qwen2.5-3b|qwen3-8b
 --denoise, -d     off|light|vocal (डिफ़ॉल्ट: off)
 --mode            serial|parallel (डिफ़ॉल्ट: serial)
 --output, -o      आउटपुट फ़ाइल पथ
@@ -362,8 +362,8 @@ module.exports = {
     cliParams: '<strong>อ้างอิงพารามิเตอร์:</strong>',
     cliParamsPre: `--source, -s      ภาษาต้นทางหรือ "auto" (ค่าเริ่มต้น: auto)
 --target, -t      ภาษาปลายทาง (ค่าเริ่มต้น: zh)
---whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
---translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--whisper, -w     tiny|base|small|medium|distil-large-v3|large-v3
+--translation, -m opus-mt|nllb-distilled-600M|nllb-1.3B|nllb-3.3B|qwen2.5-3b|qwen3-8b
 --denoise, -d     off|light|vocal (ค่าเริ่มต้น: off)
 --mode            serial|parallel (ค่าเริ่มต้น: serial)
 --output, -o      เส้นทางไฟล์เอาต์พุต
@@ -458,8 +458,8 @@ module.exports = {
     cliParams: '<strong>Tham chiếu tham số:</strong>',
     cliParamsPre: `--source, -s      Ngôn ngữ nguồn hoặc "auto" (mặc định: auto)
 --target, -t      Ngôn ngữ đích (mặc định: zh)
---whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
---translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--whisper, -w     tiny|base|small|medium|distil-large-v3|large-v3
+--translation, -m opus-mt|nllb-distilled-600M|nllb-1.3B|nllb-3.3B|qwen2.5-3b|qwen3-8b
 --denoise, -d     off|light|vocal (mặc định: off)
 --mode            serial|parallel (mặc định: serial)
 --output, -o      Đường dẫn tệp đầu ra
@@ -554,8 +554,8 @@ module.exports = {
     cliParams: '<strong>Rujukan parameter:</strong>',
     cliParamsPre: `--source, -s      Bahasa sumber atau "auto" (lalai: auto)
 --target, -t      Bahasa sasaran (lalai: zh)
---whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
---translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--whisper, -w     tiny|base|small|medium|distil-large-v3|large-v3
+--translation, -m opus-mt|nllb-distilled-600M|nllb-1.3B|nllb-3.3B|qwen2.5-3b|qwen3-8b
 --denoise, -d     off|light|vocal (lalai: off)
 --mode            serial|parallel (lalai: serial)
 --output, -o      Laluan fail output

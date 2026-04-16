@@ -259,7 +259,7 @@ EchoShortsPlayer.exe --cli translate video.mp4 --target zh
 EchoShortsPlayer.exe --cli translate C:\Videos\
 
 # 全オプション：ソース言語、Whisperモデル、翻訳エンジン、ノイズ除去、処理モード
-EchoShortsPlayer.exe --cli translate video.mp4 --source auto --target ja --whisper large-v3-turbo --translation qwen3-8b --denoise vocal --mode parallel
+EchoShortsPlayer.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
 
 # リモートのm3u8またはMP4をダウンロードする
 EchoShortsPlayer.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
@@ -274,8 +274,8 @@ EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation 
       <pre>
 --source, -s      ソース言語または "auto"（デフォルト: auto）
 --target, -t      ターゲット言語（デフォルト: zh）
---whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
---translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--whisper, -w     tiny|base|small|medium|distil-large-v3|large-v3
+--translation, -m opus-mt|nllb-distilled-600M|nllb-1.3B|nllb-3.3B|qwen2.5-3b|qwen3-8b
 --denoise, -d     off|light|vocal（デフォルト: off）
 --mode            serial|parallel（デフォルト: serial）
 --output, -o      出力ファイルパス

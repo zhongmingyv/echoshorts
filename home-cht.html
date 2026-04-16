@@ -259,7 +259,7 @@ EchoShortsPlayer.exe --cli translate video.mp4 --target zh
 EchoShortsPlayer.exe --cli translate C:\Videos\
 
 # 全部參數：來源語言、Whisper 模型、翻譯引擎、降噪、處理模式
-EchoShortsPlayer.exe --cli translate video.mp4 --source auto --target ja --whisper large-v3-turbo --translation qwen3-8b --denoise vocal --mode parallel
+EchoShortsPlayer.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
 
 # 下載遠端 m3u8 或 MP4
 EchoShortsPlayer.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
@@ -274,8 +274,8 @@ EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation 
       <pre>
 --source, -s      來源語言或 "auto"（預設：auto）
 --target, -t      目標語言（預設：zh）
---whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
---translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--whisper, -w     tiny|base|small|medium|distil-large-v3|large-v3
+--translation, -m opus-mt|nllb-distilled-600M|nllb-1.3B|nllb-3.3B|qwen2.5-3b|qwen3-8b
 --denoise, -d     off|light|vocal（預設：off）
 --mode            serial|parallel（預設：serial）
 --output, -o      輸出檔案路徑

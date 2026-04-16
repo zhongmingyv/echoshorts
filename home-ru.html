@@ -259,7 +259,7 @@ EchoShortsPlayer.exe --cli translate video.mp4 --target zh
 EchoShortsPlayer.exe --cli translate C:\Videos\
 
 # Все параметры: язык источника, модель Whisper, движок перевода, шумоподавление, режим обработки
-EchoShortsPlayer.exe --cli translate video.mp4 --source auto --target ja --whisper large-v3-turbo --translation qwen3-8b --denoise vocal --mode parallel
+EchoShortsPlayer.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
 
 # Скачать удалённый m3u8 или MP4
 EchoShortsPlayer.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
@@ -274,8 +274,8 @@ EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation 
       <pre>
 --source, -s      Исходный язык или "auto" (по умолчанию: auto)
 --target, -t      Целевой язык (по умолчанию: zh)
---whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
---translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--whisper, -w     tiny|base|small|medium|distil-large-v3|large-v3
+--translation, -m opus-mt|nllb-distilled-600M|nllb-1.3B|nllb-3.3B|qwen2.5-3b|qwen3-8b
 --denoise, -d     off|light|vocal (по умолчанию: off)
 --mode            serial|parallel (по умолчанию: serial)
 --output, -o      Путь выходного файла

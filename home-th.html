@@ -259,7 +259,7 @@ EchoShortsPlayer.exe --cli translate video.mp4 --target zh
 EchoShortsPlayer.exe --cli translate C:\Videos\
 
 # ตัวเลือกทั้งหมด: ภาษาต้นทาง, โมเดล Whisper, เอนจินแปล, ลดเสียงรบกวน, โหมดประมวลผล
-EchoShortsPlayer.exe --cli translate video.mp4 --source auto --target ja --whisper large-v3-turbo --translation qwen3-8b --denoise vocal --mode parallel
+EchoShortsPlayer.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
 
 # ดาวน์โหลด m3u8 หรือ MP4 จากระยะไกล
 EchoShortsPlayer.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
@@ -274,8 +274,8 @@ EchoShortsPlayer.exe --cli translate-srt video.en.srt --target ja --translation 
       <pre>
 --source, -s      ภาษาต้นทางหรือ "auto" (ค่าเริ่มต้น: auto)
 --target, -t      ภาษาปลายทาง (ค่าเริ่มต้น: zh)
---whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
---translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--whisper, -w     tiny|base|small|medium|distil-large-v3|large-v3
+--translation, -m opus-mt|nllb-distilled-600M|nllb-1.3B|nllb-3.3B|qwen2.5-3b|qwen3-8b
 --denoise, -d     off|light|vocal (ค่าเริ่มต้น: off)
 --mode            serial|parallel (ค่าเริ่มต้น: serial)
 --output, -o      เส้นทางไฟล์เอาต์พุต

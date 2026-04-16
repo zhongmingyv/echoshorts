@@ -76,8 +76,8 @@ const langs = {
       cliParams: '<strong>参数参考：</strong>',
       cliParamsPre: `--source, -s      源语言或 "auto"（默认：auto）
 --target, -t      目标语言（默认：zh）
---whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
---translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--whisper, -w     tiny|base|small|medium|distil-large-v3|large-v3
+--translation, -m opus-mt|nllb-distilled-600M|nllb-1.3B|nllb-3.3B|qwen2.5-3b|qwen3-8b
 --denoise, -d     off|light|vocal（默认：off）
 --mode            serial|parallel（默认：serial）
 --output, -o      输出文件路径
@@ -148,8 +148,8 @@ const langs = {
       cliParams: '<strong>參數參考：</strong>',
       cliParamsPre: `--source, -s      來源語言或 "auto"（預設：auto）
 --target, -t      目標語言（預設：zh）
---whisper, -w     tiny|base|small|medium|large-v3-turbo|large-v3
---translation, -m opus-mt|nllb-*|qwen2.5-3b|qwen3-8b
+--whisper, -w     tiny|base|small|medium|distil-large-v3|large-v3
+--translation, -m opus-mt|nllb-distilled-600M|nllb-1.3B|nllb-3.3B|qwen2.5-3b|qwen3-8b
 --denoise, -d     off|light|vocal（預設：off）
 --mode            serial|parallel（預設：serial）
 --output, -o      輸出檔案路徑
