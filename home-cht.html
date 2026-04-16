@@ -253,22 +253,22 @@
       <p><strong>可用命令：</strong></p>
       <pre>
 # 將本機影片翻譯為中文字幕
-resourcesbackendbackend.exe --cli translate video.mp4 --target zh
+resources\backend\backend.exe --cli translate video.mp4 --target zh
 
 # 批次翻譯整個資料夾
-resourcesbackendbackend.exe --cli translate C:\Videos\
+resources\backend\backend.exe --cli translate C:\Videos\
 
 # 全部參數：來源語言、Whisper 模型、翻譯引擎、降噪、處理模式
-resourcesbackendbackend.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
+resources\backend\backend.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
 
 # 下載遠端 m3u8 或 MP4
-resourcesbackendbackend.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
+resources\backend\backend.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
 
 # 一步完成下載和翻譯
-resourcesbackendbackend.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
+resources\backend\backend.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
 
 # 翻譯已有的 SRT 檔案
-resourcesbackendbackend.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
+resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
 
       <p><strong>參數參考：</strong></p>
       <pre>

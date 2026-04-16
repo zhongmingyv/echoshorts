@@ -253,22 +253,22 @@
       <p><strong>사용 가능한 명령:</strong></p>
       <pre>
 # 로컬 동영상 파일을 중국어 자막으로 번역
-resourcesbackendbackend.exe --cli translate video.mp4 --target zh
+resources\backend\backend.exe --cli translate video.mp4 --target zh
 
 # 전체 폴더를 일괄 번역
-resourcesbackendbackend.exe --cli translate C:\Videos\
+resources\backend\backend.exe --cli translate C:\Videos\
 
 # 전체 옵션: 소스 언어, Whisper 모델, 번역 엔진, 노이즈 제거, 처리 모드
-resourcesbackendbackend.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
+resources\backend\backend.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
 
 # 원격 m3u8 또는 MP4 다운로드
-resourcesbackendbackend.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
+resources\backend\backend.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
 
 # 다운로드와 번역을 한 번에 실행
-resourcesbackendbackend.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
+resources\backend\backend.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
 
 # 기존 SRT 파일 번역
-resourcesbackendbackend.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
+resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
 
       <p><strong>매개변수 참조:</strong></p>
       <pre>

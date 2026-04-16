@@ -253,22 +253,22 @@
       <p><strong>उपलब्ध कमांड:</strong></p>
       <pre>
 # एक स्थानीय वीडियो फ़ाइल को चीनी उपशीर्षक में अनुवाद करें
-resourcesbackendbackend.exe --cli translate video.mp4 --target zh
+resources\backend\backend.exe --cli translate video.mp4 --target zh
 
 # पूरे फ़ोल्डर का बैच अनुवाद करें
-resourcesbackendbackend.exe --cli translate C:\Videos\
+resources\backend\backend.exe --cli translate C:\Videos\
 
 # सभी विकल्प: स्रोत भाषा, Whisper मॉडल, अनुवाद इंजन, शोर हटाना, प्रोसेसिंग मोड
-resourcesbackendbackend.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
+resources\backend\backend.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
 
 # एक रिमोट m3u8 या MP4 डाउनलोड करें
-resourcesbackendbackend.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
+resources\backend\backend.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
 
 # एक ही चरण में डाउनलोड और अनुवाद करें
-resourcesbackendbackend.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
+resources\backend\backend.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
 
 # एक मौजूदा SRT फ़ाइल का अनुवाद करें
-resourcesbackendbackend.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
+resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
 
       <p><strong>पैरामीटर संदर्भ:</strong></p>
       <pre>

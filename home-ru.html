@@ -253,22 +253,22 @@
       <p><strong>Доступные команды:</strong></p>
       <pre>
 # Перевести локальный видеофайл в китайские субтитры
-resourcesbackendbackend.exe --cli translate video.mp4 --target zh
+resources\backend\backend.exe --cli translate video.mp4 --target zh
 
 # Пакетный перевод целой папки
-resourcesbackendbackend.exe --cli translate C:\Videos\
+resources\backend\backend.exe --cli translate C:\Videos\
 
 # Все параметры: язык источника, модель Whisper, движок перевода, шумоподавление, режим обработки
-resourcesbackendbackend.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
+resources\backend\backend.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
 
 # Скачать удалённый m3u8 или MP4
-resourcesbackendbackend.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
+resources\backend\backend.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
 
 # Скачать и перевести за один шаг
-resourcesbackendbackend.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
+resources\backend\backend.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
 
 # Перевести существующий SRT-файл
-resourcesbackendbackend.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
+resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
 
       <p><strong>Справочник параметров:</strong></p>
       <pre>

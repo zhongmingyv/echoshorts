@@ -253,22 +253,22 @@
       <p><strong>คำสั่งที่ใช้ได้:</strong></p>
       <pre>
 # แปลไฟล์วิดีโอในเครื่องเป็นคำบรรยายภาษาจีน
-resourcesbackendbackend.exe --cli translate video.mp4 --target zh
+resources\backend\backend.exe --cli translate video.mp4 --target zh
 
 # แปลทั้งโฟลเดอร์แบบแบตช์
-resourcesbackendbackend.exe --cli translate C:\Videos\
+resources\backend\backend.exe --cli translate C:\Videos\
 
 # ตัวเลือกทั้งหมด: ภาษาต้นทาง, โมเดล Whisper, เอนจินแปล, ลดเสียงรบกวน, โหมดประมวลผล
-resourcesbackendbackend.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
+resources\backend\backend.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
 
 # ดาวน์โหลด m3u8 หรือ MP4 จากระยะไกล
-resourcesbackendbackend.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
+resources\backend\backend.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
 
 # ดาวน์โหลดและแปลในขั้นตอนเดียว
-resourcesbackendbackend.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
+resources\backend\backend.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
 
 # แปลไฟล์ SRT ที่มีอยู่
-resourcesbackendbackend.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
+resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
 
       <p><strong>อ้างอิงพารามิเตอร์:</strong></p>
       <pre>
