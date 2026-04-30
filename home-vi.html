@@ -2,41 +2,109 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>EchoShorts</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EchoShortsPlayer - Dịch Phụ Đề Video Bằng AI</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f0f0f; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
-    main { flex: 1; max-width: 860px; margin: 0 auto; padding: 60px 40px 40px; width: 100%; }
-    .intro { margin-bottom: 48px; }
-    .intro .logo { font-size: 13px; font-weight: 700; color: #4ade80; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
-    .intro h1 { font-size: 38px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 16px; }
-    .intro h1 span { color: #4ade80; }
-    .intro p { font-size: 15px; color: #999; line-height: 1.7; max-width: 580px; }
-    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f0f0f;
+      color: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 40px 40px;
+      width: 100%;
+    }
+
+    a { color: #4ade80; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* --- Language Switcher --- */
+    .lang-switcher { width: 100%; max-width: 900px; margin: 0 auto; padding: 20px 40px 0; display: flex; justify-content: flex-end; }
+    .lang-switcher select { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px; color: #e0e0e0; font-size: 12px; padding: 5px 8px; cursor: pointer; outline: none; }
+    .lang-switcher select:hover { border-color: #4ade80; }
+
+    /* --- Hero --- */
+    .hero { margin-bottom: 56px; }
+    .hero .logo { font-size: 13px; font-weight: 700; color: #4ade80; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
+    .hero h1 { font-size: 36px; font-weight: 700; color: #fff; line-height: 1.25; margin-bottom: 16px; }
+    .hero h1 span { color: #4ade80; }
+    .hero p { font-size: 15px; color: #999; line-height: 1.7; max-width: 640px; }
+
+    /* --- Section Title --- */
+    .section-title { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #222; }
+    .section-title .num { color: #4ade80; margin-right: 8px; }
+
+    /* --- Feature Cards --- */
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 56px; }
     .card { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; padding: 22px; }
-    .card .icon { font-size: 22px; margin-bottom: 10px; }
-    .card h3 { font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 6px; }
-    .card p { font-size: 12px; color: #777; line-height: 1.6; }
-    .hint { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 10px; padding: 16px 20px; display: flex; align-items: center; gap: 14px; margin-bottom: 48px; }
-    .hint .key { background: #2a2a2a; border: 1px solid #3a3a3a; border-radius: 5px; padding: 3px 9px; font-size: 12px; font-family: monospace; color: #4ade80; white-space: nowrap; }
-    .hint p { font-size: 13px; color: #888; }
+    .card .icon { font-size: 24px; margin-bottom: 10px; }
+    .card h3 { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 8px; }
+    .card p { font-size: 12.5px; color: #777; line-height: 1.65; }
+    .card ul { font-size: 12.5px; color: #777; line-height: 1.65; margin-top: 6px; padding-left: 16px; }
+    .card ul li { margin-bottom: 3px; }
+
+    /* --- Usage Methods --- */
+    .method { background: #141414; border: 1px solid #222; border-radius: 14px; padding: 28px 32px; margin-bottom: 24px; }
+    .method h3 { font-size: 17px; font-weight: 600; color: #fff; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+    .method h3 .tag { font-size: 11px; font-weight: 600; color: #0f0f0f; background: #4ade80; border-radius: 4px; padding: 2px 8px; }
+    .method .subtitle { font-size: 13px; color: #4ade80; margin-bottom: 14px; }
+    .method p { font-size: 13px; color: #999; line-height: 1.75; margin-bottom: 10px; }
+    .method ol, .method ul { font-size: 13px; color: #999; line-height: 1.75; padding-left: 20px; margin-bottom: 12px; }
+    .method ol li, .method ul li { margin-bottom: 6px; }
+    .method .advantages { background: #1a2a1a; border: 1px solid #2a3a2a; border-radius: 8px; padding: 14px 18px; margin-top: 14px; }
+    .method .advantages h4 { font-size: 12px; font-weight: 600; color: #4ade80; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .method .advantages ul { margin-bottom: 0; padding-left: 16px; }
+    .method .advantages ul li { font-size: 12.5px; color: #8c8; }
+
+    pre { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 14px 18px; overflow-x: auto; margin: 10px 0; font-size: 12.5px; line-height: 1.6; color: #ccc; font-family: 'SF Mono', 'Fira Code', Consolas, monospace; max-width: 100%; white-space: pre-wrap; word-break: break-word; }
+    code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 12.5px; color: #4ade80; background: #1a2a1a; padding: 1px 5px; border-radius: 3px; }
+
+    .btn-row { display: flex; gap: 10px; margin: 14px 0; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: 9px 20px; border-radius: 8px; font-size: 13px; font-weight: 600;
+      cursor: pointer; text-decoration: none !important; transition: opacity .15s;
+    }
+    .btn:hover { opacity: 0.85; }
+    .btn-green { background: #4ade80; color: #0f0f0f; }
+    .btn-outline { background: transparent; border: 1px solid #4ade80; color: #4ade80; }
+
+    /* --- Privacy --- */
     .privacy { background: #141414; border: 1px solid #222; border-radius: 14px; padding: 32px 36px; margin-bottom: 40px; }
-    .privacy h2 { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid #222; }
-    .section { margin-bottom: 22px; }
-    .section:last-child { margin-bottom: 0; }
-    .section h3 { font-size: 11px; font-weight: 600; color: #4ade80; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 7px; }
-    .section p { font-size: 13px; color: #888; line-height: 1.75; }
-    .section p + p { margin-top: 6px; }
+    .privacy h2 { font-size: 18px; font-weight: 600; color: #fff; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid #222; }
+    .priv-section { margin-bottom: 22px; }
+    .priv-section:last-child { margin-bottom: 0; }
+    .priv-section h3 { font-size: 11px; font-weight: 600; color: #4ade80; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 7px; }
+    .priv-section p { font-size: 13px; color: #888; line-height: 1.75; }
+    .priv-section p + p { margin-top: 6px; }
+
+    /* --- Footer --- */
     footer { text-align: center; padding: 20px 40px; border-top: 1px solid #1a1a1a; display: flex; justify-content: center; align-items: center; gap: 28px; }
     footer span { font-size: 12px; color: #444; }
     footer a { font-size: 12px; color: #666; text-decoration: none; }
     footer a:hover { color: #4ade80; }
-    .lang-switcher select { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px; color: #e0e0e0; font-size: 12px; padding: 5px 8px; cursor: pointer; outline: none; }
-    .lang-switcher select:hover { border-color: #4ade80; }
-    .lang-switcher { width: 100%; max-width: 860px; margin: 0 auto; padding: 20px 40px 0; display: flex; justify-content: flex-end; }
+
+    @media (max-width: 700px) {
+      main { padding: 24px 18px; }
+      .hero h1 { font-size: 26px; }
+      .features { grid-template-columns: 1fr; }
+      .method { padding: 20px; }
+      .privacy { padding: 20px; }
+      .lang-switcher { padding: 14px 18px 0; }
+      footer { flex-direction: column; gap: 8px; }
+    }
   </style>
 </head>
 <body>
+
   <div class="lang-switcher">
     <select onchange="location.href=this.value">
       <option value="home.html">English</option>
@@ -56,75 +124,222 @@
       <option value="home-ms.html">Bahasa Melayu</option>
     </select>
   </div>
+
   <main>
-    <div class="intro">
-      <div class="logo">EchoShorts</div>
-      <h1>Phụ đề video, <span>dịch tức thì</span><br>Hoàn toàn ngoại tuyến, quyền riêng tư trước</h1>
-      <p>EchoShorts thực hiện tất cả nhận dạng giọng nói và dịch thuật cục bộ trên thiết bị của bạn — không cần internet, không cần tài khoản, dữ liệu của bạn không bao giờ rời khỏi máy tính. Nhập URL vào thanh địa chỉ ở trên để bắt đầu duyệt web.</p>
+
+    <!-- ============ HERO ============ -->
+    <div class="hero">
+      <div class="logo">EchoShortsPlayer</div>
+      <h1>Dịch Video &amp; Phụ Đề Bằng AI<br><span>Phát, Dịch, Tải Xuống &mdash; Hoàn Toàn Ngoại Tuyến</span></h1>
+      <p>EchoShortsPlayer dịch video trực tuyến theo thời gian thực khi bạn xem — phụ đề hiện ra ngay khi video phát, không cần chờ đợi. Tải xuống các video công khai để xem ngoại tuyến. Toàn bộ nhận dạng giọng nói và dịch thuật chạy 100% cục bộ trên thiết bị của bạn: không cần internet, không cần tài khoản, không có dữ liệu nào rời khỏi máy tính của bạn. Hỗ trợ 99+ ngôn ngữ, luồng m3u8 và tệp MP4.</p>
     </div>
+
+    <!-- ============ FEATURES ============ -->
+    <h2 class="section-title"><span class="num">#1</span> Tính Năng</h2>
     <div class="features">
       <div class="card">
-        <div class="icon">🎙️</div>
-        <h3>Nhận dạng giọng nói Whisper</h3>
-        <p>Dựa trên OpenAI Whisper, hỗ trợ phiên âm 99 ngôn ngữ, chạy cục bộ, không cần API.</p>
+        <div class="icon">&#127908;</div>
+        <h3>Nhận Dạng Giọng Nói</h3>
+        <p>Được hỗ trợ bởi OpenAI Whisper. Hỗ trợ 99 ngôn ngữ với tự động nhận diện ngôn ngữ. Nhiều kích thước mô hình từ tiny (nhanh) đến large-v3 (độ chính xác cao nhất).</p>
       </div>
       <div class="card">
-        <div class="icon">🔍</div>
-        <h3>Nhận dạng phụ đề OCR</h3>
-        <p>Sử dụng PaddleOCR để nhận dạng phụ đề nhúng trong khung video, hỗ trợ tiếng Trung, Anh, Nhật, Hàn và nhiều ngôn ngữ khác.</p>
+        <div class="icon">&#127760;</div>
+        <h3>Dịch Thuật AI</h3>
+        <p>Nhiều công cụ dịch thuật:</p>
+        <ul>
+          <li>Opus-MT — nhanh, 9 ngôn ngữ</li>
+          <li>NLLB — 32+ ngôn ngữ, dịch bất kỳ cặp ngôn ngữ nào</li>
+          <li>Qwen — chất lượng tốt nhất, tối ưu cho CJK</li>
+        </ul>
       </div>
       <div class="card">
-        <div class="icon">🌐</div>
-        <h3>Công cụ dịch ngoại tuyến</h3>
-        <p>Dựa trên Helsinki-NLP OPUS-MT, hỗ trợ dịch đa ngôn ngữ, hoàn toàn ngoại tuyến, không tải lên dữ liệu.</p>
+        <div class="icon">&#128246;</div>
+        <h3>Phát Hiện Phương Tiện</h3>
+        <p>Tự động phát hiện luồng m3u8/HLS và liên kết video MP4 trên bất kỳ trang web nào. Tải xuống hoặc dịch chỉ với một cú nhấp qua tiện ích mở rộng trình duyệt.</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#9889;</div>
+        <h3>Phụ Đề Thời Gian Thực</h3>
+        <p>Chế độ dịch trực tiếp: phụ đề hiện ra theo thời gian thực khi bạn xem. Không cần chờ tải xuống toàn bộ video trước. Các tệp phụ đề SRT được lưu cục bộ để sử dụng sau.</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#128274;</div>
+        <h3>100% Ngoại Tuyến &amp; Riêng Tư</h3>
+        <p>Mọi xử lý diễn ra cục bộ. Không có dữ liệu nào được gửi đến máy chủ bên ngoài. Không tài khoản, không theo dõi, không quảng cáo. Nội dung của bạn ở trên thiết bị của bạn.</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#128187;</div>
+        <h3>Yêu Cầu Phần Cứng</h3>
+        <p>GPU NVIDIA có VRAM từ 8 GB trở lên và đã cài đặt trình điều khiển CUDA. Hỗ trợ nhận dạng giọng nói và dịch thuật tăng tốc bằng GPU để đạt hiệu suất tối ưu.</p>
       </div>
     </div>
-    <div class="hint">
-      <span class="key">Alt + S</span>
-      <p>Nhấn phím tắt trên bất kỳ trang video nào để bật/tắt bảng phụ đề. Bạn cũng có thể nhấp vào nút <strong style="color:#4a9eff">Sub</strong> trên thanh công cụ.</p>
+
+    <!-- ============ USAGE METHODS ============ -->
+    <h2 class="section-title"><span class="num">#2</span> Cách Sử Dụng</h2>
+
+    <!-- Method 0: Install EchoShortsPlayer -->
+    <div class="method" id="install">
+      <h3>&#128229; Install EchoShortsPlayer <span class="tag">Required</span></h3>
+      <div class="subtitle">Desktop application &mdash; the core engine for all features</div>
+
+      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension and CLI depend on it. Install it first before using any of the methods below.</p>
+
+      <div class="btn-row">
+        <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">Download EchoShortsPlayer</a>
+      </div>
+
+      <p><strong>System requirements:</strong> Windows 10/11, NVIDIA GPU with 8 GB+ VRAM, CUDA drivers installed.</p>
+      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension and CLI communicate with.</p>
     </div>
+
+    
+    <!-- Method B: Chrome Extension -->
+    <div class="method" id="extension">
+      <h3>&#128268; Tiện Ích Chrome <span class="tag">Khuyên Dùng</span></h3>
+      <div class="subtitle">Chặn phương tiện sâu ở cấp mạng</div>
+
+      <p>Tiện ích Chrome sử dụng API <code>webRequest</code> để chặn tất cả yêu cầu mạng ở cấp trình duyệt, phát hiện luồng m3u8/HLS, tệp MP4 và các định dạng phương tiện khác. Nó cũng quét DOM trang để tìm các phần tử video và liên kết tải xuống.</p>
+
+      <div class="btn-row">
+        <a class="btn btn-green" href="m3u8-extension.zip" download>Tải Tiện Ích (.zip)</a>
+      </div>
+
+      <p><strong>Cài đặt (chế độ nhà phát triển):</strong></p>
+      <ol>
+        <li>Tải tệp zip tiện ích ở trên và giải nén vào một thư mục.</li>
+        <li>Mở Chrome và truy cập <code>chrome://extensions/</code>.</li>
+        <li>Bật <strong>Chế độ nhà phát triển</strong> (công tắc góc trên bên phải).</li>
+        <li>Nhấp <strong>Tải tiện ích đã giải nén</strong> và chọn thư mục <code>m3u8-extension</code>.</li>
+        <li>Biểu tượng tiện ích xuất hiện trên thanh công cụ với huy hiệu hiển thị số lượng phương tiện phát hiện được.</li>
+      </ol>
+
+      <p><strong>Cách sử dụng:</strong></p>
+      <ol>
+        <li>Duyệt đến bất kỳ trang nào có nội dung video.</li>
+        <li>Nhấp vào biểu tượng tiện ích để xem các luồng m3u8/MP4 được phát hiện.</li>
+        <li>Nhấp <strong>Tải Xuống</strong> để lưu thành MP4 cục bộ, hoặc <strong>Dịch</strong> để bắt đầu tạo phụ đề.</li>
+        <li>Di chuột qua các mục để đánh dấu phần tử video tương ứng trên trang.</li>
+      </ol>
+
+      <div class="advantages">
+        <h4>Tại sao nên dùng tiện ích?</h4>
+        <ul>
+          <li>Chặn yêu cầu mạng ở cấp trình duyệt — bắt được các luồng mà quét DOM bỏ sót</li>
+          <li>Tự động chọn chất lượng: nhóm các biến thể theo ID video và chọn chất lượng tốt nhất</li>
+          <li>Chèn header Referer để phát các luồng yêu cầu xác thực</li>
+          <li>Bộ đếm huy hiệu hiển thị số lượng phương tiện phát hiện được trên mỗi tab trong nháy mắt</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Method C: CLI -->
+    <div class="method" id="cli">
+      <h3>&#128187; Giao Diện Dòng Lệnh <span class="tag">Người Dùng Nâng Cao</span></h3>
+      <div class="subtitle">Tự động hóa, xử lý hàng loạt và viết script</div>
+
+      <p>CLI cung cấp quyền truy cập trực tiếp vào tất cả tính năng tải xuống và dịch thuật từ terminal. Được thiết kế cho người dùng nâng cao cần xử lý nhiều video, tự động hóa quy trình làm việc hoặc tích hợp với các công cụ khác.</p>
+
+      <div class="advantages">
+        <h4>Tại sao nên dùng CLI?</h4>
+        <ul>
+          <li>Xử lý hàng loạt: dịch hàng trăm video chỉ với một lệnh</li>
+          <li>Có thể viết script: tích hợp vào shell scripts, cron jobs hoặc CI/CD pipelines</li>
+          <li>Toàn quyền kiểm soát mô hình: chọn kích thước mô hình Whisper, công cụ dịch, chế độ khử nhiễu</li>
+          <li>Không có gánh nặng GUI: lý tưởng cho máy chủ, máy headless hoặc phiên SSH từ xa</li>
+          <li>Hỗ trợ cả chế độ xử lý nối tiếp (tiết kiệm bộ nhớ) và song song (nhanh)</li>
+        </ul>
+      </div>
+
+      <p><strong>Các lệnh khả dụng:</strong></p>
+      <pre>
+# Dịch một tệp video cục bộ sang phụ đề tiếng Trung
+resources\backend\backend.exe --cli translate video.mp4 --target zh
+
+# Dịch hàng loạt toàn bộ thư mục
+resources\backend\backend.exe --cli translate C:\Videos\
+
+# Tất cả tùy chọn: ngôn ngữ nguồn, mô hình Whisper, công cụ dịch, khử nhiễu, chế độ xử lý
+resources\backend\backend.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
+
+# Tải xuống m3u8 hoặc MP4 từ xa
+resources\backend\backend.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
+
+# Tải xuống và dịch trong một bước
+resources\backend\backend.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
+
+# Dịch một tệp SRT hiện có
+resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
+
+      <p><strong>Tham chiếu tham số:</strong></p>
+      <pre>
+--source, -s      Ngôn ngữ nguồn hoặc "auto" (mặc định: auto)
+--target, -t      Ngôn ngữ đích (mặc định: zh)
+--whisper, -w     tiny|base|small|medium|distil-large-v3|large-v3
+--translation, -m opus-mt|nllb-distilled-600M|nllb-1.3B|nllb-3.3B|qwen2.5-3b|qwen3-8b
+--denoise, -d     off|light|vocal (mặc định: off)
+--mode            serial|parallel (mặc định: serial)
+--output, -o      Đường dẫn tệp đầu ra
+--url             URL phương tiện (m3u8 / MP4)
+--referer         Tiêu đề Referer
+
+      <p>Xem danh sách đầy đủ các mã ngôn ngữ được hỗ trợ cho <code>--source</code> và <code>--target</code>: <a href="language-codes.html">Tham chiếu mã ngôn ngữ</a></p>
+    </div>
+
+    <!-- ============ PRIVACY & DISCLAIMER ============ -->
+    <h2 class="section-title"><span class="num">#3</span> Chính Sách Bảo Mật và Tuyên Bố Miễn Trừ</h2>
     <div class="privacy">
-      <h2>Chính sách quyền riêng tư &amp; Tuyên bố miễn trách nhiệm</h2>
-      <div class="section">
-        <h3>Xử lý dữ liệu cục bộ</h3>
-        <p>Tất cả các tính năng cốt lõi của EchoShorts — bao gồm nhận dạng giọng nói, OCR và dịch thuật — chạy trên thiết bị cục bộ của bạn, được hỗ trợ bởi máy chủ cục bộ (127.0.0.1:8765).</p>
-        <p>Chúng tôi không thu thập, lưu trữ, truyền hoặc phân tích bất kỳ dữ liệu người dùng nào, bao gồm: nội dung video, văn bản phụ đề, kết quả dịch, lịch sử duyệt web hoặc thông tin cá nhân.</p>
+
+      <div class="priv-section">
+        <h3>Xử Lý Dữ Liệu Cục Bộ</h3>
+        <p>Tất cả các tính năng cốt lõi của EchoShortsPlayer &mdash; bao gồm nhận dạng giọng nói, dịch thuật và tải phương tiện &mdash; chạy hoàn toàn trên thiết bị cục bộ của bạn, được hỗ trợ bởi máy chủ backend cục bộ (127.0.0.1:18632).</p>
+        <p>Chúng tôi không thu thập, lưu trữ, truyền tải hoặc phân tích bất kỳ dữ liệu người dùng nào.</p>
       </div>
-      <div class="section">
-        <h3>Không truyền dữ liệu qua mạng</h3>
-        <p>Ứng dụng này không gửi bất kỳ dữ liệu nào đến máy chủ bên ngoài trong quá trình sử dụng bình thường. Tất cả xử lý âm thanh, nhận dạng hình ảnh và dịch văn bản được hoàn thành cục bộ.</p>
+
+      <div class="priv-section">
+        <h3>Không Truyền Dữ Liệu Qua Mạng</h3>
+        <p>Ứng dụng này không gửi dữ liệu người dùng đến máy chủ bên ngoài trong quá trình sử dụng bình thường.</p>
+        <p>Tiện ích mở rộng trình duyệt chỉ giao tiếp với backend cục bộ tại <code>localhost:18632</code>.</p>
       </div>
-      <div class="section">
-        <h3>Không quảng cáo, không theo dõi, không đề xuất</h3>
-        <p>Ứng dụng này không chứa hệ thống quảng cáo, mã theo dõi hành vi người dùng hoặc cơ chế đề xuất dữ liệu. Chúng tôi không chia sẻ dữ liệu người dùng với bên thứ ba.</p>
+
+      <div class="priv-section">
+        <h3>Không Quảng Cáo, Không Theo Dõi, Không Đề Xuất</h3>
+        <p>Ứng dụng này không chứa hệ thống quảng cáo, mã theo dõi hành vi người dùng, công cụ phân tích hoặc cơ chế đề xuất dữ liệu.</p>
       </div>
-      <div class="section">
-        <h3>Safe Harbor và trách nhiệm người dùng</h3>
-        <p>EchoShorts là công cụ kỹ thuật đa năng được thiết kế chỉ để giúp người dùng hiểu nội dung video. Theo Học thuyết Safe Harbor, các nhà phát triển không chịu trách nhiệm pháp lý đối với nội dung mà người dùng truy cập.</p>
-        <p>Người dùng phải đảm bảo việc sử dụng của họ tuân thủ luật pháp địa phương và điều khoản dịch vụ của các nền tảng họ truy cập. Mọi trách nhiệm pháp lý phát sinh từ việc sử dụng sai mục đích đều thuộc về người dùng.</p>
+
+      <div class="priv-section">
+        <h3>Cảng An Toàn và Trách Nhiệm Người Dùng</h3>
+        <p>EchoShortsPlayer là công cụ kỹ thuật đa năng được thiết kế chỉ để giúp người dùng hiểu nội dung video. Nhà phát triển không chịu trách nhiệm pháp lý cho bất kỳ nội dung nào mà người dùng truy cập, dịch hoặc xử lý.</p>
+        <p>Người dùng phải đảm bảo việc sử dụng tuân thủ luật pháp và quy định địa phương. Mọi trách nhiệm pháp lý thuộc về người dùng.</p>
       </div>
-      <div class="section">
-        <h3>Giới hạn sử dụng</h3>
-        <p>Ứng dụng này được định nghĩa là một công cụ hỗ trợ, dành riêng cho việc sử dụng cá nhân tại chỗ bởi người khiếm thính hoặc người học ngôn ngữ. Không được phép sử dụng cho bất kỳ mục đích nào khác.</p>
+
+      <div class="priv-section">
+        <h3>Mục Đích Sử Dụng</h3>
+        <p>Ứng dụng này được thiết kế như một công cụ hỗ trợ dành cho người khiếm thính, người học ngoại ngữ hoặc những người cần hiểu nội dung video bằng tiếng nước ngoài.</p>
       </div>
-      <div class="section">
-        <h3>Giới hạn kỹ thuật</h3>
-        <p>Ứng dụng này sử dụng công nghệ nhận dạng luồng âm thanh thời gian thực và chỉ hỗ trợ phân tích nội dung video công khai không được bảo vệ bởi Quản lý Quyền Kỹ thuật số (DRM). Do các hạn chế của giao thức bảo vệ bản quyền (như Widevine, PlayReady, v.v.), luồng âm thanh từ nội dung HD được bảo vệ DRM hoặc video từ các nền tảng bị hạn chế có thể không thể trích xuất được, ngăn chặn việc tạo phụ đề thời gian thực. Nếu bạn gặp sự cố tạo phụ đề khi phát video định dạng chuẩn, vui lòng gửi địa chỉ video cho chúng tôi qua email và chúng tôi sẽ liên tục cải thiện khả năng tương thích của công cụ nhận dạng.</p>
+
+      <div class="priv-section">
+        <h3>Hạn Chế Kỹ Thuật</h3>
+        <p>Ứng dụng này hỗ trợ phân tích nội dung video có thể truy cập công khai không được bảo vệ bởi DRM.</p>
+        <p>Đối với tệp MP4 không được mã hóa fast-start, ứng dụng yêu cầu tải xuống hoàn toàn trước khi bắt đầu dịch.</p>
       </div>
-      <div class="section">
-        <h3>Tuyên bố miễn trách nhiệm</h3>
-        <p>Ứng dụng này được cung cấp "nguyên trạng" không có bất kỳ bảo đảm nào. Nhà phát triển không đảm bảo hoạt động chính xác trong mọi môi trường và không chấp nhận trách nhiệm về tổn thất phát sinh từ việc sử dụng.</p>
-        <p>Phụ đề và bản dịch do ứng dụng này cung cấp được tạo tự động bằng máy và chỉ mang tính tham khảo. Nhà phát triển không đảm bảo về độ chính xác, tính đầy đủ hoặc sự phù hợp của bản dịch máy và không chịu trách nhiệm về hậu quả phát sinh từ việc tin tưởng vào nội dung đã dịch.</p>
+
+      <div class="priv-section">
+        <h3>Tuyên Bố Miễn Trừ</h3>
+        <p>Ứng dụng này được cung cấp "nguyên trạng" không có bất kỳ bảo đảm nào.</p>
+        <p>Phụ đề và bản dịch được tạo tự động bởi máy và chỉ mang tính tham khảo.</p>
       </div>
-      <div class="section">
-        <h3>Cập nhật chính sách</h3>
-        <p>Chính sách quyền riêng tư này có thể được cập nhật với các phiên bản mới. Các thay đổi quan trọng sẽ được thông báo qua nhật ký cập nhật của ứng dụng.</p>
+
+      <div class="priv-section">
+        <h3>Cập Nhật Chính Sách</h3>
+        <p>Chính sách bảo mật này có thể được cập nhật cùng với phiên bản mới. Tiếp tục sử dụng ứng dụng này đồng nghĩa với việc chấp nhận phiên bản mới nhất của chính sách bảo mật.</p>
       </div>
     </div>
   </main>
+
   <footer>
-    <span>© 2025 EchoShorts. All rights reserved.</span>
-    <a href="mailto:supports@echoshorts.win">Liên hệ chúng tôi</a>
+    <span>&copy; 2025 EchoShortsPlayer. Bảo lưu mọi quyền.</span>
+    <a href="mailto:supports@echoshorts.win">Liên hệ</a>
   </footer>
+
 </body>
 </html>

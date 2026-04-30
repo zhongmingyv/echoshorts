@@ -2,41 +2,109 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>EchoShorts</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EchoShortsPlayer - Traduction de Sous-titres Vidéo par IA</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f0f0f; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
-    main { flex: 1; max-width: 860px; margin: 0 auto; padding: 60px 40px 40px; width: 100%; }
-    .intro { margin-bottom: 48px; }
-    .intro .logo { font-size: 13px; font-weight: 700; color: #4ade80; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
-    .intro h1 { font-size: 38px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 16px; }
-    .intro h1 span { color: #4ade80; }
-    .intro p { font-size: 15px; color: #999; line-height: 1.7; max-width: 580px; }
-    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f0f0f;
+      color: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 40px 40px;
+      width: 100%;
+    }
+
+    a { color: #4ade80; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* --- Language Switcher --- */
+    .lang-switcher { width: 100%; max-width: 900px; margin: 0 auto; padding: 20px 40px 0; display: flex; justify-content: flex-end; }
+    .lang-switcher select { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px; color: #e0e0e0; font-size: 12px; padding: 5px 8px; cursor: pointer; outline: none; }
+    .lang-switcher select:hover { border-color: #4ade80; }
+
+    /* --- Hero --- */
+    .hero { margin-bottom: 56px; }
+    .hero .logo { font-size: 13px; font-weight: 700; color: #4ade80; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
+    .hero h1 { font-size: 36px; font-weight: 700; color: #fff; line-height: 1.25; margin-bottom: 16px; }
+    .hero h1 span { color: #4ade80; }
+    .hero p { font-size: 15px; color: #999; line-height: 1.7; max-width: 640px; }
+
+    /* --- Section Title --- */
+    .section-title { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #222; }
+    .section-title .num { color: #4ade80; margin-right: 8px; }
+
+    /* --- Feature Cards --- */
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 56px; }
     .card { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; padding: 22px; }
-    .card .icon { font-size: 22px; margin-bottom: 10px; }
-    .card h3 { font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 6px; }
-    .card p { font-size: 12px; color: #777; line-height: 1.6; }
-    .hint { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 10px; padding: 16px 20px; display: flex; align-items: center; gap: 14px; margin-bottom: 48px; }
-    .hint .key { background: #2a2a2a; border: 1px solid #3a3a3a; border-radius: 5px; padding: 3px 9px; font-size: 12px; font-family: monospace; color: #4ade80; white-space: nowrap; }
-    .hint p { font-size: 13px; color: #888; }
+    .card .icon { font-size: 24px; margin-bottom: 10px; }
+    .card h3 { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 8px; }
+    .card p { font-size: 12.5px; color: #777; line-height: 1.65; }
+    .card ul { font-size: 12.5px; color: #777; line-height: 1.65; margin-top: 6px; padding-left: 16px; }
+    .card ul li { margin-bottom: 3px; }
+
+    /* --- Usage Methods --- */
+    .method { background: #141414; border: 1px solid #222; border-radius: 14px; padding: 28px 32px; margin-bottom: 24px; }
+    .method h3 { font-size: 17px; font-weight: 600; color: #fff; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+    .method h3 .tag { font-size: 11px; font-weight: 600; color: #0f0f0f; background: #4ade80; border-radius: 4px; padding: 2px 8px; }
+    .method .subtitle { font-size: 13px; color: #4ade80; margin-bottom: 14px; }
+    .method p { font-size: 13px; color: #999; line-height: 1.75; margin-bottom: 10px; }
+    .method ol, .method ul { font-size: 13px; color: #999; line-height: 1.75; padding-left: 20px; margin-bottom: 12px; }
+    .method ol li, .method ul li { margin-bottom: 6px; }
+    .method .advantages { background: #1a2a1a; border: 1px solid #2a3a2a; border-radius: 8px; padding: 14px 18px; margin-top: 14px; }
+    .method .advantages h4 { font-size: 12px; font-weight: 600; color: #4ade80; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .method .advantages ul { margin-bottom: 0; padding-left: 16px; }
+    .method .advantages ul li { font-size: 12.5px; color: #8c8; }
+
+    pre { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 14px 18px; overflow-x: auto; margin: 10px 0; font-size: 12.5px; line-height: 1.6; color: #ccc; font-family: 'SF Mono', 'Fira Code', Consolas, monospace; max-width: 100%; white-space: pre-wrap; word-break: break-word; }
+    code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 12.5px; color: #4ade80; background: #1a2a1a; padding: 1px 5px; border-radius: 3px; }
+
+    .btn-row { display: flex; gap: 10px; margin: 14px 0; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: 9px 20px; border-radius: 8px; font-size: 13px; font-weight: 600;
+      cursor: pointer; text-decoration: none !important; transition: opacity .15s;
+    }
+    .btn:hover { opacity: 0.85; }
+    .btn-green { background: #4ade80; color: #0f0f0f; }
+    .btn-outline { background: transparent; border: 1px solid #4ade80; color: #4ade80; }
+
+    /* --- Privacy --- */
     .privacy { background: #141414; border: 1px solid #222; border-radius: 14px; padding: 32px 36px; margin-bottom: 40px; }
-    .privacy h2 { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid #222; }
-    .section { margin-bottom: 22px; }
-    .section:last-child { margin-bottom: 0; }
-    .section h3 { font-size: 11px; font-weight: 600; color: #4ade80; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 7px; }
-    .section p { font-size: 13px; color: #888; line-height: 1.75; }
-    .section p + p { margin-top: 6px; }
+    .privacy h2 { font-size: 18px; font-weight: 600; color: #fff; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid #222; }
+    .priv-section { margin-bottom: 22px; }
+    .priv-section:last-child { margin-bottom: 0; }
+    .priv-section h3 { font-size: 11px; font-weight: 600; color: #4ade80; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 7px; }
+    .priv-section p { font-size: 13px; color: #888; line-height: 1.75; }
+    .priv-section p + p { margin-top: 6px; }
+
+    /* --- Footer --- */
     footer { text-align: center; padding: 20px 40px; border-top: 1px solid #1a1a1a; display: flex; justify-content: center; align-items: center; gap: 28px; }
     footer span { font-size: 12px; color: #444; }
     footer a { font-size: 12px; color: #666; text-decoration: none; }
     footer a:hover { color: #4ade80; }
-    .lang-switcher select { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px; color: #e0e0e0; font-size: 12px; padding: 5px 8px; cursor: pointer; outline: none; }
-    .lang-switcher select:hover { border-color: #4ade80; }
-    .lang-switcher { width: 100%; max-width: 860px; margin: 0 auto; padding: 20px 40px 0; display: flex; justify-content: flex-end; }
+
+    @media (max-width: 700px) {
+      main { padding: 24px 18px; }
+      .hero h1 { font-size: 26px; }
+      .features { grid-template-columns: 1fr; }
+      .method { padding: 20px; }
+      .privacy { padding: 20px; }
+      .lang-switcher { padding: 14px 18px 0; }
+      footer { flex-direction: column; gap: 8px; }
+    }
   </style>
 </head>
 <body>
+
   <div class="lang-switcher">
     <select onchange="location.href=this.value">
       <option value="home.html">English</option>
@@ -56,75 +124,223 @@
       <option value="home-ms.html">Bahasa Melayu</option>
     </select>
   </div>
+
   <main>
-    <div class="intro">
-      <div class="logo">EchoShorts</div>
-      <h1>Sous-titres vidéo, <span>traduction instantanée</span><br>Entièrement hors ligne, la vie privée d'abord</h1>
-      <p>EchoShorts effectue toute la reconnaissance vocale et la traduction localement sur votre appareil — sans internet, sans compte, vos données ne quittent jamais votre ordinateur. Entrez une URL dans la barre d'adresse pour commencer à naviguer.</p>
+
+    <!-- ============ HERO ============ -->
+    <div class="hero">
+      <div class="logo">EchoShortsPlayer</div>
+      <h1>Traduction Vidéo &amp; Sous-titres par IA<br><span>Streaming, Traduction, Téléchargement &mdash; Tout Hors Ligne</span></h1>
+      <p>EchoShortsPlayer traduit les vidéos en ligne en temps réel pendant que vous les regardez — les sous-titres apparaissent pendant la lecture, sans attente. Téléchargez les vidéos accessibles publiquement pour les visionner hors ligne. Toute la reconnaissance vocale et la traduction s'exécutent à 100% localement sur votre appareil : pas d'internet, pas de compte, aucune donnée ne quitte votre ordinateur. Prend en charge plus de 99 langues, les flux m3u8 et les fichiers MP4.</p>
     </div>
+
+    <!-- ============ FEATURES ============ -->
+    <h2 class="section-title"><span class="num">#1</span> Fonctionnalités</h2>
     <div class="features">
       <div class="card">
-        <div class="icon">🎙️</div>
-        <h3>Reconnaissance vocale Whisper</h3>
-        <p>Basé sur OpenAI Whisper, prend en charge la transcription dans 99 langues, fonctionne localement, sans API.</p>
+        <div class="icon">&#127908;</div>
+        <h3>Reconnaissance Vocale</h3>
+        <p>Propulsé par OpenAI Whisper. Prend en charge 99 langues avec détection automatique de la langue. Plusieurs tailles de modèle, de tiny (rapide) à large-v3 (précision maximale).</p>
       </div>
       <div class="card">
-        <div class="icon">🔍</div>
-        <h3>Reconnaissance OCR des sous-titres</h3>
-        <p>Utilise PaddleOCR pour reconnaître les sous-titres incrustés dans les images vidéo, prenant en charge le chinois, l'anglais, le japonais, le coréen et plus.</p>
+        <div class="icon">&#127760;</div>
+        <h3>Traduction IA</h3>
+        <p>Plusieurs moteurs de traduction :</p>
+        <ul>
+          <li>Opus-MT — rapide, 9 langues</li>
+          <li>NLLB — 32+ langues, toutes combinaisons</li>
+          <li>Qwen — meilleure qualité, optimisé CJK</li>
+        </ul>
       </div>
       <div class="card">
-        <div class="icon">🌐</div>
-        <h3>Moteur de traduction hors ligne</h3>
-        <p>Basé sur Helsinki-NLP OPUS-MT, prend en charge la traduction multilingue, entièrement hors ligne, aucune donnée téléchargée.</p>
+        <div class="icon">&#128246;</div>
+        <h3>Détection des Médias</h3>
+        <p>Détecte automatiquement les flux m3u8/HLS et les liens vidéo MP4 sur toute page web. Téléchargez ou traduisez en un clic via l'extension de navigateur.</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#9889;</div>
+        <h3>Sous-titres en Temps Réel</h3>
+        <p>Mode traduction en streaming : les sous-titres apparaissent en temps réel pendant le visionnage. Pas besoin d'attendre le téléchargement complet de la vidéo. Les fichiers de sous-titres SRT sont sauvegardés localement pour une utilisation future.</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#128274;</div>
+        <h3>100% Hors Ligne &amp; Privé</h3>
+        <p>Tout le traitement se fait localement. Aucune donnée n'est envoyée à des serveurs externes. Pas de compte, pas de suivi, pas de publicité. Votre contenu reste sur votre appareil.</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#128187;</div>
+        <h3>Configuration Matérielle Requise</h3>
+        <p>GPU NVIDIA avec 8 Go ou plus de VRAM et pilotes CUDA installés. Prend en charge la reconnaissance vocale et la traduction accélérées par GPU pour des performances optimales.</p>
       </div>
     </div>
-    <div class="hint">
-      <span class="key">Alt + S</span>
-      <p>Appuyez sur le raccourci sur n'importe quelle page vidéo pour activer ou désactiver le panneau de sous-titres. Vous pouvez également cliquer sur le bouton <strong style="color:#4a9eff">Sub</strong> dans la barre d'outils.</p>
+
+    <!-- ============ USAGE METHODS ============ -->
+    <h2 class="section-title"><span class="num">#2</span> Comment Utiliser</h2>
+
+    <!-- Method 0: Install EchoShortsPlayer -->
+    <div class="method" id="install">
+      <h3>&#128229; Install EchoShortsPlayer <span class="tag">Required</span></h3>
+      <div class="subtitle">Desktop application &mdash; the core engine for all features</div>
+
+      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension and CLI depend on it. Install it first before using any of the methods below.</p>
+
+      <div class="btn-row">
+        <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">Download EchoShortsPlayer</a>
+      </div>
+
+      <p><strong>System requirements:</strong> Windows 10/11, NVIDIA GPU with 8 GB+ VRAM, CUDA drivers installed.</p>
+      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension and CLI communicate with.</p>
     </div>
+
+    
+    <!-- Method B: Chrome Extension -->
+    <div class="method" id="extension">
+      <h3>&#128268; Extension Chrome <span class="tag">Recommandé</span></h3>
+      <div class="subtitle">Interception approfondie des médias au niveau réseau</div>
+
+      <p>L'extension Chrome utilise l'API <code>webRequest</code> pour intercepter toutes les requêtes réseau au niveau du navigateur, détectant les flux m3u8/HLS, les fichiers MP4 et autres formats multimédias. Elle scanne également le DOM de la page pour trouver les éléments vidéo et les liens de téléchargement.</p>
+
+      <div class="btn-row">
+        <a class="btn btn-green" href="m3u8-extension.zip" download>Télécharger l'Extension (.zip)</a>
+      </div>
+
+      <p><strong>Installation (mode développeur) :</strong></p>
+      <ol>
+        <li>Téléchargez le zip de l'extension ci-dessus et extrayez-le dans un dossier.</li>
+        <li>Ouvrez Chrome et accédez à <code>chrome://extensions/</code>.</li>
+        <li>Activez le <strong>Mode développeur</strong> (interrupteur en haut à droite).</li>
+        <li>Cliquez sur <strong>Charger l'extension non empaquetée</strong> et sélectionnez le dossier <code>m3u8-extension</code>.</li>
+        <li>L'icône de l'extension apparaît dans la barre d'outils avec un badge indiquant le nombre de médias détectés.</li>
+      </ol>
+
+      <p><strong>Utilisation :</strong></p>
+      <ol>
+        <li>Naviguez vers une page contenant du contenu vidéo.</li>
+        <li>Cliquez sur l'icône de l'extension pour voir les flux m3u8/MP4 détectés.</li>
+        <li>Cliquez sur <strong>Télécharger</strong> pour enregistrer en MP4 local, ou <strong>Traduire</strong> pour lancer la génération de sous-titres.</li>
+        <li>Survolez les éléments pour mettre en surbrillance l'élément vidéo correspondant sur la page.</li>
+      </ol>
+
+      <div class="advantages">
+        <h4>Pourquoi utiliser l'extension ?</h4>
+        <ul>
+          <li>Intercepte les requêtes réseau au niveau du navigateur — capture les flux que le scan DOM ne détecte pas</li>
+          <li>Sélection automatique de la qualité : regroupe les variantes par ID vidéo et choisit la meilleure qualité</li>
+          <li>Injection d'en-tête Referer pour lire les flux nécessitant une authentification</li>
+          <li>Le compteur de badge affiche le nombre de médias détectés par onglet en un coup d'œil</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Method C: CLI -->
+    <div class="method" id="cli">
+      <h3>&#128187; Interface en Ligne de Commande <span class="tag">Utilisateurs Avancés</span></h3>
+      <div class="subtitle">Automatisation, traitement par lots et scripting</div>
+
+      <p>La CLI fournit un accès direct à toutes les fonctionnalités de téléchargement et de traduction depuis le terminal. Elle est conçue pour les utilisateurs avancés qui ont besoin de traiter plusieurs vidéos, d'automatiser des flux de travail ou de s'intégrer à d'autres outils.</p>
+
+      <div class="advantages">
+        <h4>Pourquoi utiliser la CLI ?</h4>
+        <ul>
+          <li>Traitement par lots : traduisez des centaines de vidéos avec une seule commande</li>
+          <li>Scriptable : intégrez dans des scripts shell, des tâches cron ou des pipelines CI/CD</li>
+          <li>Contrôle total sur les modèles : choisissez la taille du modèle Whisper, le moteur de traduction, le mode de réduction de bruit</li>
+          <li>Pas de surcharge GUI : idéal pour les serveurs, machines sans écran ou sessions SSH distantes</li>
+          <li>Prend en charge les modes de traitement en série (économe en mémoire) et parallèle (rapide)</li>
+        </ul>
+      </div>
+
+      <p><strong>Commandes disponibles :</strong></p>
+      <pre>
+# Traduire un fichier vidéo local en sous-titres chinois
+resources\backend\backend.exe --cli translate video.mp4 --target zh
+
+# Traduire un dossier entier par lots
+resources\backend\backend.exe --cli translate C:\Videos\
+
+# Toutes les options : langue source, modèle Whisper, moteur de traduction, réduction du bruit, mode de traitement
+resources\backend\backend.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
+
+# Télécharger un m3u8 ou MP4 distant
+resources\backend\backend.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
+
+# Télécharger et traduire en une seule étape
+resources\backend\backend.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
+
+# Traduire un fichier SRT existant
+resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
+
+      <p><strong>Référence des paramètres :</strong></p>
+      <pre>
+--source, -s      Langue source ou "auto" (par défaut : auto)
+--target, -t      Langue cible (par défaut : zh)
+--whisper, -w     tiny|base|small|medium|distil-large-v3|large-v3
+--translation, -m opus-mt|nllb-distilled-600M|nllb-1.3B|nllb-3.3B|qwen2.5-3b|qwen3-8b
+--denoise, -d     off|light|vocal (par défaut : off)
+--mode            serial|parallel (par défaut : serial)
+--output, -o      Chemin du fichier de sortie
+--url             URL média (m3u8 / MP4)
+--referer         En-tête Referer
+
+      <p>Voir la liste complète des codes de langue pris en charge pour <code>--source</code> et <code>--target</code> : <a href="language-codes.html">Référence des codes de langue</a></p>
+    </div>
+
+    <!-- ============ PRIVACY & DISCLAIMER ============ -->
+    <h2 class="section-title"><span class="num">#3</span> Politique de Confidentialité et Clause de Non-responsabilité</h2>
     <div class="privacy">
-      <h2>Politique de confidentialité &amp; Avertissement</h2>
-      <div class="section">
-        <h3>Traitement local des données</h3>
-        <p>Toutes les fonctionnalités principales d'EchoShorts — y compris la reconnaissance vocale, l'OCR et la traduction — s'exécutent sur votre appareil local, avec le support d'un serveur local (127.0.0.1:8765).</p>
-        <p>Nous ne collectons, ne stockons, ne transmettons ni n'analysons aucune donnée utilisateur, y compris : le contenu vidéo, le texte des sous-titres, les résultats de traduction, l'historique de navigation ou toute information personnelle.</p>
+
+      <div class="priv-section">
+        <h3>Traitement Local des Données</h3>
+        <p>Toutes les fonctionnalités principales d'EchoShortsPlayer &mdash; y compris la reconnaissance vocale, la traduction et le téléchargement de médias &mdash; s'exécutent entièrement sur votre appareil local, alimentées par un serveur backend local (127.0.0.1:18632).</p>
+        <p>Nous ne collectons, stockons, transmettons ou analysons aucune donnée utilisateur.</p>
       </div>
-      <div class="section">
-        <h3>Aucune transmission de données réseau</h3>
-        <p>Cette application n'envoie aucune donnée à des serveurs externes lors d'une utilisation normale. Tout le traitement audio, la reconnaissance d'images et la traduction de texte sont effectués localement. Les modèles d'IA sont téléchargés depuis des sources publiques lors de la première utilisation et peuvent fonctionner hors ligne ensuite.</p>
+
+      <div class="priv-section">
+        <h3>Aucune Transmission de Données Réseau</h3>
+        <p>Cette application n'envoie aucune donnée utilisateur à des serveurs externes pendant l'utilisation normale. Tout le traitement audio et la traduction de texte sont effectués localement.</p>
+        <p>L'extension de navigateur communique uniquement avec le backend local sur <code>localhost:18632</code>.</p>
       </div>
-      <div class="section">
-        <h3>Pas de publicités, pas de suivi, pas de recommandations</h3>
-        <p>Cette application ne contient aucun système publicitaire, code de suivi du comportement des utilisateurs ou mécanismes de recommandation de données. Nous ne partageons pas les données des utilisateurs avec des tiers.</p>
+
+      <div class="priv-section">
+        <h3>Pas de Publicité, Pas de Suivi, Pas de Recommandations</h3>
+        <p>Cette application ne contient aucun système publicitaire, code de suivi du comportement des utilisateurs, outils d'analyse ou mécanismes de recommandation de données.</p>
       </div>
-      <div class="section">
-        <h3>Sphère de sécurité et responsabilité de l'utilisateur</h3>
-        <p>EchoShorts est un outil technique à usage général conçu uniquement pour aider les utilisateurs à comprendre le contenu vidéo. En vertu de la doctrine de la sphère de sécurité, les développeurs n'assument aucune responsabilité légale pour le contenu auquel accèdent les utilisateurs.</p>
-        <p>Les utilisateurs doivent s'assurer que leur utilisation est conforme aux lois locales et aux conditions d'utilisation des plateformes auxquelles ils accèdent. Toute responsabilité légale découlant d'une mauvaise utilisation incombe exclusivement à l'utilisateur.</p>
+
+      <div class="priv-section">
+        <h3>Sphère de Sécurité et Responsabilité de l'Utilisateur</h3>
+        <p>EchoShortsPlayer est un outil technique à usage général conçu uniquement pour aider les utilisateurs à comprendre le contenu vidéo. Les développeurs n'assument aucune responsabilité légale pour tout contenu consulté, traduit ou traité par les utilisateurs.</p>
+        <p>Les utilisateurs doivent s'assurer que leur utilisation est conforme aux lois et réglementations locales. Toute responsabilité légale incombe uniquement à l'utilisateur.</p>
+        <p>Cette application ne porte aucun jugement ni garantie sur la légalité du contenu consulté par les utilisateurs.</p>
       </div>
-      <div class="section">
-        <h3>Utilisation prévue</h3>
-        <p>Cette application est définie comme un outil d'assistance destiné uniquement à un usage personnel local par des personnes malentendantes ou des apprenants en langues. Toute autre utilisation est interdite.</p>
+
+      <div class="priv-section">
+        <h3>Utilisation Prévue</h3>
+        <p>Cette application est conçue comme un outil d'assistance destiné à l'usage personnel local par des personnes malentendantes, des apprenants de langues ou ceux qui ont besoin de comprendre du contenu vidéo en langues étrangères.</p>
       </div>
-      <div class="section">
-        <h3>Limitations techniques</h3>
-        <p>Cette application utilise la technologie de reconnaissance de flux audio en temps réel et ne prend en charge que l'analyse de contenus vidéo publics non protégés par la gestion des droits numériques (DRM). En raison des restrictions imposées par les protocoles de protection des droits d'auteur (tels que Widevine, PlayReady, etc.), les flux audio des contenus HD protégés par DRM ou des vidéos de plateformes restreintes peuvent ne pas être extractibles, empêchant la génération de sous-titres en temps réel. Si vous rencontrez des problèmes de génération de sous-titres lors de la lecture de vidéos au format standard, veuillez nous envoyer l'URL de la vidéo par e-mail et nous améliorerons continuellement la compatibilité de notre moteur de reconnaissance.</p>
+
+      <div class="priv-section">
+        <h3>Limitations Techniques</h3>
+        <p>Cette application prend en charge l'analyse de contenu vidéo accessible publiquement non protégé par DRM.</p>
+        <p>Pour les fichiers MP4 non encodés en "fast-start", l'application nécessite un téléchargement complet avant que la traduction puisse commencer.</p>
       </div>
-      <div class="section">
-        <h3>Avertissement</h3>
-        <p>Cette application est fournie "telle quelle" sans aucune garantie. Le développeur ne garantit pas le bon fonctionnement dans tous les environnements et n'accepte aucune responsabilité pour les pertes résultant de son utilisation. L'utilisation de cette application constitue l'acceptation de tous les termes ci-dessus.</p>
-        <p>Les sous-titres et traductions fournis par cette application sont générés automatiquement par machine et sont fournis à titre indicatif uniquement. Le développeur ne garantit pas l'exactitude, l'exhaustivité ou la pertinence des traductions automatiques et n'accepte aucune responsabilité pour les conséquences découlant de la confiance accordée au contenu traduit.</p>
+
+      <div class="priv-section">
+        <h3>Clause de Non-responsabilité</h3>
+        <p>Cette application est fournie "en l'état" sans aucune garantie expresse ou implicite.</p>
+        <p>Les sous-titres et traductions sont générés automatiquement par machine et sont fournis à titre indicatif uniquement.</p>
       </div>
-      <div class="section">
-        <h3>Mises à jour de la politique</h3>
-        <p>Cette politique de confidentialité peut être mise à jour avec de nouvelles versions. Les changements importants seront communiqués via le journal des mises à jour de l'application. L'utilisation continue constitue l'acceptation de la version la plus récente.</p>
+
+      <div class="priv-section">
+        <h3>Mises à Jour de la Politique</h3>
+        <p>Cette politique de confidentialité peut être mise à jour avec de nouvelles versions. L'utilisation continue de cette application constitue l'acceptation de la dernière version de la politique de confidentialité.</p>
       </div>
     </div>
   </main>
+
   <footer>
-    <span>© 2025 EchoShorts. All rights reserved.</span>
-    <a href="mailto:supports@echoshorts.win">Nous contacter</a>
+    <span>&copy; 2025 EchoShortsPlayer. Tous droits réservés.</span>
+    <a href="mailto:supports@echoshorts.win">Nous Contacter</a>
   </footer>
+
 </body>
 </html>

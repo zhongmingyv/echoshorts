@@ -2,41 +2,109 @@
 <html lang="ms">
 <head>
   <meta charset="UTF-8">
-  <title>EchoShorts</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EchoShortsPlayer - Terjemahan Sari Kata Video AI</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f0f0f; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
-    main { flex: 1; max-width: 860px; margin: 0 auto; padding: 60px 40px 40px; width: 100%; }
-    .intro { margin-bottom: 48px; }
-    .intro .logo { font-size: 13px; font-weight: 700; color: #4ade80; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
-    .intro h1 { font-size: 38px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 16px; }
-    .intro h1 span { color: #4ade80; }
-    .intro p { font-size: 15px; color: #999; line-height: 1.7; max-width: 580px; }
-    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f0f0f;
+      color: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 40px 40px;
+      width: 100%;
+    }
+
+    a { color: #4ade80; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* --- Language Switcher --- */
+    .lang-switcher { width: 100%; max-width: 900px; margin: 0 auto; padding: 20px 40px 0; display: flex; justify-content: flex-end; }
+    .lang-switcher select { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px; color: #e0e0e0; font-size: 12px; padding: 5px 8px; cursor: pointer; outline: none; }
+    .lang-switcher select:hover { border-color: #4ade80; }
+
+    /* --- Hero --- */
+    .hero { margin-bottom: 56px; }
+    .hero .logo { font-size: 13px; font-weight: 700; color: #4ade80; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
+    .hero h1 { font-size: 36px; font-weight: 700; color: #fff; line-height: 1.25; margin-bottom: 16px; }
+    .hero h1 span { color: #4ade80; }
+    .hero p { font-size: 15px; color: #999; line-height: 1.7; max-width: 640px; }
+
+    /* --- Section Title --- */
+    .section-title { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #222; }
+    .section-title .num { color: #4ade80; margin-right: 8px; }
+
+    /* --- Feature Cards --- */
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 56px; }
     .card { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; padding: 22px; }
-    .card .icon { font-size: 22px; margin-bottom: 10px; }
-    .card h3 { font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 6px; }
-    .card p { font-size: 12px; color: #777; line-height: 1.6; }
-    .hint { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 10px; padding: 16px 20px; display: flex; align-items: center; gap: 14px; margin-bottom: 48px; }
-    .hint .key { background: #2a2a2a; border: 1px solid #3a3a3a; border-radius: 5px; padding: 3px 9px; font-size: 12px; font-family: monospace; color: #4ade80; white-space: nowrap; }
-    .hint p { font-size: 13px; color: #888; }
+    .card .icon { font-size: 24px; margin-bottom: 10px; }
+    .card h3 { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 8px; }
+    .card p { font-size: 12.5px; color: #777; line-height: 1.65; }
+    .card ul { font-size: 12.5px; color: #777; line-height: 1.65; margin-top: 6px; padding-left: 16px; }
+    .card ul li { margin-bottom: 3px; }
+
+    /* --- Usage Methods --- */
+    .method { background: #141414; border: 1px solid #222; border-radius: 14px; padding: 28px 32px; margin-bottom: 24px; }
+    .method h3 { font-size: 17px; font-weight: 600; color: #fff; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+    .method h3 .tag { font-size: 11px; font-weight: 600; color: #0f0f0f; background: #4ade80; border-radius: 4px; padding: 2px 8px; }
+    .method .subtitle { font-size: 13px; color: #4ade80; margin-bottom: 14px; }
+    .method p { font-size: 13px; color: #999; line-height: 1.75; margin-bottom: 10px; }
+    .method ol, .method ul { font-size: 13px; color: #999; line-height: 1.75; padding-left: 20px; margin-bottom: 12px; }
+    .method ol li, .method ul li { margin-bottom: 6px; }
+    .method .advantages { background: #1a2a1a; border: 1px solid #2a3a2a; border-radius: 8px; padding: 14px 18px; margin-top: 14px; }
+    .method .advantages h4 { font-size: 12px; font-weight: 600; color: #4ade80; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .method .advantages ul { margin-bottom: 0; padding-left: 16px; }
+    .method .advantages ul li { font-size: 12.5px; color: #8c8; }
+
+    pre { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 14px 18px; overflow-x: auto; margin: 10px 0; font-size: 12.5px; line-height: 1.6; color: #ccc; font-family: 'SF Mono', 'Fira Code', Consolas, monospace; max-width: 100%; white-space: pre-wrap; word-break: break-word; }
+    code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 12.5px; color: #4ade80; background: #1a2a1a; padding: 1px 5px; border-radius: 3px; }
+
+    .btn-row { display: flex; gap: 10px; margin: 14px 0; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: 9px 20px; border-radius: 8px; font-size: 13px; font-weight: 600;
+      cursor: pointer; text-decoration: none !important; transition: opacity .15s;
+    }
+    .btn:hover { opacity: 0.85; }
+    .btn-green { background: #4ade80; color: #0f0f0f; }
+    .btn-outline { background: transparent; border: 1px solid #4ade80; color: #4ade80; }
+
+    /* --- Privacy --- */
     .privacy { background: #141414; border: 1px solid #222; border-radius: 14px; padding: 32px 36px; margin-bottom: 40px; }
-    .privacy h2 { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid #222; }
-    .section { margin-bottom: 22px; }
-    .section:last-child { margin-bottom: 0; }
-    .section h3 { font-size: 11px; font-weight: 600; color: #4ade80; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 7px; }
-    .section p { font-size: 13px; color: #888; line-height: 1.75; }
-    .section p + p { margin-top: 6px; }
+    .privacy h2 { font-size: 18px; font-weight: 600; color: #fff; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid #222; }
+    .priv-section { margin-bottom: 22px; }
+    .priv-section:last-child { margin-bottom: 0; }
+    .priv-section h3 { font-size: 11px; font-weight: 600; color: #4ade80; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 7px; }
+    .priv-section p { font-size: 13px; color: #888; line-height: 1.75; }
+    .priv-section p + p { margin-top: 6px; }
+
+    /* --- Footer --- */
     footer { text-align: center; padding: 20px 40px; border-top: 1px solid #1a1a1a; display: flex; justify-content: center; align-items: center; gap: 28px; }
     footer span { font-size: 12px; color: #444; }
     footer a { font-size: 12px; color: #666; text-decoration: none; }
     footer a:hover { color: #4ade80; }
-    .lang-switcher select { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px; color: #e0e0e0; font-size: 12px; padding: 5px 8px; cursor: pointer; outline: none; }
-    .lang-switcher select:hover { border-color: #4ade80; }
-    .lang-switcher { width: 100%; max-width: 860px; margin: 0 auto; padding: 20px 40px 0; display: flex; justify-content: flex-end; }
+
+    @media (max-width: 700px) {
+      main { padding: 24px 18px; }
+      .hero h1 { font-size: 26px; }
+      .features { grid-template-columns: 1fr; }
+      .method { padding: 20px; }
+      .privacy { padding: 20px; }
+      .lang-switcher { padding: 14px 18px 0; }
+      footer { flex-direction: column; gap: 8px; }
+    }
   </style>
 </head>
 <body>
+
   <div class="lang-switcher">
     <select onchange="location.href=this.value">
       <option value="home.html">English</option>
@@ -56,75 +124,222 @@
       <option value="home-ms.html" selected>Bahasa Melayu</option>
     </select>
   </div>
+
   <main>
-    <div class="intro">
-      <div class="logo">EchoShorts</div>
-      <h1>Sari kata video, <span>terjemahan segera</span><br>Sepenuhnya luar talian, privasi diutamakan</h1>
-      <p>EchoShorts melakukan semua pengecaman pertuturan dan terjemahan secara tempatan pada peranti anda — tanpa internet, tanpa akaun, data anda tidak pernah meninggalkan komputer anda. Masukkan URL dalam bar alamat di atas untuk mula melayari.</p>
+
+    <!-- ============ HERO ============ -->
+    <div class="hero">
+      <div class="logo">EchoShortsPlayer</div>
+      <h1>Terjemahan Video &amp; Sari Kata AI<br><span>Strim, Terjemah, Muat Turun &mdash; Semuanya Luar Talian</span></h1>
+      <p>EchoShortsPlayer menterjemah video dalam talian secara masa nyata semasa anda menonton — sari kata muncul semasa video dimainkan, tanpa menunggu. Muat turun video yang boleh diakses secara umum untuk tontonan luar talian. Semua pengecaman pertuturan dan terjemahan berjalan 100% secara tempatan pada peranti anda: tiada internet diperlukan, tiada akaun, tiada data keluar dari komputer anda. Menyokong 99+ bahasa, strim m3u8 dan fail MP4.</p>
     </div>
+
+    <!-- ============ FEATURES ============ -->
+    <h2 class="section-title"><span class="num">#1</span> Ciri-ciri</h2>
     <div class="features">
       <div class="card">
-        <div class="icon">🎙️</div>
-        <h3>Pengecaman Pertuturan Whisper</h3>
-        <p>Berasaskan OpenAI Whisper, menyokong transkripsi dalam 99 bahasa, berjalan secara tempatan, tanpa API.</p>
+        <div class="icon">&#127908;</div>
+        <h3>Pengecaman Pertuturan</h3>
+        <p>Dikuasakan oleh OpenAI Whisper. Menyokong 99 bahasa dengan pengesanan bahasa automatik. Pelbagai saiz model dari tiny (pantas) hingga large-v3 (ketepatan tertinggi).</p>
       </div>
       <div class="card">
-        <div class="icon">🔍</div>
-        <h3>Pengecaman Sari Kata OCR</h3>
-        <p>Menggunakan PaddleOCR untuk mengenal pasti sari kata yang tertanam dalam bingkai video, menyokong Cina, Inggeris, Jepun, Korea dan lain-lain.</p>
+        <div class="icon">&#127760;</div>
+        <h3>Terjemahan AI</h3>
+        <p>Pelbagai enjin terjemahan:</p>
+        <ul>
+          <li>Opus-MT — pantas, 9 bahasa</li>
+          <li>NLLB — 32+ bahasa, mana-mana ke mana-mana</li>
+          <li>Qwen — kualiti terbaik, dioptimumkan untuk CJK</li>
+        </ul>
       </div>
       <div class="card">
-        <div class="icon">🌐</div>
-        <h3>Enjin Terjemahan Luar Talian</h3>
-        <p>Berasaskan Helsinki-NLP OPUS-MT, menyokong terjemahan pelbagai bahasa, sepenuhnya luar talian, tiada data dimuat naik.</p>
+        <div class="icon">&#128246;</div>
+        <h3>Pengesanan Media</h3>
+        <p>Mengesan strim m3u8/HLS dan pautan video MP4 secara automatik pada mana-mana laman web. Muat turun atau terjemah dengan satu klik melalui sambungan pelayar.</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#9889;</div>
+        <h3>Sari Kata Masa Nyata</h3>
+        <p>Mod terjemahan strim: sari kata muncul secara masa nyata semasa anda menonton. Tidak perlu menunggu muat turun penuh video terlebih dahulu. Fail sari kata SRT disimpan secara tempatan untuk kegunaan masa hadapan.</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#128274;</div>
+        <h3>100% Luar Talian &amp; Peribadi</h3>
+        <p>Semua pemprosesan berlaku secara tempatan. Tiada data dihantar ke pelayan luaran. Tiada akaun, tiada penjejakan, tiada iklan. Kandungan anda kekal pada peranti anda.</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#128187;</div>
+        <h3>Keperluan Perkakasan</h3>
+        <p>GPU NVIDIA dengan VRAM 8 GB atau lebih dan pemacu CUDA dipasang. Menyokong pengecaman pertuturan dan terjemahan dipercepat GPU untuk prestasi optimum.</p>
       </div>
     </div>
-    <div class="hint">
-      <span class="key">Alt + S</span>
-      <p>Tekan pintasan pada mana-mana halaman video untuk togol panel sari kata. Anda juga boleh klik butang <strong style="color:#4a9eff">Sub</strong> pada bar alat.</p>
+
+    <!-- ============ USAGE METHODS ============ -->
+    <h2 class="section-title"><span class="num">#2</span> Cara Penggunaan</h2>
+
+    <!-- Method 0: Install EchoShortsPlayer -->
+    <div class="method" id="install">
+      <h3>&#128229; Install EchoShortsPlayer <span class="tag">Required</span></h3>
+      <div class="subtitle">Desktop application &mdash; the core engine for all features</div>
+
+      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension and CLI depend on it. Install it first before using any of the methods below.</p>
+
+      <div class="btn-row">
+        <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">Download EchoShortsPlayer</a>
+      </div>
+
+      <p><strong>System requirements:</strong> Windows 10/11, NVIDIA GPU with 8 GB+ VRAM, CUDA drivers installed.</p>
+      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension and CLI communicate with.</p>
     </div>
+
+    
+    <!-- Method B: Chrome Extension -->
+    <div class="method" id="extension">
+      <h3>&#128268; Sambungan Chrome <span class="tag">Disyorkan</span></h3>
+      <div class="subtitle">Pintasan media mendalam peringkat rangkaian</div>
+
+      <p>Sambungan Chrome menggunakan API <code>webRequest</code> untuk memintas semua permintaan rangkaian di peringkat pelayar, mengesan strim m3u8/HLS, fail MP4 dan format media lain. Ia juga mengimbas DOM halaman untuk elemen video dan pautan muat turun.</p>
+
+      <div class="btn-row">
+        <a class="btn btn-green" href="m3u8-extension.zip" download>Muat Turun Sambungan (.zip)</a>
+      </div>
+
+      <p><strong>Pemasangan (mod pembangun):</strong></p>
+      <ol>
+        <li>Muat turun zip sambungan di atas dan ekstrak ke folder.</li>
+        <li>Buka Chrome dan navigasi ke <code>chrome://extensions/</code>.</li>
+        <li>Dayakan <strong>Mod pembangun</strong> (togol kanan atas).</li>
+        <li>Klik <strong>Muat yang tidak dibungkus</strong> dan pilih folder <code>m3u8-extension</code>.</li>
+        <li>Ikon sambungan muncul di bar alat dengan lencana menunjukkan bilangan media yang dikesan.</li>
+      </ol>
+
+      <p><strong>Penggunaan:</strong></p>
+      <ol>
+        <li>Layari mana-mana halaman dengan kandungan video.</li>
+        <li>Klik ikon sambungan untuk melihat strim m3u8/MP4 yang dikesan.</li>
+        <li>Klik <strong>Muat Turun</strong> untuk simpan sebagai MP4 tempatan, atau <strong>Terjemah</strong> untuk mula menjana sari kata.</li>
+        <li>Tuding pada item untuk menyerlahkan elemen video yang berkaitan pada halaman.</li>
+      </ol>
+
+      <div class="advantages">
+        <h4>Mengapa guna sambungan?</h4>
+        <ul>
+          <li>Memintas permintaan rangkaian di peringkat pelayar — menangkap strim yang terlepas dari imbasan DOM</li>
+          <li>Pemilihan kualiti automatik: mengumpulkan varian mengikut ID video dan memilih kualiti terbaik</li>
+          <li>Suntikan pengepala Referer untuk memainkan strim yang memerlukan pengesahan</li>
+          <li>Kaunter lencana menunjukkan bilangan media yang dikesan bagi setiap tab sepintas lalu</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Method C: CLI -->
+    <div class="method" id="cli">
+      <h3>&#128187; Antara Muka Baris Perintah <span class="tag">Pengguna Kuasa</span></h3>
+      <div class="subtitle">Automasi, pemprosesan kelompok dan skrip</div>
+
+      <p>CLI menyediakan akses terus ke semua ciri muat turun dan terjemahan dari terminal. Direka untuk pengguna kuasa yang perlu memproses berbilang video, mengautomasi aliran kerja atau mengintegrasikan dengan alat lain.</p>
+
+      <div class="advantages">
+        <h4>Mengapa guna CLI?</h4>
+        <ul>
+          <li>Pemprosesan kelompok: terjemah ratusan video dengan satu perintah</li>
+          <li>Boleh diskrip: integrasikan ke dalam skrip shell, tugas cron atau saluran paip CI/CD</li>
+          <li>Kawalan penuh ke atas model: pilih saiz model Whisper, enjin terjemahan, mod penyahbisingan</li>
+          <li>Tiada beban GUI: sesuai untuk pelayan, mesin tanpa paparan atau sesi SSH jauh</li>
+          <li>Menyokong mod pemprosesan bersiri (jimat memori) dan selari (pantas)</li>
+        </ul>
+      </div>
+
+      <p><strong>Perintah yang tersedia:</strong></p>
+      <pre>
+# Terjemah fail video tempatan ke sari kata Cina
+resources\backend\backend.exe --cli translate video.mp4 --target zh
+
+# Terjemah keseluruhan folder secara kelompok
+resources\backend\backend.exe --cli translate C:\Videos\
+
+# Semua pilihan: bahasa sumber, model Whisper, enjin terjemahan, pengurangan hingar, mod pemprosesan
+resources\backend\backend.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
+
+# Muat turun m3u8 atau MP4 jauh
+resources\backend\backend.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
+
+# Muat turun dan terjemah dalam satu langkah
+resources\backend\backend.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
+
+# Terjemah fail SRT sedia ada
+resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
+
+      <p><strong>Rujukan parameter:</strong></p>
+      <pre>
+--source, -s      Bahasa sumber atau "auto" (lalai: auto)
+--target, -t      Bahasa sasaran (lalai: zh)
+--whisper, -w     tiny|base|small|medium|distil-large-v3|large-v3
+--translation, -m opus-mt|nllb-distilled-600M|nllb-1.3B|nllb-3.3B|qwen2.5-3b|qwen3-8b
+--denoise, -d     off|light|vocal (lalai: off)
+--mode            serial|parallel (lalai: serial)
+--output, -o      Laluan fail output
+--url             URL media (m3u8 / MP4)
+--referer         Pengepala Referer
+
+      <p>Lihat senarai penuh kod bahasa yang disokong untuk <code>--source</code> dan <code>--target</code>: <a href="language-codes.html">Rujukan kod bahasa</a></p>
+    </div>
+
+    <!-- ============ PRIVACY & DISCLAIMER ============ -->
+    <h2 class="section-title"><span class="num">#3</span> Dasar Privasi dan Penafian</h2>
     <div class="privacy">
-      <h2>Dasar Privasi &amp; Penafian</h2>
-      <div class="section">
+
+      <div class="priv-section">
         <h3>Pemprosesan Data Tempatan</h3>
-        <p>Semua ciri utama EchoShorts — termasuk pengecaman pertuturan, OCR dan terjemahan — berjalan pada peranti tempatan anda, disokong oleh pelayan tempatan (127.0.0.1:8765).</p>
-        <p>Kami tidak mengumpul, menyimpan, menghantar atau menganalisis sebarang data pengguna, termasuk: kandungan video, teks sari kata, keputusan terjemahan, sejarah pelayaran atau maklumat peribadi.</p>
+        <p>Semua ciri teras EchoShortsPlayer &mdash; termasuk pengecaman suara, penterjemahan dan muat turun media &mdash; berjalan sepenuhnya pada peranti tempatan anda, dikuasakan oleh pelayan backend tempatan (127.0.0.1:18632).</p>
+        <p>Kami tidak mengumpul, menyimpan, menghantar atau menganalisis sebarang data pengguna.</p>
       </div>
-      <div class="section">
+
+      <div class="priv-section">
         <h3>Tiada Penghantaran Data Rangkaian</h3>
-        <p>Aplikasi ini tidak menghantar sebarang data ke pelayan luaran semasa penggunaan biasa. Semua pemprosesan audio, pengecaman imej dan terjemahan teks diselesaikan secara tempatan.</p>
+        <p>Aplikasi ini tidak menghantar sebarang data pengguna ke pelayan luaran semasa penggunaan biasa.</p>
+        <p>Sambungan pelayar hanya berkomunikasi dengan backend tempatan di <code>localhost:18632</code>.</p>
       </div>
-      <div class="section">
+
+      <div class="priv-section">
         <h3>Tiada Iklan, Tiada Penjejakan, Tiada Cadangan</h3>
-        <p>Aplikasi ini tidak mengandungi sistem pengiklanan, kod penjejakan tingkah laku pengguna atau mekanisme cadangan data. Kami tidak berkongsi data pengguna dengan pihak ketiga.</p>
+        <p>Aplikasi ini tidak mengandungi sistem pengiklanan, kod penjejakan tingkah laku pengguna, alat analitik atau mekanisme cadangan data.</p>
       </div>
-      <div class="section">
-        <h3>Safe Harbor dan Tanggungjawab Pengguna</h3>
-        <p>EchoShorts adalah alat teknikal tujuan umum yang direka hanya untuk membantu pengguna memahami kandungan video. Di bawah Doktrin Safe Harbor, pembangun tidak menanggung tanggungjawab undang-undang terhadap kandungan yang diakses pengguna.</p>
-        <p>Pengguna mesti memastikan penggunaan mereka mematuhi undang-undang tempatan dan terma perkhidmatan platform yang mereka akses. Semua tanggungjawab undang-undang yang timbul daripada penyalahgunaan terletak sepenuhnya pada pengguna.</p>
+
+      <div class="priv-section">
+        <h3>Pelabuhan Selamat dan Tanggungjawab Pengguna</h3>
+        <p>EchoShortsPlayer ialah alat teknikal kegunaan umum yang direka semata-mata untuk membantu pengguna memahami kandungan video. Pembangun tidak menanggung liabiliti undang-undang untuk sebarang kandungan yang diakses, diterjemah atau diproses oleh pengguna.</p>
+        <p>Pengguna mesti memastikan penggunaan mereka mematuhi undang-undang dan peraturan tempatan. Semua liabiliti undang-undang terletak pada pengguna semata-mata.</p>
       </div>
-      <div class="section">
-        <h3>Had Penggunaan</h3>
-        <p>Aplikasi ini ditakrifkan sebagai alat bantuan yang bertujuan khusus untuk kegunaan peribadi tempatan oleh individu yang mengalami masalah pendengaran atau pelajar bahasa. Sebarang penggunaan lain tidak dibenarkan.</p>
+
+      <div class="priv-section">
+        <h3>Kegunaan Yang Dimaksudkan</h3>
+        <p>Aplikasi ini direka sebagai alat bantuan untuk kegunaan peribadi tempatan oleh individu kurang pendengaran, pelajar bahasa atau mereka yang perlu memahami kandungan video dalam bahasa asing.</p>
       </div>
-      <div class="section">
+
+      <div class="priv-section">
         <h3>Had Teknikal</h3>
-        <p>Aplikasi ini menggunakan teknologi pengecaman strim audio masa nyata dan hanya menyokong analisis kandungan video awam yang tidak dilindungi oleh Pengurusan Hak Digital (DRM). Disebabkan oleh sekatan protokol perlindungan hak cipta (seperti Widevine, PlayReady, dll.), strim audio daripada kandungan HD yang dilindungi DRM atau video platform terhad mungkin tidak dapat diekstrak, menghalang penjanaan sari kata masa nyata. Jika anda menghadapi masalah penjanaan sari kata semasa memainkan video format standard, sila hantar alamat video kepada kami melalui e-mel dan kami akan terus meningkatkan keserasian enjin pengecaman kami.</p>
+        <p>Aplikasi ini menyokong analisis kandungan video yang boleh diakses secara awam yang tidak dilindungi oleh DRM.</p>
+        <p>Untuk fail MP4 yang tidak dikodkan fast-start, aplikasi memerlukan muat turun penuh sebelum penterjemahan boleh dimulakan.</p>
       </div>
-      <div class="section">
+
+      <div class="priv-section">
         <h3>Penafian</h3>
-        <p>Aplikasi ini disediakan "seadanya" tanpa sebarang jaminan. Pembangun tidak menjamin operasi yang betul dalam semua persekitaran dan tidak menerima tanggungjawab atas kerugian yang timbul daripada penggunaannya.</p>
-        <p>Sari kata dan terjemahan yang disediakan oleh aplikasi ini dijana secara automatik oleh mesin dan adalah untuk rujukan sahaja. Pembangun tidak memberi sebarang jaminan tentang ketepatan, kelengkapan atau kesesuaian terjemahan mesin dan tidak menerima tanggungjawab atas akibat yang timbul daripada pergantungan pada kandungan yang diterjemahkan.</p>
+        <p>Aplikasi ini disediakan "seadanya" tanpa sebarang jaminan nyata atau tersirat.</p>
+        <p>Sari kata dan terjemahan dijana secara automatik oleh mesin dan hanya untuk rujukan.</p>
       </div>
-      <div class="section">
+
+      <div class="priv-section">
         <h3>Kemas Kini Dasar</h3>
-        <p>Dasar privasi ini mungkin dikemas kini dengan versi baharu. Perubahan penting akan disampaikan melalui log kemas kini aplikasi. Penggunaan berterusan bermakna penerimaan versi terkini.</p>
+        <p>Dasar privasi ini mungkin dikemas kini dengan versi baharu. Penggunaan berterusan aplikasi ini merupakan penerimaan versi terkini dasar privasi.</p>
       </div>
     </div>
   </main>
+
   <footer>
-    <span>© 2025 EchoShorts. All rights reserved.</span>
+    <span>&copy; 2025 EchoShortsPlayer. Hak cipta terpelihara.</span>
     <a href="mailto:supports@echoshorts.win">Hubungi Kami</a>
   </footer>
+
 </body>
 </html>

@@ -2,41 +2,109 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <title>EchoShorts</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EchoShortsPlayer - AI 影片字幕翻譯</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f0f0f; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
-    main { flex: 1; max-width: 860px; margin: 0 auto; padding: 60px 40px 40px; width: 100%; }
-    .intro { margin-bottom: 48px; }
-    .intro .logo { font-size: 13px; font-weight: 700; color: #4ade80; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
-    .intro h1 { font-size: 38px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 16px; }
-    .intro h1 span { color: #4ade80; }
-    .intro p { font-size: 15px; color: #999; line-height: 1.7; max-width: 580px; }
-    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f0f0f;
+      color: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 40px 40px;
+      width: 100%;
+    }
+
+    a { color: #4ade80; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* --- Language Switcher --- */
+    .lang-switcher { width: 100%; max-width: 900px; margin: 0 auto; padding: 20px 40px 0; display: flex; justify-content: flex-end; }
+    .lang-switcher select { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px; color: #e0e0e0; font-size: 12px; padding: 5px 8px; cursor: pointer; outline: none; }
+    .lang-switcher select:hover { border-color: #4ade80; }
+
+    /* --- Hero --- */
+    .hero { margin-bottom: 56px; }
+    .hero .logo { font-size: 13px; font-weight: 700; color: #4ade80; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
+    .hero h1 { font-size: 36px; font-weight: 700; color: #fff; line-height: 1.25; margin-bottom: 16px; }
+    .hero h1 span { color: #4ade80; }
+    .hero p { font-size: 15px; color: #999; line-height: 1.7; max-width: 640px; }
+
+    /* --- Section Title --- */
+    .section-title { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #222; }
+    .section-title .num { color: #4ade80; margin-right: 8px; }
+
+    /* --- Feature Cards --- */
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 56px; }
     .card { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; padding: 22px; }
-    .card .icon { font-size: 22px; margin-bottom: 10px; }
-    .card h3 { font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 6px; }
-    .card p { font-size: 12px; color: #777; line-height: 1.6; }
-    .hint { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 10px; padding: 16px 20px; display: flex; align-items: center; gap: 14px; margin-bottom: 48px; }
-    .hint .key { background: #2a2a2a; border: 1px solid #3a3a3a; border-radius: 5px; padding: 3px 9px; font-size: 12px; font-family: monospace; color: #4ade80; white-space: nowrap; }
-    .hint p { font-size: 13px; color: #888; }
+    .card .icon { font-size: 24px; margin-bottom: 10px; }
+    .card h3 { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 8px; }
+    .card p { font-size: 12.5px; color: #777; line-height: 1.65; }
+    .card ul { font-size: 12.5px; color: #777; line-height: 1.65; margin-top: 6px; padding-left: 16px; }
+    .card ul li { margin-bottom: 3px; }
+
+    /* --- Usage Methods --- */
+    .method { background: #141414; border: 1px solid #222; border-radius: 14px; padding: 28px 32px; margin-bottom: 24px; }
+    .method h3 { font-size: 17px; font-weight: 600; color: #fff; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+    .method h3 .tag { font-size: 11px; font-weight: 600; color: #0f0f0f; background: #4ade80; border-radius: 4px; padding: 2px 8px; }
+    .method .subtitle { font-size: 13px; color: #4ade80; margin-bottom: 14px; }
+    .method p { font-size: 13px; color: #999; line-height: 1.75; margin-bottom: 10px; }
+    .method ol, .method ul { font-size: 13px; color: #999; line-height: 1.75; padding-left: 20px; margin-bottom: 12px; }
+    .method ol li, .method ul li { margin-bottom: 6px; }
+    .method .advantages { background: #1a2a1a; border: 1px solid #2a3a2a; border-radius: 8px; padding: 14px 18px; margin-top: 14px; }
+    .method .advantages h4 { font-size: 12px; font-weight: 600; color: #4ade80; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .method .advantages ul { margin-bottom: 0; padding-left: 16px; }
+    .method .advantages ul li { font-size: 12.5px; color: #8c8; }
+
+    pre { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 14px 18px; overflow-x: auto; margin: 10px 0; font-size: 12.5px; line-height: 1.6; color: #ccc; font-family: 'SF Mono', 'Fira Code', Consolas, monospace; max-width: 100%; white-space: pre-wrap; word-break: break-word; }
+    code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 12.5px; color: #4ade80; background: #1a2a1a; padding: 1px 5px; border-radius: 3px; }
+
+    .btn-row { display: flex; gap: 10px; margin: 14px 0; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: 9px 20px; border-radius: 8px; font-size: 13px; font-weight: 600;
+      cursor: pointer; text-decoration: none !important; transition: opacity .15s;
+    }
+    .btn:hover { opacity: 0.85; }
+    .btn-green { background: #4ade80; color: #0f0f0f; }
+    .btn-outline { background: transparent; border: 1px solid #4ade80; color: #4ade80; }
+
+    /* --- Privacy --- */
     .privacy { background: #141414; border: 1px solid #222; border-radius: 14px; padding: 32px 36px; margin-bottom: 40px; }
-    .privacy h2 { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid #222; }
-    .section { margin-bottom: 22px; }
-    .section:last-child { margin-bottom: 0; }
-    .section h3 { font-size: 11px; font-weight: 600; color: #4ade80; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 7px; }
-    .section p { font-size: 13px; color: #888; line-height: 1.75; }
-    .section p + p { margin-top: 6px; }
+    .privacy h2 { font-size: 18px; font-weight: 600; color: #fff; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid #222; }
+    .priv-section { margin-bottom: 22px; }
+    .priv-section:last-child { margin-bottom: 0; }
+    .priv-section h3 { font-size: 11px; font-weight: 600; color: #4ade80; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 7px; }
+    .priv-section p { font-size: 13px; color: #888; line-height: 1.75; }
+    .priv-section p + p { margin-top: 6px; }
+
+    /* --- Footer --- */
     footer { text-align: center; padding: 20px 40px; border-top: 1px solid #1a1a1a; display: flex; justify-content: center; align-items: center; gap: 28px; }
     footer span { font-size: 12px; color: #444; }
     footer a { font-size: 12px; color: #666; text-decoration: none; }
     footer a:hover { color: #4ade80; }
-    .lang-switcher select { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px; color: #e0e0e0; font-size: 12px; padding: 5px 8px; cursor: pointer; outline: none; }
-    .lang-switcher select:hover { border-color: #4ade80; }
-    .lang-switcher { width: 100%; max-width: 860px; margin: 0 auto; padding: 20px 40px 0; display: flex; justify-content: flex-end; }
+
+    @media (max-width: 700px) {
+      main { padding: 24px 18px; }
+      .hero h1 { font-size: 26px; }
+      .features { grid-template-columns: 1fr; }
+      .method { padding: 20px; }
+      .privacy { padding: 20px; }
+      .lang-switcher { padding: 14px 18px 0; }
+      footer { flex-direction: column; gap: 8px; }
+    }
   </style>
 </head>
 <body>
+
   <div class="lang-switcher">
     <select onchange="location.href=this.value">
       <option value="home.html">English</option>
@@ -58,79 +126,221 @@
   </div>
 
   <main>
-    <div class="intro">
-      <div class="logo">EchoShorts</div>
-      <h1>影片字幕，<span>即時翻譯</span><br>完全離線，隱私優先</h1>
-      <p>EchoShorts 在您的裝置本地完成所有語音辨識與翻譯工作，無需聯網，無需帳號，資料從不離開您的電腦。在上方網址列輸入網址即可開始瀏覽。</p>
+
+    <!-- ============ HERO ============ -->
+    <div class="hero">
+      <div class="logo">EchoShortsPlayer</div>
+      <h1>AI 影片翻譯與字幕<br><span>邊播邊譯、下載、全程離線</span></h1>
+      <p>EchoShortsPlayer 支援線上影片邊播放邊即時翻譯——字幕隨影片同步顯示，無需等待。可下載公開可存取的影片供離線觀看。所有語音辨識和翻譯 100% 在本機裝置執行：無需網路、無需帳號、資料絕不離開您的電腦。支援 99+ 種語言、m3u8 串流和 MP4 檔案。</p>
     </div>
 
+    <!-- ============ FEATURES ============ -->
+    <h2 class="section-title"><span class="num">#1</span> 功能特性</h2>
     <div class="features">
       <div class="card">
-        <div class="icon">🎙️</div>
-        <h3>Whisper 語音辨識</h3>
-        <p>基於 OpenAI Whisper，支援 99 種語言音訊轉錄，本地執行，無需 API。</p>
+        <div class="icon">&#127908;</div>
+        <h3>語音辨識</h3>
+        <p>基於 OpenAI Whisper。支援 99 種語言，自動語言偵測。多種模型大小可選，從 tiny（快速）到 large-v3（最高精度）。</p>
       </div>
       <div class="card">
-        <div class="icon">🔍</div>
-        <h3>OCR 字幕辨識</h3>
-        <p>使用 PaddleOCR 辨識影片畫面中的硬字幕，支援中、英、日、韓等多種語言。</p>
+        <div class="icon">&#127760;</div>
+        <h3>AI 翻譯</h3>
+        <p>多種翻譯引擎：</p>
+        <ul>
+          <li>Opus-MT — 快速，9 種語言</li>
+          <li>NLLB — 32+ 種語言，任意互譯</li>
+          <li>Qwen — 最高品質，CJK 最佳化</li>
+        </ul>
       </div>
       <div class="card">
-        <div class="icon">🌐</div>
-        <h3>離線翻譯引擎</h3>
-        <p>基於 Helsinki-NLP OPUS-MT，支援多語言互譯，全程離線，無資料上傳。</p>
+        <div class="icon">&#128246;</div>
+        <h3>媒體偵測</h3>
+        <p>自動偵測網頁上的 m3u8/HLS 串流和 MP4 影片連結。透過瀏覽器擴充功能一鍵下載或翻譯。</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#9889;</div>
+        <h3>即時字幕</h3>
+        <p>串流翻譯模式：字幕在觀看時即時顯示。無需等待整部影片下載完成。SRT 字幕檔案儲存在本機供後續使用。</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#128274;</div>
+        <h3>100% 離線 & 隱私</h3>
+        <p>所有處理都在本機完成。不向外部伺服器傳送任何資料。無需帳號、無追蹤、無廣告。您的內容留在您的裝置上。</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#128187;</div>
+        <h3>硬體需求</h3>
+        <p>NVIDIA 顯示卡，8 GB+ 視訊記憶體，並安裝 CUDA 驅動程式。支援 GPU 加速的語音辨識和翻譯，獲得最佳效能。</p>
       </div>
     </div>
 
-    <div class="hint">
-      <span class="key">Alt + S</span>
-      <p>在任意影片頁面按下快捷鍵，即可開啟／關閉字幕面板。也可點擊工具列 <strong style="color:#4a9eff">Sub</strong> 按鈕進行控制。</p>
+    <!-- ============ USAGE METHODS ============ -->
+    <h2 class="section-title"><span class="num">#2</span> 使用方式</h2>
+
+    <!-- Method 0: Install EchoShortsPlayer -->
+    <div class="method" id="install">
+      <h3>&#128229; 安裝 EchoShortsPlayer <span class="tag">必需</span></h3>
+      <div class="subtitle">桌面應用——所有功能的核心引擎</div>
+
+      <p>EchoShortsPlayer 是在本機執行 AI 模型的桌面應用。瀏覽器擴充功能和 CLI 都依賴它。請先安裝後再使用下列任何方式。</p>
+
+      <div class="btn-row">
+        <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">下載 EchoShortsPlayer</a>
+      </div>
+
+      <p><strong>系統需求：</strong>Windows 10/11，NVIDIA 顯示卡 8 GB+ 視訊記憶體，已安裝 CUDA 驅動程式。</p>
+      <p><p>安裝後啟動應用。它會在 <code>localhost:18632</code> 啟動本機後端伺服器，擴充功能和 CLI 都透過它通訊。</p>
     </div>
 
+    
+    <!-- Method B: Chrome Extension -->
+    <div class="method" id="extension">
+      <h3>&#128268; Chrome 擴充功能 <span class="tag">推薦</span></h3>
+      <div class="subtitle">深度網路級媒體攔截</div>
+
+      <p>Chrome 擴充功能使用 <code>webRequest</code> API 在瀏覽器層面攔截所有網路請求，偵測 m3u8/HLS 串流、MP4 檔案和其他媒體格式。還會掃描頁面 DOM 中的影片元素和下載連結。</p>
+
+      <div class="btn-row">
+        <a class="btn btn-green" href="m3u8-extension.zip" download>下載擴充功能 (.zip)</a>
+      </div>
+
+      <p><strong>安裝（開發者模式）：</strong></p>
+      <ol>
+        <li>下載上方的擴充功能 zip 檔案並解壓縮到一個資料夾中。</li>
+        <li>開啟 Chrome，導覽至 <code>chrome://extensions/</code>。</li>
+        <li>啟用 <strong>開發者模式</strong>（右上角切換）。</li>
+        <li>點擊 <strong>載入未封裝項目</strong>，選擇 <code>m3u8-extension</code> 資料夾。</li>
+        <li>擴充功能圖示出現在工具列中，徽章顯示偵測到的媒體數量。</li>
+      </ol>
+
+      <p><strong>使用方式：</strong></p>
+      <ol>
+        <li>瀏覽含有影片內容的頁面。</li>
+        <li>點擊擴充功能圖示查看偵測到的 m3u8/MP4 串流。</li>
+        <li>點擊 <strong>下載</strong> 儲存為本機 MP4，或點擊 <strong>翻譯</strong> 開始產生字幕。</li>
+        <li>懸停在項目上可高亮顯示頁面中對應的影片元素。</li>
+      </ol>
+
+      <div class="advantages">
+        <h4>為什麼使用擴充功能？</h4>
+        <ul>
+          <li>在瀏覽器層面攔截網路請求——捕獲 DOM 掃描遺漏的串流</li>
+          <li>自動品質選擇：按影片 ID 分組並選擇最佳品質</li>
+          <li>Referer 標頭注入，播放需要驗證的串流</li>
+          <li>徽章計數器一目了然顯示每個分頁偵測到的媒體數量</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Method C: CLI -->
+    <div class="method" id="cli">
+      <h3>&#128187; 命令列工具 <span class="tag">進階使用者</span></h3>
+      <div class="subtitle">自動化、批次處理和腳本整合</div>
+
+      <p>CLI 提供從終端直接存取所有下載和翻譯功能。專為需要批次處理影片、自動化工作流程或與其他工具整合的進階使用者設計。</p>
+
+      <div class="advantages">
+        <h4>為什麼使用 CLI？</h4>
+        <ul>
+          <li>批次處理：一條命令翻譯數百部影片</li>
+          <li>可腳本化：整合到 shell 腳本、排程工作或 CI/CD 管線</li>
+          <li>完全控制模型：選擇 Whisper 模型大小、翻譯引擎、降噪模式</li>
+          <li>無 GUI 開銷：適合伺服器、無頭裝置或遠端 SSH 工作階段</li>
+          <li>支援序列（省記憶體）和平行（快速）處理模式</li>
+        </ul>
+      </div>
+
+      <p><strong>可用命令：</strong></p>
+      <pre>
+# 將本機影片翻譯為中文字幕
+resources\backend\backend.exe --cli translate video.mp4 --target zh
+
+# 批次翻譯整個資料夾
+resources\backend\backend.exe --cli translate C:\Videos\
+
+# 全部參數：來源語言、Whisper 模型、翻譯引擎、降噪、處理模式
+resources\backend\backend.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
+
+# 下載遠端 m3u8 或 MP4
+resources\backend\backend.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
+
+# 一步完成下載和翻譯
+resources\backend\backend.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
+
+# 翻譯已有的 SRT 檔案
+resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
+
+      <p><strong>參數參考：</strong></p>
+      <pre>
+--source, -s      來源語言或 "auto"（預設：auto）
+--target, -t      目標語言（預設：zh）
+--whisper, -w     tiny|base|small|medium|distil-large-v3|large-v3
+--translation, -m opus-mt|nllb-distilled-600M|nllb-1.3B|nllb-3.3B|qwen2.5-3b|qwen3-8b
+--denoise, -d     off|light|vocal（預設：off）
+--mode            serial|parallel（預設：serial）
+--output, -o      輸出檔案路徑
+--url             媒體 URL（m3u8 / MP4）
+--referer         Referer 請求標頭
+
+      <p>查看 <code>--source</code> 和 <code>--target</code> 支援的完整語言代碼列表：<a href="language-codes.html">語言代碼參考</a></p>
+    </div>
+
+    <!-- ============ PRIVACY & DISCLAIMER ============ -->
+    <h2 class="section-title"><span class="num">#3</span> 隱私政策與免責聲明</h2>
     <div class="privacy">
-      <h2>隱私政策 &amp; 免責聲明</h2>
-      <div class="section">
-        <h3>資料本地處理</h3>
-        <p>EchoShorts 的所有核心功能——包括語音辨識、OCR 文字辨識及語言翻譯——均在您的本地裝置上執行，由本地伺服器（127.0.0.1:8765）提供運算支援。</p>
-        <p>我們不收集、不儲存、不傳輸、不分析任何使用者資料，包括但不限於：您觀看的影片內容、辨識出的字幕文字、翻譯結果、瀏覽歷史及任何個人資訊。</p>
+
+      <div class="priv-section">
+        <h3>本機資料處理</h3>
+        <p>EchoShortsPlayer 的所有核心功能——包括語音辨識、翻譯和媒體下載——完全在您的本機裝置上執行，由本機後端伺服器（127.0.0.1:18632）驅動。</p>
+        <p>我們不收集、儲存、傳輸或分析任何使用者資料，包括但不限於：您觀看的影片內容、辨識的字幕文字、翻譯結果、瀏覽記錄或任何個人資訊。</p>
       </div>
-      <div class="section">
+
+      <div class="priv-section">
         <h3>無網路資料傳輸</h3>
-        <p>本應用程式在正常使用過程中不會向任何外部伺服器傳送任何資料。所有音訊處理、影像辨識與文字翻譯均在本機完成。AI 模型在首次使用時從公開來源下載至本地，此後無需聯網即可執行。</p>
+        <p>本應用在正常使用期間不會向外部伺服器傳送任何使用者資料。所有音訊處理和文字翻譯都在本機完成。AI 模型首次使用時從公開來源（HuggingFace）下載，此後可完全離線執行。</p>
+        <p>瀏覽器擴充功能僅與本機後端 <code>localhost:18632</code> 通訊。不向開發者營運的任何遠端伺服器傳輸資料。</p>
       </div>
-      <div class="section">
+
+      <div class="priv-section">
         <h3>無廣告、無追蹤、無推薦</h3>
-        <p>本應用程式不包含任何廣告系統、使用者行為追蹤程式碼或資料推薦機制。我們不與任何第三方共享使用者資料，也不基於使用者行為進行任何形式的畫像或推播。</p>
+        <p>本應用不包含任何廣告系統、使用者行為追蹤程式碼、分析工具或資料推薦機制。我們不與任何第三方共享使用者資料，也不根據使用者行為建立檔案或推送內容。</p>
       </div>
-      <div class="section">
-        <h3>避風港原則與使用者責任</h3>
-        <p>EchoShorts 是一款通用技術工具，其功能僅為輔助使用者理解影片內容。根據「避風港原則」，本應用程式的開發者及發布者對使用者使用本工具存取、翻譯或處理的任何內容不承擔版權侵權或其他法律責任。</p>
-        <p>使用者須自行確保其使用行為符合所在地區的法律法規，以及所存取平台的服務條款。因使用者使用本應用程式存取受版權保護內容、違反平台規定或從事任何違法活動所產生的一切法律責任，由使用者本人獨立承擔。</p>
-        <p>本應用程式不對使用者存取內容的合法性作出任何判斷或保證，亦不對因使用本應用程式而產生的任何直接或間接損失負責。</p>
+
+      <div class="priv-section">
+        <h3>安全港與使用者責任</h3>
+        <p>EchoShortsPlayer 是一款通用技術工具，僅旨在協助使用者理解影片內容。根據安全港原則，本應用的開發者和發佈者對使用者存取、翻譯或處理的任何內容不承擔版權侵權或其他法律責任。</p>
+        <p>使用者必須確保其使用符合當地法律法規以及所存取平台的服務條款。因存取受版權保護的內容、違反平台規則或使用本應用從事任何非法活動而產生的所有法律責任由使用者自行承擔。</p>
+        <p>本應用不對使用者存取的內容的合法性做出判斷或保證，也不承擔因使用本應用而產生的任何直接或間接損失。</p>
       </div>
-      <div class="section">
-        <h3>用途限制</h3>
-        <p>本應用程式定義為一款輔助工具，目的為幫助聽力障礙人士或語言學習者個人本地使用，不可他用。</p>
+
+      <div class="priv-section">
+        <h3>預期用途</h3>
+        <p>本應用被定義為輔助工具，僅供聽力障礙人士、語言學習者或需要理解外語影片內容的個人本機使用。任何其他用途由使用者自行負責。</p>
       </div>
-      <div class="section">
+
+      <div class="priv-section">
         <h3>技術限制</h3>
-        <p>本應用程式採用即時音訊串流辨識技術，僅支援分析未受數位版權管理 (DRM) 保護的公開視訊資源。由於版權保護協議（如 Widevine、PlayReady 等）的限制，受保護的高畫質內容或受限平台視訊可能無法提取音訊串流，導致無法生成即時字幕。如果您在播放標準格式視訊時遇到字幕生成問題，請透過電子郵件向我們反饋視訊網址，我們將持續優化辨識引擎的相容性。</p>
+        <p>本應用支援分析未受數位版權管理（DRM）保護的公開可存取影片內容。由於版權保護協議（如 Widevine、PlayReady 等）的限制，DRM 保護內容的音訊串流可能無法提取，從而無法產生字幕。</p>
+        <p>對於非"fast-start"編碼的 MP4 檔案（moov 原子在檔案尾部），應用需要完整下載後才能開始翻譯。Fast-start MP4 檔案支援邊下載邊翻譯。</p>
       </div>
-      <div class="section">
+
+      <div class="priv-section">
         <h3>免責聲明</h3>
-        <p>本應用程式按「現狀」提供，不附帶任何明示或暗示的保證。開發者不保證本應用程式在所有環境下均能正常執行，亦不對因使用本應用程式導致的任何損失、資料遺失或裝置問題承擔責任。使用本應用程式即表示接受上述全部條款。</p>
-        <p>本應用程式提供的字幕及翻譯內容由機器自動生成，僅供參考。開發者不對機器翻譯結果的準確性、完整性或適用性作任何保證，亦不承擔因依賴翻譯內容而產生的任何後果。</p>
+        <p>本應用按「原樣」提供，不作任何明示或暗示的保證。開發者不保證本應用在所有環境中均能正確執行，也不承擔因使用本應用造成的任何損失、資料遺失或裝置問題。使用本應用即表示接受上述所有條款。</p>
+        <p>本應用提供的字幕和翻譯由機器自動產生，僅供參考。開發者不對機器翻譯內容的準確性、完整性或適用性做出任何保證，也不承擔因依賴此類翻譯而產生的任何後果。</p>
       </div>
-      <div class="section">
+
+      <div class="priv-section">
         <h3>政策更新</h3>
-        <p>本隱私政策可能隨版本更新而調整。如有重大變更，將透過應用程式更新日誌告知使用者。繼續使用本應用程式即視為接受最新版本的隱私政策。</p>
+        <p>本隱私政策可能隨新版本更新。重大變更將透過應用更新日誌通知。繼續使用本應用即表示接受最新版本的隱私政策。</p>
       </div>
     </div>
   </main>
 
   <footer>
-    <span>© 2025 EchoShorts. All rights reserved.</span>
+    <span>&copy; 2025 EchoShortsPlayer. 保留所有權利。</span>
     <a href="mailto:supports@echoshorts.win">聯絡我們</a>
   </footer>
+
 </body>
 </html>

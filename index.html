@@ -930,59 +930,8 @@
           </p>
         </div>
 
-        <aside class="hero-right" aria-label="Before and after AI translation demo">
-          <div class="label-chip">
-            <span class="label-dot"></span>
-            <span data-i18n-key="hero.demoLabel">Real processing preview</span>
-          </div>
-          <div class="demo-card">
-            <div class="demo-header">
-              <div class="demo-header-title" data-i18n-key="hero.demoTitle">
-                30s side-by-side video translation
-              </div>
-              <div class="demo-header-badges">
-                <span class="badge">AI</span>
-                <span class="badge">Voice cloning</span>
-              </div>
-            </div>
-            <div class="demo-body">
-              <div class="demo-col">
-                <div class="demo-col-title" data-i18n-key="hero.demoOriginal">
-                  Original language
-                </div>
-                <div class="demo-video">
-                  <!-- TODO: 替换为你自己的原始视频截图或片段 -->
-                  <!-- 示例：<video src="assets/echoshorts-before.mp4" controls muted></video> -->
-                  <span data-i18n-key="hero.demoPlaceholderBefore">
-                    Drop your original 30s video here to show what EchoShorts
-                    starts from.
-                  </span>
-                  <div class="demo-video-overlay"></div>
-                </div>
-                <div class="demo-caption" data-i18n-key="hero.demoCaptionBefore">
-                  Source video with original audio and language.
-                </div>
-              </div>
-              <div class="demo-col">
-                <div class="demo-col-title" data-i18n-key="hero.demoTranslated">
-                  AI-translated output
-                </div>
-                <div class="demo-video">
-                  <!-- TODO: 替换为你自己的 AI 翻译后视频截图或片段 -->
-                  <!-- 示例：<video src="assets/echoshorts-after.mp4" controls></video> -->
-                  <span data-i18n-key="hero.demoPlaceholderAfter">
-                    Show the same 30s clip with AI-generated voice and synced
-                    subtitles.
-                  </span>
-                  <div class="demo-video-overlay"></div>
-                </div>
-                <div class="demo-caption" data-i18n-key="hero.demoCaptionAfter">
-                  EchoShorts keeps your tone and emotions while translating
-                  into a new language.
-                </div>
-              </div>
-            </div>
-          </div>
+        <aside class="hero-right hero-right--video" aria-label="AI translation demo">
+          <video src="output.mp4" controls playsinline muted style="width:100%;border-radius:16px;display:block;"></video>
         </aside>
       </div>
     </section>
