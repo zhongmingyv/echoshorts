@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="sw">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EchoShortsPlayer - AI動画字幕翻訳</title>
+  <title>EchoShortsPlayer - AI Video Subtitle Translation</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -127,9 +127,9 @@
       <option value="home-bn.html">বাংলা</option>
       <option value="home-nb.html">Norsk Bokmål</option>
       <option value="home-pt.html">Português</option>
-      <option value="home-ja.html" selected>日本語</option>
+      <option value="home-ja.html">日本語</option>
       <option value="home-sv.html">Svenska</option>
-      <option value="home-sw.html">Kiswahili</option>
+      <option value="home-sw.html" selected>Kiswahili</option>
       <option value="home-te.html">తెలుగు</option>
       <option value="home-ta.html">தமிழ்</option>
       <option value="home-th.html">ภาษาไทย</option>
@@ -152,52 +152,52 @@
     <!-- ============ HERO ============ -->
     <div class="hero">
       <div class="logo">EchoShortsPlayer</div>
-      <h1>AI動画翻訳＆字幕<br><span>ストリーミング、翻訳、ダウンロード &mdash; すべてオフライン</span></h1>
-      <p>EchoShortsPlayerは、視聴中のオンライン動画をリアルタイムで翻訳します。動画の再生に合わせて字幕が表示され、待ち時間はありません。公開されている動画をダウンロードしてオフラインで視聴できます。音声認識と翻訳はすべてデバイス上で100%ローカルに実行されます。インターネット不要、アカウント不要、データがコンピュータから外部に送信されることはありません。99以上の言語、m3u8ストリームおよびMP4ファイルに対応。</p>
+      <h1>AI Video Translation &amp; Subtitles<br><span>Stream, Translate, Download &mdash; All Offline</span></h1>
+      <p>EchoShortsPlayer translates online videos in real-time while you watch &mdash; subtitles appear as the video plays, no waiting. Download publicly accessible videos for offline viewing. All speech recognition and translation run 100% locally on your device: no internet needed, no accounts, no data leaves your computer. Supports 99+ languages, m3u8 streams and MP4 files.</p>
     </div>
 
     <!-- ============ FEATURES ============ -->
-    <h2 class="section-title"><span class="num">#1</span> 機能</h2>
+    <h2 class="section-title"><span class="num">#1</span> Features</h2>
     <div class="features">
       <div class="card">
         <div class="icon">&#127908;</div>
-        <h3>音声認識</h3>
-        <p>OpenAI Whisperを搭載。99言語に対応し、自動言語検出機能付き。tiny（高速）からlarge-v3（最高精度）まで複数のモデルサイズを選択可能。</p>
+        <h3>Speech Recognition</h3>
+        <p>Powered by OpenAI Whisper. Supports 99 languages with automatic language detection. Multiple model sizes from tiny (fast) to large-v3 (highest accuracy).</p>
       </div>
       <div class="card">
         <div class="icon">&#127760;</div>
-        <h3>AI翻訳</h3>
-        <p>複数の翻訳エンジン：</p>
+        <h3>AI Translation</h3>
+        <p>Multiple translation engines:</p>
         <ul>
-          <li>Opus-MT — 高速、9言語対応</li>
-          <li>NLLB — 32以上の言語、任意の言語間翻訳</li>
-          <li>Qwen — 最高品質、CJK最適化</li>
+          <li>Opus-MT &mdash; fast, 9 languages</li>
+          <li>NLLB &mdash; 32+ languages, any-to-any</li>
+          <li>Qwen &mdash; best quality, CJK-optimized</li>
         </ul>
       </div>
       <div class="card">
         <div class="icon">&#128246;</div>
-        <h3>メディア検出</h3>
-        <p>あらゆるWebページ上のm3u8/HLSストリームおよびMP4動画リンクを自動検出。ブラウザ拡張機能でワンクリックでダウンロードまたは翻訳。</p>
+        <h3>Media Detection</h3>
+        <p>Automatically detects m3u8/HLS streams and MP4 video links on any webpage. Download or translate with one click via browser extension.</p>
       </div>
       <div class="card">
         <div class="icon">&#9889;</div>
-        <h3>リアルタイム字幕</h3>
-        <p>ストリーム翻訳モード：視聴中にリアルタイムで字幕が表示されます。動画全体のダウンロードを待つ必要はありません。SRT字幕ファイルはローカルに保存され、今後の使用に備えます。</p>
+        <h3>Real-time Subtitles</h3>
+        <p>Stream translation mode: subtitles appear in real-time as you watch. No need to wait for the full video to download first. SRT subtitle files are saved locally for future use.</p>
       </div>
       <div class="card">
         <div class="icon">&#128274;</div>
-        <h3>100%オフライン＆プライベート</h3>
-        <p>すべての処理はローカルで実行されます。外部サーバーにデータは送信されません。アカウント不要、トラッキングなし、広告なし。コンテンツはデバイス上に保持されます。</p>
+        <h3>100% Offline &amp; Private</h3>
+        <p>All processing happens locally. No data is sent to external servers. No accounts, no tracking, no ads. Your content stays on your device.</p>
       </div>
       <div class="card">
         <div class="icon">&#128187;</div>
-        <h3>ハードウェア要件</h3>
-        <p>8 GB以上のVRAMを搭載したNVIDIA GPUとCUDAドライバーのインストールが必要です。GPU高速化による音声認識と翻訳をサポートし、最適なパフォーマンスを実現します。</p>
+        <h3>Hardware Requirements</h3>
+        <p>NVIDIA GPU with 8 GB+ VRAM and CUDA drivers installed. Supports GPU-accelerated speech recognition and translation for optimal performance.</p>
       </div>
     </div>
 
     <!-- ============ USAGE METHODS ============ -->
-    <h2 class="section-title"><span class="num">#2</span> 使い方</h2>
+    <h2 class="section-title"><span class="num">#2</span> How to Use</h2>
 
     <!-- Method 0: Install EchoShortsPlayer -->
     <div class="method" id="install">
@@ -214,154 +214,153 @@
       <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension and CLI communicate with.</p>
     </div>
 
-    
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
-      <h3>&#128268; Chrome拡張機能 <span class="tag">推奨</span></h3>
-      <div class="subtitle">ネットワークレベルの高度なメディア傍受</div>
+      <h3>&#128268; Chrome Extension <span class="tag">Recommended</span></h3>
+      <div class="subtitle">Deep network-level media interception</div>
 
-      <p>Chrome拡張機能は<code>webRequest</code> APIを使用してブラウザレベルですべてのネットワークリクエストを傍受し、m3u8/HLSストリーム、MP4ファイル、その他のメディア形式を検出します。また、ページDOMをスキャンしてビデオ要素やダウンロードリンクを検出します。</p>
+      <p>The Chrome extension uses the <code>webRequest</code> API to intercept all network requests at the browser level, detecting m3u8/HLS streams, MP4 files, and other media formats. It also scans the page DOM for video elements and download links.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="m3u8-extension.zip" download>拡張機能をダウンロード（.zip）</a>
+        <a class="btn btn-green" href="m3u8-extension.zip" download>Download Extension (.zip)</a>
       </div>
 
-      <p><strong>インストール（開発者モード）：</strong></p>
+      <p><strong>Installation (developer mode):</strong></p>
       <ol>
-        <li>上記の拡張機能zipをダウンロードし、フォルダに解凍します。</li>
-        <li>Chromeを開き、<code>chrome://extensions/</code>に移動します。</li>
-        <li><strong>デベロッパーモード</strong>（右上のトグル）を有効にします。</li>
-        <li><strong>パッケージ化されていない拡張機能を読み込む</strong>をクリックし、<code>m3u8-extension</code>フォルダを選択します。</li>
-        <li>ツールバーに拡張機能アイコンが表示され、検出されたメディア数がバッジで表示されます。</li>
+        <li>Download the extension zip above and extract it to a folder.</li>
+        <li>Open Chrome and navigate to <code>chrome://extensions/</code>.</li>
+        <li>Enable <strong>Developer mode</strong> (top-right toggle).</li>
+        <li>Click <strong>Load unpacked</strong> and select the <code>m3u8-extension</code> folder.</li>
+        <li>The extension icon appears in the toolbar with a badge showing detected media count.</li>
       </ol>
 
-      <p><strong>使い方：</strong></p>
+      <p><strong>Usage:</strong></p>
       <ol>
-        <li>動画コンテンツのあるページを閲覧します。</li>
-        <li>拡張機能アイコンをクリックして、検出されたm3u8/MP4ストリームを確認します。</li>
-        <li><strong>ダウンロード</strong>をクリックしてローカルMP4に保存、または<strong>翻訳</strong>をクリックして字幕生成を開始します。</li>
-        <li>アイテムにカーソルを合わせると、ページ上の対応するビデオ要素がハイライトされます。</li>
+        <li>Browse to any page with video content.</li>
+        <li>Click the extension icon to see detected m3u8/MP4 streams.</li>
+        <li>Click <strong>Download</strong> to save to local MP4, or <strong>Translate</strong> to start subtitle generation.</li>
+        <li>Hover over items to highlight the corresponding video element on the page.</li>
       </ol>
 
       <div class="advantages">
-        <h4>拡張機能を使う理由</h4>
+        <h4>Why use the extension?</h4>
         <ul>
-          <li>ブラウザレベルでネットワークリクエストを傍受 — DOMスキャンでは見逃すストリームも捕捉</li>
-          <li>自動画質選択：動画IDごとにバリアントをグループ化し、最高画質を選択</li>
-          <li>認証が必要なストリーム再生のためのRefererヘッダー挿入</li>
-          <li>バッジカウンターでタブごとの検出メディア数を一目で確認</li>
+          <li>Intercepts network requests at the browser level &mdash; catches streams that DOM scanning misses</li>
+          <li>Automatic quality selection: groups variants by video ID and picks the best quality</li>
+          <li>Referer header injection for playing streams that require authentication</li>
+          <li>Badge counter shows detected media count per tab at a glance</li>
         </ul>
       </div>
     </div>
 
     <!-- Method C: CLI -->
     <div class="method" id="cli">
-      <h3>&#128187; コマンドラインインターフェース <span class="tag">上級ユーザー向け</span></h3>
-      <div class="subtitle">自動化、バッチ処理、スクリプティング</div>
+      <h3>&#128187; Command-Line Interface <span class="tag">Power Users</span></h3>
+      <div class="subtitle">Automation, batch processing, and scripting</div>
 
-      <p>CLIはターミナルからすべてのダウンロードおよび翻訳機能に直接アクセスできます。複数の動画を処理したり、ワークフローを自動化したり、他のツールと統合する必要があるパワーユーザー向けに設計されています。</p>
+      <p>The CLI provides direct access to all download and translation features from the terminal. It's designed for power users who need to process multiple videos, automate workflows, or integrate with other tools.</p>
 
       <div class="advantages">
-        <h4>CLIを使う理由</h4>
+        <h4>Why use the CLI?</h4>
         <ul>
-          <li>バッチ処理：1つのコマンドで数百の動画を翻訳</li>
-          <li>スクリプト化可能：シェルスクリプト、cronジョブ、CI/CDパイプラインに統合</li>
-          <li>モデルの完全制御：Whisperモデルサイズ、翻訳エンジン、ノイズ除去モードを選択</li>
-          <li>GUIオーバーヘッドなし：サーバー、ヘッドレスマシン、リモートSSHセッションに最適</li>
-          <li>シリアル（メモリ効率）とパラレル（高速）の両方の処理モードに対応</li>
+          <li>Batch processing: translate hundreds of videos with a single command</li>
+          <li>Scriptable: integrate into shell scripts, cron jobs, or CI/CD pipelines</li>
+          <li>Full control over models: choose Whisper model size, translation engine, denoising mode</li>
+          <li>No GUI overhead: ideal for servers, headless machines, or remote SSH sessions</li>
+          <li>Supports both serial (memory-efficient) and parallel (fast) processing modes</li>
         </ul>
       </div>
 
-      <p><strong>利用可能なコマンド：</strong></p>
+      <p><strong>Available commands:</strong></p>
       <pre>
-# ローカル動画ファイルを中国語字幕に翻訳する
+# Translate a local video file to Chinese subtitles
 resources\backend\backend.exe --cli translate video.mp4 --target zh
 
-# フォルダ全体を一括翻訳する
+# Batch translate an entire folder
 resources\backend\backend.exe --cli translate C:\Videos\
 
-# 全オプション：ソース言語、Whisperモデル、翻訳エンジン、ノイズ除去、処理モード
+# Full options: source language, whisper model, translation engine, denoising, processing mode
 resources\backend\backend.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
 
-# リモートのm3u8またはMP4をダウンロードする
+# Download a remote m3u8 or MP4
 resources\backend\backend.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
 
-# ダウンロードと翻訳を一度に実行する
+# Download and translate in one step
 resources\backend\backend.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
 
-# 既存のSRTファイルを翻訳する
+# Translate an existing SRT file
 resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
 
-      <p><strong>パラメータリファレンス：</strong></p>
+      <p><strong>Parameter reference:</strong></p>
       <pre>
---source, -s      ソース言語または "auto"（デフォルト: auto）
---target, -t      ターゲット言語（デフォルト: zh）
+--source, -s      Source language or "auto" (default: auto)
+--target, -t      Target language (default: zh)
 --whisper, -w     tiny|base|small|medium|distil-large-v3|large-v3
 --translation, -m opus-mt|nllb-distilled-600M|nllb-1.3B|nllb-3.3B|qwen2.5-3b|qwen3-8b
---denoise, -d     off|light|vocal（デフォルト: off）
---mode            serial|parallel（デフォルト: serial）
---output, -o      出力ファイルパス
---url             メディアURL（m3u8 / MP4）
---referer         Refererヘッダー
+--denoise, -d     off|light|vocal (default: off)
+--mode            serial|parallel (default: serial)
+--output, -o      Output file path
+--url             Media URL (m3u8 / MP4)
+--referer         Referer header</pre>
 
-      <p><code>--source</code> と <code>--target</code> でサポートされる言語コードの完全なリスト: <a href="language-codes.html">言語コード一覧</a></p>
+      <p>See the full list of supported language codes for <code>--source</code> and <code>--target</code>: <a href="language-codes.html">Language Code Reference</a></p>
     </div>
 
     <!-- ============ PRIVACY & DISCLAIMER ============ -->
-    <h2 class="section-title"><span class="num">#3</span> プライバシーポリシーと免責事項</h2>
+    <h2 class="section-title"><span class="num">#3</span> Privacy Policy &amp; Disclaimer</h2>
     <div class="privacy">
 
       <div class="priv-section">
-        <h3>ローカルデータ処理</h3>
-        <p>EchoShortsPlayerのすべての主要機能&mdash;音声認識、翻訳、メディアダウンロードを含む&mdash;は、ローカルバックエンドサーバー（127.0.0.1:18632）により、お使いのデバイス上で完全に実行されます。</p>
-        <p>当社はユーザーデータを一切収集、保存、送信、分析しません。</p>
+        <h3>Local Data Processing</h3>
+        <p>All core features of EchoShortsPlayer &mdash; including speech recognition, translation, and media downloading &mdash; run entirely on your local device, powered by a local backend server (127.0.0.1:18632).</p>
+        <p>We do not collect, store, transmit, or analyze any user data, including but not limited to: video content you watch, recognized subtitle text, translation results, browsing history, or any personal information.</p>
       </div>
 
       <div class="priv-section">
-        <h3>ネットワークデータ転送なし</h3>
-        <p>本アプリケーションは通常の使用中にユーザーデータを外部サーバーに送信しません。すべての音声処理とテキスト翻訳はローカルで完了します。</p>
-        <p>ブラウザ拡張機能は<code>localhost:18632</code>のローカルバックエンドとのみ通信します。</p>
+        <h3>No Network Data Transmission</h3>
+        <p>This application does not send any user data to external servers during normal use. All audio processing and text translation are completed locally. AI models are downloaded from public sources (HuggingFace) on first use and can run fully offline thereafter.</p>
+        <p>The browser extension communicates only with the local backend at <code>localhost:18632</code>. No data is transmitted to any remote server operated by the developers.</p>
       </div>
 
       <div class="priv-section">
-        <h3>広告なし、追跡なし、レコメンドなし</h3>
-        <p>本アプリケーションには広告システム、ユーザー行動追跡コード、分析ツール、データ推薦メカニズムは含まれていません。</p>
+        <h3>No Ads, No Tracking, No Recommendations</h3>
+        <p>This application contains no advertising systems, user behavior tracking code, analytics, or data recommendation mechanisms. We do not share user data with any third parties, nor do we create profiles or push content based on user behavior.</p>
       </div>
 
       <div class="priv-section">
-        <h3>セーフハーバーとユーザーの責任</h3>
-        <p>EchoShortsPlayerは、ユーザーがビデオコンテンツを理解するのを支援するためだけに設計された汎用技術ツールです。開発者は、ユーザーがアクセス、翻訳、処理したコンテンツについて法的責任を負いません。</p>
-        <p>ユーザーは、使用が現地の法律および規制、アクセスするプラットフォームの利用規約に準拠していることを確認する必要があります。すべての法的責任はユーザーのみに帰属します。</p>
-        <p>本アプリケーションは、ユーザーがアクセスするコンテンツの合法性について判断や保証を行いません。</p>
+        <h3>Safe Harbor &amp; User Responsibility</h3>
+        <p>EchoShortsPlayer is a general-purpose technical tool designed solely to help users understand video content. Under the Safe Harbor Doctrine, the developers and publishers of this application bear no copyright infringement or other legal liability for any content accessed, translated, or processed by users.</p>
+        <p>Users must ensure their use complies with local laws and regulations, as well as the terms of service of the platforms they access. All legal liability arising from accessing copyrighted content, violating platform rules, or engaging in any illegal activity using this application rests solely with the user.</p>
+        <p>This application makes no judgment or guarantee regarding the legality of content accessed by users, nor does it accept responsibility for any direct or indirect losses arising from its use.</p>
       </div>
 
       <div class="priv-section">
-        <h3>想定される使用方法</h3>
-        <p>本アプリケーションは、聴覚障害者、語学学習者、または外国語のビデオコンテンツを理解する必要がある方の個人的なローカル使用を目的とした補助ツールとして設計されています。</p>
+        <h3>Intended Use</h3>
+        <p>This application is designed as an assistive tool intended for personal local use by individuals with hearing impairments, language learners, or those who need to understand video content in foreign languages. Any other use is the sole responsibility of the user.</p>
       </div>
 
       <div class="priv-section">
-        <h3>技術的制限</h3>
-        <p>本アプリケーションは、DRMで保護されていない公開アクセス可能なビデオコンテンツの分析をサポートしています。</p>
-        <p>fast-startエンコードされていないMP4ファイルの場合、翻訳を開始する前に完全なダウンロードが必要です。</p>
+        <h3>Technical Limitations</h3>
+        <p>This application supports analysis of publicly accessible video content not protected by Digital Rights Management (DRM). Due to restrictions imposed by copyright protection protocols (such as Widevine, PlayReady, etc.), audio streams from DRM-protected content may not be extractable, preventing subtitle generation.</p>
+        <p>For MP4 files that are not "fast-start" encoded (moov atom at end of file), the application requires a full download before translation can begin. Fast-start MP4 files support streaming translation while downloading.</p>
       </div>
 
       <div class="priv-section">
-        <h3>免責事項</h3>
-        <p>本アプリケーションは、明示または黙示の保証なしに「現状のまま」提供されます。</p>
-        <p>字幕と翻訳は機械によって自動生成されたものであり、参考としてのみ提供されます。</p>
+        <h3>Disclaimer</h3>
+        <p>This application is provided "as is" without any express or implied warranties. The developer does not guarantee that this application will function correctly in all environments, nor accepts responsibility for any losses, data loss, or device issues caused by its use. Using this application constitutes acceptance of all the above terms.</p>
+        <p>Subtitles and translations are generated automatically by machine and are for reference only. The developer makes no warranties regarding the accuracy, completeness, or suitability of machine-translated content, and accepts no responsibility for any consequences arising from reliance on such translations.</p>
       </div>
 
       <div class="priv-section">
-        <h3>ポリシーの更新</h3>
-        <p>本プライバシーポリシーは新しいバージョンとともに更新される場合があります。本アプリケーションの継続使用は、最新版のプライバシーポリシーへの同意を意味します。</p>
+        <h3>Policy Updates</h3>
+        <p>This privacy policy may be updated with new versions. Significant changes will be communicated through the application's update log. Continued use of this application constitutes acceptance of the latest version of the privacy policy.</p>
       </div>
     </div>
   </main>
 
   <footer>
     <span>&copy; 2025 EchoShortsPlayer. All rights reserved.</span>
-    <a href="mailto:supports@echoshorts.win">お問い合わせ</a>
+    <a href="mailto:supports@echoshorts.win">Contact Us</a>
   </footer>
 
 </body>
