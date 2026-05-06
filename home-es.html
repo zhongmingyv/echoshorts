@@ -158,6 +158,9 @@
 
     <!-- ============ FEATURES ============ -->
     <h2 class="section-title"><span class="num">#1</span> Características</h2>
+    <div class="btn-row" style="margin-top: -10px; margin-bottom: 30px;">
+      <a class="btn btn-green" href="ms-windows-store://pdp/?productid=9N06RSDW81SN">Descargar de Microsoft Store</a>
+    </div>
     <div class="features">
       <div class="card">
         <div class="icon">&#127908;</div>
@@ -177,7 +180,7 @@
       <div class="card">
         <div class="icon">&#128246;</div>
         <h3>Detección de Medios</h3>
-        <p>Detecta automáticamente transmisiones m3u8/HLS y enlaces de video MP4 en cualquier página web. Descarga o traduce con un solo clic mediante la extensión del navegador.</p>
+        <p>Detecta automáticamente transmisiones m3u8/HLS y enlaces de video MP4 en cualquier página web. Descarga o traduce con un solo clic mediante la extensión del navegador o el userscript.</p>
       </div>
       <div class="card">
         <div class="icon">&#9889;</div>
@@ -201,20 +204,19 @@
 
     <!-- Method 0: Install EchoShortsPlayer -->
     <div class="method" id="install">
-      <h3>&#128229; Install EchoShortsPlayer <span class="tag">Required</span></h3>
-      <div class="subtitle">Desktop application &mdash; the core engine for all features</div>
+      <h3>&#128229; Instalar EchoShortsPlayer <span class="tag">Requerido</span></h3>
+      <div class="subtitle">Aplicación de escritorio — el motor central de todas las funciones</div>
 
-      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension and CLI depend on it. Install it first before using any of the methods below.</p>
+      <p>EchoShortsPlayer es la aplicación de escritorio que ejecuta los modelos de IA localmente. La extensión del navegador, el userscript y la CLI dependen de ella. Instálala primero antes de usar cualquiera de los métodos siguientes.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">Download EchoShortsPlayer</a>
+        <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">Descargar EchoShortsPlayer</a>
       </div>
 
-      <p><strong>System requirements:</strong> Windows 10/11, NVIDIA GPU with 8 GB+ VRAM, CUDA drivers installed.</p>
-      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension and CLI communicate with.</p>
+      <p><strong>Requisitos del sistema:</strong> Windows 10/11, GPU NVIDIA con 8 GB o más de VRAM, controladores CUDA instalados.</p>
+      <p>Después de la instalación, inicia la aplicación. Se iniciará un servidor backend local en <code>localhost:18632</code> con el que se comunican la extensión, el userscript y la CLI.</p>
     </div>
 
-    
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
       <h3>&#128268; Extensión de Chrome <span class="tag">Recomendado</span></h3>
@@ -228,28 +230,28 @@
 
       <p><strong>Instalación (modo desarrollador):</strong></p>
       <ol>
-        <li>Descarga el zip de la extensión de arriba y extráelo en una carpeta.</li>
-        <li>Abre Chrome y navega a <code>chrome://extensions/</code>.</li>
-        <li>Activa el <strong>Modo desarrollador</strong> (interruptor en la esquina superior derecha).</li>
-        <li>Haz clic en <strong>Cargar descomprimida</strong> y selecciona la carpeta <code>m3u8-extension</code>.</li>
-        <li>El icono de la extensión aparece en la barra de herramientas con una insignia que muestra el número de medios detectados.</li>
+        <li>Download the extension zip above and extract it to a folder.</li>
+        <li>Open Chrome and navigate to <code>chrome://extensions/</code>.</li>
+        <li>Enable <strong>Developer mode</strong> (top-right toggle).</li>
+        <li>Click <strong>Load unpacked</strong> and select the <code>m3u8-extension</code> folder.</li>
+        <li>The extension icon appears in the toolbar with a badge showing detected media count.</li>
       </ol>
 
       <p><strong>Uso:</strong></p>
       <ol>
-        <li>Navega a cualquier página con contenido de video.</li>
-        <li>Haz clic en el icono de la extensión para ver las transmisiones m3u8/MP4 detectadas.</li>
-        <li>Haz clic en <strong>Descargar</strong> para guardar como MP4 local, o <strong>Traducir</strong> para iniciar la generación de subtítulos.</li>
-        <li>Pasa el cursor sobre los elementos para resaltar el elemento de video correspondiente en la página.</li>
+        <li>Browse to any page with video content.</li>
+        <li>Click the extension icon to see detected m3u8/MP4 streams.</li>
+        <li>Click <strong>Download</strong> to save to local MP4, or <strong>Translate</strong> to start subtitle generation.</li>
+        <li>Hover over items to highlight the corresponding video element on the page.</li>
       </ol>
 
       <div class="advantages">
         <h4>¿Por qué usar la extensión?</h4>
         <ul>
-          <li>Intercepta solicitudes de red a nivel del navegador — captura transmisiones que el escaneo DOM no detecta</li>
-          <li>Selección automática de calidad: agrupa variantes por ID de video y elige la mejor calidad</li>
-          <li>Inyección de encabezado Referer para reproducir transmisiones que requieren autenticación</li>
-          <li>El contador de insignia muestra el número de medios detectados por pestaña de un vistazo</li>
+          <li>Intercepts network requests at the browser level &mdash; catches streams that DOM scanning misses</li>
+          <li>Automatic quality selection: groups variants by video ID and picks the best quality</li>
+          <li>Referer header injection for playing streams that require authentication</li>
+          <li>Badge counter shows detected media count per tab at a glance</li>
         </ul>
       </div>
     </div>
@@ -264,11 +266,11 @@
       <div class="advantages">
         <h4>¿Por qué usar la CLI?</h4>
         <ul>
-          <li>Procesamiento por lotes: traduce cientos de videos con un solo comando</li>
-          <li>Scriptable: integra en scripts de shell, trabajos cron o pipelines CI/CD</li>
-          <li>Control total sobre los modelos: elige el tamaño del modelo Whisper, motor de traducción, modo de eliminación de ruido</li>
-          <li>Sin sobrecarga de GUI: ideal para servidores, máquinas sin pantalla o sesiones SSH remotas</li>
-          <li>Compatible con modos de procesamiento en serie (eficiente en memoria) y paralelo (rápido)</li>
+          <li>Batch processing: translate hundreds of videos with a single command</li>
+          <li>Scriptable: integrate into shell scripts, cron jobs, or CI/CD pipelines</li>
+          <li>Full control over models: choose Whisper model size, translation engine, denoising mode</li>
+          <li>No GUI overhead: ideal for servers, headless machines, or remote SSH sessions</li>
+          <li>Supports both serial (memory-efficient) and parallel (fast) processing modes</li>
         </ul>
       </div>
 
@@ -292,7 +294,7 @@ resources\backend\backend.exe --cli download-and-translate --url "https://exampl
 # Traducir un archivo SRT existente
 resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
 
-      <p><strong>Referencia de parámetros:</strong></p>
+      <p><strong>Parameter reference:</strong></p>
       <pre>
 --source, -s      Idioma de origen o "auto" (predeterminado: auto)
 --target, -t      Idioma de destino (predeterminado: zh)
@@ -304,64 +306,64 @@ resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --tra
 --url             URL de medios (m3u8 / MP4)
 --referer         Encabezado Referer
 
-      <p>Ver la lista completa de códigos de idioma compatibles con <code>--source</code> y <code>--target</code>: <a href="language-codes.html">Referencia de códigos de idioma</a></p>
+      <p>See the full list of supported language codes for <code>--source</code> and <code>--target</code>: <a href="language-codes.html">Language Code Reference</a></p>
     </div>
 
     <!-- ============ PRIVACY & DISCLAIMER ============ -->
-    <h2 class="section-title"><span class="num">#3</span> Política de Privacidad y Descargo de Responsabilidad</h2>
+    <h2 class="section-title"><span class="num">#3</span> Privacy Policy &amp; Disclaimer</h2>
     <div class="privacy">
 
       <div class="priv-section">
-        <h3>Procesamiento Local de Datos</h3>
-        <p>Todas las funciones principales de EchoShortsPlayer &mdash; incluyendo reconocimiento de voz, traducción y descarga de medios &mdash; se ejecutan completamente en su dispositivo local, mediante un servidor backend local (127.0.0.1:18632).</p>
-        <p>No recopilamos, almacenamos, transmitimos ni analizamos ningún dato de usuario, incluyendo pero no limitado a: contenido de video que visualiza, texto de subtítulos reconocido, resultados de traducción, historial de navegación o cualquier información personal.</p>
+        <h3>Local Data Processing</h3>
+        <p>All core features of EchoShortsPlayer &mdash; including speech recognition, translation, and media downloading &mdash; run entirely on your local device, powered by a local backend server (127.0.0.1:18632).</p>
+        <p>We do not collect, store, transmit, or analyze any user data, including but not limited to: video content you watch, recognized subtitle text, translation results, browsing history, or any personal information.</p>
       </div>
 
       <div class="priv-section">
-        <h3>Sin Transmisión de Datos por Red</h3>
-        <p>Esta aplicación no envía datos de usuario a servidores externos durante el uso normal. Todo el procesamiento de audio y la traducción de texto se completan localmente. Los modelos de IA se descargan de fuentes públicas (HuggingFace) en el primer uso y pueden funcionar completamente sin conexión a partir de entonces.</p>
-        <p>La extensión del navegador se comunica únicamente con el backend local en <code>localhost:18632</code>. No se transmiten datos a ningún servidor remoto operado por los desarrolladores.</p>
+        <h3>No Network Data Transmission</h3>
+        <p>This application does not send any user data to external servers during normal use. All audio processing and text translation are completed locally. AI models are downloaded from public sources (HuggingFace) on first use and can run fully offline thereafter.</p>
+        <p>The browser extension communicates only with the local backend at <code>localhost:18632</code>. No data is transmitted to any remote server operated by the developers.</p>
       </div>
 
       <div class="priv-section">
-        <h3>Sin Publicidad, Sin Rastreo, Sin Recomendaciones</h3>
-        <p>Esta aplicación no contiene sistemas publicitarios, código de rastreo de comportamiento de usuario, herramientas de análisis ni mecanismos de recomendación de datos. No compartimos datos de usuario con terceros, ni creamos perfiles ni enviamos contenido basado en el comportamiento del usuario.</p>
+        <h3>No Ads, No Tracking, No Recommendations</h3>
+        <p>This application contains no advertising systems, user behavior tracking code, analytics, or data recommendation mechanisms. We do not share user data with any third parties, nor do we create profiles or push content based on user behavior.</p>
       </div>
 
       <div class="priv-section">
-        <h3>Puerto Seguro y Responsabilidad del Usuario</h3>
-        <p>EchoShortsPlayer es una herramienta técnica de propósito general diseñada únicamente para ayudar a los usuarios a comprender el contenido de video. Bajo la Doctrina de Puerto Seguro, los desarrolladores y editores de esta aplicación no asumen responsabilidad legal por infracción de derechos de autor u otra responsabilidad legal por cualquier contenido accedido, traducido o procesado por los usuarios.</p>
-        <p>Los usuarios deben asegurarse de que su uso cumple con las leyes y regulaciones locales, así como con los términos de servicio de las plataformas a las que acceden. Toda responsabilidad legal derivada del acceso a contenido protegido por derechos de autor, la violación de reglas de plataformas o la participación en cualquier actividad ilegal usando esta aplicación recae únicamente en el usuario.</p>
-        <p>Esta aplicación no emite juicios ni garantías sobre la legalidad del contenido accedido por los usuarios, ni acepta responsabilidad por pérdidas directas o indirectas derivadas de su uso.</p>
+        <h3>Safe Harbor &amp; User Responsibility</h3>
+        <p>EchoShortsPlayer is a general-purpose technical tool designed solely to help users understand video content. Under the Safe Harbor Doctrine, the developers and publishers of this application bear no copyright infringement or other legal liability for any content accessed, translated, or processed by users.</p>
+        <p>Users must ensure their use complies with local laws and regulations, as well as the terms of service of the platforms they access. All legal liability arising from accessing copyrighted content, violating platform rules, or engaging in any illegal activity using this application rests solely with the user.</p>
+        <p>This application makes no judgment or guarantee regarding the legality of content accessed by users, nor does it accept responsibility for any direct or indirect losses arising from its use.</p>
       </div>
 
       <div class="priv-section">
-        <h3>Uso Previsto</h3>
-        <p>Esta aplicación está diseñada como una herramienta de asistencia destinada al uso personal local por personas con discapacidad auditiva, estudiantes de idiomas o quienes necesitan comprender contenido de video en idiomas extranjeros. Cualquier otro uso es responsabilidad exclusiva del usuario.</p>
+        <h3>Intended Use</h3>
+        <p>This application is designed as an assistive tool intended for personal local use by individuals with hearing impairments, language learners, or those who need to understand video content in foreign languages. Any other use is the sole responsibility of the user.</p>
       </div>
 
       <div class="priv-section">
-        <h3>Limitaciones Técnicas</h3>
-        <p>Esta aplicación admite el análisis de contenido de video de acceso público no protegido por Gestión de Derechos Digitales (DRM). Debido a las restricciones impuestas por protocolos de protección de derechos de autor (como Widevine, PlayReady, etc.), los flujos de audio de contenido protegido por DRM pueden no ser extraíbles, impidiendo la generación de subtítulos.</p>
-        <p>Para archivos MP4 que no están codificados con "fast-start" (átomo moov al final del archivo), la aplicación requiere una descarga completa antes de que pueda comenzar la traducción. Los archivos MP4 fast-start admiten traducción en streaming mientras se descargan.</p>
+        <h3>Technical Limitations</h3>
+        <p>This application supports analysis of publicly accessible video content not protected by Digital Rights Management (DRM). Due to restrictions imposed by copyright protection protocols (such as Widevine, PlayReady, etc.), audio streams from DRM-protected content may not be extractable, preventing subtitle generation.</p>
+        <p>For MP4 files that are not "fast-start" encoded (moov atom at end of file), the application requires a full download before translation can begin. Fast-start MP4 files support streaming translation while downloading.</p>
       </div>
 
       <div class="priv-section">
-        <h3>Descargo de Responsabilidad</h3>
-        <p>Esta aplicación se proporciona "tal cual" sin garantías expresas o implícitas. El desarrollador no garantiza que esta aplicación funcione correctamente en todos los entornos, ni acepta responsabilidad por pérdidas, pérdida de datos o problemas de dispositivos causados por su uso. El uso de esta aplicación constituye la aceptación de todos los términos anteriores.</p>
-        <p>Los subtítulos y traducciones proporcionados por esta aplicación son generados automáticamente por máquinas y son solo de referencia. El desarrollador no ofrece garantías sobre la precisión, integridad o idoneidad del contenido traducido por máquinas, y no acepta responsabilidad por consecuencias derivadas de la dependencia de dichas traducciones.</p>
+        <h3>Disclaimer</h3>
+        <p>This application is provided "as is" without any express or implied warranties. The developer does not guarantee that this application will function correctly in all environments, nor accepts responsibility for any losses, data loss, or device issues caused by its use. Using this application constitutes acceptance of all the above terms.</p>
+        <p>Subtitles and translations are generated automatically by machine and are for reference only. The developer makes no warranties regarding the accuracy, completeness, or suitability of machine-translated content, and accepts no responsibility for any consequences arising from reliance on such translations.</p>
       </div>
 
       <div class="priv-section">
-        <h3>Actualizaciones de la Política</h3>
-        <p>Esta política de privacidad puede actualizarse con nuevas versiones. Los cambios significativos se comunicarán a través del registro de actualizaciones de la aplicación. El uso continuado de esta aplicación constituye la aceptación de la última versión de la política de privacidad.</p>
+        <h3>Policy Updates</h3>
+        <p>This privacy policy may be updated with new versions. Significant changes will be communicated through the application's update log. Continued use of this application constitutes acceptance of the latest version of the privacy policy.</p>
       </div>
     </div>
   </main>
 
   <footer>
-    <span>&copy; 2025 EchoShortsPlayer. Todos los derechos reservados.</span>
-    <a href="mailto:supports@echoshorts.win">Contáctenos</a>
+    <span>&copy; 2025 EchoShortsPlayer. All rights reserved.</span>
+    <a href="mailto:supports@echoshorts.win">Contact Us</a>
   </footer>
 
 </body>

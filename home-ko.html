@@ -158,6 +158,9 @@
 
     <!-- ============ FEATURES ============ -->
     <h2 class="section-title"><span class="num">#1</span> 기능</h2>
+    <div class="btn-row" style="margin-top: -10px; margin-bottom: 30px;">
+      <a class="btn btn-green" href="ms-windows-store://pdp/?productid=9N06RSDW81SN">Microsoft Store에서 다운로드</a>
+    </div>
     <div class="features">
       <div class="card">
         <div class="icon">&#127908;</div>
@@ -177,7 +180,7 @@
       <div class="card">
         <div class="icon">&#128246;</div>
         <h3>미디어 감지</h3>
-        <p>모든 웹페이지에서 m3u8/HLS 스트림과 MP4 동영상 링크를 자동 감지합니다. 브라우저 확장 프로그램로 원클릭 다운로드 또는 번역.</p>
+        <p>모든 웹페이지에서 m3u8/HLS 스트림과 MP4 동영상 링크를 자동 감지합니다. 브라우저 확장 프로그램이나 유저스크립트로 원클릭 다운로드 또는 번역.</p>
       </div>
       <div class="card">
         <div class="icon">&#9889;</div>
@@ -201,20 +204,19 @@
 
     <!-- Method 0: Install EchoShortsPlayer -->
     <div class="method" id="install">
-      <h3>&#128229; Install EchoShortsPlayer <span class="tag">Required</span></h3>
-      <div class="subtitle">Desktop application &mdash; the core engine for all features</div>
+      <h3>&#128229; EchoShortsPlayer 설치 <span class="tag">필수</span></h3>
+      <div class="subtitle">데스크톱 애플리케이션 — 모든 기능의 핵심 엔진</div>
 
-      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension and CLI depend on it. Install it first before using any of the methods below.</p>
+      <p>EchoShortsPlayer는 AI 모델을 로컬에서 실행하는 데스크톱 애플리케이션입니다. 브라우저 확장 프로그램, 유저스크립트, CLI 모두 이에 의존합니다. 아래 방법을 사용하기 전에 먼저 설치하세요.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">Download EchoShortsPlayer</a>
+        <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">EchoShortsPlayer 다운로드</a>
       </div>
 
-      <p><strong>System requirements:</strong> Windows 10/11, NVIDIA GPU with 8 GB+ VRAM, CUDA drivers installed.</p>
-      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension and CLI communicate with.</p>
+      <p><strong>시스템 요구사항:</strong> Windows 10/11, 8 GB 이상 VRAM의 NVIDIA GPU, CUDA 드라이버 설치.</p>
+      <p>설치 후 애플리케이션을 실행하세요. 확장 프로그램, 유저스크립트, CLI가 통신하는 <code>localhost:18632</code>의 로컬 백엔드 서버가 시작됩니다.</p>
     </div>
 
-    
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
       <h3>&#128268; Chrome 확장 프로그램 <span class="tag">추천</span></h3>
@@ -228,28 +230,28 @@
 
       <p><strong>설치 (개발자 모드):</strong></p>
       <ol>
-        <li>위의 확장 프로그램 zip을 다운로드하고 폴더에 압축을 해제합니다.</li>
-        <li>Chrome을 열고 <code>chrome://extensions/</code>로 이동합니다.</li>
-        <li><strong>개발자 모드</strong>(오른쪽 상단 토글)를 활성화합니다.</li>
-        <li><strong>압축해제된 확장 프로그램을 로드합니다</strong>를 클릭하고 <code>m3u8-extension</code> 폴더를 선택합니다.</li>
-        <li>툴바에 확장 프로그램 아이콘이 나타나며 감지된 미디어 수가 배지로 표시됩니다.</li>
+        <li>Download the extension zip above and extract it to a folder.</li>
+        <li>Open Chrome and navigate to <code>chrome://extensions/</code>.</li>
+        <li>Enable <strong>Developer mode</strong> (top-right toggle).</li>
+        <li>Click <strong>Load unpacked</strong> and select the <code>m3u8-extension</code> folder.</li>
+        <li>The extension icon appears in the toolbar with a badge showing detected media count.</li>
       </ol>
 
       <p><strong>사용법:</strong></p>
       <ol>
-        <li>동영상 콘텐츠가 있는 페이지를 탐색합니다.</li>
-        <li>확장 프로그램 아이콘을 클릭하여 감지된 m3u8/MP4 스트림을 확인합니다.</li>
-        <li><strong>다운로드</strong>를 클릭하여 로컬 MP4로 저장하거나 <strong>번역</strong>을 클릭하여 자막 생성을 시작합니다.</li>
-        <li>항목 위에 마우스를 올리면 페이지의 해당 비디오 요소가 강조 표시됩니다.</li>
+        <li>Browse to any page with video content.</li>
+        <li>Click the extension icon to see detected m3u8/MP4 streams.</li>
+        <li>Click <strong>Download</strong> to save to local MP4, or <strong>Translate</strong> to start subtitle generation.</li>
+        <li>Hover over items to highlight the corresponding video element on the page.</li>
       </ol>
 
       <div class="advantages">
         <h4>확장 프로그램을 사용하는 이유</h4>
         <ul>
-          <li>브라우저 수준에서 네트워크 요청을 인터셉트 — DOM 스캔으로 놓치는 스트림도 포착</li>
-          <li>자동 화질 선택: 동영상 ID별로 변형을 그룹화하고 최고 화질을 선택</li>
-          <li>인증이 필요한 스트림 재생을 위한 Referer 헤더 삽입</li>
-          <li>배지 카운터로 탭별 감지된 미디어 수를 한눈에 확인</li>
+          <li>Intercepts network requests at the browser level &mdash; catches streams that DOM scanning misses</li>
+          <li>Automatic quality selection: groups variants by video ID and picks the best quality</li>
+          <li>Referer header injection for playing streams that require authentication</li>
+          <li>Badge counter shows detected media count per tab at a glance</li>
         </ul>
       </div>
     </div>
@@ -264,11 +266,11 @@
       <div class="advantages">
         <h4>CLI를 사용하는 이유</h4>
         <ul>
-          <li>일괄 처리: 단일 명령으로 수백 개의 동영상을 번역</li>
-          <li>스크립트 가능: 셸 스크립트, cron 작업, CI/CD 파이프라인에 통합</li>
-          <li>모델 완전 제어: Whisper 모델 크기, 번역 엔진, 노이즈 제거 모드 선택</li>
-          <li>GUI 오버헤드 없음: 서버, 헤드리스 머신, 원격 SSH 세션에 적합</li>
-          <li>직렬(메모리 효율적) 및 병렬(고속) 처리 모드 모두 지원</li>
+          <li>Batch processing: translate hundreds of videos with a single command</li>
+          <li>Scriptable: integrate into shell scripts, cron jobs, or CI/CD pipelines</li>
+          <li>Full control over models: choose Whisper model size, translation engine, denoising mode</li>
+          <li>No GUI overhead: ideal for servers, headless machines, or remote SSH sessions</li>
+          <li>Supports both serial (memory-efficient) and parallel (fast) processing modes</li>
         </ul>
       </div>
 
@@ -292,7 +294,7 @@ resources\backend\backend.exe --cli download-and-translate --url "https://exampl
 # 기존 SRT 파일 번역
 resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
 
-      <p><strong>매개변수 참조:</strong></p>
+      <p><strong>Parameter reference:</strong></p>
       <pre>
 --source, -s      소스 언어 또는 "auto" (기본값: auto)
 --target, -t      대상 언어 (기본값: zh)
@@ -304,63 +306,64 @@ resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --tra
 --url             미디어 URL (m3u8 / MP4)
 --referer         Referer 헤더
 
-      <p><code>--source</code> 및 <code>--target</code>에서 지원되는 언어 코드 전체 목록: <a href="language-codes.html">언어 코드 참조</a></p>
+      <p>See the full list of supported language codes for <code>--source</code> and <code>--target</code>: <a href="language-codes.html">Language Code Reference</a></p>
     </div>
 
     <!-- ============ PRIVACY & DISCLAIMER ============ -->
-    <h2 class="section-title"><span class="num">#3</span> 개인정보 보호정책 및 면책조항</h2>
+    <h2 class="section-title"><span class="num">#3</span> Privacy Policy &amp; Disclaimer</h2>
     <div class="privacy">
 
       <div class="priv-section">
-        <h3>로컬 데이터 처리</h3>
-        <p>EchoShortsPlayer의 모든 핵심 기능&mdash;음성 인식, 번역, 미디어 다운로드 포함&mdash;은 로컬 백엔드 서버(127.0.0.1:18632)를 통해 사용자의 기기에서 완전히 실행됩니다.</p>
-        <p>당사는 사용자 데이터를 일체 수집, 저장, 전송 또는 분석하지 않습니다.</p>
+        <h3>Local Data Processing</h3>
+        <p>All core features of EchoShortsPlayer &mdash; including speech recognition, translation, and media downloading &mdash; run entirely on your local device, powered by a local backend server (127.0.0.1:18632).</p>
+        <p>We do not collect, store, transmit, or analyze any user data, including but not limited to: video content you watch, recognized subtitle text, translation results, browsing history, or any personal information.</p>
       </div>
 
       <div class="priv-section">
-        <h3>네트워크 데이터 전송 없음</h3>
-        <p>이 애플리케이션은 정상 사용 중 사용자 데이터를 외부 서버로 전송하지 않습니다. 모든 오디오 처리와 텍스트 번역은 로컬에서 완료됩니다.</p>
-        <p>브라우저 확장 프로그램은 <code>localhost:18632</code>의 로컬 백엔드와만 통신합니다.</p>
+        <h3>No Network Data Transmission</h3>
+        <p>This application does not send any user data to external servers during normal use. All audio processing and text translation are completed locally. AI models are downloaded from public sources (HuggingFace) on first use and can run fully offline thereafter.</p>
+        <p>The browser extension communicates only with the local backend at <code>localhost:18632</code>. No data is transmitted to any remote server operated by the developers.</p>
       </div>
 
       <div class="priv-section">
-        <h3>광고 없음, 추적 없음, 추천 없음</h3>
-        <p>이 애플리케이션에는 광고 시스템, 사용자 행동 추적 코드, 분석 도구 또는 데이터 추천 메커니즘이 포함되어 있지 않습니다.</p>
+        <h3>No Ads, No Tracking, No Recommendations</h3>
+        <p>This application contains no advertising systems, user behavior tracking code, analytics, or data recommendation mechanisms. We do not share user data with any third parties, nor do we create profiles or push content based on user behavior.</p>
       </div>
 
       <div class="priv-section">
-        <h3>세이프 하버 및 사용자 책임</h3>
-        <p>EchoShortsPlayer는 사용자가 비디오 콘텐츠를 이해하는 것을 돕기 위해 설계된 범용 기술 도구입니다. 개발자는 사용자가 액세스, 번역 또는 처리하는 콘텐츠에 대해 법적 책임을 지지 않습니다.</p>
-        <p>사용자는 자신의 사용이 현지 법률 및 규정과 액세스하는 플랫폼의 서비스 약관을 준수하는지 확인해야 합니다. 모든 법적 책임은 사용자에게만 있습니다.</p>
+        <h3>Safe Harbor &amp; User Responsibility</h3>
+        <p>EchoShortsPlayer is a general-purpose technical tool designed solely to help users understand video content. Under the Safe Harbor Doctrine, the developers and publishers of this application bear no copyright infringement or other legal liability for any content accessed, translated, or processed by users.</p>
+        <p>Users must ensure their use complies with local laws and regulations, as well as the terms of service of the platforms they access. All legal liability arising from accessing copyrighted content, violating platform rules, or engaging in any illegal activity using this application rests solely with the user.</p>
+        <p>This application makes no judgment or guarantee regarding the legality of content accessed by users, nor does it accept responsibility for any direct or indirect losses arising from its use.</p>
       </div>
 
       <div class="priv-section">
-        <h3>의도된 용도</h3>
-        <p>이 애플리케이션은 청각 장애인, 언어 학습자 또는 외국어 비디오 콘텐츠를 이해해야 하는 개인의 개인 로컬 사용을 위한 보조 도구로 설계되었습니다.</p>
+        <h3>Intended Use</h3>
+        <p>This application is designed as an assistive tool intended for personal local use by individuals with hearing impairments, language learners, or those who need to understand video content in foreign languages. Any other use is the sole responsibility of the user.</p>
       </div>
 
       <div class="priv-section">
-        <h3>기술적 제한</h3>
-        <p>이 애플리케이션은 DRM으로 보호되지 않는 공개적으로 접근 가능한 비디오 콘텐츠의 분석을 지원합니다.</p>
-        <p>fast-start로 인코딩되지 않은 MP4 파일의 경우, 번역을 시작하기 전에 전체 다운로드가 필요합니다.</p>
+        <h3>Technical Limitations</h3>
+        <p>This application supports analysis of publicly accessible video content not protected by Digital Rights Management (DRM). Due to restrictions imposed by copyright protection protocols (such as Widevine, PlayReady, etc.), audio streams from DRM-protected content may not be extractable, preventing subtitle generation.</p>
+        <p>For MP4 files that are not "fast-start" encoded (moov atom at end of file), the application requires a full download before translation can begin. Fast-start MP4 files support streaming translation while downloading.</p>
       </div>
 
       <div class="priv-section">
-        <h3>면책조항</h3>
-        <p>이 애플리케이션은 명시적이든 묵시적이든 어떠한 보증 없이 "있는 그대로" 제공됩니다.</p>
-        <p>자막과 번역은 기계에 의해 자동으로 생성되며 참고용으로만 제공됩니다.</p>
+        <h3>Disclaimer</h3>
+        <p>This application is provided "as is" without any express or implied warranties. The developer does not guarantee that this application will function correctly in all environments, nor accepts responsibility for any losses, data loss, or device issues caused by its use. Using this application constitutes acceptance of all the above terms.</p>
+        <p>Subtitles and translations are generated automatically by machine and are for reference only. The developer makes no warranties regarding the accuracy, completeness, or suitability of machine-translated content, and accepts no responsibility for any consequences arising from reliance on such translations.</p>
       </div>
 
       <div class="priv-section">
-        <h3>정책 업데이트</h3>
-        <p>이 개인정보 보호정책은 새로운 버전과 함께 업데이트될 수 있습니다. 이 애플리케이션의 계속 사용은 최신 버전의 개인정보 보호정책에 대한 동의를 의미합니다.</p>
+        <h3>Policy Updates</h3>
+        <p>This privacy policy may be updated with new versions. Significant changes will be communicated through the application's update log. Continued use of this application constitutes acceptance of the latest version of the privacy policy.</p>
       </div>
     </div>
   </main>
 
   <footer>
     <span>&copy; 2025 EchoShortsPlayer. All rights reserved.</span>
-    <a href="mailto:supports@echoshorts.win">문의하기</a>
+    <a href="mailto:supports@echoshorts.win">Contact Us</a>
   </footer>
 
 </body>

@@ -158,6 +158,9 @@
 
     <!-- ============ FEATURES ============ -->
     <h2 class="section-title"><span class="num">#1</span> Tính Năng</h2>
+    <div class="btn-row" style="margin-top: -10px; margin-bottom: 30px;">
+      <a class="btn btn-green" href="ms-windows-store://pdp/?productid=9N06RSDW81SN">Tải xuống từ Microsoft Store</a>
+    </div>
     <div class="features">
       <div class="card">
         <div class="icon">&#127908;</div>
@@ -177,7 +180,7 @@
       <div class="card">
         <div class="icon">&#128246;</div>
         <h3>Phát Hiện Phương Tiện</h3>
-        <p>Tự động phát hiện luồng m3u8/HLS và liên kết video MP4 trên bất kỳ trang web nào. Tải xuống hoặc dịch chỉ với một cú nhấp qua tiện ích mở rộng trình duyệt.</p>
+        <p>Tự động phát hiện luồng m3u8/HLS và liên kết video MP4 trên bất kỳ trang web nào. Tải xuống hoặc dịch chỉ với một cú nhấp qua tiện ích mở rộng trình duyệt hoặc userscript.</p>
       </div>
       <div class="card">
         <div class="icon">&#9889;</div>
@@ -201,20 +204,19 @@
 
     <!-- Method 0: Install EchoShortsPlayer -->
     <div class="method" id="install">
-      <h3>&#128229; Install EchoShortsPlayer <span class="tag">Required</span></h3>
-      <div class="subtitle">Desktop application &mdash; the core engine for all features</div>
+      <h3>&#128229; Cài Đặt EchoShortsPlayer <span class="tag">Bắt buộc</span></h3>
+      <div class="subtitle">Ứng dụng desktop — công cụ cốt lõi cho tất cả tính năng</div>
 
-      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension and CLI depend on it. Install it first before using any of the methods below.</p>
+      <p>EchoShortsPlayer là ứng dụng desktop chạy các mô hình AI cục bộ. Tiện ích trình duyệt, userscript và CLI đều phụ thuộc vào nó. Hãy cài đặt nó trước khi sử dụng bất kỳ phương pháp nào bên dưới.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">Download EchoShortsPlayer</a>
+        <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">Tải EchoShortsPlayer</a>
       </div>
 
-      <p><strong>System requirements:</strong> Windows 10/11, NVIDIA GPU with 8 GB+ VRAM, CUDA drivers installed.</p>
-      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension and CLI communicate with.</p>
+      <p><strong>Yêu cầu hệ thống:</strong> Windows 10/11, GPU NVIDIA có VRAM từ 8 GB trở lên, đã cài đặt trình điều khiển CUDA.</p>
+      <p>Sau khi cài đặt, khởi chạy ứng dụng. Nó sẽ khởi động máy chủ backend cục bộ tại <code>localhost:18632</code> mà tiện ích, userscript và CLI giao tiếp.</p>
     </div>
 
-    
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
       <h3>&#128268; Tiện Ích Chrome <span class="tag">Khuyên Dùng</span></h3>
@@ -228,28 +230,28 @@
 
       <p><strong>Cài đặt (chế độ nhà phát triển):</strong></p>
       <ol>
-        <li>Tải tệp zip tiện ích ở trên và giải nén vào một thư mục.</li>
-        <li>Mở Chrome và truy cập <code>chrome://extensions/</code>.</li>
-        <li>Bật <strong>Chế độ nhà phát triển</strong> (công tắc góc trên bên phải).</li>
-        <li>Nhấp <strong>Tải tiện ích đã giải nén</strong> và chọn thư mục <code>m3u8-extension</code>.</li>
-        <li>Biểu tượng tiện ích xuất hiện trên thanh công cụ với huy hiệu hiển thị số lượng phương tiện phát hiện được.</li>
+        <li>Download the extension zip above and extract it to a folder.</li>
+        <li>Open Chrome and navigate to <code>chrome://extensions/</code>.</li>
+        <li>Enable <strong>Developer mode</strong> (top-right toggle).</li>
+        <li>Click <strong>Load unpacked</strong> and select the <code>m3u8-extension</code> folder.</li>
+        <li>The extension icon appears in the toolbar with a badge showing detected media count.</li>
       </ol>
 
       <p><strong>Cách sử dụng:</strong></p>
       <ol>
-        <li>Duyệt đến bất kỳ trang nào có nội dung video.</li>
-        <li>Nhấp vào biểu tượng tiện ích để xem các luồng m3u8/MP4 được phát hiện.</li>
-        <li>Nhấp <strong>Tải Xuống</strong> để lưu thành MP4 cục bộ, hoặc <strong>Dịch</strong> để bắt đầu tạo phụ đề.</li>
-        <li>Di chuột qua các mục để đánh dấu phần tử video tương ứng trên trang.</li>
+        <li>Browse to any page with video content.</li>
+        <li>Click the extension icon to see detected m3u8/MP4 streams.</li>
+        <li>Click <strong>Download</strong> to save to local MP4, or <strong>Translate</strong> to start subtitle generation.</li>
+        <li>Hover over items to highlight the corresponding video element on the page.</li>
       </ol>
 
       <div class="advantages">
         <h4>Tại sao nên dùng tiện ích?</h4>
         <ul>
-          <li>Chặn yêu cầu mạng ở cấp trình duyệt — bắt được các luồng mà quét DOM bỏ sót</li>
-          <li>Tự động chọn chất lượng: nhóm các biến thể theo ID video và chọn chất lượng tốt nhất</li>
-          <li>Chèn header Referer để phát các luồng yêu cầu xác thực</li>
-          <li>Bộ đếm huy hiệu hiển thị số lượng phương tiện phát hiện được trên mỗi tab trong nháy mắt</li>
+          <li>Intercepts network requests at the browser level &mdash; catches streams that DOM scanning misses</li>
+          <li>Automatic quality selection: groups variants by video ID and picks the best quality</li>
+          <li>Referer header injection for playing streams that require authentication</li>
+          <li>Badge counter shows detected media count per tab at a glance</li>
         </ul>
       </div>
     </div>
@@ -264,11 +266,11 @@
       <div class="advantages">
         <h4>Tại sao nên dùng CLI?</h4>
         <ul>
-          <li>Xử lý hàng loạt: dịch hàng trăm video chỉ với một lệnh</li>
-          <li>Có thể viết script: tích hợp vào shell scripts, cron jobs hoặc CI/CD pipelines</li>
-          <li>Toàn quyền kiểm soát mô hình: chọn kích thước mô hình Whisper, công cụ dịch, chế độ khử nhiễu</li>
-          <li>Không có gánh nặng GUI: lý tưởng cho máy chủ, máy headless hoặc phiên SSH từ xa</li>
-          <li>Hỗ trợ cả chế độ xử lý nối tiếp (tiết kiệm bộ nhớ) và song song (nhanh)</li>
+          <li>Batch processing: translate hundreds of videos with a single command</li>
+          <li>Scriptable: integrate into shell scripts, cron jobs, or CI/CD pipelines</li>
+          <li>Full control over models: choose Whisper model size, translation engine, denoising mode</li>
+          <li>No GUI overhead: ideal for servers, headless machines, or remote SSH sessions</li>
+          <li>Supports both serial (memory-efficient) and parallel (fast) processing modes</li>
         </ul>
       </div>
 
@@ -292,7 +294,7 @@ resources\backend\backend.exe --cli download-and-translate --url "https://exampl
 # Dịch một tệp SRT hiện có
 resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
 
-      <p><strong>Tham chiếu tham số:</strong></p>
+      <p><strong>Parameter reference:</strong></p>
       <pre>
 --source, -s      Ngôn ngữ nguồn hoặc "auto" (mặc định: auto)
 --target, -t      Ngôn ngữ đích (mặc định: zh)
@@ -304,63 +306,64 @@ resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --tra
 --url             URL phương tiện (m3u8 / MP4)
 --referer         Tiêu đề Referer
 
-      <p>Xem danh sách đầy đủ các mã ngôn ngữ được hỗ trợ cho <code>--source</code> và <code>--target</code>: <a href="language-codes.html">Tham chiếu mã ngôn ngữ</a></p>
+      <p>See the full list of supported language codes for <code>--source</code> and <code>--target</code>: <a href="language-codes.html">Language Code Reference</a></p>
     </div>
 
     <!-- ============ PRIVACY & DISCLAIMER ============ -->
-    <h2 class="section-title"><span class="num">#3</span> Chính Sách Bảo Mật và Tuyên Bố Miễn Trừ</h2>
+    <h2 class="section-title"><span class="num">#3</span> Privacy Policy &amp; Disclaimer</h2>
     <div class="privacy">
 
       <div class="priv-section">
-        <h3>Xử Lý Dữ Liệu Cục Bộ</h3>
-        <p>Tất cả các tính năng cốt lõi của EchoShortsPlayer &mdash; bao gồm nhận dạng giọng nói, dịch thuật và tải phương tiện &mdash; chạy hoàn toàn trên thiết bị cục bộ của bạn, được hỗ trợ bởi máy chủ backend cục bộ (127.0.0.1:18632).</p>
-        <p>Chúng tôi không thu thập, lưu trữ, truyền tải hoặc phân tích bất kỳ dữ liệu người dùng nào.</p>
+        <h3>Local Data Processing</h3>
+        <p>All core features of EchoShortsPlayer &mdash; including speech recognition, translation, and media downloading &mdash; run entirely on your local device, powered by a local backend server (127.0.0.1:18632).</p>
+        <p>We do not collect, store, transmit, or analyze any user data, including but not limited to: video content you watch, recognized subtitle text, translation results, browsing history, or any personal information.</p>
       </div>
 
       <div class="priv-section">
-        <h3>Không Truyền Dữ Liệu Qua Mạng</h3>
-        <p>Ứng dụng này không gửi dữ liệu người dùng đến máy chủ bên ngoài trong quá trình sử dụng bình thường.</p>
-        <p>Tiện ích mở rộng trình duyệt chỉ giao tiếp với backend cục bộ tại <code>localhost:18632</code>.</p>
+        <h3>No Network Data Transmission</h3>
+        <p>This application does not send any user data to external servers during normal use. All audio processing and text translation are completed locally. AI models are downloaded from public sources (HuggingFace) on first use and can run fully offline thereafter.</p>
+        <p>The browser extension communicates only with the local backend at <code>localhost:18632</code>. No data is transmitted to any remote server operated by the developers.</p>
       </div>
 
       <div class="priv-section">
-        <h3>Không Quảng Cáo, Không Theo Dõi, Không Đề Xuất</h3>
-        <p>Ứng dụng này không chứa hệ thống quảng cáo, mã theo dõi hành vi người dùng, công cụ phân tích hoặc cơ chế đề xuất dữ liệu.</p>
+        <h3>No Ads, No Tracking, No Recommendations</h3>
+        <p>This application contains no advertising systems, user behavior tracking code, analytics, or data recommendation mechanisms. We do not share user data with any third parties, nor do we create profiles or push content based on user behavior.</p>
       </div>
 
       <div class="priv-section">
-        <h3>Cảng An Toàn và Trách Nhiệm Người Dùng</h3>
-        <p>EchoShortsPlayer là công cụ kỹ thuật đa năng được thiết kế chỉ để giúp người dùng hiểu nội dung video. Nhà phát triển không chịu trách nhiệm pháp lý cho bất kỳ nội dung nào mà người dùng truy cập, dịch hoặc xử lý.</p>
-        <p>Người dùng phải đảm bảo việc sử dụng tuân thủ luật pháp và quy định địa phương. Mọi trách nhiệm pháp lý thuộc về người dùng.</p>
+        <h3>Safe Harbor &amp; User Responsibility</h3>
+        <p>EchoShortsPlayer is a general-purpose technical tool designed solely to help users understand video content. Under the Safe Harbor Doctrine, the developers and publishers of this application bear no copyright infringement or other legal liability for any content accessed, translated, or processed by users.</p>
+        <p>Users must ensure their use complies with local laws and regulations, as well as the terms of service of the platforms they access. All legal liability arising from accessing copyrighted content, violating platform rules, or engaging in any illegal activity using this application rests solely with the user.</p>
+        <p>This application makes no judgment or guarantee regarding the legality of content accessed by users, nor does it accept responsibility for any direct or indirect losses arising from its use.</p>
       </div>
 
       <div class="priv-section">
-        <h3>Mục Đích Sử Dụng</h3>
-        <p>Ứng dụng này được thiết kế như một công cụ hỗ trợ dành cho người khiếm thính, người học ngoại ngữ hoặc những người cần hiểu nội dung video bằng tiếng nước ngoài.</p>
+        <h3>Intended Use</h3>
+        <p>This application is designed as an assistive tool intended for personal local use by individuals with hearing impairments, language learners, or those who need to understand video content in foreign languages. Any other use is the sole responsibility of the user.</p>
       </div>
 
       <div class="priv-section">
-        <h3>Hạn Chế Kỹ Thuật</h3>
-        <p>Ứng dụng này hỗ trợ phân tích nội dung video có thể truy cập công khai không được bảo vệ bởi DRM.</p>
-        <p>Đối với tệp MP4 không được mã hóa fast-start, ứng dụng yêu cầu tải xuống hoàn toàn trước khi bắt đầu dịch.</p>
+        <h3>Technical Limitations</h3>
+        <p>This application supports analysis of publicly accessible video content not protected by Digital Rights Management (DRM). Due to restrictions imposed by copyright protection protocols (such as Widevine, PlayReady, etc.), audio streams from DRM-protected content may not be extractable, preventing subtitle generation.</p>
+        <p>For MP4 files that are not "fast-start" encoded (moov atom at end of file), the application requires a full download before translation can begin. Fast-start MP4 files support streaming translation while downloading.</p>
       </div>
 
       <div class="priv-section">
-        <h3>Tuyên Bố Miễn Trừ</h3>
-        <p>Ứng dụng này được cung cấp "nguyên trạng" không có bất kỳ bảo đảm nào.</p>
-        <p>Phụ đề và bản dịch được tạo tự động bởi máy và chỉ mang tính tham khảo.</p>
+        <h3>Disclaimer</h3>
+        <p>This application is provided "as is" without any express or implied warranties. The developer does not guarantee that this application will function correctly in all environments, nor accepts responsibility for any losses, data loss, or device issues caused by its use. Using this application constitutes acceptance of all the above terms.</p>
+        <p>Subtitles and translations are generated automatically by machine and are for reference only. The developer makes no warranties regarding the accuracy, completeness, or suitability of machine-translated content, and accepts no responsibility for any consequences arising from reliance on such translations.</p>
       </div>
 
       <div class="priv-section">
-        <h3>Cập Nhật Chính Sách</h3>
-        <p>Chính sách bảo mật này có thể được cập nhật cùng với phiên bản mới. Tiếp tục sử dụng ứng dụng này đồng nghĩa với việc chấp nhận phiên bản mới nhất của chính sách bảo mật.</p>
+        <h3>Policy Updates</h3>
+        <p>This privacy policy may be updated with new versions. Significant changes will be communicated through the application's update log. Continued use of this application constitutes acceptance of the latest version of the privacy policy.</p>
       </div>
     </div>
   </main>
 
   <footer>
-    <span>&copy; 2025 EchoShortsPlayer. Bảo lưu mọi quyền.</span>
-    <a href="mailto:supports@echoshorts.win">Liên hệ</a>
+    <span>&copy; 2025 EchoShortsPlayer. All rights reserved.</span>
+    <a href="mailto:supports@echoshorts.win">Contact Us</a>
   </footer>
 
 </body>

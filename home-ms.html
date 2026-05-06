@@ -158,6 +158,9 @@
 
     <!-- ============ FEATURES ============ -->
     <h2 class="section-title"><span class="num">#1</span> Ciri-ciri</h2>
+    <div class="btn-row" style="margin-top: -10px; margin-bottom: 30px;">
+      <a class="btn btn-green" href="ms-windows-store://pdp/?productid=9N06RSDW81SN">Muat turun dari Microsoft Store</a>
+    </div>
     <div class="features">
       <div class="card">
         <div class="icon">&#127908;</div>
@@ -177,7 +180,7 @@
       <div class="card">
         <div class="icon">&#128246;</div>
         <h3>Pengesanan Media</h3>
-        <p>Mengesan strim m3u8/HLS dan pautan video MP4 secara automatik pada mana-mana laman web. Muat turun atau terjemah dengan satu klik melalui sambungan pelayar.</p>
+        <p>Mengesan strim m3u8/HLS dan pautan video MP4 secara automatik pada mana-mana laman web. Muat turun atau terjemah dengan satu klik melalui sambungan pelayar atau skrip pengguna.</p>
       </div>
       <div class="card">
         <div class="icon">&#9889;</div>
@@ -201,20 +204,19 @@
 
     <!-- Method 0: Install EchoShortsPlayer -->
     <div class="method" id="install">
-      <h3>&#128229; Install EchoShortsPlayer <span class="tag">Required</span></h3>
-      <div class="subtitle">Desktop application &mdash; the core engine for all features</div>
+      <h3>&#128229; Pasang EchoShortsPlayer <span class="tag">Diperlukan</span></h3>
+      <div class="subtitle">Aplikasi desktop — enjin teras untuk semua ciri</div>
 
-      <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension and CLI depend on it. Install it first before using any of the methods below.</p>
+      <p>EchoShortsPlayer ialah aplikasi desktop yang menjalankan model AI secara tempatan. Sambungan pelayar, skrip pengguna dan CLI semuanya bergantung padanya. Pasang ia dahulu sebelum menggunakan mana-mana kaedah di bawah.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">Download EchoShortsPlayer</a>
+        <a class="btn btn-green" href="https://github.com/nicezic/EchoShortsPlayer/releases/latest" target="_blank">Muat Turun EchoShortsPlayer</a>
       </div>
 
-      <p><strong>System requirements:</strong> Windows 10/11, NVIDIA GPU with 8 GB+ VRAM, CUDA drivers installed.</p>
-      <p>After installation, launch the application. It starts a local backend server at <code>localhost:18632</code> that the extension and CLI communicate with.</p>
+      <p><strong>Keperluan sistem:</strong> Windows 10/11, GPU NVIDIA dengan VRAM 8 GB atau lebih, pemacu CUDA dipasang.</p>
+      <p>Selepas pemasangan, lancarkan aplikasi. Ia memulakan pelayan backend tempatan di <code>localhost:18632</code> yang digunakan oleh sambungan, skrip pengguna dan CLI untuk berkomunikasi.</p>
     </div>
 
-    
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
       <h3>&#128268; Sambungan Chrome <span class="tag">Disyorkan</span></h3>
@@ -228,28 +230,28 @@
 
       <p><strong>Pemasangan (mod pembangun):</strong></p>
       <ol>
-        <li>Muat turun zip sambungan di atas dan ekstrak ke folder.</li>
-        <li>Buka Chrome dan navigasi ke <code>chrome://extensions/</code>.</li>
-        <li>Dayakan <strong>Mod pembangun</strong> (togol kanan atas).</li>
-        <li>Klik <strong>Muat yang tidak dibungkus</strong> dan pilih folder <code>m3u8-extension</code>.</li>
-        <li>Ikon sambungan muncul di bar alat dengan lencana menunjukkan bilangan media yang dikesan.</li>
+        <li>Download the extension zip above and extract it to a folder.</li>
+        <li>Open Chrome and navigate to <code>chrome://extensions/</code>.</li>
+        <li>Enable <strong>Developer mode</strong> (top-right toggle).</li>
+        <li>Click <strong>Load unpacked</strong> and select the <code>m3u8-extension</code> folder.</li>
+        <li>The extension icon appears in the toolbar with a badge showing detected media count.</li>
       </ol>
 
       <p><strong>Penggunaan:</strong></p>
       <ol>
-        <li>Layari mana-mana halaman dengan kandungan video.</li>
-        <li>Klik ikon sambungan untuk melihat strim m3u8/MP4 yang dikesan.</li>
-        <li>Klik <strong>Muat Turun</strong> untuk simpan sebagai MP4 tempatan, atau <strong>Terjemah</strong> untuk mula menjana sari kata.</li>
-        <li>Tuding pada item untuk menyerlahkan elemen video yang berkaitan pada halaman.</li>
+        <li>Browse to any page with video content.</li>
+        <li>Click the extension icon to see detected m3u8/MP4 streams.</li>
+        <li>Click <strong>Download</strong> to save to local MP4, or <strong>Translate</strong> to start subtitle generation.</li>
+        <li>Hover over items to highlight the corresponding video element on the page.</li>
       </ol>
 
       <div class="advantages">
         <h4>Mengapa guna sambungan?</h4>
         <ul>
-          <li>Memintas permintaan rangkaian di peringkat pelayar — menangkap strim yang terlepas dari imbasan DOM</li>
-          <li>Pemilihan kualiti automatik: mengumpulkan varian mengikut ID video dan memilih kualiti terbaik</li>
-          <li>Suntikan pengepala Referer untuk memainkan strim yang memerlukan pengesahan</li>
-          <li>Kaunter lencana menunjukkan bilangan media yang dikesan bagi setiap tab sepintas lalu</li>
+          <li>Intercepts network requests at the browser level &mdash; catches streams that DOM scanning misses</li>
+          <li>Automatic quality selection: groups variants by video ID and picks the best quality</li>
+          <li>Referer header injection for playing streams that require authentication</li>
+          <li>Badge counter shows detected media count per tab at a glance</li>
         </ul>
       </div>
     </div>
@@ -264,11 +266,11 @@
       <div class="advantages">
         <h4>Mengapa guna CLI?</h4>
         <ul>
-          <li>Pemprosesan kelompok: terjemah ratusan video dengan satu perintah</li>
-          <li>Boleh diskrip: integrasikan ke dalam skrip shell, tugas cron atau saluran paip CI/CD</li>
-          <li>Kawalan penuh ke atas model: pilih saiz model Whisper, enjin terjemahan, mod penyahbisingan</li>
-          <li>Tiada beban GUI: sesuai untuk pelayan, mesin tanpa paparan atau sesi SSH jauh</li>
-          <li>Menyokong mod pemprosesan bersiri (jimat memori) dan selari (pantas)</li>
+          <li>Batch processing: translate hundreds of videos with a single command</li>
+          <li>Scriptable: integrate into shell scripts, cron jobs, or CI/CD pipelines</li>
+          <li>Full control over models: choose Whisper model size, translation engine, denoising mode</li>
+          <li>No GUI overhead: ideal for servers, headless machines, or remote SSH sessions</li>
+          <li>Supports both serial (memory-efficient) and parallel (fast) processing modes</li>
         </ul>
       </div>
 
@@ -292,7 +294,7 @@ resources\backend\backend.exe --cli download-and-translate --url "https://exampl
 # Terjemah fail SRT sedia ada
 resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
 
-      <p><strong>Rujukan parameter:</strong></p>
+      <p><strong>Parameter reference:</strong></p>
       <pre>
 --source, -s      Bahasa sumber atau "auto" (lalai: auto)
 --target, -t      Bahasa sasaran (lalai: zh)
@@ -304,63 +306,64 @@ resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --tra
 --url             URL media (m3u8 / MP4)
 --referer         Pengepala Referer
 
-      <p>Lihat senarai penuh kod bahasa yang disokong untuk <code>--source</code> dan <code>--target</code>: <a href="language-codes.html">Rujukan kod bahasa</a></p>
+      <p>See the full list of supported language codes for <code>--source</code> and <code>--target</code>: <a href="language-codes.html">Language Code Reference</a></p>
     </div>
 
     <!-- ============ PRIVACY & DISCLAIMER ============ -->
-    <h2 class="section-title"><span class="num">#3</span> Dasar Privasi dan Penafian</h2>
+    <h2 class="section-title"><span class="num">#3</span> Privacy Policy &amp; Disclaimer</h2>
     <div class="privacy">
 
       <div class="priv-section">
-        <h3>Pemprosesan Data Tempatan</h3>
-        <p>Semua ciri teras EchoShortsPlayer &mdash; termasuk pengecaman suara, penterjemahan dan muat turun media &mdash; berjalan sepenuhnya pada peranti tempatan anda, dikuasakan oleh pelayan backend tempatan (127.0.0.1:18632).</p>
-        <p>Kami tidak mengumpul, menyimpan, menghantar atau menganalisis sebarang data pengguna.</p>
+        <h3>Local Data Processing</h3>
+        <p>All core features of EchoShortsPlayer &mdash; including speech recognition, translation, and media downloading &mdash; run entirely on your local device, powered by a local backend server (127.0.0.1:18632).</p>
+        <p>We do not collect, store, transmit, or analyze any user data, including but not limited to: video content you watch, recognized subtitle text, translation results, browsing history, or any personal information.</p>
       </div>
 
       <div class="priv-section">
-        <h3>Tiada Penghantaran Data Rangkaian</h3>
-        <p>Aplikasi ini tidak menghantar sebarang data pengguna ke pelayan luaran semasa penggunaan biasa.</p>
-        <p>Sambungan pelayar hanya berkomunikasi dengan backend tempatan di <code>localhost:18632</code>.</p>
+        <h3>No Network Data Transmission</h3>
+        <p>This application does not send any user data to external servers during normal use. All audio processing and text translation are completed locally. AI models are downloaded from public sources (HuggingFace) on first use and can run fully offline thereafter.</p>
+        <p>The browser extension communicates only with the local backend at <code>localhost:18632</code>. No data is transmitted to any remote server operated by the developers.</p>
       </div>
 
       <div class="priv-section">
-        <h3>Tiada Iklan, Tiada Penjejakan, Tiada Cadangan</h3>
-        <p>Aplikasi ini tidak mengandungi sistem pengiklanan, kod penjejakan tingkah laku pengguna, alat analitik atau mekanisme cadangan data.</p>
+        <h3>No Ads, No Tracking, No Recommendations</h3>
+        <p>This application contains no advertising systems, user behavior tracking code, analytics, or data recommendation mechanisms. We do not share user data with any third parties, nor do we create profiles or push content based on user behavior.</p>
       </div>
 
       <div class="priv-section">
-        <h3>Pelabuhan Selamat dan Tanggungjawab Pengguna</h3>
-        <p>EchoShortsPlayer ialah alat teknikal kegunaan umum yang direka semata-mata untuk membantu pengguna memahami kandungan video. Pembangun tidak menanggung liabiliti undang-undang untuk sebarang kandungan yang diakses, diterjemah atau diproses oleh pengguna.</p>
-        <p>Pengguna mesti memastikan penggunaan mereka mematuhi undang-undang dan peraturan tempatan. Semua liabiliti undang-undang terletak pada pengguna semata-mata.</p>
+        <h3>Safe Harbor &amp; User Responsibility</h3>
+        <p>EchoShortsPlayer is a general-purpose technical tool designed solely to help users understand video content. Under the Safe Harbor Doctrine, the developers and publishers of this application bear no copyright infringement or other legal liability for any content accessed, translated, or processed by users.</p>
+        <p>Users must ensure their use complies with local laws and regulations, as well as the terms of service of the platforms they access. All legal liability arising from accessing copyrighted content, violating platform rules, or engaging in any illegal activity using this application rests solely with the user.</p>
+        <p>This application makes no judgment or guarantee regarding the legality of content accessed by users, nor does it accept responsibility for any direct or indirect losses arising from its use.</p>
       </div>
 
       <div class="priv-section">
-        <h3>Kegunaan Yang Dimaksudkan</h3>
-        <p>Aplikasi ini direka sebagai alat bantuan untuk kegunaan peribadi tempatan oleh individu kurang pendengaran, pelajar bahasa atau mereka yang perlu memahami kandungan video dalam bahasa asing.</p>
+        <h3>Intended Use</h3>
+        <p>This application is designed as an assistive tool intended for personal local use by individuals with hearing impairments, language learners, or those who need to understand video content in foreign languages. Any other use is the sole responsibility of the user.</p>
       </div>
 
       <div class="priv-section">
-        <h3>Had Teknikal</h3>
-        <p>Aplikasi ini menyokong analisis kandungan video yang boleh diakses secara awam yang tidak dilindungi oleh DRM.</p>
-        <p>Untuk fail MP4 yang tidak dikodkan fast-start, aplikasi memerlukan muat turun penuh sebelum penterjemahan boleh dimulakan.</p>
+        <h3>Technical Limitations</h3>
+        <p>This application supports analysis of publicly accessible video content not protected by Digital Rights Management (DRM). Due to restrictions imposed by copyright protection protocols (such as Widevine, PlayReady, etc.), audio streams from DRM-protected content may not be extractable, preventing subtitle generation.</p>
+        <p>For MP4 files that are not "fast-start" encoded (moov atom at end of file), the application requires a full download before translation can begin. Fast-start MP4 files support streaming translation while downloading.</p>
       </div>
 
       <div class="priv-section">
-        <h3>Penafian</h3>
-        <p>Aplikasi ini disediakan "seadanya" tanpa sebarang jaminan nyata atau tersirat.</p>
-        <p>Sari kata dan terjemahan dijana secara automatik oleh mesin dan hanya untuk rujukan.</p>
+        <h3>Disclaimer</h3>
+        <p>This application is provided "as is" without any express or implied warranties. The developer does not guarantee that this application will function correctly in all environments, nor accepts responsibility for any losses, data loss, or device issues caused by its use. Using this application constitutes acceptance of all the above terms.</p>
+        <p>Subtitles and translations are generated automatically by machine and are for reference only. The developer makes no warranties regarding the accuracy, completeness, or suitability of machine-translated content, and accepts no responsibility for any consequences arising from reliance on such translations.</p>
       </div>
 
       <div class="priv-section">
-        <h3>Kemas Kini Dasar</h3>
-        <p>Dasar privasi ini mungkin dikemas kini dengan versi baharu. Penggunaan berterusan aplikasi ini merupakan penerimaan versi terkini dasar privasi.</p>
+        <h3>Policy Updates</h3>
+        <p>This privacy policy may be updated with new versions. Significant changes will be communicated through the application's update log. Continued use of this application constitutes acceptance of the latest version of the privacy policy.</p>
       </div>
     </div>
   </main>
 
   <footer>
-    <span>&copy; 2025 EchoShortsPlayer. Hak cipta terpelihara.</span>
-    <a href="mailto:supports@echoshorts.win">Hubungi Kami</a>
+    <span>&copy; 2025 EchoShortsPlayer. All rights reserved.</span>
+    <a href="mailto:supports@echoshorts.win">Contact Us</a>
   </footer>
 
 </body>
