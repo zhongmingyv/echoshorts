@@ -44,6 +44,7 @@ const t = {
     privacy3Desc4: 'Failure to backup will result in permanent loss of historical orders, finance, and customer info.',
     privacy4Title: 'Disclaimer',
     privacy4Desc: 'The developer bears no legal or financial responsibility for data loss due to hardware damage, viruses, ransomware, employee misconduct, forgetting passwords, or failure to perform regular backups as instructed.',
+    storeBtn: 'Download from Microsoft Store',
     footer: '© 2026 echoshorts.win. All rights reserved.',
     contact: 'Contact Us'
   },
@@ -73,6 +74,7 @@ const t = {
     privacy3Desc4: '未备份将导致历史订单、财务和客户信息永久丢失。',
     privacy4Title: '免责声明',
     privacy4Desc: '开发者对因硬件损坏、病毒、勒索软件、员工不当操作、忘记密码或未按提示定期备份而导致的数据丢失不承担任何法律或经济责任。',
+    storeBtn: '从 Microsoft Store 下载',
     footer: '© 2026 echoshorts.win. 保留所有权利.',
     contact: '联系我们'
   },
@@ -102,6 +104,7 @@ const t = {
     privacy3Desc4: '未備份將導致歷史訂單、財務和客戶資訊永久丟失。',
     privacy4Title: '免責聲明',
     privacy4Desc: '開發者對因硬體損壞、病毒、勒索軟體、員工不當操作、忘記密碼或未按提示定期備份而導致的數據丟失不承擔任何法律或經濟責任。',
+    storeBtn: '從 Microsoft Store 下載',
     footer: '© 2026 echoshorts.win. 保留所有權利.',
     contact: '聯繫我們'
   },
@@ -131,6 +134,7 @@ const t = {
     privacy3Desc4: 'バックアップを怠ると、履歴の注文、財務、顧客情報が完全に失われます。',
     privacy4Title: '免責事項',
     privacy4Desc: 'ハードウェアの損傷、ウイルス、ランサムウェア、従業員の不正行為、パスワードの忘却、または指示された定期的なバックアップを怠ったことによるデータ損失について、開発者は法的または経済的な責任を負いません。',
+    storeBtn: 'Microsoft Store からダウンロード',
     footer: '© 2026 echoshorts.win. 全著作権所有.',
     contact: 'お問い合わせ'
   },
@@ -160,6 +164,7 @@ const t = {
     privacy3Desc4: '백업을 하지 않으면 이전 주문, 재무 및 고객 정보가 영구적으로 손실될 수 있습니다.',
     privacy4Title: '면책 조항',
     privacy4Desc: '개발자는 하드웨어 손상, 바이러스, 랜섬웨어, 직원의 부당 행위, 비밀번호 분실 또는 지시된 정기 백업을 수행하지 않음으로 인한 데이터 손실에 대해 어떠한 법적 및 재정적 책임도 지지 않습니다.',
+    storeBtn: 'Microsoft Store에서 다운로드',
     footer: '© 2026 echoshorts.win. 판권 소유.',
     contact: '문의하기'
   },
@@ -189,6 +194,7 @@ const t = {
     privacy3Desc4: 'A falha em fazer backup resultará na perda permanente de finanças e informações de clientes.',
     privacy4Title: 'Isenção de Responsabilidade',
     privacy4Desc: 'O desenvolvedor não assume responsabilidade legal ou financeira por perda de dados devido a danos de hardware, vírus, ransomware ou falta de backups regulares.',
+    storeBtn: 'Baixar da Microsoft Store',
     footer: '© 2026 echoshorts.win. Todos os direitos reservados.',
     contact: 'Contate-nos'
   },
@@ -218,6 +224,7 @@ const t = {
     privacy3Desc4: 'Отсутствие резервной копии приведет к потере исторических заказов.',
     privacy4Title: 'Отказ от Ответственности',
     privacy4Desc: 'Разработчик не несет юридической ответственности за потерю данных.',
+    storeBtn: 'Скачать из Microsoft Store',
     footer: '© 2026 echoshorts.win. Все права защищены.',
     contact: 'Связаться с нами'
   },
@@ -247,6 +254,7 @@ const t = {
     privacy3Desc4: 'Si no hay respaldo, perderá su historial permanente.',
     privacy4Title: 'Descargo de Responsabilidad',
     privacy4Desc: 'El desarrollador no asume responsabilidad por pérdida de datos debido a ransomware o hardware dañado.',
+    storeBtn: 'Descargar de Microsoft Store',
     footer: '© 2026 echoshorts.win. Todos los derechos reservados.',
     contact: 'Contáctenos'
   },
@@ -276,6 +284,7 @@ const t = {
     privacy3Desc4: 'Ne pas sauvegarder entraînera une perte permanente.',
     privacy4Title: 'Avertissement',
     privacy4Desc: 'Le développeur n\'est pas responsable de la perte de données.',
+    storeBtn: 'Télécharger depuis le Microsoft Store',
     footer: '© 2026 echoshorts.win. Tous droits réservés.',
     contact: 'Nous Contacter'
   },
@@ -305,6 +314,7 @@ const t = {
     privacy3Desc4: 'Ohne Backup droht kompletter Datenverlust.',
     privacy4Title: 'Haftungsausschluss',
     privacy4Desc: 'Keine Haftung für Datenverlust durch Hardwarefehler oder fehlendes Backup.',
+    storeBtn: 'Aus dem Microsoft Store herunterladen',
     footer: '© 2026 echoshorts.win. Alle Rechte vorbehalten.',
     contact: 'Kontakt'
   },
@@ -334,6 +344,7 @@ const t = {
     privacy3Desc4: 'Kegagalan mencadangkan mengakibatkan kehilangan pesanan sejarah.',
     privacy4Title: 'Penafian',
     privacy4Desc: 'Pengembang tidak menanggung tanggung jawab hukum atas kerugian data.',
+    storeBtn: 'Unduh dari Microsoft Store',
     footer: '© 2026 echoshorts.win. Hak Cipta Dilindungi.',
     contact: 'Hubungi'
   },
@@ -363,6 +374,7 @@ const t = {
     privacy3Desc4: 'Nếu không sao lưu sẽ mất hết đơn hàng.',
     privacy4Title: 'Tuyên bố Khước từ',
     privacy4Desc: 'Nhà phát triển không chịu trách nhiệm pháp lý khi mất dữ liệu.',
+    storeBtn: 'Tải xuống từ Microsoft Store',
     footer: '© 2026 echoshorts.win. Mọi quyền được bảo lưu.',
     contact: 'Liên hệ'
   },
@@ -392,6 +404,7 @@ const t = {
     privacy3Desc4: 'การละเลยสำรองข้อมูลทำให้ข้อมูลประวัติสูญหาย',
     privacy4Title: 'ข้อสงวนสิทธิ์',
     privacy4Desc: 'ผู้พัฒนาไม่รับผิดชอบการสูญเสียข้อมูล',
+    storeBtn: 'ดาวน์โหลดจาก Microsoft Store',
     footer: '© 2026 echoshorts.win ลิขสิทธิ์ถูกต้อง',
     contact: 'ติดต่อ'
   }
@@ -447,6 +460,10 @@ const template = (lang, text) => {
     .lang-switcher { width: 100%; max-width: 900px; margin: 0 auto; padding: 20px 40px 0; display: flex; justify-content: flex-end; }
     .lang-switcher select { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px; color: #e0e0e0; font-size: 12px; padding: 5px 8px; cursor: pointer; outline: none; }
     .lang-switcher select:hover { border-color: #4ade80; }
+    .btn-row { display: flex; gap: 10px; margin: 14px 0; flex-wrap: wrap; }
+    .btn { display: inline-block; padding: 9px 20px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none !important; transition: opacity .15s; }
+    .btn:hover { opacity: 0.85; }
+    .btn-green { background: #4ade80; color: #0f0f0f; }
 
     @media (max-width: 600px) {
       .features { grid-template-columns: 1fr; }
@@ -465,6 +482,10 @@ ${makeOptions(lang)}
       <div class="logo">${text.title}</div>
       <h1>${text.introTitle.replace(' ', '<br><span>').replace(/Billiard Hall Management System/g, '<span>Billiard Hall Management System</span>').replace(/台球厅/g, '<span>台球厅').replace(/撞球館/g, '<span>撞球館').replace(/Billard-Management/, '<span>Billard-Management')}</span></h1>
       <p>${text.introDesc}</p>
+    </div>
+
+    <div class="btn-row" style="margin-bottom: 30px;">
+      <a class="btn btn-green" href="ms-windows-store://pdp/?productid=9N261TVCHTLP">${text.storeBtn}</a>
     </div>
 
     <h2 style="font-size: 15px; margin-bottom:20px;border-bottom: 1px solid #222;padding-bottom:14px;">${text.accountTitle}</h2>

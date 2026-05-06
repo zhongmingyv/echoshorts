@@ -41,6 +41,10 @@
     .lang-switcher { width: 100%; max-width: 900px; margin: 0 auto; padding: 20px 40px 0; display: flex; justify-content: flex-end; }
     .lang-switcher select { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px; color: #e0e0e0; font-size: 12px; padding: 5px 8px; cursor: pointer; outline: none; }
     .lang-switcher select:hover { border-color: #4ade80; }
+    .btn-row { display: flex; gap: 10px; margin: 14px 0; flex-wrap: wrap; }
+    .btn { display: inline-block; padding: 9px 20px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none !important; transition: opacity .15s; }
+    .btn:hover { opacity: 0.85; }
+    .btn-green { background: #4ade80; color: #0f0f0f; }
 
     @media (max-width: 600px) {
       .features { grid-template-columns: 1fr; }
@@ -71,6 +75,10 @@
       <div class="logo">ระบบการจัดการร้านบิลเลียด</div>
       <h1>ระบบการจัดการบิลเลียดโลคัล</span></h1>
       <p>ออกแบบมาสำหรับร้านบิลเลียด จัดการโต๊ะ พนักงาน การเงิน และสมาชิก</p>
+    </div>
+
+    <div class="btn-row" style="margin-bottom: 30px;">
+      <a class="btn btn-green" href="ms-windows-store://pdp/?productid=9N261TVCHTLP">ดาวน์โหลดจาก Microsoft Store</a>
     </div>
 
     <h2 style="font-size: 15px; margin-bottom:20px;border-bottom: 1px solid #222;padding-bottom:14px;">บัญชีและการให้สิทธิ์</h2>
