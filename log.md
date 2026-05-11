@@ -1,5 +1,9 @@
 ## 2026-05-11
 
+- 修复各语言 `home-*.html` 中「为什么使用扩展？/ Why use the extension?」「为什么使用 CLI？/ Why use the CLI?」h4 标题与其下 4 + 5 条优势 `<li>` 长期保持英文的问题：在 `generate_home.js` 新增 `applyAdvantages()` 统一替换标题与列表项；新增 `advantageTranslations.js`，为未在 `fullTranslations.js` / `fullTranslations2.js` 中的 22 种语言（bn / cs / da / el / fa / fi / he / hu / id / it / km / nb / nl / pl / ro / sv / sw / ta / te / tr / uk / ur）补齐 `extAdvTitle` / `extAdv1‑4`、`cliAdvTitle` / `cliAdv1‑5` 译文；已在 `buildTranslated`（zh/cht）和 `buildOther` 内调用，移除原先各处冗余的 `Why use ...` 字符串替换。重新运行 `node generate_home.js` 生成全部 `home-*.html`。
+
+- 全站 `home*.html`、`hotel*.html`、`billiard*.html` 左上角固定返回按钮（左箭头 SVG）：新增 `index-back-nav.js`，在 `lang-query.js` 之后加载；根据当前文件名、`?lang=` 或语言下拉框**当前选中项**解析 hub 的 BCP47，跳转到对应 `index*.html?lang=`（无 hub 对应语种的 home 页如 `home-tr.html` 则回 `index.html`）。`home.html` 模板与 `generate_hotel.js`、`generate_billiard.js` 已引用；已运行 `generate_home.js`、`generate_hotel.js`、`generate_billiard.js`。新增 index hub 语言时需同步 `index-back-nav.js` 的 `INDEX_HTML` / `HOME_FILE_TO_LANG`。
+
 - 酒店页「硬件设备选购」段落内采购邮箱改为可点击的 `mailto:supports@echoshorts.win` 链接（`generate_hotel.js`：`hardwareDescBefore` / `hardwareDescAfter` + `.section a` 样式）；已运行 `node generate_hotel.js` 更新全部 `hotel*.html`。
 
 - 工具导航「打开工具」携带语言：各 `index*.html` 的链接追加查询参数 `?lang=BCP47`（与当前 hub 语言一致）；新增根目录 `lang-query.js`，在 `index` / `home` / `hotel` / `billiard` 页面首屏执行：若 URL 带 `lang` 且与当前文件不一致则 `location.replace` 到对应语言文件，已匹配则用 `history.replaceState` 去掉查询串。`home.html` 模板、`generate_index.js`、`generate_hotel.js`、`generate_billiard.js` 引入该脚本；已运行 `node generate_index.js`、`generate_hotel.js`、`generate_billiard.js`、`generate_home.js` 更新相关 HTML。新增语言时需同步 `lang-query.js` 中的 INDEX/HOME/HOTEL/BILLIARD 映射与 `generate_index.js` 的 `langs`。

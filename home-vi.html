@@ -105,6 +105,7 @@
 </head>
 <body>
   <script src="lang-query.js"></script>
+  <script src="index-back-nav.js"></script>
 
   <div class="lang-switcher">
     <select onchange="location.href=this.value">
@@ -246,10 +247,10 @@
       <div class="advantages">
         <h4>Tại sao nên dùng tiện ích?</h4>
         <ul>
-          <li>Intercepts network requests at the browser level &mdash; catches streams that DOM scanning misses</li>
-          <li>Automatic quality selection: groups variants by video ID and picks the best quality</li>
-          <li>Referer header injection for playing streams that require authentication</li>
-          <li>Badge counter shows detected media count per tab at a glance</li>
+          <li>Chặn yêu cầu mạng ở cấp trình duyệt — bắt được các luồng mà quét DOM bỏ sót</li>
+          <li>Tự động chọn chất lượng: nhóm các biến thể theo ID video và chọn chất lượng tốt nhất</li>
+          <li>Chèn header Referer để phát các luồng yêu cầu xác thực</li>
+          <li>Bộ đếm huy hiệu hiển thị số lượng phương tiện phát hiện được trên mỗi tab trong nháy mắt</li>
         </ul>
       </div>
     </div>
@@ -264,11 +265,11 @@
       <div class="advantages">
         <h4>Tại sao nên dùng CLI?</h4>
         <ul>
-          <li>Batch processing: translate hundreds of videos with a single command</li>
-          <li>Scriptable: integrate into shell scripts, cron jobs, or CI/CD pipelines</li>
-          <li>Full control over models: choose Whisper model size, translation engine, denoising mode</li>
-          <li>No GUI overhead: ideal for servers, headless machines, or remote SSH sessions</li>
-          <li>Supports both serial (memory-efficient) and parallel (fast) processing modes</li>
+          <li>Xử lý hàng loạt: dịch hàng trăm video chỉ với một lệnh</li>
+          <li>Có thể viết script: tích hợp vào shell scripts, cron jobs hoặc CI/CD pipelines</li>
+          <li>Toàn quyền kiểm soát mô hình: chọn kích thước mô hình Whisper, công cụ dịch, chế độ khử nhiễu</li>
+          <li>Không có gánh nặng GUI: lý tưởng cho máy chủ, máy headless hoặc phiên SSH từ xa</li>
+          <li>Hỗ trợ cả chế độ xử lý nối tiếp (tiết kiệm bộ nhớ) và song song (nhanh)</li>
         </ul>
       </div>
 

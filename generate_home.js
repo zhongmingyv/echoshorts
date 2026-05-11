@@ -6,6 +6,7 @@
 const fs = require('fs');
 const path = require('path');
 const extensionStepTranslations = require('./extensionStepTranslations.js');
+const advantageTranslations = require('./advantageTranslations.js');
 
 const template = fs.readFileSync(path.join(__dirname, 'home.html'), 'utf8');
 
@@ -183,6 +184,43 @@ function privacyBlock(p) {
   }).join('\n\n');
 }
 
+/** Replace "Why use the extension/CLI?" h4 titles and advantage <li> bullets. */
+function applyAdvantages(html, advT) {
+  if (!advT) return html;
+  if (advT.extAdvTitle) {
+    html = html.replace('Why use the extension?', advT.extAdvTitle);
+  }
+  if (advT.cliAdvTitle) {
+    html = html.replace('Why use the CLI?', advT.cliAdvTitle);
+  }
+  const extEN = [
+    'Intercepts network requests at the browser level &mdash; catches streams that DOM scanning misses',
+    'Automatic quality selection: groups variants by video ID and picks the best quality',
+    'Referer header injection for playing streams that require authentication',
+    'Badge counter shows detected media count per tab at a glance',
+  ];
+  for (let i = 0; i < extEN.length; i++) {
+    const key = 'extAdv' + (i + 1);
+    if (advT[key]) {
+      html = html.replace(`<li>${extEN[i]}</li>`, `<li>${advT[key]}</li>`);
+    }
+  }
+  const cliEN = [
+    'Batch processing: translate hundreds of videos with a single command',
+    'Scriptable: integrate into shell scripts, cron jobs, or CI/CD pipelines',
+    'Full control over models: choose Whisper model size, translation engine, denoising mode',
+    'No GUI overhead: ideal for servers, headless machines, or remote SSH sessions',
+    'Supports both serial (memory-efficient) and parallel (fast) processing modes',
+  ];
+  for (let i = 0; i < cliEN.length; i++) {
+    const key = 'cliAdv' + (i + 1);
+    if (advT[key]) {
+      html = html.replace(`<li>${cliEN[i]}</li>`, `<li>${advT[key]}</li>`);
+    }
+  }
+  return html;
+}
+
 /** Replace Chrome extension install/usage <li> blocks (English template → extT). */
 function applyExtensionInstallUsage(html, extT) {
   if (!extT || !extT.extI1) return html;
@@ -233,7 +271,6 @@ function buildTranslated(key, data) {
     .replace('<strong>Installation (developer mode):</strong>', t.extInstTitle)
     .replace('>Download Extension (.zip)<', `>${t.extDlBtn}<`)
     .replace('<strong>Usage:</strong>', t.extUseTitle)
-    .replace('Why use the extension?', t.extAdvTitle)
     .replace('Command-Line Interface <span class="tag">Power Users', `${t.cliTitle.replace(/&#\d+; /, '')} <span class="tag">${t.cliTag}`)
     .replace('Automation, batch processing, and scripting', t.cliSub)
     .replace(/The CLI provides direct access.*?other tools\./, t.cliP1)
@@ -243,8 +280,7 @@ function buildTranslated(key, data) {
     .replace('# Full options: source language, whisper model, translation engine, denoising, processing mode', t.cliC3)
     .replace('# Download a remote m3u8 or MP4', t.cliC4)
     .replace('# Download and translate in one step', t.cliC5)
-    .replace('# Translate an existing SRT file', t.cliC6)
-    .replace('Why use the CLI?', t.cliAdvTitle);
+    .replace('# Translate an existing SRT file', t.cliC6);
 
   // CLI params
   if (t.cliParamsPre) {
@@ -253,6 +289,7 @@ function buildTranslated(key, data) {
   }
 
   html = applyExtensionInstallUsage(html, t);
+  html = applyAdvantages(html, t);
 
   // Privacy block
   const priv = privacyData[key];
@@ -350,7 +387,6 @@ function buildOther(key, data) {
       .replace('>Download Extension (.zip)<', `>${t.extDlBtn}<`)
       .replace('<strong>Installation (developer mode):</strong>', t.extInstTitle)
       .replace('<strong>Usage:</strong>', t.extUseTitle)
-      .replace('Why use the extension?', t.extAdvTitle)
       .replace('Command-Line Interface <span class="tag">Power Users', `${t.cliTitle} <span class="tag">${t.cliTag}`)
       .replace('Automation, batch processing, and scripting', t.cliSub)
       .replace(/The CLI provides direct access.*?other tools\./, t.cliP1)
@@ -360,8 +396,7 @@ function buildOther(key, data) {
       .replace('# Full options: source language, whisper model, translation engine, denoising, processing mode', t.cliC3)
       .replace('# Download a remote m3u8 or MP4', t.cliC4)
       .replace('# Download and translate in one step', t.cliC5)
-      .replace('# Translate an existing SRT file', t.cliC6)
-      .replace('Why use the CLI?', t.cliAdvTitle);
+      .replace('# Translate an existing SRT file', t.cliC6);
     
     if (t.cliParamsPre) {
       html = html.replace(/--source, -s[\s\S]*?--referer\s+[^\n]+/, t.cliParamsPre.trim());
@@ -374,6 +409,12 @@ function buildOther(key, data) {
 
   const extT = (t && t.extI1) ? t : extensionStepTranslations[key];
   html = applyExtensionInstallUsage(html, extT);
+
+  // Apply advantage translations (h4 titles + bullet items). Prefer fullTrans
+  // data when available (it already contains extAdv*/cliAdv*); otherwise fall
+  // back to advantageTranslations.js.
+  const advT = (t && (t.extAdvTitle || t.cliAdvTitle)) ? t : advantageTranslations[key];
+  html = applyAdvantages(html, advT);
 
   const extHead = extensionStepTranslations[key];
   if (extHead && extHead.extInstTitle && !(t && t.extInstTitle)) {
