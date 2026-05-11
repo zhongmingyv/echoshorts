@@ -1,5 +1,9 @@
 ## 2026-05-11
 
+- 酒店页「硬件设备选购」标题后追加「及有偿技术支持」，并在描述「门锁、读卡器、门卡等硬件如需采购」后追加「及有偿技术支持」；同步更新 13 种语言（en/zh/cht/ja/ko/pt/ru/es/fr/de/id/vi/th）的 `hardwareTitle` 与 `hardwareDescBefore` 文案；运行 `node generate_hotel.js` 重新生成全部 `hotel*.html`。
+
+- 工具导航 `index*.html`：移除 e-hotel、e-billiard 两个 `<article class="tool-card">`（仅保留 EchoPShortsPlayer）；`generate_index.js` 去掉 `SHOW_HOTEL_BILLIARD_INTRO`、酒店/台球链接与相关翻译键，`.tool-grid` 恢复单列居中；已执行 `node generate_index.js` 更新全部 `index*.html`。
+
 - 修复各语言 `home-*.html` 中「为什么使用扩展？/ Why use the extension?」「为什么使用 CLI？/ Why use the CLI?」h4 标题与其下 4 + 5 条优势 `<li>` 长期保持英文的问题：在 `generate_home.js` 新增 `applyAdvantages()` 统一替换标题与列表项；新增 `advantageTranslations.js`，为未在 `fullTranslations.js` / `fullTranslations2.js` 中的 22 种语言（bn / cs / da / el / fa / fi / he / hu / id / it / km / nb / nl / pl / ro / sv / sw / ta / te / tr / uk / ur）补齐 `extAdvTitle` / `extAdv1‑4`、`cliAdvTitle` / `cliAdv1‑5` 译文；已在 `buildTranslated`（zh/cht）和 `buildOther` 内调用，移除原先各处冗余的 `Why use ...` 字符串替换。重新运行 `node generate_home.js` 生成全部 `home-*.html`。
 
 - 全站 `home*.html`、`hotel*.html`、`billiard*.html` 左上角固定返回按钮（左箭头 SVG）：新增 `index-back-nav.js`，在 `lang-query.js` 之后加载；根据当前文件名、`?lang=` 或语言下拉框**当前选中项**解析 hub 的 BCP47，跳转到对应 `index*.html?lang=`（无 hub 对应语种的 home 页如 `home-tr.html` 则回 `index.html`）。`home.html` 模板与 `generate_hotel.js`、`generate_billiard.js` 已引用；已运行 `generate_home.js`、`generate_hotel.js`、`generate_billiard.js`。新增 index hub 语言时需同步 `index-back-nav.js` 的 `INDEX_HTML` / `HOME_FILE_TO_LANG`。

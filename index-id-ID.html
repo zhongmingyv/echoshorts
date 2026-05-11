@@ -69,7 +69,8 @@
 
     .tool-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: minmax(0, 400px);
+      justify-content: center;
       gap: 20px;
     }
 
@@ -127,7 +128,7 @@
 
     @media (max-width: 960px) {
       .tool-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: minmax(0, 360px);
       }
     }
 
@@ -181,24 +182,6 @@
           <h2 class="tool-title">EchoPShortsPlayer</h2>
           <p class="tool-desc">Pintu masuk pemutar video pendek untuk pemutaran dan pengelolaan.</p>
           <a class="tool-link" href="home-id.html?lang=id-ID">Buka</a>
-        </div>
-      </article>
-
-      <article class="tool-card">
-        <img class="tool-image" src="ehotel.png" alt="e-hotel" />
-        <div class="tool-body">
-          <h2 class="tool-title">e-hotel</h2>
-          <p class="tool-desc">Pintu masuk bisnis untuk kamar dan fitur check-in.</p>
-          <a class="tool-link" href="hotel-id-ID.html?lang=id-ID">Buka</a>
-        </div>
-      </article>
-
-      <article class="tool-card">
-        <img class="tool-image" src="ebilliard.png" alt="e-billiard" />
-        <div class="tool-body">
-          <h2 class="tool-title">e-billiard</h2>
-          <p class="tool-desc">Pintu masuk bisnis untuk meja dan pesanan.</p>
-          <a class="tool-link" href="billiard-id-ID.html?lang=id-ID">Buka</a>
         </div>
       </article>
     </section>
