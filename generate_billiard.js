@@ -471,6 +471,7 @@ const template = (lang, text) => {
   </style>
 </head>
 <body>
+  <script src="lang-query.js"></script>
   <div class="lang-switcher">
     <select onchange="location.href=this.value">
 ${makeOptions(lang)}

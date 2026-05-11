@@ -1,5 +1,11 @@
 ## 2026-05-11
 
+- 酒店页「硬件设备选购」段落内采购邮箱改为可点击的 `mailto:supports@echoshorts.win` 链接（`generate_hotel.js`：`hardwareDescBefore` / `hardwareDescAfter` + `.section a` 样式）；已运行 `node generate_hotel.js` 更新全部 `hotel*.html`。
+
+- 工具导航「打开工具」携带语言：各 `index*.html` 的链接追加查询参数 `?lang=BCP47`（与当前 hub 语言一致）；新增根目录 `lang-query.js`，在 `index` / `home` / `hotel` / `billiard` 页面首屏执行：若 URL 带 `lang` 且与当前文件不一致则 `location.replace` 到对应语言文件，已匹配则用 `history.replaceState` 去掉查询串。`home.html` 模板、`generate_index.js`、`generate_hotel.js`、`generate_billiard.js` 引入该脚本；已运行 `node generate_index.js`、`generate_hotel.js`、`generate_billiard.js`、`generate_home.js` 更新相关 HTML。新增语言时需同步 `lang-query.js` 中的 INDEX/HOME/HOTEL/BILLIARD 映射与 `generate_index.js` 的 `langs`。
+
+- 工具导航主页多语言：新增 `generate_index.js`，与酒店/台球页一致的 13 种语言（`index.html` + `index-zh-CN.html` … `index-vi-VN.html`）；右上角语言下拉切换；各语言页的「打开工具」分别指向对应 `home-*`、`hotel-*`、`billiard-*`（如简中：`home-zh.html`、`hotel-zh-CN.html`、`billiard-zh-CN.html`）。执行 `node generate_index.js` 生成/更新全部 `index*.html`。
+
 - 酒店页：在 `generate_hotel.js` 为各语言增加「硬件设备选购」区块（门锁、读卡器、门卡及采购联系 supports@echoshorts.win），页脚隐私联系改为 `supports@echoshorts.win`；运行 `node generate_hotel.js` 重新生成全部 `hotel*.html`。
 - 全站将写死的 `mingyvzhong@gmail.com` 替换为 `supports@echoshorts.win`（含 `generate_hotel.js`、`generate_billiard.js` 及运行 `node generate_billiard.js` 生成的全部 `billiard*.html`）。
 
