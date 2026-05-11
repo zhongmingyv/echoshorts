@@ -320,6 +320,9 @@ function buildTranslated(key, data) {
     .replace('# Translate an existing SRT file', t.cliC6);
 
   // CLI params
+  if (t.cliParams) {
+    html = html.replace('<strong>Parameter reference:</strong>', t.cliParams);
+  }
   if (t.cliParamsPre) {
     html = html.replace(/--source, -s[\s\S]*?--referer\s+[^\n]+/, t.cliParamsPre.trim());
     html = html.replace(/See the full list of supported language codes[\s\S]*?Language Code Reference<\/a>/, t.cliLangLink);
@@ -369,6 +372,58 @@ const storeBtnTranslations = {
   'sw': 'Pakua kutoka Microsoft Store',
   'km': 'ទាញយកពី Microsoft Store',
   'it': 'Scarica dal Microsoft Store',
+};
+
+// --- CLI "Parameter reference:" label translations ---
+const cliParamsLabelTranslations = {
+  'id': '<strong>Referensi parameter:</strong>',
+  'tr': '<strong>Parametre referansı:</strong>',
+  'pl': '<strong>Odniesienie do parametrów:</strong>',
+  'nl': '<strong>Parameterreferentie:</strong>',
+  'sv': '<strong>Parameterreferens:</strong>',
+  'da': '<strong>Parameterreference:</strong>',
+  'nb': '<strong>Parameterreferanse:</strong>',
+  'fi': '<strong>Parametriviite:</strong>',
+  'cs': '<strong>Reference parametrů:</strong>',
+  'hu': '<strong>Paraméter-hivatkozás:</strong>',
+  'ro': '<strong>Referință parametri:</strong>',
+  'el': '<strong>Αναφορά παραμέτρων:</strong>',
+  'he': '<strong>הפניית פרמטרים:</strong>',
+  'uk': '<strong>Довідка параметрів:</strong>',
+  'bn': '<strong>প্যারামিটার রেফারেন্স:</strong>',
+  'ta': '<strong>அளவுரு குறிப்பு:</strong>',
+  'te': '<strong>పారామీటర్ సూచన:</strong>',
+  'ur': '<strong>پیرامیٹر حوالہ:</strong>',
+  'fa': '<strong>مرجع پارامترها:</strong>',
+  'sw': '<strong>Marejeo ya vigezo:</strong>',
+  'km': '<strong>ឯកសារយោងប៉ារ៉ាម៉ែត្រ:</strong>',
+  'it': '<strong>Riferimento parametri:</strong>',
+};
+
+// --- CLI language code link translations ---
+const cliLangLinkTranslations = {
+  'id': 'Lihat daftar lengkap kode bahasa yang didukung untuk <code>--source</code> dan <code>--target</code>: <a href="language-codes.html">Referensi kode bahasa</a>',
+  'tr': '<code>--source</code> ve <code>--target</code> için desteklenen dil kodlarının tam listesine bakın: <a href="language-codes.html">Dil kodu referansı</a>',
+  'pl': 'Zobacz pełną listę obsługiwanych kodów języków dla <code>--source</code> i <code>--target</code>: <a href="language-codes.html">Kody języków</a>',
+  'nl': 'Bekijk de volledige lijst met ondersteunde taalcodes voor <code>--source</code> en <code>--target</code>: <a href="language-codes.html">Taalcodereferentie</a>',
+  'sv': 'Se den fullständiga listan över språkkoder som stöds för <code>--source</code> och <code>--target</code>: <a href="language-codes.html">Språkkodsreferens</a>',
+  'da': 'Se den fulde liste over understøttede sprogkoder til <code>--source</code> og <code>--target</code>: <a href="language-codes.html">Sprogkodereference</a>',
+  'nb': 'Se den fullstendige listen over støttede språkkoder for <code>--source</code> og <code>--target</code>: <a href="language-codes.html">Språkkodereferanse</a>',
+  'fi': 'Katso täydellinen luettelo tuetuista kielikoodeista <code>--source</code> ja <code>--target</code>: <a href="language-codes.html">Kielikoodiviite</a>',
+  'cs': 'Úplný seznam podporovaných jazykových kódů pro <code>--source</code> a <code>--target</code>: <a href="language-codes.html">Reference jazykových kódů</a>',
+  'hu': 'A <code>--source</code> és <code>--target</code> támogatott nyelvkódjainak teljes listája: <a href="language-codes.html">Nyelvkód-hivatkozás</a>',
+  'ro': 'Consultați lista completă a codurilor de limbă acceptate pentru <code>--source</code> și <code>--target</code>: <a href="language-codes.html">Referință coduri de limbă</a>',
+  'el': 'Δείτε την πλήρη λίστα υποστηριζόμενων κωδικών γλώσσας για <code>--source</code> και <code>--target</code>: <a href="language-codes.html">Αναφορά κωδικών γλώσσας</a>',
+  'he': 'ראו את הרשימה המלאה של קודי שפה נתמכים עבור <code>--source</code> ו-<code>--target</code>: <a href="language-codes.html">מדריך קודי שפה</a>',
+  'uk': 'Повний список підтримуваних кодів мов для <code>--source</code> та <code>--target</code>: <a href="language-codes.html">Довідник кодів мов</a>',
+  'bn': '<code>--source</code> এবং <code>--target</code>-এর জন্য সমর্থিত ভাষা কোডের সম্পূর্ণ তালিকা দেখুন: <a href="language-codes.html">ভাষা কোড রেফারেন্স</a>',
+  'ta': '<code>--source</code> மற்றும் <code>--target</code>-க்கான ஆதரிக்கப்படும் மொழிக் குறியீடுகளின் முழு பட்டியலைப் பார்க்கவும்: <a href="language-codes.html">மொழிக் குறியீடு குறிப்பு</a>',
+  'te': '<code>--source</code> మరియు <code>--target</code> కోసం మద్దతు ఉన్న భాషా కోడ్‌ల పూర్తి జాబితా చూడండి: <a href="language-codes.html">భాషా కోడ్ సూచన</a>',
+  'ur': '<code>--source</code> اور <code>--target</code> کے لیے معاون زبان کوڈز کی مکمل فہرست دیکھیں: <a href="language-codes.html">زبان کوڈ حوالہ</a>',
+  'fa': 'فهرست کامل کدهای زبان پشتیبانی‌شده برای <code>--source</code> و <code>--target</code> را ببینید: <a href="language-codes.html">مرجع کدهای زبان</a>',
+  'sw': 'Tazama orodha kamili ya misimbo ya lugha inayotumika kwa <code>--source</code> na <code>--target</code>: <a href="language-codes.html">Rejea ya misimbo ya lugha</a>',
+  'km': 'មើលបញ្ជីពេញនៃកូដភាសាដែលគាំទ្រសម្រាប់ <code>--source</code> និង <code>--target</code>: <a href="language-codes.html">ឯកសារយោងកូដភាសា</a>',
+  'it': 'Consulta l\'elenco completo dei codici lingua supportati per <code>--source</code> e <code>--target</code>: <a href="language-codes.html">Riferimento codici lingua</a>',
 };
 
 /** Same markup as home.html; replaced per locale before the privacy section. */
@@ -470,10 +525,16 @@ function buildOther(key, data) {
       .replace('# Download and translate in one step', t.cliC5)
       .replace('# Translate an existing SRT file', t.cliC6);
     
+    if (t.cliParams) {
+      html = html.replace('<strong>Parameter reference:</strong>', t.cliParams);
+    }
     if (t.cliParamsPre) {
       html = html.replace(/--source, -s[\s\S]*?--referer\s+[^\n]+/, t.cliParamsPre.trim());
     }
-    
+    if (t.cliLangLink) {
+      html = html.replace(/See the full list of supported language codes[\s\S]*?Language Code Reference<\/a>/, t.cliLangLink);
+    }
+
     if (t.storeBtn) {
        html = html.replace('>Download from Microsoft Store<', `>${t.storeBtn}<`);
     }
@@ -499,6 +560,18 @@ function buildOther(key, data) {
   const storeLabel = storeBtnTranslations[key];
   if (storeLabel && html.includes('>Download from Microsoft Store<')) {
     html = html.replace('>Download from Microsoft Store<', `>${storeLabel}<`);
+  }
+
+  // Apply CLI "Parameter reference:" label (fallback for languages without full translations)
+  const cliParamsLabel = cliParamsLabelTranslations[key];
+  if (cliParamsLabel && html.includes('<strong>Parameter reference:</strong>')) {
+    html = html.replace('<strong>Parameter reference:</strong>', cliParamsLabel);
+  }
+
+  // Apply CLI language code link (fallback for languages without full translations)
+  const cliLangLinkText = cliLangLinkTranslations[key];
+  if (cliLangLinkText && html.includes('Language Code Reference</a>')) {
+    html = html.replace(/See the full list of supported language codes[\s\S]*?Language Code Reference<\/a>/, cliLangLinkText);
   }
 
   html = applyPrivacyBlock(html, key);
