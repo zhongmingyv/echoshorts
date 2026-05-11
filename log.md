@@ -1,5 +1,10 @@
 ## 2026-05-11
 
+- 台球页 `generate_billiard.js`：在隐私政策前增加「硬件设备选购及有偿技术支持」区块（简中：打印机、智能柜、智能灯开关等；其余语言对应译文；`mailto:supports@echoshorts.win`）；补充 `.section a` 样式；已执行 `node generate_billiard.js` 更新全部 `billiard*.html`。
+- 酒店页 `generate_hotel.js`：硬件描述在门锁、读卡器、门卡基础上增加打印机（13 种语言同步）；已执行 `node generate_hotel.js` 更新全部 `hotel*.html`。
+
+- `index*.html`（`generate_index.js` 模板）：为 `.page-title`、`.page-desc` 增加 `text-align: center`，使「EchoShorts.Win」与各语言标语（含简中「让精彩在短视频中回响，赢得永恒。」）在页面中居中；已执行 `node generate_index.js` 重新生成全部 `index*.html`。
+
 - 酒店页「硬件设备选购」标题后追加「及有偿技术支持」，并在描述「门锁、读卡器、门卡等硬件如需采购」后追加「及有偿技术支持」；同步更新 13 种语言（en/zh/cht/ja/ko/pt/ru/es/fr/de/id/vi/th）的 `hardwareTitle` 与 `hardwareDescBefore` 文案；运行 `node generate_hotel.js` 重新生成全部 `hotel*.html`。
 
 - 工具导航 `index*.html`：移除 e-hotel、e-billiard 两个 `<article class="tool-card">`（仅保留 EchoPShortsPlayer）；`generate_index.js` 去掉 `SHOW_HOTEL_BILLIARD_INTRO`、酒店/台球链接与相关翻译键，`.tool-grid` 恢复单列居中；已执行 `node generate_index.js` 更新全部 `index*.html`。
