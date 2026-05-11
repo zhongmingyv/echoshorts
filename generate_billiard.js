@@ -550,8 +550,8 @@ ${makeOptions(lang)}
   </main>
   <footer style="flex-direction: column;">
     <span>${text.footer}</span>
-    <a href="mailto:mingyvzhong@gmail.com" style="margin-top: 8px;">
-      ${lang.startsWith('zh') ? '如需咨询隐私相关问题，请发送邮件至 mingyvzhong@gmail.com' : 'For privacy-related inquiries, please email mingyvzhong@gmail.com'}
+    <a href="mailto:supports@echoshorts.win" style="margin-top: 8px;">
+      ${lang.startsWith('zh') ? '如需咨询隐私相关问题，请发送邮件至 supports@echoshorts.win' : 'For privacy-related inquiries, please email supports@echoshorts.win'}
     </a>
   </footer>
 </body>

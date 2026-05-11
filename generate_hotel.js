@@ -43,7 +43,10 @@ const t = {
     privacy4Desc: 'The developer bears no legal or financial responsibility for data loss due to hardware damage, viruses, ransomware, employee misconduct, forgetting passwords, or failure to perform regular backups as instructed.',
     storeBtn: 'Download from Microsoft Store',
     footer: '© 2026 echoshorts.win. All rights reserved.',
-    contact: 'Contact Us'
+    contact: 'Contact Us',
+    hardwareTitle: 'Hardware procurement',
+    hardwareDesc: 'Door locks, card readers, and key cards. If you need to purchase hardware, please contact supports@echoshorts.win.',
+    privacyInquiry: 'For privacy-related inquiries, please email supports@echoshorts.win'
   },
   'zh-CN': {
     title: '酒店管理系统',
@@ -70,7 +73,10 @@ const t = {
     privacy4Desc: '开发者对因硬件损坏、电脑病毒、遭遇勒索软件、员工破坏、或未按提示定期备份而导致的数据丢失，不承担任何法律与经济赔偿责任。使用本软件即代表您同意自行承担上述数据安全风险。',
     storeBtn: '从 Microsoft Store 下载',
     footer: '© 2026 echoshorts.win. 保留所有权利.',
-    contact: '联系我们'
+    contact: '联系我们',
+    hardwareTitle: '硬件设备选购',
+    hardwareDesc: '门锁、读卡器、门卡等硬件如需采购，请联系 supports@echoshorts.win。',
+    privacyInquiry: '如需咨询隐私相关问题，请发送邮件至 supports@echoshorts.win'
   },
   'zh-TW': {
     title: '酒店管理系統',
@@ -97,7 +103,10 @@ const t = {
     privacy4Desc: '開發者對因硬件損壞、電腦病毒、遭遇勒索軟件、員工破壞、或未按提示定期備份而導致的數據丟失，不承擔任何法律與經濟賠償責任。',
     storeBtn: '從 Microsoft Store 下載',
     footer: '© 2026 echoshorts.win. 保留所有權利.',
-    contact: '聯繫我們'
+    contact: '聯繫我們',
+    hardwareTitle: '硬體設備選購',
+    hardwareDesc: '門鎖、讀卡器、門卡等硬體如需採購，請聯絡 supports@echoshorts.win。',
+    privacyInquiry: '如需諮詢隱私相關問題，請發送郵件至 supports@echoshorts.win'
   },
   'ja-JP': {
     title: 'ホテル管理システム',
@@ -124,7 +133,10 @@ const t = {
     privacy4Desc: 'ハードウェアの損傷、ウイルス、ランサムウェア、従業員の不正行為、パスワードの忘却、または定期的なバックアップを怠ったことによるデータ損失について、開発者は法的または経済的な責任を負いません。',
     storeBtn: 'Microsoft Store からダウンロード',
     footer: '© 2026 echoshorts.win. 全著作権所有.',
-    contact: 'お問い合わせ'
+    contact: 'お問い合わせ',
+    hardwareTitle: 'ハードウェアの調達',
+    hardwareDesc: 'ドアロック、カードリーダー、キーカードなど。ご購入のご相談は supports@echoshorts.win までご連絡ください。',
+    privacyInquiry: 'プライバシーに関するお問い合わせは supports@echoshorts.win までメールでご連絡ください。'
   },
   'ko-KR': {
     title: '호텔 관리 시스템',
@@ -151,7 +163,10 @@ const t = {
     privacy4Desc: '개발자는 하드웨어 손상, 바이러스, 랜섬웨어, 직원의 부당 행위, 비밀번호 분실 또는 지시된 정기 백업을 수행하지 않음으로 인한 데이터 손실에 대해 어떠한 법적 및 재정적 책임도 지지 않습니다.',
     storeBtn: 'Microsoft Store에서 다운로드',
     footer: '© 2026 echoshorts.win. 판권 소유.',
-    contact: '문의하기'
+    contact: '문의하기',
+    hardwareTitle: '하드웨어 구매',
+    hardwareDesc: '도어락, 카드 리더기, 키 카드 등 구매가 필요하시면 supports@echoshorts.win 로 문의해 주세요.',
+    privacyInquiry: '개인정보 관련 문의는 supports@echoshorts.win 로 이메일 주세요.'
   },
   'pt-BR': {
     title: 'Sistema de Gestão Hoteleira',
@@ -178,7 +193,10 @@ const t = {
     privacy4Desc: 'O desenvolvedor não assume responsabilidade legal ou financeira por perda de dados devido a danos de hardware, vírus, ransomware, má conduta de funcionários ou falha em realizar backups regulares.',
     storeBtn: 'Baixar da Microsoft Store',
     footer: '© 2026 echoshorts.win. Todos os direitos reservados.',
-    contact: 'Contate-nos'
+    contact: 'Contate-nos',
+    hardwareTitle: 'Aquisição de hardware',
+    hardwareDesc: 'Fechaduras, leitores de cartão e cartões. Para compras, entre em contato com supports@echoshorts.win.',
+    privacyInquiry: 'Para dúvidas sobre privacidade, envie e-mail para supports@echoshorts.win'
   },
   'ru-RU': {
     title: 'Система Управления Отелем',
@@ -205,7 +223,10 @@ const t = {
     privacy4Desc: 'Разработчик не несет юридической или финансовой ответственности за потерю данных из-за повреждения оборудования, вирусов, программ-вымогателей или отсутствия регулярного резервного копирования.',
     storeBtn: 'Скачать из Microsoft Store',
     footer: '© 2026 echoshorts.win. Все права защищены.',
-    contact: 'Связаться с нами'
+    contact: 'Связаться с нами',
+    hardwareTitle: 'Закупка оборудования',
+    hardwareDesc: 'Замки, считыватели карт и карты доступа. По вопросам закупки пишите на supports@echoshorts.win.',
+    privacyInquiry: 'По вопросам конфиденциальности пишите на supports@echoshorts.win'
   },
   'es-ES': {
     title: 'Sistema de Gestión Hotelera',
@@ -232,7 +253,10 @@ const t = {
     privacy4Desc: 'El desarrollador no se hace responsable de las pérdidas de información en caso de fallo del hardware, ransomware o falta de una copia de seguridad regular.',
     storeBtn: 'Descargar de Microsoft Store',
     footer: '© 2026 echoshorts.win. Todos los derechos reservados.',
-    contact: 'Contáctenos'
+    contact: 'Contáctenos',
+    hardwareTitle: 'Adquisición de hardware',
+    hardwareDesc: 'Cerraduras, lectores de tarjetas y tarjetas de acceso. Para compras, contacte a supports@echoshorts.win.',
+    privacyInquiry: 'Para consultas sobre privacidad, escriba a supports@echoshorts.win'
   },
   'fr-FR': {
     title: 'Système de Gestion Hôtelière',
@@ -259,7 +283,10 @@ const t = {
     privacy4Desc: 'Le développeur décline toute responsabilité pour toute perte de données due à des pannes, virus, rançongiciels, ou le non-respect des sauvegardes régulières.',
     storeBtn: 'Télécharger depuis le Microsoft Store',
     footer: '© 2026 echoshorts.win. Tous droits réservés.',
-    contact: 'Nous Contacter'
+    contact: 'Nous Contacter',
+    hardwareTitle: 'Achat de matériel',
+    hardwareDesc: 'Serrures, lecteurs de cartes et cartes d\'accès. Pour les achats, contactez supports@echoshorts.win.',
+    privacyInquiry: 'Pour toute question relative à la confidentialité, écrivez à supports@echoshorts.win'
   },
   'de-DE': {
     title: 'Hotel Management System',
@@ -286,7 +313,10 @@ const t = {
     privacy4Desc: 'Der Entwickler haftet rechtlich oder finanziell nicht für Datenverlust durch Hardwarefehler, Viren, Ransomware, oder bei fehlender regelmäßiger Sicherung.',
     storeBtn: 'Aus dem Microsoft Store herunterladen',
     footer: '© 2026 echoshorts.win. Alle Rechte vorbehalten.',
-    contact: 'Kontaktiere Uns'
+    contact: 'Kontaktiere Uns',
+    hardwareTitle: 'Hardware-Beschaffung',
+    hardwareDesc: 'Türschlösser, Kartenleser und Hotelkarten. Bei Bedarf an Beschaffung wenden Sie sich bitte an supports@echoshorts.win.',
+    privacyInquiry: 'Bei Fragen zum Datenschutz senden Sie bitte eine E-Mail an supports@echoshorts.win'
   },
   'id-ID': {
     title: 'Sistem Manajemen Hotel',
@@ -313,7 +343,10 @@ const t = {
     privacy4Desc: 'Pengembang tidak menanggung tanggung jawab hukum maupun keuangan untuk kerusakan perangkat keras, virus, ransomware, atau kegagalan untuk melakukan cadangan rutin.',
     storeBtn: 'Unduh dari Microsoft Store',
     footer: '© 2026 echoshorts.win. Hak Cipta Dilindungi Undang-undang.',
-    contact: 'Hubungi Kami'
+    contact: 'Hubungi Kami',
+    hardwareTitle: 'Pengadaan perangkat keras',
+    hardwareDesc: 'Kunci pintu, pembaca kartu, dan kartu akses. Untuk pembelian hubungi supports@echoshorts.win.',
+    privacyInquiry: 'Untuk pertanyaan privasi, email supports@echoshorts.win'
   },
   'vi-VN': {
     title: 'Hệ thống Quản lý Khách sạn',
@@ -340,7 +373,10 @@ const t = {
     privacy4Desc: 'Nhà phát triển từ chối quyền pháp lý/tài chính cho tổn thất dữ liệu do hỏng phần cứng, phần mềm độc hại, vi rút, hoặc không thực hiện sao lưu định kỳ.',
     storeBtn: 'Tải xuống từ Microsoft Store',
     footer: '© 2026 echoshorts.win. Mọi quyền được bảo lưu.',
-    contact: 'Liên hệ Chúng tôi'
+    contact: 'Liên hệ Chúng tôi',
+    hardwareTitle: 'Mua sắm thiết bị phần cứng',
+    hardwareDesc: 'Khóa cửa, đầu đọc thẻ và thẻ từ. Cần mua hàng vui lòng liên hệ supports@echoshorts.win.',
+    privacyInquiry: 'Thắc mắc về quyền riêng tư, vui lòng gửi email tới supports@echoshorts.win'
   },
   'th-TH': {
     title: 'ระบบการจัดการโรงแรม',
@@ -367,7 +403,10 @@ const t = {
     privacy4Desc: 'ผลเสียหายสำหรับข้อผิดพลาดของข้อมูลอันเนื่องมาจากปัญหาด้านฮาร์ดแวร์ ไวรัส ซอฟต์แวร์ประสงค์ร้าย หรือการละเว้นสำรองข้อมูล ผู้พัฒนาจะไม่รับผิดในกรณีข้างต้น',
     storeBtn: 'ดาวน์โหลดจาก Microsoft Store',
     footer: '© 2026 echoshorts.win สงวนลิขสิทธิ์ทั้งหมด',
-    contact: 'ติดต่อเรา'
+    contact: 'ติดต่อเรา',
+    hardwareTitle: 'การจัดซื้ออุปกรณ์ฮาร์ดแวร์',
+    hardwareDesc: 'ล็อกประตู เครื่องอ่านบัตร และบัตรผ่านประตู หากต้องการจัดซื้อ ติดต่อ supports@echoshorts.win',
+    privacyInquiry: 'หากมีข้อซักถามด้านความเป็นส่วนตัว อีเมล supports@echoshorts.win'
   }
 };
 
@@ -472,6 +511,13 @@ const template = (lang, text) => {
       </div>
     </div>
 
+    <div class="privacy" style="margin-bottom: 40px;">
+      <h2>${text.hardwareTitle}</h2>
+      <div class="section">
+        <p>${text.hardwareDesc}</p>
+      </div>
+    </div>
+
     <div class="privacy">
       <h2>${text.privacyTitle}</h2>
       <div class="section">
@@ -499,8 +545,8 @@ const template = (lang, text) => {
   </main>
   <footer style="flex-direction: column;">
     <span>${text.footer}</span>
-    <a href="mailto:mingyvzhong@gmail.com" style="margin-top: 8px;">
-      ${lang.startsWith('zh') ? '如需咨询隐私相关问题，请发送邮件至 mingyvzhong@gmail.com' : 'For privacy-related inquiries, please email mingyvzhong@gmail.com'}
+    <a href="mailto:supports@echoshorts.win" style="margin-top: 8px;">
+      ${text.privacyInquiry}
     </a>
   </footer>
 </body>
