@@ -1,5 +1,7 @@
 ## 2026-05-11
 
+- 移除首页「功能特性 / Features」标题下方重复的 Microsoft Store 下载按钮，仅保留「使用方式 / How to Use」安装 EchoShortsPlayer 区域中的下载入口；更新 `home.html` 并重新运行 `node generate_home.js` 生成全部 `home-*.html`。
+
 - 不再宣传油猴/Tampermonkey 用户脚本：从 `generate_home.js`（简繁中文与隐私段落）、`fullTranslations.js`、`fullTranslations2.js` 中移除相关文案与整段 `tm*` 翻译键；安装说明与「媒体检测」等改为仅提及浏览器扩展与 CLI；扩展优势文案改为相对「简单 DOM 扫描」的对比，避免提及用户脚本。
 - 运行 `node generate_home.js` 重新生成全部 `home-*.html`，使各语言页面与上述翻译一致。
 
