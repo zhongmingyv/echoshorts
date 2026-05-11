@@ -224,12 +224,14 @@ const template = (langCode, text, links) => `<!DOCTYPE html>
     .page-title {
       font-size: 32px;
       margin-bottom: 10px;
+      text-align: center;
     }
 
     .page-desc {
       color: var(--muted);
       margin-bottom: 28px;
       font-size: 15px;
+      text-align: center;
     }
 
     .tool-grid {

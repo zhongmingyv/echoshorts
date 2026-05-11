@@ -32,6 +32,9 @@ const t = {
     kitchenDesc: 'Kitchen staff. Access to kitchen preparation lists and order fulfillment status.',
     passwordWarningTitle: '⚠️ Crucial First Login Notice',
     passwordWarningDesc: 'After the first login of admin, immediately change the passwords for all default accounts and securely remember the admin password!',
+    hardwareTitle: 'Hardware procurement & paid technical support',
+    hardwareDescBefore: 'Printers, smart lockers, and smart light switches. For hardware purchase or paid technical support, please contact ',
+    hardwareDescAfter: '.',
     privacyTitle: 'Privacy Policy & Disclaimer',
     privacy1Title: 'Local Execution & No Internet Required',
     privacy1Desc: 'This software runs entirely locally. It never collects, uploads, or shares your business data (customer info, table orders, financials). Your data is 100% saved on your local hard drive.',
@@ -62,6 +65,9 @@ const t = {
     kitchenDesc: '后厨出餐，仅关注后厨备餐清单和订单的完成状态。',
     passwordWarningTitle: '⚠️ 首次登录极其重要提示',
     passwordWarningDesc: '请在 admin 账号首次登录后，立即修改上述所有默认账号的密码，并务必妥善保管且牢记 admin 的密码！',
+    hardwareTitle: '硬件设备选购及有偿技术支持',
+    hardwareDescBefore: '打印机、智能柜、智能灯开关等硬件如需采购及有偿技术支持，请联系 ',
+    hardwareDescAfter: '。',
     privacyTitle: '隐私政策与免责声明',
     privacy1Title: '纯本地化运行与不依赖网络',
     privacy1Desc: '本软件完全在本地运行，绝不收集、上传或共享您的商业数据（如客户信息、订单、财务数据）。您的数据 100% 存储在本地硬盘上。',
@@ -92,6 +98,9 @@ const t = {
     kitchenDesc: '後廚出餐，僅關注後廚備餐清單和訂單的完成狀態。',
     passwordWarningTitle: '⚠️ 首次登入極其重要提示',
     passwordWarningDesc: '請在 admin 帳號首次登入後，立即修改上述所有預設帳號的密碼，並務必妥善保管且牢記 admin 的密碼！',
+    hardwareTitle: '硬體設備選購及有償技術支援',
+    hardwareDescBefore: '印表機、智慧櫃、智慧燈開關等硬體如需採購及有償技術支援，請聯絡 ',
+    hardwareDescAfter: '。',
     privacyTitle: '隱私政策與免責聲明',
     privacy1Title: '純本地化運行與不依賴網路',
     privacy1Desc: '本軟體完全在本地運行，絕不收集、上傳或共享您的商業數據（如客戶資訊、訂單、財務數據）。您的數據 100% 存儲在本地硬碟上。',
@@ -122,6 +131,9 @@ const t = {
     kitchenDesc: 'キッチンスタッフ。キッチンの準備リストと注文の処理状況にアクセスできます。',
     passwordWarningTitle: '⚠️ 初回ログイン時の重要なお知らせ',
     passwordWarningDesc: 'adminの初回ログイン後、直ちにすべてのデフォルトアカウントのパスワードを変更し、adminのパスワードを安全に保管してください！',
+    hardwareTitle: 'ハードウェアの調達と有償技術サポート',
+    hardwareDescBefore: 'プリンター、スマートロッカー、スマート照明スイッチなど。ご購入や有償技術サポートのご相談は ',
+    hardwareDescAfter: ' までご連絡ください。',
     privacyTitle: 'プライバシーポリシーと免責事項',
     privacy1Title: 'ローカル実行とインターネット不要',
     privacy1Desc: 'このソフトウェアは完全にローカルで実行されます。業務データ（顧客情報、テーブル注文、財務）を収集、アップロード、共有することはありません。データは100％ローカルハードドライブに保存されます。',
@@ -152,6 +164,9 @@ const t = {
     kitchenDesc: '주방 직원. 주방 준비 목록 및 주문 처리 상태에 액세스합니다.',
     passwordWarningTitle: '⚠️ 첫 로그인 시 중요 공지',
     passwordWarningDesc: 'admin 첫 로그인 후 즉시 모든 기본 계정의 비밀번호를 변경하고 admin 비밀번호를 안전하게 기억하세요!',
+    hardwareTitle: '하드웨어 구매 및 유상 기술 지원',
+    hardwareDescBefore: '프린터, 스마트 사물함, 스마트 조명 스위치 등 구매 또는 유상 기술 지원이 필요하시면 ',
+    hardwareDescAfter: ' 로 문의해 주세요.',
     privacyTitle: '개인정보 보호정책 및 면책 조항',
     privacy1Title: '로컬 실행 및 인터넷 불필요',
     privacy1Desc: '이 소프트웨어는 완전히 로컬에서 실행됩니다. 귀하의 비즈니스 데이터(고객 정보, 테이블 주문, 재무)를 절대로 수집, 업로드 또는 공유하지 않습니다. 귀하의 데이터는 100% 로컬 하드 드라이브에 저장됩니다.',
@@ -182,6 +197,9 @@ const t = {
     kitchenDesc: 'Cozinha. Acesso às listas de preparação da cozinha e status de cumprimento de pedidos.',
     passwordWarningTitle: '⚠️ Aviso Crucial no Primeiro Login',
     passwordWarningDesc: 'Após o primeiro login do admin, altere imediatamente as senhas de todas as contas padrão e memorize com segurança a senha do admin!',
+    hardwareTitle: 'Aquisição de hardware e suporte técnico pago',
+    hardwareDescBefore: 'Impressoras, armários inteligentes e interruptores de iluminação inteligentes. Para compras ou suporte técnico pago, entre em contato com ',
+    hardwareDescAfter: '.',
     privacyTitle: 'Política de Privacidade ',
     privacy1Title: 'Execução Local e Sem Internet',
     privacy1Desc: 'Este software roda inteiramente localmente. Nunca coleta, faz upload ou compartilha os dados da sua empresa. Seus dados são salvos 100% no seu disco rígido local.',
@@ -212,6 +230,9 @@ const t = {
     kitchenDesc: 'Кухня. Доступ к спискам подготовки кухни и статусу выполнения заказов.',
     passwordWarningTitle: '⚠️ Важное уведомление при первом входе',
     passwordWarningDesc: 'После первого входа admin немедленно измените пароли для всех стандартных аккаунтов и надежно запомните пароль admin!',
+    hardwareTitle: 'Закупка оборудования и платная техническая поддержка',
+    hardwareDescBefore: 'Принтеры, умные шкафчики и умные выключатели освещения. По вопросам закупки или платной технической поддержки пишите на ',
+    hardwareDescAfter: '.',
     privacyTitle: 'Политика Конфиденциальности',
     privacy1Title: 'Локальное Исполнение',
     privacy1Desc: 'Это программное обеспечение работает полностью локально. Оно никогда не собирает и не передает бизнес-данные.',
@@ -242,6 +263,9 @@ const t = {
     kitchenDesc: 'Cocina. Acceso al estado de los pedidos y listas de preparación.',
     passwordWarningTitle: '⚠️ Aviso del Primer Inicio de Sesión',
     passwordWarningDesc: '¡Después del primer login, cambie todas las contraseñas predeterminadas de inmediato!',
+    hardwareTitle: 'Adquisición de hardware y soporte técnico de pago',
+    hardwareDescBefore: 'Impresoras, taquillas inteligentes e interruptores de luz inteligentes. Para compras o soporte técnico de pago, contacte a ',
+    hardwareDescAfter: '.',
     privacyTitle: 'Política de Privacidad',
     privacy1Title: 'Ejecución Local',
     privacy1Desc: 'Este software funciona completamente local. Nunca recopila sus datos.',
@@ -272,6 +296,9 @@ const t = {
     kitchenDesc: 'Cuisine. Accès à la liste des commandes.',
     passwordWarningTitle: '⚠️ Avis de Première Connexion',
     passwordWarningDesc: 'Veuillez changer les mots de passe par défaut immédiatement après la première connexion !',
+    hardwareTitle: 'Achat de matériel et assistance technique payante',
+    hardwareDescBefore: 'Imprimantes, casiers intelligents et interrupteurs d\'éclairage intelligents. Pour les achats ou l\'assistance technique payante, contactez ',
+    hardwareDescAfter: '.',
     privacyTitle: 'Politique de Confidentialité',
     privacy1Title: 'Exécution Locale',
     privacy1Desc: 'Ce logiciel fonctionne entièrement localement. Aucune donnée n\'est envoyée sur le net.',
@@ -302,6 +329,9 @@ const t = {
     kitchenDesc: 'Küche. Bestellungen und Zubereitungsliste.',
     passwordWarningTitle: '⚠️ Wichtiger erster Login',
     passwordWarningDesc: 'Ändern Sie die Passwörter sofort nach dem ersten Login!',
+    hardwareTitle: 'Hardware-Beschaffung und kostenpflichtiger technischer Support',
+    hardwareDescBefore: 'Drucker, intelligente Schließfächer und intelligente Lichtschalter. Bei Bedarf an Beschaffung oder kostenpflichtigem technischen Support wenden Sie sich bitte an ',
+    hardwareDescAfter: '.',
     privacyTitle: 'Datenschutzerklärung',
     privacy1Title: 'Lokale Ausführung',
     privacy1Desc: 'Die Software läuft lokal. Es werden keine Daten hochgeladen.',
@@ -332,6 +362,9 @@ const t = {
     kitchenDesc: 'Dapur. Akses daftar pesanan hidangan.',
     passwordWarningTitle: '⚠️ Catatan Login Pertama',
     passwordWarningDesc: 'Ubah semua kata sandi secara langsung setelah login pertama!',
+    hardwareTitle: 'Pengadaan perangkat keras dan dukungan teknis berbayar',
+    hardwareDescBefore: 'Printer, lemari pintar, dan sakelar lampu pintar. Untuk pembelian atau dukungan teknis berbayar hubungi ',
+    hardwareDescAfter: '.',
     privacyTitle: 'Kebijakan Privasi',
     privacy1Title: 'Lokal Sepenuhnya',
     privacy1Desc: 'Tidak ada data yang dikumpulkan atau diunggah ke internet.',
@@ -362,6 +395,9 @@ const t = {
     kitchenDesc: 'Bếp. Quản lý danh sách chuẩn bị đồ ăn.',
     passwordWarningTitle: '⚠️ Chú ý Đăng nhập Lần đầu',
     passwordWarningDesc: 'Thay đổi mật khẩu mặc định ngay sau khi đăng nhập!',
+    hardwareTitle: 'Mua sắm thiết bị phần cứng và hỗ trợ kỹ thuật trả phí',
+    hardwareDescBefore: 'Máy in, tủ thông minh và công tắc đèn thông minh. Cần mua hàng hoặc hỗ trợ kỹ thuật trả phí vui lòng liên hệ ',
+    hardwareDescAfter: '.',
     privacyTitle: 'Chính sách Bảo mật',
     privacy1Title: 'Thi hành Cục bộ',
     privacy1Desc: 'Phần mềm hoạt động hoàn toàn offline, 100% dữ liệu ở ổ cứng.',
@@ -392,6 +428,9 @@ const t = {
     kitchenDesc: 'ผู้ช่วยครัว ดูแลออเดอร์ทำอาหาร',
     passwordWarningTitle: '⚠️ โปรดทราบเมื่อล็อกอินครั้งแรก',
     passwordWarningDesc: 'เปลี่ยนรหัสผ่านทันทีหลังล็อกอินแอดมินครั้งแรก!',
+    hardwareTitle: 'การจัดซื้ออุปกรณ์ฮาร์ดแวร์และบริการสนับสนุนด้านเทคนิคแบบมีค่าใช้จ่าย',
+    hardwareDescBefore: 'เครื่องพิมพ์ ตู้ล็อกเกอร์อัจฉริยะ และสวิตช์ไฟอัจฉริยะ หากต้องการจัดซื้อหรือบริการสนับสนุนด้านเทคนิคแบบมีค่าใช้จ่าย ติดต่อ ',
+    hardwareDescAfter: '',
     privacyTitle: 'นโยบายความเป็นส่วนตัว',
     privacy1Title: 'การทำงานโลคัลทั้งหมด',
     privacy1Desc: 'ระบบนี้ไม่มีการส่งข้อมูลใดๆ ไปยังเซิร์ฟเวอร์ ข้อมูล 100% อยู่ที่ฮาร์ดดิสก์',
@@ -449,6 +488,8 @@ const template = (lang, text) => {
     .section h3 { font-size: 12px; font-weight: 600; color: #4ade80; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 7px; }
     .section p { font-size: 13px; color: #888; line-height: 1.75; }
     .section p { margin-top: 6px; }
+    .section a { color: #4ade80; text-decoration: none; }
+    .section a:hover { text-decoration: underline; }
     .section ul { padding-left: 20px; margin-top: 6px; font-size: 13px; color: #888; line-height: 1.75;}
     .section li { margin-bottom: 4px; }
 
@@ -522,6 +563,13 @@ ${makeOptions(lang)}
       <div>
         <h4>${text.passwordWarningTitle}</h4>
         <p>${text.passwordWarningDesc}</p>
+      </div>
+    </div>
+
+    <div class="privacy" style="margin-bottom: 40px;">
+      <h2>${text.hardwareTitle}</h2>
+      <div class="section">
+        <p>${text.hardwareDescBefore}<a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a>${text.hardwareDescAfter}</p>
       </div>
     </div>
 

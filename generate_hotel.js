@@ -45,7 +45,7 @@ const t = {
     footer: '© 2026 echoshorts.win. All rights reserved.',
     contact: 'Contact Us',
     hardwareTitle: 'Hardware procurement & paid technical support',
-    hardwareDescBefore: 'Door locks, card readers, and key cards. For hardware purchase or paid technical support, please contact ',
+    hardwareDescBefore: 'Door locks, card readers, key cards, and printers. For hardware purchase or paid technical support, please contact ',
     hardwareDescAfter: '.',
     privacyInquiry: 'For privacy-related inquiries, please email supports@echoshorts.win'
   },
@@ -76,7 +76,7 @@ const t = {
     footer: '© 2026 echoshorts.win. 保留所有权利.',
     contact: '联系我们',
     hardwareTitle: '硬件设备选购及有偿技术支持',
-    hardwareDescBefore: '门锁、读卡器、门卡等硬件如需采购及有偿技术支持，请联系 ',
+    hardwareDescBefore: '门锁、读卡器、门卡、打印机等硬件如需采购及有偿技术支持，请联系 ',
     hardwareDescAfter: '。',
     privacyInquiry: '如需咨询隐私相关问题，请发送邮件至 supports@echoshorts.win'
   },
@@ -107,7 +107,7 @@ const t = {
     footer: '© 2026 echoshorts.win. 保留所有權利.',
     contact: '聯繫我們',
     hardwareTitle: '硬體設備選購及有償技術支援',
-    hardwareDescBefore: '門鎖、讀卡器、門卡等硬體如需採購及有償技術支援，請聯絡 ',
+    hardwareDescBefore: '門鎖、讀卡器、門卡、印表機等硬體如需採購及有償技術支援，請聯絡 ',
     hardwareDescAfter: '。',
     privacyInquiry: '如需諮詢隱私相關問題，請發送郵件至 supports@echoshorts.win'
   },
@@ -138,7 +138,7 @@ const t = {
     footer: '© 2026 echoshorts.win. 全著作権所有.',
     contact: 'お問い合わせ',
     hardwareTitle: 'ハードウェアの調達と有償技術サポート',
-    hardwareDescBefore: 'ドアロック、カードリーダー、キーカードなど。ご購入や有償技術サポートのご相談は ',
+    hardwareDescBefore: 'ドアロック、カードリーダー、キーカード、プリンターなど。ご購入や有償技術サポートのご相談は ',
     hardwareDescAfter: ' までご連絡ください。',
     privacyInquiry: 'プライバシーに関するお問い合わせは supports@echoshorts.win までメールでご連絡ください。'
   },
@@ -169,7 +169,7 @@ const t = {
     footer: '© 2026 echoshorts.win. 판권 소유.',
     contact: '문의하기',
     hardwareTitle: '하드웨어 구매 및 유상 기술 지원',
-    hardwareDescBefore: '도어락, 카드 리더기, 키 카드 등 구매 또는 유상 기술 지원이 필요하시면 ',
+    hardwareDescBefore: '도어락, 카드 리더기, 키 카드, 프린터 등 구매 또는 유상 기술 지원이 필요하시면 ',
     hardwareDescAfter: ' 로 문의해 주세요.',
     privacyInquiry: '개인정보 관련 문의는 supports@echoshorts.win 로 이메일 주세요.'
   },
@@ -200,7 +200,7 @@ const t = {
     footer: '© 2026 echoshorts.win. Todos os direitos reservados.',
     contact: 'Contate-nos',
     hardwareTitle: 'Aquisição de hardware e suporte técnico pago',
-    hardwareDescBefore: 'Fechaduras, leitores de cartão e cartões. Para compras ou suporte técnico pago, entre em contato com ',
+    hardwareDescBefore: 'Fechaduras, leitores de cartão, cartões e impressoras. Para compras ou suporte técnico pago, entre em contato com ',
     hardwareDescAfter: '.',
     privacyInquiry: 'Para dúvidas sobre privacidade, envie e-mail para supports@echoshorts.win'
   },
@@ -231,7 +231,7 @@ const t = {
     footer: '© 2026 echoshorts.win. Все права защищены.',
     contact: 'Связаться с нами',
     hardwareTitle: 'Закупка оборудования и платная техническая поддержка',
-    hardwareDescBefore: 'Замки, считыватели карт и карты доступа. По вопросам закупки или платной технической поддержки пишите на ',
+    hardwareDescBefore: 'Замки, считыватели карт, карты доступа и принтеры. По вопросам закупки или платной технической поддержки пишите на ',
     hardwareDescAfter: '.',
     privacyInquiry: 'По вопросам конфиденциальности пишите на supports@echoshorts.win'
   },
@@ -262,7 +262,7 @@ const t = {
     footer: '© 2026 echoshorts.win. Todos los derechos reservados.',
     contact: 'Contáctenos',
     hardwareTitle: 'Adquisición de hardware y soporte técnico de pago',
-    hardwareDescBefore: 'Cerraduras, lectores de tarjetas y tarjetas de acceso. Para compras o soporte técnico de pago, contacte a ',
+    hardwareDescBefore: 'Cerraduras, lectores de tarjetas, tarjetas de acceso e impresoras. Para compras o soporte técnico de pago, contacte a ',
     hardwareDescAfter: '.',
     privacyInquiry: 'Para consultas sobre privacidad, escriba a supports@echoshorts.win'
   },
@@ -293,7 +293,7 @@ const t = {
     footer: '© 2026 echoshorts.win. Tous droits réservés.',
     contact: 'Nous Contacter',
     hardwareTitle: 'Achat de matériel et assistance technique payante',
-    hardwareDescBefore: 'Serrures, lecteurs de cartes et cartes d\'accès. Pour les achats ou l\'assistance technique payante, contactez ',
+    hardwareDescBefore: 'Serrures, lecteurs de cartes, cartes d\'accès et imprimantes. Pour les achats ou l\'assistance technique payante, contactez ',
     hardwareDescAfter: '.',
     privacyInquiry: 'Pour toute question relative à la confidentialité, écrivez à supports@echoshorts.win'
   },
@@ -324,7 +324,7 @@ const t = {
     footer: '© 2026 echoshorts.win. Alle Rechte vorbehalten.',
     contact: 'Kontaktiere Uns',
     hardwareTitle: 'Hardware-Beschaffung und kostenpflichtiger technischer Support',
-    hardwareDescBefore: 'Türschlösser, Kartenleser und Hotelkarten. Bei Bedarf an Beschaffung oder kostenpflichtigem technischen Support wenden Sie sich bitte an ',
+    hardwareDescBefore: 'Türschlösser, Kartenleser, Hotelkarten und Drucker. Bei Bedarf an Beschaffung oder kostenpflichtigem technischen Support wenden Sie sich bitte an ',
     hardwareDescAfter: '.',
     privacyInquiry: 'Bei Fragen zum Datenschutz senden Sie bitte eine E-Mail an supports@echoshorts.win'
   },
@@ -355,7 +355,7 @@ const t = {
     footer: '© 2026 echoshorts.win. Hak Cipta Dilindungi Undang-undang.',
     contact: 'Hubungi Kami',
     hardwareTitle: 'Pengadaan perangkat keras dan dukungan teknis berbayar',
-    hardwareDescBefore: 'Kunci pintu, pembaca kartu, dan kartu akses. Untuk pembelian atau dukungan teknis berbayar hubungi ',
+    hardwareDescBefore: 'Kunci pintu, pembaca kartu, kartu akses, dan printer. Untuk pembelian atau dukungan teknis berbayar hubungi ',
     hardwareDescAfter: '.',
     privacyInquiry: 'Untuk pertanyaan privasi, email supports@echoshorts.win'
   },
@@ -386,7 +386,7 @@ const t = {
     footer: '© 2026 echoshorts.win. Mọi quyền được bảo lưu.',
     contact: 'Liên hệ Chúng tôi',
     hardwareTitle: 'Mua sắm thiết bị phần cứng và hỗ trợ kỹ thuật trả phí',
-    hardwareDescBefore: 'Khóa cửa, đầu đọc thẻ và thẻ từ. Cần mua hàng hoặc hỗ trợ kỹ thuật trả phí vui lòng liên hệ ',
+    hardwareDescBefore: 'Khóa cửa, đầu đọc thẻ, thẻ từ và máy in. Cần mua hàng hoặc hỗ trợ kỹ thuật trả phí vui lòng liên hệ ',
     hardwareDescAfter: '.',
     privacyInquiry: 'Thắc mắc về quyền riêng tư, vui lòng gửi email tới supports@echoshorts.win'
   },
@@ -417,7 +417,7 @@ const t = {
     footer: '© 2026 echoshorts.win สงวนลิขสิทธิ์ทั้งหมด',
     contact: 'ติดต่อเรา',
     hardwareTitle: 'การจัดซื้ออุปกรณ์ฮาร์ดแวร์และบริการสนับสนุนด้านเทคนิคแบบมีค่าใช้จ่าย',
-    hardwareDescBefore: 'ล็อกประตู เครื่องอ่านบัตร และบัตรผ่านประตู หากต้องการจัดซื้อหรือบริการสนับสนุนด้านเทคนิคแบบมีค่าใช้จ่าย ติดต่อ ',
+    hardwareDescBefore: 'ล็อกประตู เครื่องอ่านบัตร บัตรผ่านประตู และเครื่องพิมพ์ หากต้องการจัดซื้อหรือบริการสนับสนุนด้านเทคนิคแบบมีค่าใช้จ่าย ติดต่อ ',
     hardwareDescAfter: '',
     privacyInquiry: 'หากมีข้อซักถามด้านความเป็นส่วนตัว อีเมล supports@echoshorts.win'
   }

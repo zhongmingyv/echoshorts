@@ -1,5 +1,7 @@
 ## 2026-05-11
 
+- `home.html` 与各 `home-*.html`：在「隐私政策」标题上方增加技术支持说明段落（`.privacy-support-note`），含 `mailto:supports@echoshorts.win` 链接；英文模板为 “For technical support, please contact …”；`generate_home.js` 中 `privacySupportByLang` 为各语言提供对应译文（简中「如需技术支持，请联系 …。」等），`applyPrivacySupportLine` 在 `buildTranslated` / `buildOther` 末尾统一替换；已执行 `node generate_home.js` 更新全部首页。
+
 - 台球页 `generate_billiard.js`：在隐私政策前增加「硬件设备选购及有偿技术支持」区块（简中：打印机、智能柜、智能灯开关等；其余语言对应译文；`mailto:supports@echoshorts.win`）；补充 `.section a` 样式；已执行 `node generate_billiard.js` 更新全部 `billiard*.html`。
 - 酒店页 `generate_hotel.js`：硬件描述在门锁、读卡器、门卡基础上增加打印机（13 种语言同步）；已执行 `node generate_hotel.js` 更新全部 `hotel*.html`。
 

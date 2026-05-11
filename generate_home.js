@@ -306,6 +306,8 @@ function buildTranslated(key, data) {
     html = html.replace('>Contact Us<', `>${t.contact}<`);
   }
 
+  html = applyPrivacySupportLine(html, key);
+
   fs.writeFileSync(path.join(__dirname, file), html, 'utf8');
 }
 
@@ -346,6 +348,54 @@ const storeBtnTranslations = {
   'km': 'ទាញយកពី Microsoft Store',
   'it': 'Scarica dal Microsoft Store',
 };
+
+/** Same markup as home.html; replaced per locale before the privacy section. */
+const PRIVACY_SUPPORT_HTML_EN = '<p class="privacy-support-note">For technical support, please contact <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a>.</p>';
+
+const privacySupportByLang = {
+  zh: '<p class="privacy-support-note">如需技术支持，请联系 <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a>。</p>',
+  cht: '<p class="privacy-support-note">如需技術支援，請聯絡 <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a>。</p>',
+  ja: '<p class="privacy-support-note">テクニカルサポートが必要な場合は、<a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a> までご連絡ください。</p>',
+  ko: '<p class="privacy-support-note">기술 지원이 필요하시면 <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a> 으로 문의해 주세요.</p>',
+  es: '<p class="privacy-support-note">Para soporte técnico, contacte a <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a>.</p>',
+  fr: '<p class="privacy-support-note">Pour une assistance technique, contactez <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a>.</p>',
+  de: '<p class="privacy-support-note">Für technischen Support wenden Sie sich bitte an <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a>.</p>',
+  ru: '<p class="privacy-support-note">По вопросам технической поддержки пишите на <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a>.</p>',
+  pt: '<p class="privacy-support-note">Para suporte técnico, contacte <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a>.</p>',
+  ar: '<p class="privacy-support-note">للدعم الفني، يرجى التواصل مع <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a>.</p>',
+  hi: '<p class="privacy-support-note">तकनीकी सहायता के लिए कृपया <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a> से संपर्क करें।</p>',
+  th: '<p class="privacy-support-note">หากต้องการความช่วยเหลือทางเทคนิค กรุณาติดต่อ <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a></p>',
+  vi: '<p class="privacy-support-note">Để được hỗ trợ kỹ thuật, vui lòng liên hệ <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a>.</p>',
+  ms: '<p class="privacy-support-note">Untuk sokongan teknikal, sila hubungi <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a>.</p>',
+  id: '<p class="privacy-support-note">Untuk dukungan teknis, hubungi <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a>.</p>',
+  tr: '<p class="privacy-support-note">Teknik destek için lütfen <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a> adresine yazın.</p>',
+  pl: '<p class="privacy-support-note">W sprawie wsparcia technicznego napisz na <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a>.</p>',
+  nl: '<p class="privacy-support-note">Voor technische ondersteuning kunt u contact opnemen met <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a>.</p>',
+  sv: '<p class="privacy-support-note">För teknisk support, kontakta <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a>.</p>',
+  da: '<p class="privacy-support-note">For teknisk support, kontakt <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a>.</p>',
+  nb: '<p class="privacy-support-note">For teknisk støtte, kontakt <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a>.</p>',
+  fi: '<p class="privacy-support-note">Tekniseen tukeen: <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a>.</p>',
+  cs: '<p class="privacy-support-note">Technickou podporu získáte na <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a>.</p>',
+  hu: '<p class="privacy-support-note">Technikai támogatásért írjon a következő címre: <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a>.</p>',
+  ro: '<p class="privacy-support-note">Pentru suport tehnic, contactați <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a>.</p>',
+  el: '<p class="privacy-support-note">Για τεχνική υποστήριξη, επικοινωνήστε με <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a>.</p>',
+  he: '<p class="privacy-support-note">לתמיכה טכנית נא לפנות ל-<a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a>.</p>',
+  uk: '<p class="privacy-support-note">Щодо технічної підтримки звертайтеся на <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a>.</p>',
+  bn: '<p class="privacy-support-note">প্রযুক্তিগত সহায়তার জন্য <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a> এ যোগাযোগ করুন।</p>',
+  ta: '<p class="privacy-support-note">தொழில்நுட்ப ஆதரவுக்கு <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a> ஐ தொடர்பு கொள்ளவும்.</p>',
+  te: '<p class="privacy-support-note">సాంకేతిక మద్దతు కోసం దయచేసి <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a> ను సంప్రదించండి.</p>',
+  ur: '<p class="privacy-support-note">تکنیکی معاونت کے لیے براہ کرم <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a> سے رابطہ کریں۔</p>',
+  fa: '<p class="privacy-support-note">برای پشتیبانی فنی با <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a> تماس بگیرید.</p>',
+  sw: '<p class="privacy-support-note">Kwa msaada wa kiufundi, wasiliana na <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a>.</p>',
+  km: '<p class="privacy-support-note">សម្រាប់ការគាំទ្របច្ចេកទេស សូមទាក់ទង <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a>។</p>',
+  it: '<p class="privacy-support-note">Per supporto tecnico, contattare <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a>.</p>',
+};
+
+function applyPrivacySupportLine(html, langKey) {
+  const line = privacySupportByLang[langKey] || PRIVACY_SUPPORT_HTML_EN;
+  if (!html.includes(PRIVACY_SUPPORT_HTML_EN)) return html;
+  return html.replace(PRIVACY_SUPPORT_HTML_EN, line);
+}
 
 // --- Load full translations for remaining languages ---
 const _ft1 = require('./fullTranslations.js');
@@ -428,6 +478,8 @@ function buildOther(key, data) {
   if (storeLabel && html.includes('>Download from Microsoft Store<')) {
     html = html.replace('>Download from Microsoft Store<', `>${storeLabel}<`);
   }
+
+  html = applyPrivacySupportLine(html, key);
 
   fs.writeFileSync(path.join(__dirname, file), html, 'utf8');
 }
