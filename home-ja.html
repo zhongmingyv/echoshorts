@@ -314,60 +314,60 @@ resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --tra
     <p class="privacy-support-note">テクニカルサポートが必要な場合は、<a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a> までご連絡ください。</p>
 
     <!-- ============ PRIVACY & DISCLAIMER ============ -->
-    <h2 class="section-title"><span class="num">#3</span> Privacy Policy &amp; Disclaimer</h2>
+    <h2 class="section-title"><span class="num">#3</span> プライバシーポリシーと免責事項</h2>
     <div class="privacy">
 
       <div class="priv-section">
-        <h3>Local Data Processing</h3>
-        <p>All core features of EchoShortsPlayer &mdash; including speech recognition, translation, and media downloading &mdash; run entirely on your local device, powered by a local backend server (127.0.0.1:18632).</p>
-        <p>We do not collect, store, transmit, or analyze any user data, including but not limited to: video content you watch, recognized subtitle text, translation results, browsing history, or any personal information.</p>
+        <h3>ローカルでのデータ処理</h3>
+        <p>EchoShortsPlayer の主要機能（音声認識、翻訳、メディアのダウンロードを含む）はすべて、ローカルバックエンド（127.0.0.1:18632）によって、お使いのデバイス上だけで動作します。</p>
+        <p>視聴した動画、認識された字幕、翻訳結果、閲覧履歴、個人情報など、ユーザーデータを収集・保存・送信・分析することはありません。</p>
       </div>
 
       <div class="priv-section">
-        <h3>No Network Data Transmission</h3>
-        <p>This application does not send any user data to external servers during normal use. All audio processing and text translation are completed locally. AI models are downloaded from public sources (HuggingFace) on first use and can run fully offline thereafter.</p>
-        <p>The browser extension communicates only with the local backend at <code>localhost:18632</code>. No data is transmitted to any remote server operated by the developers.</p>
+        <h3>ネットワークへのデータ送信なし</h3>
+        <p>通常利用時、ユーザーデータを外部サーバーに送信することはありません。音声処理とテキスト翻訳はすべてローカルで完了します。AI モデルは初回利用時に公開ソース（HuggingFace）からダウンロードされ、その後は完全オフラインで利用できます。</p>
+        <p>ブラウザ拡張機能は <code>localhost:18632</code> のローカルバックエンドとのみ通信します。開発者が運用するリモートサーバーにはデータを送信しません。</p>
       </div>
 
       <div class="priv-section">
-        <h3>No Ads, No Tracking, No Recommendations</h3>
-        <p>This application contains no advertising systems, user behavior tracking code, analytics, or data recommendation mechanisms. We do not share user data with any third parties, nor do we create profiles or push content based on user behavior.</p>
+        <h3>広告・トラッキング・レコメンドなし</h3>
+        <p>本アプリに広告、行動トラッキング、アナリティクス、推薦アルゴリズムは含まれません。第三者とユーザーデータを共有せず、行動プロファイルの作成やそれに基づくコンテンツの配信も行いません。</p>
       </div>
 
       <div class="priv-section">
-        <h3>Safe Harbor &amp; User Responsibility</h3>
-        <p>EchoShortsPlayer is a general-purpose technical tool designed solely to help users understand video content. Under the Safe Harbor Doctrine, the developers and publishers of this application bear no copyright infringement or other legal liability for any content accessed, translated, or processed by users.</p>
-        <p>Users must ensure their use complies with local laws and regulations, as well as the terms of service of the platforms they access. All legal liability arising from accessing copyrighted content, violating platform rules, or engaging in any illegal activity using this application rests solely with the user.</p>
-        <p>This application makes no judgment or guarantee regarding the legality of content accessed by users, nor does it accept responsibility for any direct or indirect losses arising from its use.</p>
+        <h3>セーフハーバーとユーザーの責任</h3>
+        <p>EchoShortsPlayer は動画内容の理解を支援する汎用技術ツールです。セーフハーバーに基づき、ユーザーがアクセス・翻訳・処理したコンテンツについて、開発者および配布者は著作権侵害その他の法的責任を負いません。</p>
+        <p>利用は各国の法令および利用するプラットフォームの利用規約に適合させる必要があります。著作権で保護されたコンテンツへのアクセス、規約違反、違法行為に起因する法的責任はすべてユーザーに帰属します。</p>
+        <p>本アプリはユーザーがアクセスするコンテンツの合法性を判断・保証せず、その利用に起因する直接的・間接的損害について責任を負いません。</p>
       </div>
 
       <div class="priv-section">
-        <h3>Intended Use</h3>
-        <p>This application is designed as an assistive tool intended for personal local use by individuals with hearing impairments, language learners, or those who need to understand video content in foreign languages. Any other use is the sole responsibility of the user.</p>
+        <h3>想定される利用</h3>
+        <p>本アプリは、聴覚に障害のある方、語学学習者、外国語の動画を理解する必要がある個人の、個人的かつローカルな利用を目的とした補助ツールとして設計されています。それ以外の利用については、すべてユーザーの責任となります。</p>
       </div>
 
       <div class="priv-section">
-        <h3>Technical Limitations</h3>
-        <p>This application supports analysis of publicly accessible video content not protected by Digital Rights Management (DRM). Due to restrictions imposed by copyright protection protocols (such as Widevine, PlayReady, etc.), audio streams from DRM-protected content may not be extractable, preventing subtitle generation.</p>
-        <p>For MP4 files that are not "fast-start" encoded (moov atom at end of file), the application requires a full download before translation can begin. Fast-start MP4 files support streaming translation while downloading.</p>
+        <h3>技術的制限</h3>
+        <p>デジタル著作権管理（DRM）で保護されていない、公開的にアクセス可能な動画の分析をサポートします。Widevine や PlayReady などの保護により、DRM 付きコンテンツの音声ストリームは取得できず、字幕生成ができない場合があります。</p>
+        <p>「fast-start」でない MP4（moov がファイル末尾にある場合）は、翻訳開始前にファイル全体のダウンロードが必要です。fast-start の MP4 はダウンロードしながらストリーミング翻訳できます。</p>
       </div>
 
       <div class="priv-section">
-        <h3>Disclaimer</h3>
-        <p>This application is provided "as is" without any express or implied warranties. The developer does not guarantee that this application will function correctly in all environments, nor accepts responsibility for any losses, data loss, or device issues caused by its use. Using this application constitutes acceptance of all the above terms.</p>
-        <p>Subtitles and translations are generated automatically by machine and are for reference only. The developer makes no warranties regarding the accuracy, completeness, or suitability of machine-translated content, and accepts no responsibility for any consequences arising from reliance on such translations.</p>
+        <h3>免責事項</h3>
+        <p>本アプリは現状有姿で提供され、明示黙示を問わずいかなる保証もありません。すべての環境で正常に動作することを保証せず、利用に起因する損失、データ消失、端末の不具合について責任を負いません。利用により上記すべてに同意したものとみなされます。</p>
+        <p>字幕と翻訳は機械により自動生成され、参考情報にすぎません。正確性・完全性・適合性について保証せず、それらへの依存に起因する結果について責任を負いません。</p>
       </div>
 
       <div class="priv-section">
-        <h3>Policy Updates</h3>
-        <p>This privacy policy may be updated with new versions. Significant changes will be communicated through the application's update log. Continued use of this application constitutes acceptance of the latest version of the privacy policy.</p>
+        <h3>ポリシーの更新</h3>
+        <p>本プライバシーポリシーは新版で更新されることがあります。重要な変更はアプリの更新ログでお知らせします。継続利用は最新版のプライバシーポリシーへの同意を意味します。</p>
       </div>
     </div>
   </main>
 
   <footer>
-    <span>&copy; 2025 EchoShortsPlayer. All rights reserved.</span>
-    <a href="mailto:supports@echoshorts.win">Contact Us</a>
+    <span>&copy; 2025 EchoShortsPlayer. 無断転載を禁じます。</span>
+    <a href="mailto:supports@echoshorts.win">お問い合わせ</a>
   </footer>
 
 </body>
