@@ -5,6 +5,7 @@
  */
 const fs = require('fs');
 const path = require('path');
+const extensionStepTranslations = require('./extensionStepTranslations.js');
 
 const template = fs.readFileSync(path.join(__dirname, 'home.html'), 'utf8');
 
@@ -24,31 +25,16 @@ const langs = {
       // Feature cards
       f1t: '语音识别', f1p: '基于 OpenAI Whisper。支持 99 种语言，自动语言检测。多种模型大小可选，从 tiny（快速）到 large-v3（最高精度）。',
       f2t: 'AI 翻译', f2p: '多种翻译引擎：', f2l1: 'Opus-MT — 快速，9 种语言', f2l2: 'NLLB — 32+ 种语言，任意互译', f2l3: 'Qwen — 最高质量，CJK 优化',
-      f3t: '媒体检测', f3p: '自动检测网页上的 m3u8/HLS 流和 MP4 视频链接。通过浏览器扩展或油猴脚本一键下载或翻译。',
+      f3t: '媒体检测', f3p: '自动检测网页上的 m3u8/HLS 流和 MP4 视频链接。通过浏览器扩展一键下载或翻译。',
       f4t: '实时字幕', f4p: '流式翻译模式：字幕在观看时实时显示。无需等待整个视频下载完成。SRT 字幕文件保存在本地供后续使用。',
       f5t: '100% 离线 & 隐私', f5p: '所有处理都在本地完成。不向外部服务器发送任何数据。无需账号、无跟踪、无广告。您的内容留在您的设备上。',
       f6t: '硬件要求', f6p: 'NVIDIA 显卡，8 GB+ 显存，并安装 CUDA 驱动。支持 GPU 加速的语音识别和翻译，获得最佳性能。',
       // Install section
       instTitle: '&#128229; 安装 EchoShortsPlayer', instTag: '必需', instSub: '桌面应用——所有功能的核心引擎',
-      instP1: 'EchoShortsPlayer 是在本地运行 AI 模型的桌面应用。浏览器扩展、油猴脚本和 CLI 都依赖它。请先安装后再使用下列任何方式。',
+      instP1: 'EchoShortsPlayer 是在本地运行 AI 模型的桌面应用。浏览器扩展和 CLI 都依赖它。请先安装后再使用下列任何方式。',
       instDlBtn: '下载 EchoShortsPlayer',
       instReq: '<strong>系统要求：</strong>Windows 10/11，NVIDIA 显卡 8 GB+ 显存，已安装 CUDA 驱动。',
-      instAfter: '安装后启动应用。它会在 <code>localhost:18632</code> 启动本地后端服务器，扩展、油猴脚本和 CLI 都通过它通信。',
-      // Tampermonkey
-      tmTitle: '&#129668; 篡改猴脚本', tmTag: '最简单', tmSub: '任何浏览器的零安装媒体检测',
-      tmP1: '篡改猴脚本在每个网页中注入一个浮动面板，自动检测 m3u8 流和 MP4 视频链接。检测到的媒体显示在列表中，带有 <strong>下载</strong> 和 <strong>翻译</strong> 按钮。',
-      tmStep1: '<strong>步骤 1：</strong>安装篡改猴浏览器扩展：',
-      tmSite: '篡改猴官网', tmChrome: 'Chrome 商店',
-      tmStep2: '<strong>步骤 2：</strong>安装 EchoShortsPlayer 脚本：',
-      tmInstall: '安装脚本',
-      tmStep3: '<strong>步骤 3：</strong>确保 EchoShortsPlayer 桌面应用正在运行（脚本将检测到的 URL 发送到本地后端 <code>localhost:18632</code>）。',
-      tmStep4: '<strong>步骤 4：</strong>访问任何视频页面。浮动面板（右下角）会自动检测媒体。点击 <strong>下载</strong> 或 <strong>翻译</strong>。',
-      tmAdvTitle: '为什么使用油猴脚本？',
-      tmAdv1: '适用于所有支持 Tampermonkey 的浏览器（Chrome、Firefox、Edge、Safari、Opera）',
-      tmAdv2: '无需安装 Chrome 扩展——适合扩展受限的环境',
-      tmAdv3: '轻量：单个文件，易于检查 and 修改',
-      tmAdv4: '通过 Tampermonkey 内置机制自动更新',
-      tmAdv5: '同时检测 m3u8/HLS 流和 MP4 直链',
+      instAfter: '安装后启动应用。它会在 <code>localhost:18632</code> 启动本地后端服务器，扩展和 CLI 都通过它通信。',
       // Extension
       extTitle: '&#128268; Chrome 扩展', extTag: '推荐', extSub: '深度网络级媒体拦截',
       extP1: 'Chrome 扩展使用 <code>webRequest</code> API 在浏览器层面拦截所有网络请求，检测 m3u8/HLS 流、MP4 文件和其他媒体格式。还会扫描页面 DOM 中的视频元素 and 下载链接。',
@@ -69,7 +55,7 @@ const langs = {
       extAdv2: '自动质量选择：按视频 ID 分组并选择最佳质量',
       extAdv3: 'Referer 头注入，播放需要认证的流',
       extAdv4: '徽章计数器一目了然显示每个标签页检测到的媒体数量',
-      extAdv5: '比油猴脚本更深度的检测：hook fetch、XHR、MediaSource 和响应体扫描',
+      extAdv5: '更深度的检测：可 hook fetch、XHR、MediaSource 并扫描响应体',
       // CLI
       cliTitle: '&#128187; 命令行工具', cliTag: '高级用户', cliSub: '自动化、批处理和脚本集成',
       cliP1: 'CLI 提供从终端直接访问所有下载 and 翻译功能。专为需要批量处理视频、自动化工作流或与其他工具集成的高级用户设计。',
@@ -94,9 +80,9 @@ const langs = {
       cliAdv5: '支持串行（省内存）和并行（快速）处理模式',
       // Privacy
       pr1t: '本地数据处理', pr1p1: 'EchoShortsPlayer 的所有核心功能——包括语音识别、翻译和媒体下载——完全在您的本地设备上运行，由本地后端服务器（127.0.0.1:18632）驱动。', pr1p2: '我们不收集、存储、传输或分析任何用户数据，包括但不限于：您观看的视频内容、识别的字幕文本、翻译结果、浏览历史或任何个人信息。',
-      pr2t: '无网络数据传输', pr2p1: '本应用在正常使用期间不会向外部服务器发送任何用户数据。所有音频处理和文本翻译都在本地完成。AI 模型首次使用时从公开来源（HuggingFace）下载，此后可完全离线运行。', pr2p2: '浏览器扩展和油猴脚本仅与本地后端 <code>localhost:18632</code> 通信。不向开发者运营的任何远程服务器传输数据。',
+      pr2t: '无网络数据传输', pr2p1: '本应用在正常使用期间不会向外部服务器发送任何用户数据。所有音频处理和文本翻译都在本地完成。AI 模型首次使用时从公开来源（HuggingFace）下载，此后可完全离线运行。', pr2p2: '浏览器扩展仅与本地后端 <code>localhost:18632</code> 通信。不向开发者运营的任何远程服务器传输数据。',
       pr3t: '无广告、无跟踪、无推荐', pr3p: '本应用不包含任何广告系统、用户行为跟踪代码、分析工具或数据推荐机制。我们不与任何第三方共享用户数据，也不根据用户行为创建画像或推送内容。',
-      pr4t: '开源透明', pr4p: '应用的源代码，包括 Chrome 扩展、篡改猴脚本和后端管道，完全开放供检查。鼓励用户审查代码以验证本政策中的隐私和安全声明。',
+      pr4t: '开源透明', pr4p: '应用的源代码，包括 Chrome 扩展和后端管道，完全开放供检查。鼓励用户审查代码以验证本政策中的隐私和安全声明。',
       pr5t: '安全港与用户责任', pr5p1: 'EchoShortsPlayer 是一款通用技术工具，仅旨在帮助用户理解视频内容。根据安全港原则，本应用的开发者和发布者对用户访问、翻译或处理的任何内容不承担版权侵权或其他法律责任。', pr5p2: '用户必须确保其使用符合当地法律法规以及所访问平台的服务条款。因访问受版权保护的内容、违反平台规则或使用本应用从事任何非法活动而产生的所有法律责任由用户自行承担。', pr5p3: '本应用不对用户访问的内容的合法性做出判断或保证，也不承担因使用本应用而产生的任何直接或间接损失。',
       pr6t: '预期用途', pr6p: '本应用被定义为辅助工具，仅供听力障碍人士、语言学习者或需要理解外语视频内容的个人本地使用。任何其他用途由用户自行负责。',
       pr7t: '技术限制', pr7p1: '本应用支持分析未受数字版权管理（DRM）保护的公开可访问视频内容。由于版权保护协议（如 Widevine、PlayReady 等）의 제한으로 DRM 보호 내용의 오디오 스트림은 추출할 수 없어 자막 생성이 불가능할 수 있습니다.', pr7p2: '对于非"fast-start"编码的 MP4 文件（moov 原子在文件尾部），应用需要完整下载后才能开始翻译。Fast-start MP4 文件支持边下载边翻译。',
@@ -117,25 +103,15 @@ const langs = {
       storeBtn: '從 Microsoft Store 下載',
       f1t: '語音辨識', f1p: '基於 OpenAI Whisper。支援 99 種語言，自動語言偵測。多種模型大小可選，從 tiny（快速）到 large-v3（最高精度）。',
       f2t: 'AI 翻譯', f2p: '多種翻譯引擎：', f2l1: 'Opus-MT — 快速，9 種語言', f2l2: 'NLLB — 32+ 種語言，任意互譯', f2l3: 'Qwen — 最高品質，CJK 最佳化',
-      f3t: '媒體偵測', f3p: '自動偵測網頁上的 m3u8/HLS 串流和 MP4 影片連結。透過瀏覽器擴充功能或油猴腳本一鍵下載或翻譯。',
+      f3t: '媒體偵測', f3p: '自動偵測網頁上的 m3u8/HLS 串流和 MP4 影片連結。透過瀏覽器擴充功能一鍵下載或翻譯。',
       f4t: '即時字幕', f4p: '串流翻譯模式：字幕在觀看時即時顯示。無需等待整部影片下載完成。SRT 字幕檔案儲存在本機供後續使用。',
       f5t: '100% 離線 & 隱私', f5p: '所有處理都在本機完成。不向外部伺服器傳送任何資料。無需帳號、無追蹤、無廣告。您的內容留在您的裝置上。',
       f6t: '硬體需求', f6p: 'NVIDIA 顯示卡，8 GB+ 視訊記憶體，並安裝 CUDA 驅動程式。支援 GPU 加速的語音辨識和翻譯，獲得最佳效能。',
       instTitle: '&#128229; 安裝 EchoShortsPlayer', instTag: '必需', instSub: '桌面應用——所有功能的核心引擎',
-      instP1: 'EchoShortsPlayer 是在本機執行 AI 模型的桌面應用。瀏覽器擴充功能、油猴腳本和 CLI 都依賴它。請先安裝後再使用下列任何方式。',
+      instP1: 'EchoShortsPlayer 是在本機執行 AI 模型的桌面應用。瀏覽器擴充功能和 CLI 都依賴它。請先安裝後再使用下列任何方式。',
       instDlBtn: '下載 EchoShortsPlayer',
       instReq: '<strong>系統需求：</strong>Windows 10/11，NVIDIA 顯示卡 8 GB+ 視訊記憶體，已安裝 CUDA 驅動程式。',
-      instAfter: '安裝後啟動應用。它會在 <code>localhost:18632</code> 啟動本機後端伺服器，擴充功能、油猴腳本和 CLI 都透過它通訊。',
-      tmTitle: '&#129668; 篡改猴腳本', tmTag: '最簡單', tmSub: '任何瀏覽器的零安裝媒體偵測',
-      tmP1: '篡改猴腳本在每個網頁中注入一個浮動面板，自動偵測 m3u8 串流和 MP4 影片連結。偵測到的媒體顯示在清單中，附有 <strong>下載</strong> 和 <strong>翻譯</strong> 按鈕。',
-      tmStep1: '<strong>步驟 1：</strong>安裝篡改猴瀏覽器擴充功能：', tmSite: '篡改猴官網', tmChrome: 'Chrome 商店',
-      tmStep2: '<strong>步驟 2：</strong>安裝 EchoShortsPlayer 腳本：', tmInstall: '安裝腳本',
-      tmStep3: '<strong>步驟 3：</strong>確保 EchoShortsPlayer 桌面應用正在執行（腳本將偵測到的 URL 傳送到本機後端 <code>localhost:18632</code>）。',
-      tmStep4: '<strong>步驟 4：</strong>造訪任何影片頁面。浮動面板（右下角）會自動偵測媒體。點擊 <strong>下載</strong> 或 <strong>翻譯</strong>。',
-      tmAdvTitle: '為什麼使用油猴腳本？',
-      tmAdv1: '適用於所有支援 Tampermonkey 的瀏覽器（Chrome、Firefox、Edge、Safari、Opera）',
-      tmAdv2: '無需安裝 Chrome 擴充功能——適合擴充功能受限的環境',
-      tmAdv3: '輕量：單一檔案，易於檢查和修改', tmAdv4: '透過 Tampermonkey 內建機制自動更新', tmAdv5: '同時偵測 m3u8/HLS 串流和 MP4 直接連結',
+      instAfter: '安裝後啟動應用。它會在 <code>localhost:18632</code> 啟動本機後端伺服器，擴充功能和 CLI 都透過它通訊。',
       extTitle: '&#128268; Chrome 擴充功能', extTag: '推薦', extSub: '深度網路級媒體攔截',
       extP1: 'Chrome 擴充功能使用 <code>webRequest</code> API 在瀏覽器層面攔截所有網路請求，偵測 m3u8/HLS 串流、MP4 檔案和其他媒體格式。還會掃描頁面 DOM 中的影片元素和下載連結。',
       extInstTitle: '<strong>安裝（開發者模式）：</strong>',
@@ -143,7 +119,7 @@ const langs = {
       extI1: '下載上方的擴充功能 zip 檔案並解壓縮到一個資料夾中。', extI2: '開啟 Chrome，導覽至 <code>chrome://extensions/</code>。', extI3: '啟用 <strong>開發者模式</strong>（右上角切換）。', extI4: '點擊 <strong>載入未封裝項目</strong>，選擇 <code>m3u8-extension</code> 資料夾。', extI5: '擴充功能圖示出現在工具列中，徽章顯示偵測到的媒體數量。',
       extUseTitle: '<strong>使用方式：</strong>',
       extU1: '瀏覽含有影片內容的頁面。', extU2: '點擊擴充功能圖示查看偵測到的 m3u8/MP4 串流。', extU3: '點擊 <strong>下載</strong> 儲存為本機 MP4，或點擊 <strong>翻譯</strong> 開始產生字幕。', extU4: '懸停在項目上可高亮顯示頁面中對應的影片元素。',
-      extAdvTitle: '為什麼使用擴充功能？', extAdv1: '在瀏覽器層面攔截網路請求——捕獲 DOM 掃描遺漏的串流', extAdv2: '自動品質選擇：按影片 ID 分組並選擇最佳品質', extAdv3: 'Referer 標頭注入，播放需要驗證的串流', extAdv4: '徽章計數器一目了然顯示每個分頁偵測到的媒體數量', extAdv5: '比油猴腳本更深度的偵測：hook fetch、XHR、MediaSource 和回應本體掃描',
+      extAdvTitle: '為什麼使用擴充功能？', extAdv1: '在瀏覽器層面攔截網路請求——捕獲 DOM 掃描遺漏的串流', extAdv2: '自動品質選擇：按影片 ID 分組並選擇最佳品質', extAdv3: 'Referer 標頭注入，播放需要驗證的串流', extAdv4: '徽章計數器一目了然顯示每個分頁偵測到的媒體數量', extAdv5: '更深度的偵測：可 hook fetch、XHR、MediaSource 並掃描回應本體',
       cliTitle: '&#128187; 命令列工具', cliTag: '進階使用者', cliSub: '自動化、批次處理和腳本整合',
       cliP1: 'CLI 提供從終端直接存取所有下載 and 翻譯功能。專為需要批次處理影片、自動化工作流程或與其他工具整合的進階使用者設計。',
       cliCmds: '<strong>可用命令：</strong>',
@@ -161,7 +137,7 @@ const langs = {
       cliC1: '# 將本機影片翻譯為中文字幕', cliC2: '# 批次翻譯整個資料夾', cliC3: '# 全部參數：來源語言、Whisper 模型、翻譯引擎、降噪、處理模式', cliC4: '# 下載遠端 m3u8 或 MP4', cliC5: '# 一步完成下載 and 翻譯', cliC6: '# 翻譯已有的 SRT 檔案',
       cliAdvTitle: '為什麼使用 CLI？', cliAdv1: '批次處理：一條命令翻譯數百部影片', cliAdv2: '可腳本化：整合到 shell 腳本、排程工作或 CI/CD 管線', cliAdv3: '完全控制模型：選擇 Whisper 模型大小、翻譯引擎、降噪模式', cliAdv4: '無 GUI 開銷：適合伺服器、無頭裝置或遠端 SSH 工作階段', cliAdv5: '支援序列（省記憶體）和平行（快速）處理模式',
       pr1t: '本機資料處理', pr1p1: 'EchoShortsPlayer 的所有核心功能——包括語音辨識、翻譯和媒體下載——完全在您的本機裝置上執行，由本機後端伺服器（127.0.0.1:18632）驅動。', pr1p2: '我們不收集、儲存、傳送或分析任何使用者資料。',
-      pr2t: '無網路資料傳輸', pr2p1: '本應用在正常使用期間不會向外部伺服器傳送任何使用者資料。所有音訊處理和文字翻譯都在本機完成。', pr2p2: '瀏覽器擴充功能和油猴腳本僅與本機後端 <code>localhost:18632</code> 通訊。',
+      pr2t: '無網路資料傳輸', pr2p1: '本應用在正常使用期間不會向外部伺服器傳送任何使用者資料。所有音訊處理和文字翻譯都在本機完成。', pr2p2: '瀏覽器擴充功能僅與本機後端 <code>localhost:18632</code> 通訊。',
       pr3t: '無廣告、無追蹤、無推薦', pr3p: '本應用不包含任何廣告系統、使用者行為追蹤程式碼、分析工具或資料推薦機制。',
       pr4t: '開源透明', pr4p: '應用的原始碼完全開放供檢查。鼓勵使用者審查程式碼以驗證本政策中的隱私和安全聲明。',
       pr5t: '安全港與使用者責任', pr5p1: 'EchoShortsPlayer 是一款通用技術工具，僅旨在協助使用者理解影片內容。開發者和發佈者不對使用者存取、翻譯或處理的任何內容承擔法律責任。', pr5p2: '使用者必須確保其使用符合當地法律法規以及所存取平台的服務條款。', pr5p3: '本應用不對使用者存取的內容的合法性做出判斷或保證。',
@@ -178,9 +154,9 @@ const langs = {
 const privacyData = {
   'zh': { secTitle: '隐私政策与免责声明', footer: '&copy; 2025 EchoShortsPlayer. 保留所有权利。', contact: '联系我们', sections: [
     { title: '本地数据处理', paragraphs: ['EchoShortsPlayer 的所有核心功能——包括语音识别、翻译和媒体下载——完全在您的本地设备上运行，由本地后端服务器（127.0.0.1:18632）驱动。', '我们不收集、存储、传输或分析任何用户数据，包括但不限于：您观看的视频内容、识别的字幕文本、翻译结果、浏览历史或任何个人信息。'] },
-    { title: '无网络数据传输', paragraphs: ['本应用在正常使用期间不会向外部服务器发送任何用户数据。所有音频处理和文本翻译都在本地完成。AI 模型首次使用时从公开来源（HuggingFace）下载，此后可完全离线运行。', '浏览器扩展和油猴脚本仅与本地后端 <code>localhost:18632</code> 通信。不向开发者运营的任何远程服务器传输数据。'] },
+    { title: '无网络数据传输', paragraphs: ['本应用在正常使用期间不会向外部服务器发送任何用户数据。所有音频处理和文本翻译都在本地完成。AI 模型首次使用时从公开来源（HuggingFace）下载，此后可完全离线运行。', '浏览器扩展仅与本地后端 <code>localhost:18632</code> 通信。不向开发者运营的任何远程服务器传输数据。'] },
     { title: '无广告、无跟踪、无推荐', paragraphs: ['本应用不包含任何广告系统、用户行为跟踪代码、分析工具或数据推荐机制。我们不与任何第三方共享用户数据，也不根据用户行为创建画像或推送内容。'] },
-    { title: '开源透明', paragraphs: ['应用的源代码，包括 Chrome 扩展、篡改猴脚本和后端管道，完全开放供检查。鼓励用户审查代码以验证本政策中的隐私和安全声明。'] },
+    { title: '开源透明', paragraphs: ['应用的源代码，包括 Chrome 扩展和后端管道，完全开放供检查。鼓励用户审查代码以验证本政策中的隐私和安全声明。'] },
     { title: '安全港与用户责任', paragraphs: ['EchoShortsPlayer 是一款通用技术工具，仅旨在帮助用户理解视频内容。根据安全港原则，本应用的开发者和发布者对用户访问、翻译或处理的任何内容不承担版权侵权或其他法律责任。', '用户必须确保其使用符合当地法律法规以及所访问平台的服务条款。因访问受版权保护的内容、违反平台规则或使用本应用从事任何非法活动而产生的所有法律责任由用户自行承担。', '本应用不对用户访问的内容的合法性做出判断或保证，也不承担因使用本应用而产生的任何直接或间接损失。'] },
     { title: '预期用途', paragraphs: ['本应用被定义为辅助工具，仅供听力障碍人士、语言学习者 or 需要理解外语视频内容的个人本地使用。任何其他用途由用户自行负责。'] },
     { title: '技术限制', paragraphs: ['本应用支持分析未受数字版权管理（DRM）保护的公开可访问视频内容。由于版权保护协议（如 Widevine, PlayReady 等）的限制，DRM 保护内容的音频流可能无法提取，从而无法生成字幕。', '对于非"fast-start"编码的 MP4 文件（moov 原子在文件尾部），应用需要完整下载后才能开始翻译。Fast-start MP4 文件支持边下载边翻译。'] },
@@ -189,9 +165,9 @@ const privacyData = {
   ]},
   'cht': { secTitle: '隱私政策與免責聲明', footer: '&copy; 2025 EchoShortsPlayer. 保留所有權利。', contact: '聯絡我們', sections: [
     { title: '本機資料處理', paragraphs: ['EchoShortsPlayer 的所有核心功能——包括語音辨識、翻譯和媒體下載——完全在您的本機裝置上執行，由本機後端伺服器（127.0.0.1:18632）驅動。', '我們不收集、儲存、傳輸或分析任何使用者資料，包括但不限於：您觀看的影片內容、辨識的字幕文字、翻譯結果、瀏覽記錄或任何個人資訊。'] },
-    { title: '無網路資料傳輸', paragraphs: ['本應用在正常使用期間不會向外部伺服器傳送任何使用者資料。所有音訊處理和文字翻譯都在本機完成。AI 模型首次使用時從公開來源（HuggingFace）下載，此後可完全離線執行。', '瀏覽器擴充功能和油猴腳本僅與本機後端 <code>localhost:18632</code> 通訊。不向開發者營運的任何遠端伺服器傳輸資料。'] },
+    { title: '無網路資料傳輸', paragraphs: ['本應用在正常使用期間不會向外部伺服器傳送任何使用者資料。所有音訊處理和文字翻譯都在本機完成。AI 模型首次使用時從公開來源（HuggingFace）下載，此後可完全離線執行。', '瀏覽器擴充功能僅與本機後端 <code>localhost:18632</code> 通訊。不向開發者營運的任何遠端伺服器傳輸資料。'] },
     { title: '無廣告、無追蹤、無推薦', paragraphs: ['本應用不包含任何廣告系統、使用者行為追蹤程式碼、分析工具或資料推薦機制。我們不與任何第三方共享使用者資料，也不根據使用者行為建立檔案或推送內容。'] },
-    { title: '開源透明', paragraphs: ['應用的原始碼，包括 Chrome 擴充功能、篡改猴腳本和後端管線，完全開放供檢查。鼓勵使用者審查程式碼以驗證本政策中的隱私和安全聲明。'] },
+    { title: '開源透明', paragraphs: ['應用的原始碼，包括 Chrome 擴充功能和後端管線，完全開放供檢查。鼓勵使用者審查程式碼以驗證本政策中的隱私和安全聲明。'] },
     { title: '安全港與使用者責任', paragraphs: ['EchoShortsPlayer 是一款通用技術工具，僅旨在協助使用者理解影片內容。根據安全港原則，本應用的開發者和發佈者對使用者存取、翻譯或處理的任何內容不承擔版權侵權或其他法律責任。', '使用者必須確保其使用符合當地法律法規以及所存取平台的服務條款。因存取受版權保護的內容、違反平台規則或使用本應用從事任何非法活動而產生的所有法律責任由使用者自行承擔。', '本應用不對使用者存取的內容的合法性做出判斷或保證，也不承擔因使用本應用而產生的任何直接或間接損失。'] },
     { title: '預期用途', paragraphs: ['本應用被定義為輔助工具，僅供聽力障礙人士、語言學習者或需要理解外語影片內容的個人本機使用。任何其他用途由使用者自行負責。'] },
     { title: '技術限制', paragraphs: ['本應用支援分析未受數位版權管理（DRM）保護的公開可存取影片內容。由於版權保護協議（如 Widevine, PlayReady 等）的限制，DRM 保護內容的音訊串流可能無法提取，從而無法產生字幕。', '對於非"fast-start"編碼的 MP4 檔案（moov 原子在檔案尾部），應用需要完整下載後才能開始翻譯。Fast-start MP4 檔案支援邊下載邊翻譯。'] },
@@ -205,6 +181,21 @@ function privacyBlock(p) {
     const ps = s.paragraphs.map(t => `        <p>${t}</p>`).join('\n');
     return `      <div class="priv-section">\n        <h3>${s.title}</h3>\n${ps}\n      </div>`;
   }).join('\n\n');
+}
+
+/** Replace Chrome extension install/usage <li> blocks (English template → extT). */
+function applyExtensionInstallUsage(html, extT) {
+  if (!extT || !extT.extI1) return html;
+  return html
+    .replace('<li>Download the extension zip above and extract it to a folder.</li>', `<li>${extT.extI1}</li>`)
+    .replace('<li>Open Chrome and navigate to <code>chrome://extensions/</code>.</li>', `<li>${extT.extI2}</li>`)
+    .replace('<li>Enable <strong>Developer mode</strong> (top-right toggle).</li>', `<li>${extT.extI3}</li>`)
+    .replace('<li>Click <strong>Load unpacked</strong> and select the <code>m3u8-extension</code> folder.</li>', `<li>${extT.extI4}</li>`)
+    .replace('<li>The extension icon appears in the toolbar with a badge showing detected media count.</li>', `<li>${extT.extI5}</li>`)
+    .replace('<li>Browse to any page with video content.</li>', `<li>${extT.extU1}</li>`)
+    .replace('<li>Click the extension icon to see detected m3u8/MP4 streams.</li>', `<li>${extT.extU2}</li>`)
+    .replace('<li>Click <strong>Download</strong> to save to local MP4, or <strong>Translate</strong> to start subtitle generation.</li>', `<li>${extT.extU3}</li>`)
+    .replace('<li>Hover over items to highlight the corresponding video element on the page.</li>', `<li>${extT.extU4}</li>`);
 }
 
 // --- Build function for fully translated languages (zh, cht) ---
@@ -260,6 +251,8 @@ function buildTranslated(key, data) {
     html = html.replace(/--source, -s[\s\S]*?--referer\s+[^\n]+/, t.cliParamsPre.trim());
     html = html.replace(/See the full list of supported language codes[\s\S]*?Language Code Reference<\/a>/, t.cliLangLink);
   }
+
+  html = applyExtensionInstallUsage(html, t);
 
   // Privacy block
   const priv = privacyData[key];
@@ -377,6 +370,16 @@ function buildOther(key, data) {
     if (t.storeBtn) {
        html = html.replace('>Download from Microsoft Store<', `>${t.storeBtn}<`);
     }
+  }
+
+  const extT = (t && t.extI1) ? t : extensionStepTranslations[key];
+  html = applyExtensionInstallUsage(html, extT);
+
+  const extHead = extensionStepTranslations[key];
+  if (extHead && extHead.extInstTitle && !(t && t.extInstTitle)) {
+    html = html
+      .replace('<p><strong>Installation (developer mode):</strong></p>', `<p>${extHead.extInstTitle}</p>`)
+      .replace('<p><strong>Usage:</strong></p>', `<p>${extHead.extUseTitle}</p>`);
   }
 
   // Apply store button translation from the mapping (fallback for languages without full translations)

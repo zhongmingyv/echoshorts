@@ -1,3 +1,12 @@
+## 2026-05-11
+
+- 不再宣传油猴/Tampermonkey 用户脚本：从 `generate_home.js`（简繁中文与隐私段落）、`fullTranslations.js`、`fullTranslations2.js` 中移除相关文案与整段 `tm*` 翻译键；安装说明与「媒体检测」等改为仅提及浏览器扩展与 CLI；扩展优势文案改为相对「简单 DOM 扫描」的对比，避免提及用户脚本。
+- 运行 `node generate_home.js` 重新生成全部 `home-*.html`，使各语言页面与上述翻译一致。
+
+## 2026-05-11
+
+- 修复各语言 `home-*.html` 中 Chrome 扩展「安装（开发者模式）」「使用方法」下列表项长期为英文的问题：在 `generate_home.js` 增加 `applyExtensionInstallUsage`，从 `fullTranslations.js` / `fullTranslations2.js` 或新建 `extensionStepTranslations.js` 注入对应译文的 `<li>`；对仅部分翻译的语言页同时替换小节标题（`extInstTitle` / `extUseTitle`）。重新执行 `node generate_home.js` 生成全部首页。
+
 ## 2026-05-05
 
 - 重写 `index.html` 作为三个工具的主页面。
