@@ -221,13 +221,13 @@
 
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
-      <h3>&#128268; Chrome Extension <span class="tag">Recommended</span></h3>
+      <h3>&#128268; Chrome Extension (Video Sniffing) <span class="tag">Strongly recommended</span></h3>
       <div class="subtitle">Deep network-level media interception</div>
 
       <p>The Chrome extension uses the <code>webRequest</code> API to intercept all network requests at the browser level, detecting m3u8/HLS streams, MP4 files, and other media formats. It also scans the page DOM for video elements and download links.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="m3u8-extension.zip" download>Download Extension (.zip)</a>
+        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>Download Extension (.zip)</a>
       </div>
 
       <p><strong>Instalace (režim pro vývojáře):</strong></p>
@@ -235,7 +235,7 @@
         <li>Stáhněte zip rozšíření výše a rozbalte jej do složky.</li>
         <li>Otevřete Chrome a přejděte na <code>chrome://extensions/</code>.</li>
         <li>Zapněte <strong>Režim pro vývojáře</strong> (přepínač vpravo nahoře).</li>
-        <li>Klikněte na <strong>Načíst rozbalené</strong> a vyberte složku <code>m3u8-extension</code>.</li>
+        <li>Klikněte na <strong>Načíst rozbalené</strong> a vyberte složku <code>echoshorts-extension</code>.</li>
         <li>Ikona rozšíření se zobrazí na panelu nástrojů s odznakem počtu zjištěných médií.</li>
       </ol>
 
@@ -244,16 +244,17 @@
         <li>Otevřete libovolnou stránku s videem.</li>
         <li>Klikněte na ikonu rozšíření a zobrazíte zjištěné streamy m3u8/MP4.</li>
         <li>Klikněte na <strong>Stáhnout</strong> pro uložení jako místní MP4 nebo na <strong>Přeložit</strong> pro spuštění generování titulků.</li>
+        <li>Klikněte na <strong>Nahrát</strong>, přehrajte video v prohlížeči, po skončení klikněte na <strong>Zastavit</strong> — rozšíření automaticky uloží videa zhlédnutá na této kartě.</li>
         <li>Najeďte myší na položky pro zvýraznění odpovídajícího prvku videa na stránce.</li>
       </ol>
 
       <div class="advantages">
-        <h4>Proč používat rozšíření?</h4>
+        <h4>Je rozšíření bezpečné?</h4>
         <ul>
-          <li>Zachycuje síťové požadavky na úrovni prohlížeče — chytá streamy, které skenování DOM mine</li>
-          <li>Automatický výběr kvality: seskupuje varianty podle ID videa a vybírá nejlepší kvalitu</li>
-          <li>Vkládání hlavičky Referer pro přehrávání streamů vyžadujících ověření</li>
-          <li>Odznak počítadla na první pohled ukazuje počet zjištěných médií na kartu</li>
+          <li>Je plně open source — kód si můžete kdykoli zkontrolovat. Komunikuje jen s desktopovou aplikací na vašem počítači; neobdržíme vaši historii prohlížeče.</li>
+          <li>Rozšíření ani EchoShortsPlayer nesbírají osobní údaje ani neprovádějí behaviorální sledování ani reklamy.</li>
+          <li>Kromě aktivace licence je typická síťová aktivita omezena na získání videostreamů, které si zvolíte.</li>
+          <li>Odchozí požadavky si můžete sami zkontrolovat a ověřit, že kromě aktivace a stažení médií nic neočekávaného neodchází.</li>
         </ul>
       </div>
     </div>

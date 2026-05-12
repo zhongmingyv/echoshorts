@@ -221,13 +221,13 @@
 
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
-      <h3>&#128268; Chrome Extension <span class="tag">Recommended</span></h3>
+      <h3>&#128268; Chrome Extension (Video Sniffing) <span class="tag">Strongly recommended</span></h3>
       <div class="subtitle">Deep network-level media interception</div>
 
       <p>The Chrome extension uses the <code>webRequest</code> API to intercept all network requests at the browser level, detecting m3u8/HLS streams, MP4 files, and other media formats. It also scans the page DOM for video elements and download links.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="m3u8-extension.zip" download>Download Extension (.zip)</a>
+        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>Download Extension (.zip)</a>
       </div>
 
       <p><strong>Installation (udviklertilstand):</strong></p>
@@ -235,7 +235,7 @@
         <li>Download zip-filen til udvidelsen ovenfor og udpak den til en mappe.</li>
         <li>Åbn Chrome og gå til <code>chrome://extensions/</code>.</li>
         <li>Aktivér <strong>Udviklertilstand</strong> (kontakten øverst til højre).</li>
-        <li>Klik på <strong>Indlæs udpakket</strong> og vælg mappen <code>m3u8-extension</code>.</li>
+        <li>Klik på <strong>Indlæs udpakket</strong> og vælg mappen <code>echoshorts-extension</code>.</li>
         <li>Udvidelsesikonet vises på værktøjslinjen med et badge der viser antal registrerede medier.</li>
       </ol>
 
@@ -244,16 +244,17 @@
         <li>Gå til en side med videoindhold.</li>
         <li>Klik på udvidelsesikonet for at se registrerede m3u8/MP4-streams.</li>
         <li>Klik på <strong>Download</strong> for at gemme som lokal MP4 eller <strong>Oversæt</strong> for at starte undertekstgenerering.</li>
+        <li>Klik på <strong>Optag</strong>, afspil videoen i browseren, klik derefter på <strong>Stop</strong> når afspilningen er færdig — udvidelsen gemmer automatisk videoer, du har set på denne fane.</li>
         <li>Hold musen over elementer for at fremhæve det tilsvarende videoelement på siden.</li>
       </ol>
 
       <div class="advantages">
-        <h4>Hvorfor bruge udvidelsen?</h4>
+        <h4>Er udvidelsen sikker?</h4>
         <ul>
-          <li>Opfanger netværksforespørgsler på browserniveau — fanger streams, som DOM-scanning overser</li>
-          <li>Automatisk kvalitetsvalg: grupperer varianter efter video-ID og vælger den bedste kvalitet</li>
-          <li>Indsætter Referer-header for at afspille streams, der kræver godkendelse</li>
-          <li>Badge-tæller viser antallet af registrerede medier pr. fane med ét blik</li>
+          <li>Helt open source — du kan gennemgå koden. Den taler kun med desktopappen på din maskine; vi modtager ikke din browserhistorik.</li>
+          <li>Udvidelsen og EchoShortsPlayer indsamler ikke personoplysninger og laver ikke adfærdssporing eller annoncer.</li>
+          <li>Ud over licensaktivitet er den typiske netværksaktivitet begrænset til at hente de videostreams, du vælger.</li>
+          <li>Du kan selv inspicere udgående anmodninger for at bekræfte, at der ikke er uventede uploads ud over aktivering og mediehentning.</li>
         </ul>
       </div>
     </div>

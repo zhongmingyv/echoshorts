@@ -221,13 +221,13 @@
 
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
-      <h3>&#128268; Chrome 擴充功能 <span class="tag">推薦</span></h3>
+      <h3>&#128268; Chrome 擴充功能（影片嗅探） <span class="tag">強烈推薦</span></h3>
       <div class="subtitle">深度網路級媒體攔截</div>
 
       <p>Chrome 擴充功能使用 <code>webRequest</code> API 在瀏覽器層面攔截所有網路請求，偵測 m3u8/HLS 串流、MP4 檔案和其他媒體格式。還會掃描頁面 DOM 中的影片元素和下載連結。</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="m3u8-extension.zip" download>下載擴充功能 (.zip)</a>
+        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>下載擴充功能 (.zip)</a>
       </div>
 
       <p><strong>安裝（開發者模式）：</strong></p>
@@ -235,7 +235,7 @@
         <li>下載上方的擴充功能 zip 檔案並解壓縮到一個資料夾中。</li>
         <li>開啟 Chrome，導覽至 <code>chrome://extensions/</code>。</li>
         <li>啟用 <strong>開發者模式</strong>（右上角切換）。</li>
-        <li>點擊 <strong>載入未封裝項目</strong>，選擇 <code>m3u8-extension</code> 資料夾。</li>
+        <li>點擊 <strong>載入未封裝項目</strong>，選擇 <code>echoshorts-extension</code> 資料夾。</li>
         <li>擴充功能圖示出現在工具列中，徽章顯示偵測到的媒體數量。</li>
       </ol>
 
@@ -244,16 +244,17 @@
         <li>瀏覽含有影片內容的頁面。</li>
         <li>點擊擴充功能圖示查看偵測到的 m3u8/MP4 串流。</li>
         <li>點擊 <strong>下載</strong> 儲存為本機 MP4，或點擊 <strong>翻譯</strong> 開始產生字幕。</li>
-        <li>懸停在項目上可高亮顯示頁面中對應的影片元素。</li>
+        <li>點擊 <strong>錄製</strong>，在瀏覽器中播放影片；播放結束後點擊 <strong>停止</strong>，擴充功能會自動儲存本分頁中您觀看過的影片。</li>
+        <li>將游標懸停在項目上，可醒目提示頁面中對應的影片元素。</li>
       </ol>
 
       <div class="advantages">
-        <h4>為什麼使用擴充功能？</h4>
+        <h4>擴充功能安全嗎？</h4>
         <ul>
-          <li>在瀏覽器層面攔截網路請求——捕獲 DOM 掃描遺漏的串流</li>
-          <li>自動品質選擇：按影片 ID 分組並選擇最佳品質</li>
-          <li>Referer 標頭注入，播放需要驗證的串流</li>
-          <li>徽章計數器一目了然顯示每個分頁偵測到的媒體數量</li>
+          <li>程式碼完全開源，可自行審閱；擴充功能僅與本機播放器通訊，瀏覽內容不會上傳至我們的伺服器。</li>
+          <li>擴充功能與桌面播放器均不蒐集個人資訊，無行為畫像、無廣告追蹤。</li>
+          <li>除軟體授權啟用驗證外，一般連線主要用於解析並取得您選擇的影片串流。</li>
+          <li>您可自行檢查網路請求，確認除啟用與取得媒體外無多餘資料外傳。</li>
         </ul>
       </div>
     </div>

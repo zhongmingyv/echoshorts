@@ -221,13 +221,13 @@
 
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
-      <h3>&#128268; Chrome Extension <span class="tag">Recommended</span></h3>
+      <h3>&#128268; Chrome Extension (Video Sniffing) <span class="tag">Strongly recommended</span></h3>
       <div class="subtitle">Deep network-level media interception</div>
 
       <p>The Chrome extension uses the <code>webRequest</code> API to intercept all network requests at the browser level, detecting m3u8/HLS streams, MP4 files, and other media formats. It also scans the page DOM for video elements and download links.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="m3u8-extension.zip" download>Download Extension (.zip)</a>
+        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>Download Extension (.zip)</a>
       </div>
 
       <p><strong>Instalare (mod dezvoltator):</strong></p>
@@ -235,7 +235,7 @@
         <li>Descărcați arhiva zip a extensiei de mai sus și extrageți-o într-un dosar.</li>
         <li>Deschideți Chrome și accesați <code>chrome://extensions/</code>.</li>
         <li>Activați <strong>Modul pentru dezvoltatori</strong> (comutatorul din dreapta sus).</li>
-        <li>Faceți clic pe <strong>Încarcă extensia neîmpachetată</strong> și selectați dosarul <code>m3u8-extension</code>.</li>
+        <li>Faceți clic pe <strong>Încarcă extensia neîmpachetată</strong> și selectați dosarul <code>echoshorts-extension</code>.</li>
         <li>Pictograma extensiei apare în bara de instrumente cu o insignă care arată numărul de medii detectate.</li>
       </ol>
 
@@ -244,16 +244,17 @@
         <li>Deschideți orice pagină cu conținut video.</li>
         <li>Faceți clic pe pictograma extensiei pentru a vedea fluxurile m3u8/MP4 detectate.</li>
         <li>Faceți clic pe <strong>Descărcare</strong> pentru a salva local ca MP4 sau pe <strong>Traducere</strong> pentru a începe generarea subtitrărilor.</li>
+        <li>Faceți clic pe <strong>Înregistrare</strong>, redați videoclipul în browser, apoi faceți clic pe <strong>Oprire</strong> după terminare — extensia salvează automat videoclipurile vizionate în această filă.</li>
         <li>Treceți cu mouse-ul peste elemente pentru a evidenția elementul video corespunzător pe pagină.</li>
       </ol>
 
       <div class="advantages">
-        <h4>De ce să folosiți extensia?</h4>
+        <h4>Extensia este sigură?</h4>
         <ul>
-          <li>Interceptează cererile de rețea la nivel de browser — captează fluxuri pe care scanarea DOM le ratează</li>
-          <li>Selecție automată a calității: grupează variantele după ID-ul videoclipului și alege cea mai bună calitate</li>
-          <li>Injectare antet Referer pentru redarea fluxurilor care necesită autentificare</li>
-          <li>Contorul de pe insignă afișează numărul de media detectate per filă dintr-o privire</li>
+          <li>Complet open source — puteți verifica codul. Comunică doar cu aplicația desktop de pe mașina dvs.; nu primim istoricul de navigare.</li>
+          <li>Extensia și EchoShortsPlayer nu colectează date personale și nu fac urmărire comportamentală sau publicitate.</li>
+          <li>În afara activării licenței, activitatea tipică de rețea se limitează la preluarea fluxurilor video pe care le alegeți.</li>
+          <li>Puteți inspecta cererile ieșitoare pentru a confirma că nu există încărcări neașteptate în afara activării și preluării media.</li>
         </ul>
       </div>
     </div>

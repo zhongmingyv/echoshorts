@@ -221,13 +221,13 @@
 
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
-      <h3>&#128268; Chrome Extension <span class="tag">Recommended</span></h3>
+      <h3>&#128268; Chrome Extension (Video Sniffing) <span class="tag">Strongly recommended</span></h3>
       <div class="subtitle">Deep network-level media interception</div>
 
       <p>The Chrome extension uses the <code>webRequest</code> API to intercept all network requests at the browser level, detecting m3u8/HLS streams, MP4 files, and other media formats. It also scans the page DOM for video elements and download links.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="m3u8-extension.zip" download>Download Extension (.zip)</a>
+        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>Download Extension (.zip)</a>
       </div>
 
       <p><strong>Встановлення (режим розробника):</strong></p>
@@ -235,7 +235,7 @@
         <li>Завантажте zip-архів розширення вище та розпакуйте його в теку.</li>
         <li>Відкрийте Chrome і перейдіть на <code>chrome://extensions/</code>.</li>
         <li>Увімкніть <strong>Режим розробника</strong> (перемикач угорі праворуч).</li>
-        <li>Натисніть <strong>Завантажити розпаковане розширення</strong> і виберіть теку <code>m3u8-extension</code>.</li>
+        <li>Натисніть <strong>Завантажити розпаковане розширення</strong> і виберіть теку <code>echoshorts-extension</code>.</li>
         <li>Піктограма розширення з’явиться на панелі інструментів; на значку показано кількість виявлених медіа.</li>
       </ol>
 
@@ -244,16 +244,17 @@
         <li>Відкрийте сторінку з відео.</li>
         <li>Натисніть піктограму розширення, щоб переглянути виявлені потоки m3u8/MP4.</li>
         <li>Натисніть <strong>Завантажити</strong>, щоб зберегти локально як MP4, або <strong>Перекласти</strong>, щоб почати створення субтитрів.</li>
+        <li>Натисніть <strong>Запис</strong>, відтворіть відео в браузері, після закінчення натисніть <strong>Стоп</strong> — розширення автоматично збереже переглянуті на цій вкладці відео.</li>
         <li>Наведіть курсор на елемент, щоб підсвітити відповідне відео на сторінці.</li>
       </ol>
 
       <div class="advantages">
-        <h4>Навіщо використовувати розширення?</h4>
+        <h4>Чи безпечне розширення?</h4>
         <ul>
-          <li>Перехоплює мережеві запити на рівні браузера — ловить потоки, які пропускає сканування DOM</li>
-          <li>Автоматичний вибір якості: групує варіанти за ID відео та вибирає найкращу якість</li>
-          <li>Ін'єкція заголовка Referer для відтворення потоків, які потребують автентифікації</li>
-          <li>Лічильник на значку показує кількість виявлених медіа на вкладку з першого погляду</li>
+          <li>Повністю з відкритим кодом — ви можете перевірити код. Воно спілкується лише з настільним застосунком на вашому ПК; ми не отримуємо історію перегляду.</li>
+          <li>Розширення та EchoShortsPlayer не збирають персональні дані й не ведуть поведінкове відстеження чи рекламу.</li>
+          <li>Окрім активації ліцензії типова мережева активність обмежується отриманням обраних вами відеопотоків.</li>
+          <li>Ви можете самостійно перевірити вихідні запити, щоб переконатися, що немає несподіваних передач поза активацією та отриманням медіа.</li>
         </ul>
       </div>
     </div>

@@ -221,13 +221,13 @@
 
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
-      <h3>&#128268; Chrome-Erweiterung <span class="tag">Empfohlen</span></h3>
+      <h3>&#128268; Chrome-Erweiterung (Video-Erkennung) <span class="tag">Sehr empfohlen</span></h3>
       <div class="subtitle">Tiefgreifende Medienabfangung auf Netzwerkebene</div>
 
       <p>Die Chrome-Erweiterung verwendet die <code>webRequest</code>-API, um alle Netzwerkanfragen auf Browserebene abzufangen und m3u8/HLS-Streams, MP4-Dateien und andere Medienformate zu erkennen. Sie scannt auch das Seiten-DOM nach Videoelementen und Download-Links.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="m3u8-extension.zip" download>Erweiterung Herunterladen (.zip)</a>
+        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>Erweiterung Herunterladen (.zip)</a>
       </div>
 
       <p><strong>Installation (Entwicklermodus):</strong></p>
@@ -235,7 +235,7 @@
         <li>Laden Sie die Erweiterungs-ZIP oben herunter und entpacken Sie sie in einen Ordner.</li>
         <li>Öffnen Sie Chrome und navigieren Sie zu <code>chrome://extensions/</code>.</li>
         <li>Aktivieren Sie den <strong>Entwicklermodus</strong> (Schalter oben rechts).</li>
-        <li>Klicken Sie auf <strong>Entpackte Erweiterung laden</strong> und wählen Sie den Ordner <code>m3u8-extension</code>.</li>
+        <li>Klicken Sie auf <strong>Entpackte Erweiterung laden</strong> und wählen Sie den Ordner <code>echoshorts-extension</code>.</li>
         <li>Das Erweiterungssymbol erscheint in der Symbolleiste mit einem Badge, das die Anzahl erkannter Medien anzeigt.</li>
       </ol>
 
@@ -244,16 +244,17 @@
         <li>Navigieren Sie zu einer Seite mit Videoinhalten.</li>
         <li>Klicken Sie auf das Erweiterungssymbol, um erkannte m3u8/MP4-Streams anzuzeigen.</li>
         <li>Klicken Sie auf <strong>Herunterladen</strong>, um als lokale MP4 zu speichern, oder <strong>Übersetzen</strong>, um die Untertitelgenerierung zu starten.</li>
+        <li>Klicken Sie auf <strong>Aufzeichnen</strong>, spielen Sie das Video im Browser ab, danach auf <strong>Stopp</strong> — die Erweiterung speichert automatisch die auf diesem Tab angesehenen Videos.</li>
         <li>Fahren Sie mit der Maus über Einträge, um das entsprechende Videoelement auf der Seite hervorzuheben.</li>
       </ol>
 
       <div class="advantages">
-        <h4>Warum die Erweiterung verwenden?</h4>
+        <h4>Ist die Erweiterung sicher?</h4>
         <ul>
-          <li>Fängt Netzwerkanfragen auf Browserebene ab — erfasst Streams, die DOM-Scanning übersieht</li>
-          <li>Automatische Qualitätsauswahl: gruppiert Varianten nach Video-ID und wählt die beste Qualität</li>
-          <li>Referer-Header-Injektion für Streams, die Authentifizierung erfordern</li>
-          <li>Badge-Zähler zeigt die Anzahl erkannter Medien pro Tab auf einen Blick</li>
+          <li>Vollständig quelloffen — Sie können den Code prüfen. Sie kommuniziert nur mit der Desktop-App auf Ihrem Rechner; wir erhalten keinen Browserverlauf.</li>
+          <li>Die Erweiterung und EchoShortsPlayer sammeln keine personenbezogenen Daten und führen kein Verhaltens-Tracking oder Werbung durch.</li>
+          <li>Abgesehen von der Lizenzaktivierung beschränkt sich die typische Netzwerknutzung auf das Auflosen und Abrufen der von Ihnen gewählten Videostreams.</li>
+          <li>Sie können ausgehende Anfragen selbst prüfen und sicherstellen, dass es keine unerwarteten Uploads außer Aktivierung und Medienabruf gibt.</li>
         </ul>
       </div>
     </div>

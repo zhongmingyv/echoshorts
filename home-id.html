@@ -221,13 +221,13 @@
 
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
-      <h3>&#128268; Chrome Extension <span class="tag">Recommended</span></h3>
+      <h3>&#128268; Chrome Extension (Video Sniffing) <span class="tag">Strongly recommended</span></h3>
       <div class="subtitle">Deep network-level media interception</div>
 
       <p>The Chrome extension uses the <code>webRequest</code> API to intercept all network requests at the browser level, detecting m3u8/HLS streams, MP4 files, and other media formats. It also scans the page DOM for video elements and download links.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="m3u8-extension.zip" download>Download Extension (.zip)</a>
+        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>Download Extension (.zip)</a>
       </div>
 
       <p><strong>Instalasi (mode pengembang):</strong></p>
@@ -235,7 +235,7 @@
         <li>Unduh zip ekstensi di atas dan ekstrak ke sebuah folder.</li>
         <li>Buka Chrome dan buka <code>chrome://extensions/</code>.</li>
         <li>Aktifkan <strong>Mode pengembang</strong> (tombol di kanan atas).</li>
-        <li>Klik <strong>Muat yang tidak dibungkus</strong> dan pilih folder <code>m3u8-extension</code>.</li>
+        <li>Klik <strong>Muat yang tidak dibungkus</strong> dan pilih folder <code>echoshorts-extension</code>.</li>
         <li>Ikon ekstensi muncul di bilah alat dengan lencana yang menampilkan jumlah media terdeteksi.</li>
       </ol>
 
@@ -244,16 +244,17 @@
         <li>Buka halaman apa pun yang berisi video.</li>
         <li>Klik ikon ekstensi untuk melihat aliran m3u8/MP4 yang terdeteksi.</li>
         <li>Klik <strong>Unduh</strong> untuk menyimpan sebagai MP4 lokal, atau <strong>Terjemahkan</strong> untuk memulai pembuatan subtitle.</li>
+        <li>Klik <strong>Rekam</strong>, putar video di browser, setelah selesai klik <strong>Berhenti</strong> — ekstensi otomatis menyimpan video yang Anda tonton di tab ini.</li>
         <li>Arahkan kursor ke item untuk menyoroti elemen video yang sesuai di halaman.</li>
       </ol>
 
       <div class="advantages">
-        <h4>Mengapa menggunakan ekstensi?</h4>
+        <h4>Apakah ekstensi ini aman?</h4>
         <ul>
-          <li>Mencegat permintaan jaringan di tingkat peramban — menangkap aliran yang terlewat oleh pemindaian DOM</li>
-          <li>Pemilihan kualitas otomatis: mengelompokkan varian berdasarkan ID video dan memilih kualitas terbaik</li>
-          <li>Penyisipan header Referer untuk memutar aliran yang memerlukan autentikasi</li>
-          <li>Penghitung lencana menampilkan jumlah media terdeteksi per tab sekilas</li>
+          <li>Sepenuhnya sumber terbuka — Anda dapat meninjaunya. Hanya berkomunikasi dengan aplikasi desktop di mesin Anda; kami tidak menerima riwayat penjelajahan Anda.</li>
+          <li>Ekstensi dan EchoShortsPlayer tidak mengumpulkan informasi pribadi atau melakukan pelacakan perilaku atau iklan.</li>
+          <li>Selain aktivasi lisensi, aktivitas jaringan biasanya terbatas pada mengambil aliran video yang Anda pilih.</li>
+          <li>Anda dapat memeriksa permintaan keluar untuk memastikan tidak ada unggahan tak terduga selain aktivasi dan pengambilan media.</li>
         </ul>
       </div>
     </div>

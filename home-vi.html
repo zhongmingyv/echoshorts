@@ -221,13 +221,13 @@
 
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
-      <h3>&#128268; Tiện Ích Chrome <span class="tag">Khuyên Dùng</span></h3>
+      <h3>&#128268; Tiện Ích Chrome (sniff video) <span class="tag">Rất nên dùng</span></h3>
       <div class="subtitle">Chặn phương tiện sâu ở cấp mạng</div>
 
       <p>Tiện ích Chrome sử dụng API <code>webRequest</code> để chặn tất cả yêu cầu mạng ở cấp trình duyệt, phát hiện luồng m3u8/HLS, tệp MP4 và các định dạng phương tiện khác. Nó cũng quét DOM trang để tìm các phần tử video và liên kết tải xuống.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="m3u8-extension.zip" download>Tải Tiện Ích (.zip)</a>
+        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>Tải Tiện Ích (.zip)</a>
       </div>
 
       <p><strong>Cài đặt (chế độ nhà phát triển):</strong></p>
@@ -235,7 +235,7 @@
         <li>Tải tệp zip tiện ích ở trên và giải nén vào một thư mục.</li>
         <li>Mở Chrome và truy cập <code>chrome://extensions/</code>.</li>
         <li>Bật <strong>Chế độ nhà phát triển</strong> (công tắc góc trên bên phải).</li>
-        <li>Nhấp <strong>Tải tiện ích đã giải nén</strong> và chọn thư mục <code>m3u8-extension</code>.</li>
+        <li>Nhấp <strong>Tải tiện ích đã giải nén</strong> và chọn thư mục <code>echoshorts-extension</code>.</li>
         <li>Biểu tượng tiện ích xuất hiện trên thanh công cụ với huy hiệu hiển thị số lượng phương tiện phát hiện được.</li>
       </ol>
 
@@ -244,16 +244,17 @@
         <li>Duyệt đến bất kỳ trang nào có nội dung video.</li>
         <li>Nhấp vào biểu tượng tiện ích để xem các luồng m3u8/MP4 được phát hiện.</li>
         <li>Nhấp <strong>Tải Xuống</strong> để lưu thành MP4 cục bộ, hoặc <strong>Dịch</strong> để bắt đầu tạo phụ đề.</li>
+        <li>Nhấp <strong>Ghi</strong>, phát video trong trình duyệt, khi xong nhấp <strong>Dừng</strong> — tiện ích tự động lưu các video bạn đã xem trong tab này.</li>
         <li>Di chuột qua các mục để đánh dấu phần tử video tương ứng trên trang.</li>
       </ol>
 
       <div class="advantages">
-        <h4>Tại sao nên dùng tiện ích?</h4>
+        <h4>Tiện ích có an toàn không?</h4>
         <ul>
-          <li>Chặn yêu cầu mạng ở cấp trình duyệt — bắt được các luồng mà quét DOM bỏ sót</li>
-          <li>Tự động chọn chất lượng: nhóm các biến thể theo ID video và chọn chất lượng tốt nhất</li>
-          <li>Chèn header Referer để phát các luồng yêu cầu xác thực</li>
-          <li>Bộ đếm huy hiệu hiển thị số lượng phương tiện phát hiện được trên mỗi tab trong nháy mắt</li>
+          <li>Mã nguồn mở hoàn toàn — bạn có thể tự kiểm tra. Chỉ giao tiếp với ứng dụng máy tính trên máy bạn; chúng tôi không nhận lịch sử duyệt web của bạn.</li>
+          <li>Tiện ích và EchoShortsPlayer không thu thập thông tin cá nhân, không theo dõi hành vi hay quảng cáo.</li>
+          <li>Ngoài kích hoạt bản quyền, hoạt động mạng thông thường chỉ giới hạn ở việc phân giải và tải luồng video bạn chọn.</li>
+          <li>Bạn có thể tự kiểm tra các yêu cầu gửi đi để xác nhận không có tải lên ngoài ý muốn ngoài kích hoạt và lấy nội dung đa phương tiện.</li>
         </ul>
       </div>
     </div>

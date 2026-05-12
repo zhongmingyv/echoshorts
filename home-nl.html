@@ -221,13 +221,13 @@
 
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
-      <h3>&#128268; Chrome Extension <span class="tag">Recommended</span></h3>
+      <h3>&#128268; Chrome Extension (Video Sniffing) <span class="tag">Strongly recommended</span></h3>
       <div class="subtitle">Deep network-level media interception</div>
 
       <p>The Chrome extension uses the <code>webRequest</code> API to intercept all network requests at the browser level, detecting m3u8/HLS streams, MP4 files, and other media formats. It also scans the page DOM for video elements and download links.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="m3u8-extension.zip" download>Download Extension (.zip)</a>
+        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>Download Extension (.zip)</a>
       </div>
 
       <p><strong>Installatie (ontwikkelaarsmodus):</strong></p>
@@ -235,7 +235,7 @@
         <li>Download de extensie-zip hierboven en pak deze uit naar een map.</li>
         <li>Open Chrome en ga naar <code>chrome://extensions/</code>.</li>
         <li>Schakel <strong>Ontwikkelaarsmodus</strong> in (schakelaar rechtsboven).</li>
-        <li>Klik op <strong>Pakketloze extensie laden</strong> en selecteer de map <code>m3u8-extension</code>.</li>
+        <li>Klik op <strong>Pakketloze extensie laden</strong> en selecteer de map <code>echoshorts-extension</code>.</li>
         <li>Het extensiepictogram verschijnt op de werkbalk met een badge met het aantal gedetecteerde media.</li>
       </ol>
 
@@ -244,16 +244,17 @@
         <li>Ga naar een pagina met video-inhoud.</li>
         <li>Klik op het extensiepictogram om gedetecteerde m3u8/MP4-streams te zien.</li>
         <li>Klik op <strong>Downloaden</strong> om lokaal als MP4 op te slaan, of op <strong>Vertalen</strong> om ondertiteling te starten.</li>
+        <li>Klik op <strong>Opnemen</strong>, speel de video in de browser af, klik daarna op <strong>Stoppen</strong> wanneer het afspelen klaar is — de extensie slaat automatisch de video's op die u in dit tabblad heeft bekeken.</li>
         <li>Beweeg de muis over items om het bijbehorende video-element op de pagina te markeren.</li>
       </ol>
 
       <div class="advantages">
-        <h4>Waarom de extensie gebruiken?</h4>
+        <h4>Is de extensie veilig?</h4>
         <ul>
-          <li>Onderschept netwerkverzoeken op browserniveau — vangt streams op die DOM-scanning mist</li>
-          <li>Automatische kwaliteitskeuze: groepeert varianten op video-ID en kiest de beste kwaliteit</li>
-          <li>Referer-header-injectie voor het afspelen van streams die authenticatie vereisen</li>
-          <li>Badge-teller toont in één oogopslag het aantal gedetecteerde media per tabblad</li>
+          <li>Volledig open source — u kunt de code controleren. De communiceert alleen met de desktop-app op uw machine; wij ontvangen uw browsegeschiedenis niet.</li>
+          <li>De extensie en EchoShortsPlayer verzamelen geen persoonsgegevens en doen geen gedragsvolging of advertenties.</li>
+          <li>Afgezien van licentie-activering is typische netwerkactiviteit beperkt tot het ophalen van de videostreams die u kiest.</li>
+          <li>U kunt uitgaande verzoeken inspecteren om te bevestigen dat er geen onverwachte uploads zijn buiten activering en media-ophaal.</li>
         </ul>
       </div>
     </div>

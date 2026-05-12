@@ -221,13 +221,13 @@
 
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
-      <h3>&#128268; Chrome Extension <span class="tag">Recommended</span></h3>
+      <h3>&#128268; Chrome Extension (Video Sniffing) <span class="tag">Strongly recommended</span></h3>
       <div class="subtitle">Deep network-level media interception</div>
 
       <p>The Chrome extension uses the <code>webRequest</code> API to intercept all network requests at the browser level, detecting m3u8/HLS streams, MP4 files, and other media formats. It also scans the page DOM for video elements and download links.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="m3u8-extension.zip" download>Download Extension (.zip)</a>
+        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>Download Extension (.zip)</a>
       </div>
 
       <p><strong>Installation (utvecklarläge):</strong></p>
@@ -235,7 +235,7 @@
         <li>Ladda ner zip-arkivet för tillägget ovan och packa upp det till en mapp.</li>
         <li>Öppna Chrome och gå till <code>chrome://extensions/</code>.</li>
         <li>Aktivera <strong>Utvecklarläge</strong> (reglaget uppe till höger).</li>
-        <li>Klicka på <strong>Ladda uppackad</strong> och välj mappen <code>m3u8-extension</code>.</li>
+        <li>Klicka på <strong>Ladda uppackad</strong> och välj mappen <code>echoshorts-extension</code>.</li>
         <li>Tilläggsikonen visas i verktygsfältet med en bricka som visar antal upptäckta media.</li>
       </ol>
 
@@ -244,16 +244,17 @@
         <li>Öppna en sida med videoinnehåll.</li>
         <li>Klicka på tilläggsikonen för att se upptäckta m3u8/MP4-strömmar.</li>
         <li>Klicka på <strong>Ladda ner</strong> för att spara som lokal MP4, eller <strong>Översätt</strong> för att starta undertextgenerering.</li>
+        <li>Klicka på <strong>Spela in</strong>, spela upp videon i webbläsaren, klicka sedan på <strong>Stopp</strong> när uppspelningen är klar — tillägget sparar automatiskt videor du tittat på i den här fliken.</li>
         <li>Håll muspekaren över objekt för att markera motsvarande videoelement på sidan.</li>
       </ol>
 
       <div class="advantages">
-        <h4>Varför använda tillägget?</h4>
+        <h4>Är tillägget säkert?</h4>
         <ul>
-          <li>Fångar upp nätverksförfrågningar på webbläsarnivå — fångar strömmar som DOM-skanning missar</li>
-          <li>Automatiskt kvalitetsval: grupperar varianter efter video-ID och väljer den bästa kvaliteten</li>
-          <li>Injicerar Referer-rubrik för uppspelning av strömmar som kräver autentisering</li>
-          <li>Räknarbrickan visar antalet upptäckta media per flik med en blick</li>
+          <li>Helt öppen källkod — du kan granska koden. Den kommunicerar bara med skrivbordsappen på din dator; vi får inte din webbhistorik.</li>
+          <li>Tillägget och EchoShortsPlayer samlar inte in personuppgifter och driver inte beteendespårning eller annonser.</li>
+          <li>Förutom licensaktivering är typisk nätverksaktivitet begränsad till att hämta de videoströmmar du väljer.</li>
+          <li>Du kan inspektera utgående begäranden för att bekräfta att det inte finns oväntade uppladdningar förutom aktivering och mediahämtning.</li>
         </ul>
       </div>
     </div>

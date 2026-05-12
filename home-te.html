@@ -221,13 +221,13 @@
 
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
-      <h3>&#128268; Chrome Extension <span class="tag">Recommended</span></h3>
+      <h3>&#128268; Chrome Extension (Video Sniffing) <span class="tag">Strongly recommended</span></h3>
       <div class="subtitle">Deep network-level media interception</div>
 
       <p>The Chrome extension uses the <code>webRequest</code> API to intercept all network requests at the browser level, detecting m3u8/HLS streams, MP4 files, and other media formats. It also scans the page DOM for video elements and download links.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="m3u8-extension.zip" download>Download Extension (.zip)</a>
+        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>Download Extension (.zip)</a>
       </div>
 
       <p><strong>ఇన్‌స్టాలేషన్ (డెవలపర్ మోడ్):</strong></p>
@@ -235,7 +235,7 @@
         <li>పైన ఉన్న ఎక్స్‌టెన్షన్ zipను డౌన్‌లోడ్ చేసి ఫోల్డర్‌లోకి విడదీయండి.</li>
         <li>Chrome తెరిచి <code>chrome://extensions/</code>కు వెళ్లండి.</li>
         <li>ఎగువ కుడివైపు టోగుల్‌తో <strong>Developer mode</strong>ను ప్రారంభించండి.</li>
-        <li><strong>Load unpacked</strong>పై క్లిక్ చేసి <code>m3u8-extension</code> ఫోల్డర్‌ను ఎంచుకోండి.</li>
+        <li><strong>Load unpacked</strong>పై క్లిక్ చేసి <code>echoshorts-extension</code> ఫోల్డర్‌ను ఎంచుకోండి.</li>
         <li>టూల్‌బార్‌లో ఎక్స్‌టెన్షన్ చిహ్నం కనిపిస్తుంది; బ్యాడ్జ్ గుర్తించిన మీడియా సంఖ్యను చూపుతుంది.</li>
       </ol>
 
@@ -244,16 +244,17 @@
         <li>వీడియో కంటెంట్ ఉన్న ఏదైనా పేజీకి వెళ్లండి.</li>
         <li>గుర్తించిన m3u8/MP4 స్ట్రీమ్‌లను చూడటానికి ఎక్స్‌టెన్షన్ చిహ్నంపై క్లిక్ చేయండి.</li>
         <li>స్థానిక MP4గా సేవ్ చేయడానికి <strong>Download</strong> లేదా ఉపశీర్షికల ఉత్పత్తిని ప్రారంభించడానికి <strong>Translate</strong>పై క్లిక్ చేయండి.</li>
+        <li><strong>రికార్డ్</strong>పై క్లిక్ చేసి బ్రౌజర్‌లో వీడియో ప్లే చేయండి, ప్లే అయిన తర్వాత <strong>ఆపు</strong>పై క్లిక్ చేయండి — ఈ ట్యాబ్‌లో చూసిన వీడియోలను ఎక్స్‌టెన్షన్ స్వయంచాలకంగా సేవ్ చేస్తుంది.</li>
         <li>పేజీలోని సంబంధిత వీడియో మూలకాన్ని హైలైట్ చేయడానికి అంశాలపై హోవర్ చేయండి.</li>
       </ol>
 
       <div class="advantages">
-        <h4>ఎక్స్‌టెన్షన్‌ను ఎందుకు ఉపయోగించాలి?</h4>
+        <h4>ఎక్స్‌టెన్షన్ సురక్షితమేనా?</h4>
         <ul>
-          <li>బ్రౌజర్ స్థాయిలో నెట్‌వర్క్ అభ్యర్థనలను అడ్డగిస్తుంది — DOM స్కానింగ్ తప్పిపోయే స్ట్రీమ్‌లను పట్టుకుంటుంది</li>
-          <li>స్వయంచాలక నాణ్యత ఎంపిక: వీడియో ఐడీ ద్వారా వేరియంట్‌లను సమూహపరిచి ఉత్తమ నాణ్యతను ఎంచుకుంటుంది</li>
-          <li>ప్రామాణీకరణ అవసరమయ్యే స్ట్రీమ్‌లను ప్లే చేయడానికి Referer హెడర్ ఇంజెక్షన్</li>
-          <li>బ్యాడ్జ్ కౌంటర్ ట్యాబ్‌కు గుర్తించబడిన మీడియా సంఖ్యను ఒక చూపులో చూపుతుంది</li>
+          <li>పూర్తిగా ఓపెన్ సోర్స్ — మీరు కోడ్‌ను సమీక్షించవచ్చు. ఇది మీ మెషీన్‌లోని డెస్క్‌టాప్ యాప్‌తో మాత్రమే మాట్లాడుతుంది; మేము మీ బ్రౌజింగ్ చరిత్రను పొందము.</li>
+          <li>ఎక్స్‌టెన్షన్ మరియు EchoShortsPlayer వ్యక్తిగత సమాచారాన్ని సేకరించవు; ప్రవర్తన ట్రాకింగ్ లేదా ప్రకటనలు లేవు.</li>
+          <li>లైసెన్స్ యాక్టివేషన్ తప్పితే, సాధారణ నెట్‌వర్క్ కార్యకలాపం మీరు ఎంచుకున్న వీడియో స్ట్రీమ్‌లను పొందడానికే పరిమితం.</li>
+          <li>యాక్టివేషన్ మరియు మీడియా పొందడం తప్ప అనుకోని అప్‌లోడ్‌లు లేవని నిర్ధారించుకోవడానికి మీరు అవుట్‌గోయింగ్ అభ్యర్థనలను పరిశీలించవచ్చు.</li>
         </ul>
       </div>
     </div>

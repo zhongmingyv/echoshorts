@@ -1,3 +1,7 @@
+## 2026-05-12
+
+- Chrome 扩展区块全站首页：`home.html` 与各 `home-*.html` 下载链接改为 `https://echoshorts.win/echoshorts-extension.zip`；加载文件夹名改为 `echoshorts-extension`；标题为「Chrome 扩展（视频嗅探）」类多语言对应译文；标签「强烈推荐」；使用说明第 4 条为录制/停止自动保存本标签页观看视频；原「为什么使用扩展」改为「扩展安全吗？」及四条安全说明（开源、本地通信、不收集个人信息、除激活外主要为拉取视频流）。`generate_home.js` 中 `applyAdvantages` / `applyExtensionInstallUsage` 与简繁 `langs`、`fullTranslations.js`、`fullTranslations2.js`、`extensionStepTranslations.js` 已同步；`advantageTranslations.js` 中 km/nb/nl/pl/ro/sv/sw/ta/te/tr/uk/ur 的扩展四条由旧「技术优势」改为「安全吗」译文。已执行 `node generate_home.js` 重新生成全部 `home-*.html`。
+
 ## 2026-05-11
 
 - `home.html` 与各 `home-*.html`：在「隐私政策」标题上方增加技术支持说明段落（`.privacy-support-note`），含 `mailto:supports@echoshorts.win` 链接；英文模板为 “For technical support, please contact …”；`generate_home.js` 中 `privacySupportByLang` 为各语言提供对应译文（简中「如需技术支持，请联系 …。」等），`applyPrivacySupportLine` 在 `buildTranslated` / `buildOther` 末尾统一替换；已执行 `node generate_home.js` 更新全部首页。

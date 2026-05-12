@@ -221,13 +221,13 @@
 
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
-      <h3>&#128268; Chrome Extension <span class="tag">Recommended</span></h3>
+      <h3>&#128268; Chrome Extension (Video Sniffing) <span class="tag">Strongly recommended</span></h3>
       <div class="subtitle">Deep network-level media interception</div>
 
       <p>The Chrome extension uses the <code>webRequest</code> API to intercept all network requests at the browser level, detecting m3u8/HLS streams, MP4 files, and other media formats. It also scans the page DOM for video elements and download links.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="m3u8-extension.zip" download>Download Extension (.zip)</a>
+        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>Download Extension (.zip)</a>
       </div>
 
       <p><strong>Kurulum (geliştirici modu):</strong></p>
@@ -235,7 +235,7 @@
         <li>Yukarıdaki uzantı zip dosyasını indirin ve bir klasöre çıkarın.</li>
         <li>Chrome’u açın ve <code>chrome://extensions/</code> adresine gidin.</li>
         <li>Sağ üstteki anahtarla <strong>Geliştirici modu</strong>nu etkinleştirin.</li>
-        <li><strong>Paketlenmemiş öğe yükle</strong>ye tıklayın ve <code>m3u8-extension</code> klasörünü seçin.</li>
+        <li><strong>Paketlenmemiş öğe yükle</strong>ye tıklayın ve <code>echoshorts-extension</code> klasörünü seçin.</li>
         <li>Uzantı simgesi araç çubuğunda görünür; rozet algılanan medya sayısını gösterir.</li>
       </ol>
 
@@ -244,16 +244,17 @@
         <li>Video içeren herhangi bir sayfaya gidin.</li>
         <li>Algılanan m3u8/MP4 akışlarını görmek için uzantı simgesine tıklayın.</li>
         <li>Yerel MP4 olarak kaydetmek için <strong>İndir</strong> veya altyazı oluşturmaya başlamak için <strong>Çevir</strong>ye tıklayın.</li>
+        <li><strong>Kayıt</strong>'a tıklayın, videoyu tarayıcıda oynatın, bitince <strong>Durdur</strong>'a tıklayın — uzantı bu sekmede izlenen videoları otomatik kaydeder.</li>
         <li>Sayfadaki ilgili video öğesini vurgulamak için öğelerin üzerine gelin.</li>
       </ol>
 
       <div class="advantages">
-        <h4>Uzantı neden kullanılmalı?</h4>
+        <h4>Uzantı güvenli mi?</h4>
         <ul>
-          <li>Tarayıcı düzeyinde ağ isteklerini yakalar — DOM taramanın atladığı akışları yakalar</li>
-          <li>Otomatik kalite seçimi: varyantları video kimliğine göre gruplandırır ve en iyi kaliteyi seçer</li>
-          <li>Kimlik doğrulama gerektiren akışları oynatmak için Referer üst bilgisi ekleme</li>
-          <li>Rozet sayacı, sekme başına algılanan medya sayısını tek bakışta gösterir</li>
+          <li>Tamamen açık kaynak — kodu inceleyebilirsiniz. Yalnızca makinenizdeki masaüstü uygulamasıyla iletişim kurar; tarama geçmişinizi almayız.</li>
+          <li>Uzantı ve EchoShortsPlayer kişisel veri toplamaz; davranış izleme veya reklam yoktur.</li>
+          <li>Lisans etkinleştirmesi dışında tipik ağ etkinliği seçtiğiniz video akışlarını almakla sınırlıdır.</li>
+          <li>Etkinleştirme ve medya alımı dışında beklenmeyen yüklemeler olmadığını doğrulamak için giden istekleri kendiniz inceleyebilirsiniz.</li>
         </ul>
       </div>
     </div>

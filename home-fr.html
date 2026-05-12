@@ -221,13 +221,13 @@
 
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
-      <h3>&#128268; Extension Chrome <span class="tag">Recommandé</span></h3>
+      <h3>&#128268; Extension Chrome (détection vidéo) <span class="tag">Fortement recommandé</span></h3>
       <div class="subtitle">Interception approfondie des médias au niveau réseau</div>
 
       <p>L'extension Chrome utilise l'API <code>webRequest</code> pour intercepter toutes les requêtes réseau au niveau du navigateur, détectant les flux m3u8/HLS, les fichiers MP4 et autres formats multimédias. Elle scanne également le DOM de la page pour trouver les éléments vidéo et les liens de téléchargement.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="m3u8-extension.zip" download>Télécharger l'Extension (.zip)</a>
+        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>Télécharger l'Extension (.zip)</a>
       </div>
 
       <p><strong>Installation (mode développeur) :</strong></p>
@@ -235,7 +235,7 @@
         <li>Téléchargez le zip de l'extension ci-dessus et extrayez-le dans un dossier.</li>
         <li>Ouvrez Chrome et accédez à <code>chrome://extensions/</code>.</li>
         <li>Activez le <strong>Mode développeur</strong> (interrupteur en haut à droite).</li>
-        <li>Cliquez sur <strong>Charger l'extension non empaquetée</strong> et sélectionnez le dossier <code>m3u8-extension</code>.</li>
+        <li>Cliquez sur <strong>Charger l'extension non empaquetée</strong> et sélectionnez le dossier <code>echoshorts-extension</code>.</li>
         <li>L'icône de l'extension apparaît dans la barre d'outils avec un badge indiquant le nombre de médias détectés.</li>
       </ol>
 
@@ -244,16 +244,17 @@
         <li>Naviguez vers une page contenant du contenu vidéo.</li>
         <li>Cliquez sur l'icône de l'extension pour voir les flux m3u8/MP4 détectés.</li>
         <li>Cliquez sur <strong>Télécharger</strong> pour enregistrer en MP4 local, ou <strong>Traduire</strong> pour lancer la génération de sous-titres.</li>
+        <li>Cliquez sur <strong>Enregistrer</strong>, lisez la vidéo dans le navigateur, puis sur <strong>Arrêter</strong> à la fin — l'extension enregistre automatiquement les vidéos vues dans cet onglet.</li>
         <li>Survolez les éléments pour mettre en surbrillance l'élément vidéo correspondant sur la page.</li>
       </ol>
 
       <div class="advantages">
-        <h4>Pourquoi utiliser l'extension ?</h4>
+        <h4>L'extension est-elle sûre ?</h4>
         <ul>
-          <li>Intercepte les requêtes réseau au niveau du navigateur — capture les flux que le scan DOM ne détecte pas</li>
-          <li>Sélection automatique de la qualité : regroupe les variantes par ID vidéo et choisit la meilleure qualité</li>
-          <li>Injection d'en-tête Referer pour lire les flux nécessitant une authentification</li>
-          <li>Le compteur de badge affiche le nombre de médias détectés par onglet en un coup d'œil</li>
+          <li>Le code est entièrement open source — vous pouvez l'auditer. Elle ne communique qu'avec l'application locale ; nous ne recevons pas votre historique de navigation.</li>
+          <li>L'extension et EchoShortsPlayer ne collectent pas d'informations personnelles et ne font pas de suivi comportemental ni de publicité.</li>
+          <li>En dehors de l'activation de la licence, l'activité réseau typique se limite à résoudre et récupérer les flux vidéo que vous choisissez.</li>
+          <li>Vous pouvez inspecter les requêtes sortantes pour vérifier qu'il n'y a pas de transferts inattendus en dehors de l'activation et du téléchargement des médias.</li>
         </ul>
       </div>
     </div>

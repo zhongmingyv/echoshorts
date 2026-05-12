@@ -221,13 +221,13 @@
 
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
-      <h3>&#128268; Chrome Extension <span class="tag">Recommended</span></h3>
+      <h3>&#128268; Chrome Extension (Video Sniffing) <span class="tag">Strongly recommended</span></h3>
       <div class="subtitle">Deep network-level media interception</div>
 
       <p>The Chrome extension uses the <code>webRequest</code> API to intercept all network requests at the browser level, detecting m3u8/HLS streams, MP4 files, and other media formats. It also scans the page DOM for video elements and download links.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="m3u8-extension.zip" download>Download Extension (.zip)</a>
+        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>Download Extension (.zip)</a>
       </div>
 
       <p><strong>Telepítés (fejlesztői mód):</strong></p>
@@ -235,7 +235,7 @@
         <li>Töltse le a fenti bővítmény zip fájlját, és csomagolja ki egy mappába.</li>
         <li>Nyissa meg a Chrome-ot, és lépjen a <code>chrome://extensions/</code> oldalra.</li>
         <li>Kapcsolja be a <strong>Fejlesztői módot</strong> (jobb felső kapcsoló).</li>
-        <li>Kattintson a <strong>Csomagolatlan bővítmény betöltése</strong> lehetőségre, és válassza a <code>m3u8-extension</code> mappát.</li>
+        <li>Kattintson a <strong>Csomagolatlan bővítmény betöltése</strong> lehetőségre, és válassza a <code>echoshorts-extension</code> mappát.</li>
         <li>A bővítmény ikon megjelenik az eszköztáron; a jelvény a felismert média számát mutatja.</li>
       </ol>
 
@@ -244,16 +244,17 @@
         <li>Nyisson meg bármely oldalt videótartalommal.</li>
         <li>Kattintson a bővítmény ikonra a felismert m3u8/MP4 streamek megtekintéséhez.</li>
         <li>Kattintson a <strong>Letöltés</strong> gombra helyi MP4 mentéséhez, vagy a <strong>Fordítás</strong> gombra a feliratgenerálás indításához.</li>
+        <li>Kattintson a <strong>Felvétel</strong> gombra, játssza le a videót a böngészőben, lejátszás után a <strong>Leállítás</strong> gombra — a bővítmény automatikusan elmenti a lapon megtekintett videókat.</li>
         <li>Vigye az egeret az elemek fölé, hogy kiemelje a megfelelő videóelemet az oldalon.</li>
       </ol>
 
       <div class="advantages">
-        <h4>Miért érdemes a bővítményt használni?</h4>
+        <h4>Biztonságos a bővítmény?</h4>
         <ul>
-          <li>A böngésző szintjén elfogja a hálózati kéréseket — elkapja a streameket, amelyeket a DOM-vizsgálat kihagy</li>
-          <li>Automatikus minőségválasztás: videoazonosító szerint csoportosítja a változatokat, és a legjobb minőséget választja</li>
-          <li>Referer fejléc beszúrása hitelesítést igénylő streamek lejátszásához</li>
-          <li>A jelvényszámláló egy pillantással mutatja a fülenkénti észlelt médiák számát</li>
+          <li>Teljesen nyílt forráskódú — bármikor átnézheti a kódot. Csak az asztali alkalmazással kommunikál a gépen; nem kapjuk meg a böngészési előzményeit.</li>
+          <li>A bővítmény és az EchoShortsPlayer nem gyűjt személyes adatot, és nem végez viselkedéskövetést vagy hirdetést.</li>
+          <li>A licencaktiváláson kívül a jellemző hálózati tevékenység a választott videostream lekérésére korlátozódik.</li>
+          <li>Ellenőrizheti a kimenő kéréseket, hogy nincs-e váratlan feltöltés az aktiváláson és a média lekérésén kívül.</li>
         </ul>
       </div>
     </div>

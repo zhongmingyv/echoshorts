@@ -221,13 +221,13 @@
 
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
-      <h3>&#128268; Chrome Extension <span class="tag">Recommended</span></h3>
+      <h3>&#128268; Chrome Extension (Video Sniffing) <span class="tag">Strongly recommended</span></h3>
       <div class="subtitle">Deep network-level media interception</div>
 
       <p>The Chrome extension uses the <code>webRequest</code> API to intercept all network requests at the browser level, detecting m3u8/HLS streams, MP4 files, and other media formats. It also scans the page DOM for video elements and download links.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="m3u8-extension.zip" download>Download Extension (.zip)</a>
+        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>Download Extension (.zip)</a>
       </div>
 
       <p><strong>Installation (developer mode):</strong></p>
@@ -235,7 +235,7 @@
         <li>Download the extension zip above and extract it to a folder.</li>
         <li>Open Chrome and navigate to <code>chrome://extensions/</code>.</li>
         <li>Enable <strong>Developer mode</strong> (top-right toggle).</li>
-        <li>Click <strong>Load unpacked</strong> and select the <code>m3u8-extension</code> folder.</li>
+        <li>Click <strong>Load unpacked</strong> and select the <code>echoshorts-extension</code> folder.</li>
         <li>The extension icon appears in the toolbar with a badge showing detected media count.</li>
       </ol>
 
@@ -244,16 +244,17 @@
         <li>Browse to any page with video content.</li>
         <li>Click the extension icon to see detected m3u8/MP4 streams.</li>
         <li>Click <strong>Download</strong> to save to local MP4, or <strong>Translate</strong> to start subtitle generation.</li>
+        <li>Click <strong>Record</strong>, play the video in the browser, then click <strong>Stop</strong> when playback ends &mdash; the extension automatically saves the videos you watched in this tab.</li>
         <li>Hover over items to highlight the corresponding video element on the page.</li>
       </ol>
 
       <div class="advantages">
-        <h4>Why use the extension?</h4>
+        <h4>Is the extension safe?</h4>
         <ul>
-          <li>Intercepts network requests at the browser level &mdash; catches streams that DOM scanning misses</li>
-          <li>Automatic quality selection: groups variants by video ID and picks the best quality</li>
-          <li>Referer header injection for playing streams that require authentication</li>
-          <li>Badge counter shows detected media count per tab at a glance</li>
+          <li>Fully open source &mdash; you can review the code anytime. It only talks to the local desktop app on your machine; we do not receive your browsing history.</li>
+          <li>The extension and EchoShortsPlayer do not collect personal information and do not run behavioral tracking or ads.</li>
+          <li>Beyond software license activation, typical network activity is limited to resolving and fetching the video streams you choose to access.</li>
+          <li>You can inspect outgoing requests yourself to confirm there are no unexpected uploads aside from activation checks and media retrieval.</li>
         </ul>
       </div>
     </div>

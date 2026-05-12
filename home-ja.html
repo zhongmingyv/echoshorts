@@ -221,13 +221,13 @@
 
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
-      <h3>&#128268; Chrome拡張機能 <span class="tag">推奨</span></h3>
+      <h3>&#128268; Chrome拡張機能（動画検知） <span class="tag">強く推奨</span></h3>
       <div class="subtitle">ネットワークレベルの高度なメディア傍受</div>
 
       <p>Chrome拡張機能は<code>webRequest</code> APIを使用してブラウザレベルですべてのネットワークリクエストを傍受し、m3u8/HLSストリーム、MP4ファイル、その他のメディア形式を検出します。また、ページDOMをスキャンしてビデオ要素やダウンロードリンクを検出します。</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="m3u8-extension.zip" download>拡張機能をダウンロード（.zip）</a>
+        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>拡張機能をダウンロード（.zip）</a>
       </div>
 
       <p><strong>インストール（開発者モード）：</strong></p>
@@ -235,7 +235,7 @@
         <li>上記の拡張機能zipをダウンロードし、フォルダに解凍します。</li>
         <li>Chromeを開き、<code>chrome://extensions/</code>に移動します。</li>
         <li><strong>デベロッパーモード</strong>（右上のトグル）を有効にします。</li>
-        <li><strong>パッケージ化されていない拡張機能を読み込む</strong>をクリックし、<code>m3u8-extension</code>フォルダを選択します。</li>
+        <li><strong>パッケージ化されていない拡張機能を読み込む</strong>をクリックし、<code>echoshorts-extension</code>フォルダを選択します。</li>
         <li>ツールバーに拡張機能アイコンが表示され、検出されたメディア数がバッジで表示されます。</li>
       </ol>
 
@@ -244,16 +244,17 @@
         <li>動画コンテンツのあるページを閲覧します。</li>
         <li>拡張機能アイコンをクリックして、検出されたm3u8/MP4ストリームを確認します。</li>
         <li><strong>ダウンロード</strong>をクリックしてローカルMP4に保存、または<strong>翻訳</strong>をクリックして字幕生成を開始します。</li>
+        <li><strong>録画</strong>をクリックし、ブラウザで動画を再生します。再生が終わったら<strong>停止</strong>をクリックすると、このタブで視聴した動画が自動的に保存されます。</li>
         <li>アイテムにカーソルを合わせると、ページ上の対応するビデオ要素がハイライトされます。</li>
       </ol>
 
       <div class="advantages">
-        <h4>拡張機能を使う理由</h4>
+        <h4>拡張機能は安全ですか？</h4>
         <ul>
-          <li>ブラウザレベルでネットワークリクエストを傍受 — DOMスキャンでは見逃すストリームも捕捉</li>
-          <li>自動画質選択：動画IDごとにバリアントをグループ化し、最高画質を選択</li>
-          <li>認証が必要なストリーム再生のためのRefererヘッダー挿入</li>
-          <li>バッジカウンターでタブごとの検出メディア数を一目で確認</li>
+          <li>ソースコードは完全に公開されており、いつでも検証できます。通信はお使いのマシン上のデスクトップアプリに限定され、閲覧内容が開発者のサーバーに送信されることはありません。</li>
+          <li>拡張機能とEchoShortsPlayerは個人情報を収集せず、行動追跡や広告も行いません。</li>
+          <li>ソフトウェアのライセンス認証を除き、一般的な通信はお客様がアクセスする動画ストリームの解決と取得に限られます。</li>
+          <li>ネットワークリクエストを自分で確認し、認証とメディア取得以外の予期しないアップロードがないことを確かめられます。</li>
         </ul>
       </div>
     </div>

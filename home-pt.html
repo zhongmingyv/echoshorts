@@ -221,13 +221,13 @@
 
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
-      <h3>&#128268; Extensão para Chrome <span class="tag">Recomendado</span></h3>
+      <h3>&#128268; Extensão para Chrome (detecção de vídeo) <span class="tag">Altamente recomendado</span></h3>
       <div class="subtitle">Interceptação profunda de mídia a nível de rede</div>
 
       <p>A extensão do Chrome usa a API <code>webRequest</code> para interceptar todas as requisições de rede no nível do navegador, detectando streams m3u8/HLS, arquivos MP4 e outros formatos de mídia. Também escaneia o DOM da página em busca de elementos de vídeo e links de download.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="m3u8-extension.zip" download>Baixar Extensão (.zip)</a>
+        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>Baixar Extensão (.zip)</a>
       </div>
 
       <p><strong>Instalação (modo desenvolvedor):</strong></p>
@@ -235,7 +235,7 @@
         <li>Baixe o zip da extensão acima e extraia em uma pasta.</li>
         <li>Abra o Chrome e navegue até <code>chrome://extensions/</code>.</li>
         <li>Ative o <strong>Modo desenvolvedor</strong> (botão no canto superior direito).</li>
-        <li>Clique em <strong>Carregar sem compactação</strong> e selecione a pasta <code>m3u8-extension</code>.</li>
+        <li>Clique em <strong>Carregar sem compactação</strong> e selecione a pasta <code>echoshorts-extension</code>.</li>
         <li>O ícone da extensão aparece na barra de ferramentas com um badge mostrando a quantidade de mídia detectada.</li>
       </ol>
 
@@ -244,16 +244,17 @@
         <li>Navegue até qualquer página com conteúdo de vídeo.</li>
         <li>Clique no ícone da extensão para ver os streams m3u8/MP4 detectados.</li>
         <li>Clique em <strong>Baixar</strong> para salvar como MP4 local, ou <strong>Traduzir</strong> para iniciar a geração de legendas.</li>
+        <li>Clique em <strong>Gravar</strong>, reproduza o vídeo no navegador e, ao terminar, em <strong>Parar</strong> — a extensão salva automaticamente os vídeos assistidos nesta aba.</li>
         <li>Passe o mouse sobre os itens para destacar o elemento de vídeo correspondente na página.</li>
       </ol>
 
       <div class="advantages">
-        <h4>Por que usar a extensão?</h4>
+        <h4>A extensão é segura?</h4>
         <ul>
-          <li>Intercepta requisições de rede no nível do navegador — captura streams que a varredura do DOM não detecta</li>
-          <li>Seleção automática de qualidade: agrupa variantes por ID de vídeo e escolhe a melhor qualidade</li>
-          <li>Injeção de cabeçalho Referer para reproduzir streams que exigem autenticação</li>
-          <li>Contador no badge mostra a quantidade de mídia detectada por aba de forma rápida</li>
+          <li>O código é totalmente aberto — você pode auditá-lo. Ela só se comunica com o aplicativo de desktop na sua máquina; não recebemos seu histórico de navegação.</li>
+          <li>A extensão e o EchoShortsPlayer não coletam dados pessoais nem fazem rastreamento comportamental ou anúncios.</li>
+          <li>Além da ativação da licença, o tráfego de rede típico limita-se a resolver e buscar os fluxos de vídeo que você escolher.</li>
+          <li>Você pode inspecionar as requisições de rede para confirmar que não há envios inesperados além da ativação e da obtenção de mídia.</li>
         </ul>
       </div>
     </div>

@@ -37,25 +37,26 @@ const langs = {
       instReq: '<strong>系统要求：</strong>Windows 10/11，NVIDIA 显卡 8 GB+ 显存，已安装 CUDA 驱动。',
       instAfter: '安装后启动应用。它会在 <code>localhost:18632</code> 启动本地后端服务器，扩展和 CLI 都通过它通信。',
       // Extension
-      extTitle: '&#128268; Chrome 扩展', extTag: '推荐', extSub: '深度网络级媒体拦截',
+      extTitle: '&#128268; Chrome 扩展（视频嗅探）', extTag: '强烈推荐', extSub: '深度网络级媒体拦截',
       extP1: 'Chrome 扩展使用 <code>webRequest</code> API 在浏览器层面拦截所有网络请求，检测 m3u8/HLS 流、MP4 文件和其他媒体格式。还会扫描页面 DOM 中的视频元素 and 下载链接。',
       extInstTitle: '<strong>安装（开发者模式）：</strong>',
       extDlBtn: '下载扩展 (.zip)',
       extI1: '下载上方的扩展 zip 文件并解压到一个文件夹中。',
       extI2: '打开 Chrome，导航到 <code>chrome://extensions/</code>。',
       extI3: '启用 <strong>开发者模式</strong>（右上角开关）。',
-      extI4: '点击 <strong>加载已解压的扩展程序</strong>，选择 <code>m3u8-extension</code> 文件夹。',
+      extI4: '点击 <strong>加载已解压的扩展程序</strong>，选择 <code>echoshorts-extension</code> 文件夹。',
       extI5: '扩展图标出现在工具栏中，徽章显示检测到的媒体数量。',
       extUseTitle: '<strong>使用方法：</strong>',
       extU1: '浏览包含视频内容的页面。',
       extU2: '点击扩展图标查看检测到的 m3u8/MP4 流。',
       extU3: '点击 <strong>下载</strong> 保存为本地 MP4，或点击 <strong>翻译</strong> 开始生成字幕。',
-      extU4: '悬停在项目上可高亮页面中对应的视频元素。',
-      extAdvTitle: '为什么使用扩展？',
-      extAdv1: '在浏览器层面拦截网络请求——捕获 DOM 扫描遗漏的流',
-      extAdv2: '自动质量选择：按视频 ID 分组并选择最佳质量',
-      extAdv3: 'Referer 头注入，播放需要认证的流',
-      extAdv4: '徽章计数器一目了然显示每个标签页检测到的媒体数量',
+      extU4: '点击 <strong>录制</strong>，在浏览器中播放视频；播放结束后点击 <strong>停止</strong>，扩展会自动保存本标签页中您观看过的视频。',
+      extU5: '将鼠标悬停在列表项上，可高亮页面中对应的视频元素。',
+      extAdvTitle: '扩展安全吗？',
+      extAdv1: '代码完全开源，可自行审阅；扩展仅与本机播放器通信，浏览内容不会上传到我们的服务器。',
+      extAdv2: '扩展与桌面播放器均不收集个人信息，无行为画像、无广告追踪。',
+      extAdv3: '除软件许可证激活校验外，常规联网主要用于解析并获取您选择的视频流。',
+      extAdv4: '您可自行检查网络请求，确认除激活与拉取媒体外无多余数据外传。',
       extAdv5: '更深度的检测：可 hook fetch、XHR、MediaSource 并扫描响应体',
       // CLI
       cliTitle: '&#128187; 命令行工具', cliTag: '高级用户', cliSub: '自动化、批处理和脚本集成',
@@ -113,14 +114,14 @@ const langs = {
       instDlBtn: '下載 EchoShortsPlayer',
       instReq: '<strong>系統需求：</strong>Windows 10/11，NVIDIA 顯示卡 8 GB+ 視訊記憶體，已安裝 CUDA 驅動程式。',
       instAfter: '安裝後啟動應用。它會在 <code>localhost:18632</code> 啟動本機後端伺服器，擴充功能和 CLI 都透過它通訊。',
-      extTitle: '&#128268; Chrome 擴充功能', extTag: '推薦', extSub: '深度網路級媒體攔截',
+      extTitle: '&#128268; Chrome 擴充功能（影片嗅探）', extTag: '強烈推薦', extSub: '深度網路級媒體攔截',
       extP1: 'Chrome 擴充功能使用 <code>webRequest</code> API 在瀏覽器層面攔截所有網路請求，偵測 m3u8/HLS 串流、MP4 檔案和其他媒體格式。還會掃描頁面 DOM 中的影片元素和下載連結。',
       extInstTitle: '<strong>安裝（開發者模式）：</strong>',
       extDlBtn: '下載擴充功能 (.zip)',
-      extI1: '下載上方的擴充功能 zip 檔案並解壓縮到一個資料夾中。', extI2: '開啟 Chrome，導覽至 <code>chrome://extensions/</code>。', extI3: '啟用 <strong>開發者模式</strong>（右上角切換）。', extI4: '點擊 <strong>載入未封裝項目</strong>，選擇 <code>m3u8-extension</code> 資料夾。', extI5: '擴充功能圖示出現在工具列中，徽章顯示偵測到的媒體數量。',
+      extI1: '下載上方的擴充功能 zip 檔案並解壓縮到一個資料夾中。', extI2: '開啟 Chrome，導覽至 <code>chrome://extensions/</code>。', extI3: '啟用 <strong>開發者模式</strong>（右上角切換）。', extI4: '點擊 <strong>載入未封裝項目</strong>，選擇 <code>echoshorts-extension</code> 資料夾。', extI5: '擴充功能圖示出現在工具列中，徽章顯示偵測到的媒體數量。',
       extUseTitle: '<strong>使用方式：</strong>',
-      extU1: '瀏覽含有影片內容的頁面。', extU2: '點擊擴充功能圖示查看偵測到的 m3u8/MP4 串流。', extU3: '點擊 <strong>下載</strong> 儲存為本機 MP4，或點擊 <strong>翻譯</strong> 開始產生字幕。', extU4: '懸停在項目上可高亮顯示頁面中對應的影片元素。',
-      extAdvTitle: '為什麼使用擴充功能？', extAdv1: '在瀏覽器層面攔截網路請求——捕獲 DOM 掃描遺漏的串流', extAdv2: '自動品質選擇：按影片 ID 分組並選擇最佳品質', extAdv3: 'Referer 標頭注入，播放需要驗證的串流', extAdv4: '徽章計數器一目了然顯示每個分頁偵測到的媒體數量', extAdv5: '更深度的偵測：可 hook fetch、XHR、MediaSource 並掃描回應本體',
+      extU1: '瀏覽含有影片內容的頁面。', extU2: '點擊擴充功能圖示查看偵測到的 m3u8/MP4 串流。', extU3: '點擊 <strong>下載</strong> 儲存為本機 MP4，或點擊 <strong>翻譯</strong> 開始產生字幕。', extU4: '點擊 <strong>錄製</strong>，在瀏覽器中播放影片；播放結束後點擊 <strong>停止</strong>，擴充功能會自動儲存本分頁中您觀看過的影片。', extU5: '將游標懸停在項目上，可醒目提示頁面中對應的影片元素。',
+      extAdvTitle: '擴充功能安全嗎？', extAdv1: '程式碼完全開源，可自行審閱；擴充功能僅與本機播放器通訊，瀏覽內容不會上傳至我們的伺服器。', extAdv2: '擴充功能與桌面播放器均不蒐集個人資訊，無行為畫像、無廣告追蹤。', extAdv3: '除軟體授權啟用驗證外，一般連線主要用於解析並取得您選擇的影片串流。', extAdv4: '您可自行檢查網路請求，確認除啟用與取得媒體外無多餘資料外傳。', extAdv5: '更深度的偵測：可 hook fetch、XHR、MediaSource 並掃描回應本體',
       cliTitle: '&#128187; 命令列工具', cliTag: '進階使用者', cliSub: '自動化、批次處理和腳本整合',
       cliP1: 'CLI 提供從終端直接存取所有下載 and 翻譯功能。專為需要批次處理影片、自動化工作流程或與其他工具整合的進階使用者設計。',
       cliCmds: '<strong>可用命令：</strong>',
@@ -221,20 +222,20 @@ function applyPrivacyBlock(html, langKey) {
   return html;
 }
 
-/** Replace "Why use the extension/CLI?" h4 titles and advantage <li> bullets. */
+/** Replace "Is the extension safe?" / "Why use the CLI?" h4 titles and advantage <li> bullets. */
 function applyAdvantages(html, advT) {
   if (!advT) return html;
   if (advT.extAdvTitle) {
-    html = html.replace('Why use the extension?', advT.extAdvTitle);
+    html = html.replace('Is the extension safe?', advT.extAdvTitle);
   }
   if (advT.cliAdvTitle) {
     html = html.replace('Why use the CLI?', advT.cliAdvTitle);
   }
   const extEN = [
-    'Intercepts network requests at the browser level &mdash; catches streams that DOM scanning misses',
-    'Automatic quality selection: groups variants by video ID and picks the best quality',
-    'Referer header injection for playing streams that require authentication',
-    'Badge counter shows detected media count per tab at a glance',
+    'Fully open source &mdash; you can review the code anytime. It only talks to the local desktop app on your machine; we do not receive your browsing history.',
+    'The extension and EchoShortsPlayer do not collect personal information and do not run behavioral tracking or ads.',
+    'Beyond software license activation, typical network activity is limited to resolving and fetching the video streams you choose to access.',
+    'You can inspect outgoing requests yourself to confirm there are no unexpected uploads aside from activation checks and media retrieval.',
   ];
   for (let i = 0; i < extEN.length; i++) {
     const key = 'extAdv' + (i + 1);
@@ -265,12 +266,13 @@ function applyExtensionInstallUsage(html, extT) {
     .replace('<li>Download the extension zip above and extract it to a folder.</li>', `<li>${extT.extI1}</li>`)
     .replace('<li>Open Chrome and navigate to <code>chrome://extensions/</code>.</li>', `<li>${extT.extI2}</li>`)
     .replace('<li>Enable <strong>Developer mode</strong> (top-right toggle).</li>', `<li>${extT.extI3}</li>`)
-    .replace('<li>Click <strong>Load unpacked</strong> and select the <code>m3u8-extension</code> folder.</li>', `<li>${extT.extI4}</li>`)
+    .replace('<li>Click <strong>Load unpacked</strong> and select the <code>echoshorts-extension</code> folder.</li>', `<li>${extT.extI4}</li>`)
     .replace('<li>The extension icon appears in the toolbar with a badge showing detected media count.</li>', `<li>${extT.extI5}</li>`)
     .replace('<li>Browse to any page with video content.</li>', `<li>${extT.extU1}</li>`)
     .replace('<li>Click the extension icon to see detected m3u8/MP4 streams.</li>', `<li>${extT.extU2}</li>`)
     .replace('<li>Click <strong>Download</strong> to save to local MP4, or <strong>Translate</strong> to start subtitle generation.</li>', `<li>${extT.extU3}</li>`)
-    .replace('<li>Hover over items to highlight the corresponding video element on the page.</li>', `<li>${extT.extU4}</li>`);
+    .replace('<li>Click <strong>Record</strong>, play the video in the browser, then click <strong>Stop</strong> when playback ends &mdash; the extension automatically saves the videos you watched in this tab.</li>', `<li>${extT.extU4}</li>`)
+    .replace('<li>Hover over items to highlight the corresponding video element on the page.</li>', `<li>${extT.extU5 != null ? extT.extU5 : 'Hover over items to highlight the corresponding video element on the page.'}</li>`);
 }
 
 // --- Build function for fully translated languages (zh, cht) ---
@@ -302,7 +304,7 @@ function buildTranslated(key, data) {
     .replace('>Download EchoShortsPlayer<', `>${t.instDlBtn}<`)
     .replace(/<p><strong>System requirements:<\/strong>.*?installed\.<\/p>/, `<p>${t.instReq}</p>`)
     .replace(/<p>After installation, launch the application\..*?communicate with\.<\/p>/, `<p>${t.instAfter}</p>`)
-    .replace('Chrome Extension <span class="tag">Recommended', `${t.extTitle.replace(/&#\d+; /, '')} <span class="tag">${t.extTag}`)
+    .replace('Chrome Extension (Video Sniffing) <span class="tag">Strongly recommended', `${t.extTitle.replace(/&#\d+; /, '')} <span class="tag">${t.extTag}`)
     .replace('Deep network-level media interception', t.extSub)
     .replace(/The Chrome extension uses the.*?download links\./, t.extP1)
     .replace('<strong>Installation (developer mode):</strong>', t.extInstTitle)
@@ -508,7 +510,7 @@ function buildOther(key, data) {
       .replace('>Download EchoShortsPlayer<', `>${t.instDlBtn}<`)
       .replace(/<p><strong>System requirements:<\/strong>.*?installed\.<\/p>/, `<p>${t.instReq}</p>`)
       .replace(/<p>After installation, launch the application\..*?communicate with\.<\/p>/, `<p>${t.instAfter}</p>`)
-      .replace('Chrome Extension <span class="tag">Recommended', `${t.extTitle} <span class="tag">${t.extTag}`)
+      .replace('Chrome Extension (Video Sniffing) <span class="tag">Strongly recommended', `${t.extTitle} <span class="tag">${t.extTag}`)
       .replace('Deep network-level media interception', t.extSub)
       .replace(/The Chrome extension uses the.*?download links\./, t.extP1)
       .replace('>Download Extension (.zip)<', `>${t.extDlBtn}<`)

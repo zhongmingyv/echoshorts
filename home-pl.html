@@ -221,13 +221,13 @@
 
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
-      <h3>&#128268; Chrome Extension <span class="tag">Recommended</span></h3>
+      <h3>&#128268; Chrome Extension (Video Sniffing) <span class="tag">Strongly recommended</span></h3>
       <div class="subtitle">Deep network-level media interception</div>
 
       <p>The Chrome extension uses the <code>webRequest</code> API to intercept all network requests at the browser level, detecting m3u8/HLS streams, MP4 files, and other media formats. It also scans the page DOM for video elements and download links.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="m3u8-extension.zip" download>Download Extension (.zip)</a>
+        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>Download Extension (.zip)</a>
       </div>
 
       <p><strong>Instalacja (tryb deweloperski):</strong></p>
@@ -235,7 +235,7 @@
         <li>Pobierz plik zip rozszerzenia powyżej i rozpakuj go do folderu.</li>
         <li>Otwórz Chrome i przejdź do <code>chrome://extensions/</code>.</li>
         <li>Włącz <strong>Tryb deweloperski</strong> (przełącznik w prawym górnym rogu).</li>
-        <li>Kliknij <strong>Wczytaj rozpakowane</strong> i wybierz folder <code>m3u8-extension</code>.</li>
+        <li>Kliknij <strong>Wczytaj rozpakowane</strong> i wybierz folder <code>echoshorts-extension</code>.</li>
         <li>Ikona rozszerzenia pojawia się na pasku narzędzi z odznaką pokazującą liczbę wykrytych mediów.</li>
       </ol>
 
@@ -244,16 +244,17 @@
         <li>Otwórz dowolną stronę z treścią wideo.</li>
         <li>Kliknij ikonę rozszerzenia, aby zobaczyć wykryte strumienie m3u8/MP4.</li>
         <li>Kliknij <strong>Pobierz</strong>, aby zapisać lokalnie jako MP4, lub <strong>Tłumacz</strong>, aby rozpocząć generowanie napisów.</li>
+        <li>Kliknij <strong>Nagraj</strong>, odtwórz wideo w przeglądarce, po zakończeniu kliknij <strong>Zatrzymaj</strong> — rozszerzenie automatycznie zapisuje obejrzane filmy na tej karcie.</li>
         <li>Najedź kursorem na pozycje, aby podświetlić odpowiedni element wideo na stronie.</li>
       </ol>
 
       <div class="advantages">
-        <h4>Po co używać rozszerzenia?</h4>
+        <h4>Czy rozszerzenie jest bezpieczne?</h4>
         <ul>
-          <li>Przechwytuje żądania sieciowe na poziomie przeglądarki — wyłapuje strumienie, które omija skanowanie DOM</li>
-          <li>Automatyczny wybór jakości: grupuje warianty według ID wideo i wybiera najlepszą jakość</li>
-          <li>Wstrzykiwanie nagłówka Referer do odtwarzania strumieni wymagających uwierzytelnienia</li>
-          <li>Licznik na odznace pokazuje liczbę wykrytych mediów na kartę na pierwszy rzut oka</li>
+          <li>W pełni open source — możesz przejrzeć kod. Komunikuje się tylko z aplikacją desktopową na Twoim komputerze; nie otrzymujemy historii przeglądania.</li>
+          <li>Rozszerzenie i EchoShortsPlayer nie zbierają danych osobowych ani nie prowadzą śledzenia zachowań ani reklam.</li>
+          <li>Poza aktywacją licencji typowa aktywność sieci ogranicza się do pobierania wybranych strumieni wideo.</li>
+          <li>Możesz samodzielnie sprawdzić żądania wychodzące, by upewnić się, że poza aktywacją i pobieraniem mediów nie ma nieoczekiwanych przesyłów.</li>
         </ul>
       </div>
     </div>

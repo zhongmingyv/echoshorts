@@ -221,13 +221,13 @@
 
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
-      <h3>&#128268; Extensión de Chrome <span class="tag">Recomendado</span></h3>
+      <h3>&#128268; Extensión de Chrome (detección de video) <span class="tag">Muy recomendado</span></h3>
       <div class="subtitle">Intercepción profunda de medios a nivel de red</div>
 
       <p>La extensión de Chrome usa la API <code>webRequest</code> para interceptar todas las solicitudes de red a nivel del navegador, detectando transmisiones m3u8/HLS, archivos MP4 y otros formatos multimedia. También escanea el DOM de la página en busca de elementos de video y enlaces de descarga.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="m3u8-extension.zip" download>Descargar Extensión (.zip)</a>
+        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>Descargar Extensión (.zip)</a>
       </div>
 
       <p><strong>Instalación (modo desarrollador):</strong></p>
@@ -235,7 +235,7 @@
         <li>Descarga el zip de la extensión de arriba y extráelo en una carpeta.</li>
         <li>Abre Chrome y navega a <code>chrome://extensions/</code>.</li>
         <li>Activa el <strong>Modo desarrollador</strong> (interruptor en la esquina superior derecha).</li>
-        <li>Haz clic en <strong>Cargar descomprimida</strong> y selecciona la carpeta <code>m3u8-extension</code>.</li>
+        <li>Haz clic en <strong>Cargar descomprimida</strong> y selecciona la carpeta <code>echoshorts-extension</code>.</li>
         <li>El icono de la extensión aparece en la barra de herramientas con una insignia que muestra el número de medios detectados.</li>
       </ol>
 
@@ -244,16 +244,17 @@
         <li>Navega a cualquier página con contenido de video.</li>
         <li>Haz clic en el icono de la extensión para ver las transmisiones m3u8/MP4 detectadas.</li>
         <li>Haz clic en <strong>Descargar</strong> para guardar como MP4 local, o <strong>Traducir</strong> para iniciar la generación de subtítulos.</li>
+        <li>Haz clic en <strong>Grabar</strong>, reproduce el video en el navegador y, al terminar, en <strong>Detener</strong> — la extensión guarda automáticamente los videos vistos en esta pestaña.</li>
         <li>Pasa el cursor sobre los elementos para resaltar el elemento de video correspondiente en la página.</li>
       </ol>
 
       <div class="advantages">
-        <h4>¿Por qué usar la extensión?</h4>
+        <h4>¿La extensión es segura?</h4>
         <ul>
-          <li>Intercepta solicitudes de red a nivel del navegador — captura transmisiones que el escaneo DOM no detecta</li>
-          <li>Selección automática de calidad: agrupa variantes por ID de video y elige la mejor calidad</li>
-          <li>Inyección de encabezado Referer para reproducir transmisiones que requieren autenticación</li>
-          <li>El contador de insignia muestra el número de medios detectados por pestaña de un vistazo</li>
+          <li>El código es totalmente de código abierto; puede auditarlo cuando quiera. Solo se comunica con la aplicación de escritorio en su equipo; no recibimos su historial de navegación.</li>
+          <li>La extensión y EchoShortsPlayer no recopilan datos personales ni realizan seguimiento publicitario.</li>
+          <li>Aparte de la activación de la licencia, el tráfico de red habitual se limita a resolver y obtener las transmisiones de video que elija.</li>
+          <li>Puede inspeccionar las solicitudes de red para comprobar que no hay cargas inesperadas más allá de la activación y la obtención de medios.</li>
         </ul>
       </div>
     </div>

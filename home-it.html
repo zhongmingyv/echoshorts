@@ -221,13 +221,13 @@
 
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
-      <h3>&#128268; Chrome Extension <span class="tag">Recommended</span></h3>
+      <h3>&#128268; Chrome Extension (Video Sniffing) <span class="tag">Strongly recommended</span></h3>
       <div class="subtitle">Deep network-level media interception</div>
 
       <p>The Chrome extension uses the <code>webRequest</code> API to intercept all network requests at the browser level, detecting m3u8/HLS streams, MP4 files, and other media formats. It also scans the page DOM for video elements and download links.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="m3u8-extension.zip" download>Download Extension (.zip)</a>
+        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>Download Extension (.zip)</a>
       </div>
 
       <p><strong>Installazione (modalità sviluppatore):</strong></p>
@@ -235,7 +235,7 @@
         <li>Scarica lo zip dell’estensione qui sopra ed estrailo in una cartella.</li>
         <li>Apri Chrome e vai a <code>chrome://extensions/</code>.</li>
         <li>Attiva la <strong>Modalità sviluppatore</strong> (interruttore in alto a destra).</li>
-        <li>Fai clic su <strong>Carica estensione non pacchettizzata</strong> e seleziona la cartella <code>m3u8-extension</code>.</li>
+        <li>Fai clic su <strong>Carica estensione non pacchettizzata</strong> e seleziona la cartella <code>echoshorts-extension</code>.</li>
         <li>L'icona dell'estensione compare nella barra degli strumenti con un badge che indica il numero di contenuti multimediali rilevati.</li>
       </ol>
 
@@ -244,16 +244,17 @@
         <li>Apri una pagina con contenuti video.</li>
         <li>Fai clic sull'icona dell'estensione per vedere i flussi m3u8/MP4 rilevati.</li>
         <li>Fai clic su <strong>Download</strong> per salvare in MP4 locale, o su <strong>Traduci</strong> per avviare la generazione dei sottotitoli.</li>
+        <li>Fai clic su <strong>Registra</strong>, riproduci il video nel browser, al termine fai clic su <strong>Stop</strong> — l'estensione salva automaticamente i video guardati in questa scheda.</li>
         <li>Passa il mouse sugli elementi per evidenziare il corrispondente elemento video nella pagina.</li>
       </ol>
 
       <div class="advantages">
-        <h4>Perché usare l'estensione?</h4>
+        <h4>L'estensione è sicura?</h4>
         <ul>
-          <li>Intercetta le richieste di rete a livello di browser — cattura i flussi che la scansione del DOM non rileva</li>
-          <li>Selezione automatica della qualità: raggruppa le varianti per ID video e sceglie la qualità migliore</li>
-          <li>Iniezione dell'header Referer per riprodurre flussi che richiedono autenticazione</li>
-          <li>Il contatore del badge mostra a colpo d'occhio il numero di media rilevati per scheda</li>
+          <li>Completamente open source — potete verificare il codice. Comunica solo con l'app desktop sulla vostra macchina; non riceviamo la cronologia di navigazione.</li>
+          <li>L'estensione ed EchoShortsPlayer non raccolgono dati personali né effettuano tracciamento comportamentale o pubblicità.</li>
+          <li>Oltre all'attivazione della licenza, l'attività di rete tipica si limita a recuperare i flussi video che scegliete.</li>
+          <li>Potete ispezionare le richieste in uscita per confermare che non ci sono caricamenti imprevisti oltre ad attivazione e recupero media.</li>
         </ul>
       </div>
     </div>

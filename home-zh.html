@@ -221,13 +221,13 @@
 
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
-      <h3>&#128268; Chrome 扩展 <span class="tag">推荐</span></h3>
+      <h3>&#128268; Chrome 扩展（视频嗅探） <span class="tag">强烈推荐</span></h3>
       <div class="subtitle">深度网络级媒体拦截</div>
 
       <p>Chrome 扩展使用 <code>webRequest</code> API 在浏览器层面拦截所有网络请求，检测 m3u8/HLS 流、MP4 文件和其他媒体格式。还会扫描页面 DOM 中的视频元素 and 下载链接。</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="m3u8-extension.zip" download>下载扩展 (.zip)</a>
+        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>下载扩展 (.zip)</a>
       </div>
 
       <p><strong>安装（开发者模式）：</strong></p>
@@ -235,7 +235,7 @@
         <li>下载上方的扩展 zip 文件并解压到一个文件夹中。</li>
         <li>打开 Chrome，导航到 <code>chrome://extensions/</code>。</li>
         <li>启用 <strong>开发者模式</strong>（右上角开关）。</li>
-        <li>点击 <strong>加载已解压的扩展程序</strong>，选择 <code>m3u8-extension</code> 文件夹。</li>
+        <li>点击 <strong>加载已解压的扩展程序</strong>，选择 <code>echoshorts-extension</code> 文件夹。</li>
         <li>扩展图标出现在工具栏中，徽章显示检测到的媒体数量。</li>
       </ol>
 
@@ -244,16 +244,17 @@
         <li>浏览包含视频内容的页面。</li>
         <li>点击扩展图标查看检测到的 m3u8/MP4 流。</li>
         <li>点击 <strong>下载</strong> 保存为本地 MP4，或点击 <strong>翻译</strong> 开始生成字幕。</li>
-        <li>悬停在项目上可高亮页面中对应的视频元素。</li>
+        <li>点击 <strong>录制</strong>，在浏览器中播放视频；播放结束后点击 <strong>停止</strong>，扩展会自动保存本标签页中您观看过的视频。</li>
+        <li>将鼠标悬停在列表项上，可高亮页面中对应的视频元素。</li>
       </ol>
 
       <div class="advantages">
-        <h4>为什么使用扩展？</h4>
+        <h4>扩展安全吗？</h4>
         <ul>
-          <li>在浏览器层面拦截网络请求——捕获 DOM 扫描遗漏的流</li>
-          <li>自动质量选择：按视频 ID 分组并选择最佳质量</li>
-          <li>Referer 头注入，播放需要认证的流</li>
-          <li>徽章计数器一目了然显示每个标签页检测到的媒体数量</li>
+          <li>代码完全开源，可自行审阅；扩展仅与本机播放器通信，浏览内容不会上传到我们的服务器。</li>
+          <li>扩展与桌面播放器均不收集个人信息，无行为画像、无广告追踪。</li>
+          <li>除软件许可证激活校验外，常规联网主要用于解析并获取您选择的视频流。</li>
+          <li>您可自行检查网络请求，确认除激活与拉取媒体外无多余数据外传。</li>
         </ul>
       </div>
     </div>

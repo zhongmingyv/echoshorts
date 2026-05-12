@@ -221,13 +221,13 @@
 
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
-      <h3>&#128268; Chrome Extension <span class="tag">Recommended</span></h3>
+      <h3>&#128268; Chrome Extension (Video Sniffing) <span class="tag">Strongly recommended</span></h3>
       <div class="subtitle">Deep network-level media interception</div>
 
       <p>The Chrome extension uses the <code>webRequest</code> API to intercept all network requests at the browser level, detecting m3u8/HLS streams, MP4 files, and other media formats. It also scans the page DOM for video elements and download links.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="m3u8-extension.zip" download>Download Extension (.zip)</a>
+        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>Download Extension (.zip)</a>
       </div>
 
       <p><strong>Asennus (kehittäjätila):</strong></p>
@@ -235,7 +235,7 @@
         <li>Lataa yllä oleva laajennuksen zip-tiedosto ja pura se kansioon.</li>
         <li>Avaa Chrome ja siirry osoitteeseen <code>chrome://extensions/</code>.</li>
         <li>Ota <strong>Kehittäjätila</strong> käyttöön (kytkin oikeassa yläkulmassa).</li>
-        <li>Napsauta <strong>Lataa purettu</strong> ja valitse kansio <code>m3u8-extension</code>.</li>
+        <li>Napsauta <strong>Lataa purettu</strong> ja valitse kansio <code>echoshorts-extension</code>.</li>
         <li>Laajennuskuvake näkyy työkalupalkissa merkillä, joka näyttää havaittujen medioiden määrän.</li>
       </ol>
 
@@ -244,16 +244,17 @@
         <li>Siirry mille tahansa sivulle, jolla on videota.</li>
         <li>Napsauta laajennuskuvaketta nähdäksesi havaitut m3u8/MP4-suoratoistot.</li>
         <li>Napsauta <strong>Lataa</strong> tallentaaksesi paikallisena MP4:nä tai <strong>Käännä</strong> aloittaaksesi tekstityksen luonnin.</li>
+        <li>Napsauta <strong>Tallenna</strong>, toista video selaimessa, toiston päätyttyä napsauta <strong>Pysäytä</strong> — laajennus tallentaa automaattisesti tässä välilehdessä katsomasi videot.</li>
         <li>Vie osoitin kohteiden päälle korostaaksesi vastaavan videoelementin sivulla.</li>
       </ol>
 
       <div class="advantages">
-        <h4>Miksi käyttää laajennusta?</h4>
+        <h4>Onko laajennus turvallinen?</h4>
         <ul>
-          <li>Sieppaa verkkopyynnöt selaintasolla — saa kiinni striimit, jotka DOM-skannaus jättää huomiotta</li>
-          <li>Automaattinen laadunvalinta: ryhmittelee variantit videon tunnuksen mukaan ja valitsee parhaan laadun</li>
-          <li>Referer-otsakkeen lisäys todennusta vaativien striimien toistoa varten</li>
-          <li>Merkkilaskuri näyttää havaitut mediat välilehteä kohden yhdellä silmäyksellä</li>
+          <li>Täysin avoin lähdekoodi — voit tarkistaa koodin milloin tahansa. Se kommunikoi vain työpöytäsovelluksen kanssa koneellasi; emme saa selaushistoriaasi.</li>
+          <li>Laajennus ja EchoShortsPlayer eivät kerää henkilötietoja eivätkä tee käyttäytymisseurantaa tai mainoksia.</li>
+          <li>Lisenssin aktivoinnin lisäksi tyypillinen verkkoliikenne rajoittuu valitsemiesi videovirtojen hakemiseen.</li>
+          <li>Voit tarkistaa lähtevät pyynnöt varmistaaksesi, ettei odottamattomia lähetyksiä ole aktivoinnin ja median noston lisäksi.</li>
         </ul>
       </div>
     </div>

@@ -221,13 +221,13 @@
 
     <!-- Method B: Chrome Extension -->
     <div class="method" id="extension">
-      <h3>&#128268; Chrome 확장 프로그램 <span class="tag">추천</span></h3>
+      <h3>&#128268; Chrome 확장 프로그램（동영상 스니핑） <span class="tag">강력 추천</span></h3>
       <div class="subtitle">심층 네트워크 수준 미디어 인터셉트</div>
 
       <p>Chrome 확장 프로그램은 <code>webRequest</code> API를 사용하여 브라우저 수준에서 모든 네트워크 요청을 인터셉트하여 m3u8/HLS 스트림, MP4 파일 및 기타 미디어 형식을 감지합니다. 또한 페이지 DOM을 스캔하여 비디오 요소와 다운로드 링크를 찾습니다.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="m3u8-extension.zip" download>확장 프로그램 다운로드 (.zip)</a>
+        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>확장 프로그램 다운로드 (.zip)</a>
       </div>
 
       <p><strong>설치 (개발자 모드):</strong></p>
@@ -235,7 +235,7 @@
         <li>위의 확장 프로그램 zip을 다운로드하고 폴더에 압축을 해제합니다.</li>
         <li>Chrome을 열고 <code>chrome://extensions/</code>로 이동합니다.</li>
         <li><strong>개발자 모드</strong>(오른쪽 상단 토글)를 활성화합니다.</li>
-        <li><strong>압축해제된 확장 프로그램을 로드합니다</strong>를 클릭하고 <code>m3u8-extension</code> 폴더를 선택합니다.</li>
+        <li><strong>압축해제된 확장 프로그램을 로드합니다</strong>를 클릭하고 <code>echoshorts-extension</code> 폴더를 선택합니다.</li>
         <li>툴바에 확장 프로그램 아이콘이 나타나며 감지된 미디어 수가 배지로 표시됩니다.</li>
       </ol>
 
@@ -244,16 +244,17 @@
         <li>동영상 콘텐츠가 있는 페이지를 탐색합니다.</li>
         <li>확장 프로그램 아이콘을 클릭하여 감지된 m3u8/MP4 스트림을 확인합니다.</li>
         <li><strong>다운로드</strong>를 클릭하여 로컬 MP4로 저장하거나 <strong>번역</strong>을 클릭하여 자막 생성을 시작합니다.</li>
+        <li><strong>녹화</strong>를 클릭한 뒤 브라우저에서 동영상을 재생하고, 재생이 끝나면 <strong>중지</strong>를 클릭하세요 — 이 탭에서 시청한 동영상이 자동으로 저장됩니다.</li>
         <li>항목 위에 마우스를 올리면 페이지의 해당 비디오 요소가 강조 표시됩니다.</li>
       </ol>
 
       <div class="advantages">
-        <h4>확장 프로그램을 사용하는 이유</h4>
+        <h4>확장 프로그램은 안전한가요?</h4>
         <ul>
-          <li>브라우저 수준에서 네트워크 요청을 인터셉트 — DOM 스캔으로 놓치는 스트림도 포착</li>
-          <li>자동 화질 선택: 동영상 ID별로 변형을 그룹화하고 최고 화질을 선택</li>
-          <li>인증이 필요한 스트림 재생을 위한 Referer 헤더 삽입</li>
-          <li>배지 카운터로 탭별 감지된 미디어 수를 한눈에 확인</li>
+          <li>코드가 완전히 공개되어 있어 언제든 검토할 수 있습니다. 통신은 본인 PC의 데스크톱 앱으로만 이루어지며, 시청 기록이 개발자 서버로 전송되지 않습니다.</li>
+          <li>확장 프로그램과 EchoShortsPlayer는 개인정보를 수집하지 않으며 행동 추적이나 광고도 없습니다.</li>
+          <li>소프트웨어 라이선스 활성화를 제외하면, 일반적인 네트워크 활동은 사용자가 선택한 동영상 스트림을 가져오는 데 국한됩니다.</li>
+          <li>네트워크 요청을 직접 확인하여 활성화 및 미디어 가져오기 외에 예상치 못한 업로드가 없는지 검증할 수 있습니다.</li>
         </ul>
       </div>
     </div>
