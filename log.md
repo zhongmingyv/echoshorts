@@ -1,5 +1,8 @@
 ## 2026-05-13
 
+- 全语言首页 `#4 合作伙伴计划`：`home.html` 增加 `PARTNER_PROGRAM_BEGIN/END` 占位；新增 `partnerProgramCore.js`、`partnerProgramLocales.js`、`partnerProgramTranslations.js`，在 `generate_home.js` 中 `applyPartnerProgram` 按语言注入区块；已执行 `node generate_home.js` 更新全部 `home-*.html`（各语言文案集中在 `partnerProgramLocales.js` 维护）。
+- 修复 `#4` 插入后隐私政策未再本地化的问题：`applyPrivacyBlock` 原正则要求 `<div class="privacy">` 的闭合 `</div>` 紧邻 `</main>`，与中间合作伙伴占位冲突，导致简中等页内隐私正文仍为英文模板；改为在存在 `PARTNER_PROGRAM_BEGIN` 时用「闭合 `</div>` + 前瞻到该注释」匹配整段隐私区，无占位时仍走原 `</main>` 锚点；已重新执行 `node generate_home.js`。
+- `home-zh.html`、`home-ja.html`：在 `#3` 隐私政策区块之后、`</main>` 之前新增 `#4` 合作伙伴计划（两个 `.method` 卡片：`partner-ambassador` 推广大使 / `partner-distribution` 授权分销；日文页标题为「パートナープログラム」及对应日文正文），联系入口为 `mailto:supports@echoshorts.win`，样式复用现有章节样式。
 - `home-zh.html`：在「安装 EchoShortsPlayer」按钮区新增百度网盘下载入口，链接为 `https://pan.baidu.com/s/17DYHiy6ysiePFQw8MwVwqg?pwd=6c8v`，按钮文案为「百度网盘下载」，样式使用 `btn btn-outline` 并以新标签页打开。
 - 首页「媒体检测」文案同步升级为“支持 10000+ 网站”：更新 `generate_home.js`（简中/繁中 `f3p` 与替换正则兼容）、`home.html` 英文模板对应句、`fullTranslations.js` 与 `fullTranslations2.js` 中已有翻译语言的 `f3p`；已执行 `node generate_home.js` 重新生成全部 `home-*.html`。
 - `home-zh.html` Hero 区调整：顶部改为居中显示 `echoshortsplayer.png` logo，移除原主标题「AI 视频翻译与字幕…」，简介段落改为「EchoShortsPlayer 支持：」下 4 条要点（在线视频边播边译/离线批量翻译、10000+ 网站一键下载或录制、隐私不采集、99+ 语言与多模型）。

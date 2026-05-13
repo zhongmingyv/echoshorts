@@ -9,6 +9,14 @@ const extensionStepTranslations = require('./extensionStepTranslations.js');
 const advantageTranslations = require('./advantageTranslations.js');
 
 const template = fs.readFileSync(path.join(__dirname, 'home.html'), 'utf8');
+const getPartnerProgramHtml = require('./partnerProgramTranslations');
+
+/** Replace <!-- PARTNER_PROGRAM_BEGIN --> ... <!-- PARTNER_PROGRAM_END --> with localized #4 block. */
+function applyPartnerProgram(html, langKey) {
+  const re = /<!--\s*PARTNER_PROGRAM_BEGIN\s*-->[\s\S]*?<!--\s*PARTNER_PROGRAM_END\s*-->/;
+  if (!re.test(html)) return html;
+  return html.replace(re, getPartnerProgramHtml(langKey));
+}
 
 // Translation data for each language
 const langs = {
@@ -196,15 +204,25 @@ function applyPrivacyBlock(html, langKey) {
   const priv = privacyData[langKey];
   if (!priv) return html;
 
-  // 1) Replace the entire privacy wrapper div content. Use a non-greedy match
-  // that is anchored to the trailing </main> so we only swap the wrapper's
-  // closing </div>, not any nested priv-section </div>.
-  const wrapperRe = /<div class="privacy">[\s\S]*?<\/div>(\s*<\/main>)/;
-  if (wrapperRe.test(html)) {
-    html = html.replace(
-      wrapperRe,
-      `<div class="privacy">\r\n\r\n${privacyBlock(priv)}\r\n    </div>$1`
-    );
+  // 1) Replace the entire <div class="privacy">…</div> wrapper. The template may
+  // have #4 partner markers between this </div> and </main>; the old regex
+  // required </div> to touch </main>, so privacy never applied after #4 was added.
+  if (html.includes('<!-- PARTNER_PROGRAM_BEGIN -->')) {
+    const rePartner = /<div class="privacy">[\s\S]*?<\/div>(?=\s*<!--\s*PARTNER_PROGRAM_BEGIN)/;
+    if (rePartner.test(html)) {
+      html = html.replace(
+        rePartner,
+        `<div class="privacy">\r\n\r\n${privacyBlock(priv)}\r\n    </div>`
+      );
+    }
+  } else {
+    const wrapperRe = /<div class="privacy">[\s\S]*?<\/div>(\s*<\/main>)/;
+    if (wrapperRe.test(html)) {
+      html = html.replace(
+        wrapperRe,
+        `<div class="privacy">\r\n\r\n${privacyBlock(priv)}\r\n    </div>$1`
+      );
+    }
   }
 
   // 2) Replace the "#3 Privacy Policy & Disclaimer" section title (English
@@ -342,6 +360,7 @@ function buildTranslated(key, data) {
   html = applyAdvantages(html, t);
   html = applyPrivacyBlock(html, key);
   html = applyPrivacySupportLine(html, key);
+  html = applyPartnerProgram(html, key);
   if (key === 'zh') {
     html = applyZhBaiduDownloadButton(html);
   }
@@ -876,6 +895,7 @@ function buildOther(key, data) {
 
   html = applyPrivacyBlock(html, key);
   html = applyPrivacySupportLine(html, key);
+  html = applyPartnerProgram(html, key);
   if (key === 'zh') {
     html = applyZhBaiduDownloadButton(html);
   }
