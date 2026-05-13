@@ -34,10 +34,35 @@
 
     /* --- Hero --- */
     .hero { margin-bottom: 56px; }
-    .hero .logo { font-size: 13px; font-weight: 700; color: #4ade80; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
-    .hero h1 { font-size: 36px; font-weight: 700; color: #fff; line-height: 1.25; margin-bottom: 16px; }
-    .hero h1 span { color: #4ade80; }
-    .hero p { font-size: 15px; color: #999; line-height: 1.7; max-width: 640px; }
+    .hero .logo { text-align: center; margin-bottom: 20px; }
+    .hero .logo img { width: 760px; max-width: 100%; height: auto; display: inline-block; }
+    .hero .hero-intro {
+      font-size: 20px;
+      font-weight: 700;
+      color: #ffffff;
+      text-align: left;
+      margin: 0 0 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #222;
+    }
+    .hero .hero-intro .num { color: #4ade80; margin-right: 10px; }
+    .hero .hero-points {
+      width: 100%;
+      margin: 0;
+      padding: 18px 22px;
+      list-style: none;
+      background: #151515;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      box-sizing: border-box;
+    }
+    .hero .hero-points li {
+      font-size: 18px;
+      color: #d8d8d8;
+      line-height: 1.9;
+      margin-bottom: 6px;
+    }
+    .hero .hero-points li:last-child { margin-bottom: 0; }
 
     /* --- Section Title --- */
     .section-title { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #222; }
@@ -156,9 +181,14 @@
 
     <!-- ============ HERO ============ -->
     <div class="hero">
-      <div class="logo">EchoShortsPlayer</div>
-      <h1>แปลวิดีโอ &amp; คำบรรยายด้วย AI<br><span>สตรีม, แปล, ดาวน์โหลด &mdash; ทั้งหมดแบบออฟไลน์</span></h1>
-      <p>EchoShortsPlayer แปลวิดีโอออนไลน์แบบเรียลไทม์ขณะที่คุณดู — คำบรรยายปรากฏขึ้นขณะวิดีโอเล่น ไม่ต้องรอ ดาวน์โหลดวิดีโอที่เข้าถึงได้สาธารณะเพื่อดูแบบออฟไลน์ การรู้จำเสียงและการแปลทั้งหมดทำงาน 100% บนอุปกรณ์ของคุณ: ไม่ต้องใช้อินเทอร์เน็ต ไม่ต้องมีบัญชี ไม่มีข้อมูลออกจากคอมพิวเตอร์ของคุณ รองรับ 99+ ภาษา, สตรีม m3u8 และไฟล์ MP4</p>
+      <div class="logo"><img src="Wide310x150Logo.png" alt="EchoShortsPlayer Logo"></div>
+      <div class="hero-intro"><span class="num">#0</span>EchoShortsPlayer คืออะไร</div>
+      <ul class="hero-points">
+        <li>✦ แปลแบบเรียลไทม์ระหว่างรับชมวิดีโอออนไลน์ และรองรับการแปลแบบกลุ่มสำหรับวิดีโอออฟไลน์</li>
+        <li>✦ รองรับมากกว่า 10,000 เว็บไซต์ พร้อมดาวน์โหลดหรือบันทึกได้ในคลิกเดียวผ่านส่วนขยายเบราว์เซอร์</li>
+        <li>✦ ไม่บันทึกและไม่เก็บข้อมูลผู้ใช้ เพื่อความเป็นส่วนตัว</li>
+        <li>✦ รองรับมากกว่า 99 ภาษา และโมเดลขนาดใหญ่หลายแบบ</li>
+      </ul>
     </div>
 
     <!-- ============ FEATURES ============ -->
@@ -175,14 +205,13 @@
         <p>เอนจินการแปลหลายตัว:</p>
         <ul>
           <li>Opus-MT — เร็ว, 9 ภาษา</li>
-          <li>NLLB — 32+ ภาษา, แปลข้ามภาษาได้ทุกคู่</li>
           <li>Qwen — คุณภาพดีที่สุด, ปรับแต่งสำหรับ CJK</li>
         </ul>
       </div>
       <div class="card">
         <div class="icon">&#128246;</div>
         <h3>ตรวจจับสื่อ</h3>
-        <p>ตรวจจับสตรีม m3u8/HLS และลิงก์วิดีโอ MP4 บนหน้าเว็บใดก็ได้โดยอัตโนมัติ ดาวน์โหลดหรือแปลด้วยคลิกเดียวผ่านส่วนขยายเบราว์เซอร์</p>
+        <p>รองรับเว็บไซต์มากกว่า 10,000 แห่ง และตรวจจับสตรีม m3u8/HLS และลิงก์วิดีโอ MP4 บนหน้าเว็บใดก็ได้โดยอัตโนมัติ ดาวน์โหลดหรือแปลด้วยคลิกเดียวผ่านส่วนขยายเบราว์เซอร์</p>
       </div>
       <div class="card">
         <div class="icon">&#9889;</div>
@@ -212,7 +241,7 @@
       <p>EchoShortsPlayer คือแอปพลิเคชันเดสก์ท็อปที่รันโมเดล AI ในเครื่อง ส่วนขยายเบราว์เซอร์และ CLI ขึ้นอยู่กับมัน ติดตั้งก่อนเป็นอันดับแรกก่อนใช้วิธีใดๆ ด้านล่าง</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="ms-windows-store://pdp/?productid=9N06RSDW81SN">ดาวน์โหลด EchoShortsPlayer</a>
+        <a class="btn btn-green" href="ms-windows-store://pdp/?productid=9N06RSDW81SN">ดาวน์โหลดจาก Windows Store</a>
       </div>
 
       <p><strong>ข้อกำหนดระบบ:</strong> Windows 10/11, GPU NVIDIA ที่มี VRAM 8 GB ขึ้นไป, ติดตั้งไดรเวอร์ CUDA</p>

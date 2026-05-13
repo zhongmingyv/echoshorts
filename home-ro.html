@@ -34,10 +34,35 @@
 
     /* --- Hero --- */
     .hero { margin-bottom: 56px; }
-    .hero .logo { font-size: 13px; font-weight: 700; color: #4ade80; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
-    .hero h1 { font-size: 36px; font-weight: 700; color: #fff; line-height: 1.25; margin-bottom: 16px; }
-    .hero h1 span { color: #4ade80; }
-    .hero p { font-size: 15px; color: #999; line-height: 1.7; max-width: 640px; }
+    .hero .logo { text-align: center; margin-bottom: 20px; }
+    .hero .logo img { width: 760px; max-width: 100%; height: auto; display: inline-block; }
+    .hero .hero-intro {
+      font-size: 20px;
+      font-weight: 700;
+      color: #ffffff;
+      text-align: left;
+      margin: 0 0 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #222;
+    }
+    .hero .hero-intro .num { color: #4ade80; margin-right: 10px; }
+    .hero .hero-points {
+      width: 100%;
+      margin: 0;
+      padding: 18px 22px;
+      list-style: none;
+      background: #151515;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      box-sizing: border-box;
+    }
+    .hero .hero-points li {
+      font-size: 18px;
+      color: #d8d8d8;
+      line-height: 1.9;
+      margin-bottom: 6px;
+    }
+    .hero .hero-points li:last-child { margin-bottom: 0; }
 
     /* --- Section Title --- */
     .section-title { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #222; }
@@ -156,9 +181,14 @@
 
     <!-- ============ HERO ============ -->
     <div class="hero">
-      <div class="logo">EchoShortsPlayer</div>
-      <h1>AI Video Translation &amp; Subtitles<br><span>Stream, Translate, Download &mdash; All Offline</span></h1>
-      <p>EchoShortsPlayer translates online videos in real-time while you watch &mdash; subtitles appear as the video plays, no waiting. Download publicly accessible videos for offline viewing. All speech recognition and translation run 100% locally on your device: no internet needed, no accounts, no data leaves your computer. Supports 99+ languages, m3u8 streams and MP4 files.</p>
+      <div class="logo"><img src="Wide310x150Logo.png" alt="EchoShortsPlayer Logo"></div>
+      <div class="hero-intro"><span class="num">#0</span>Ce este EchoShortsPlayer</div>
+      <ul class="hero-points">
+        <li>✦ Traducere in timp real in timp ce vizionezi videoclipuri online si traducere in lot pentru videoclipuri offline.</li>
+        <li>✦ Suporta peste 10.000 de site-uri, cu descarcare sau inregistrare dintr-un clic prin extensia browserului.</li>
+        <li>✦ Nu inregistreaza si nu colecteaza datele utilizatorilor, protejand confidentialitatea.</li>
+        <li>✦ Suporta peste 99 de limbi si mai multe modele mari.</li>
+      </ul>
     </div>
 
     <!-- ============ FEATURES ============ -->
@@ -175,14 +205,13 @@
         <p>Multiple translation engines:</p>
         <ul>
           <li>Opus-MT &mdash; fast, 9 languages</li>
-          <li>NLLB &mdash; 32+ languages, any-to-any</li>
           <li>Qwen &mdash; best quality, CJK-optimized</li>
         </ul>
       </div>
       <div class="card">
         <div class="icon">&#128246;</div>
         <h3>Media Detection</h3>
-        <p>Automatically detects m3u8/HLS streams and MP4 video links on any webpage. Download or translate with one click via browser extension.</p>
+        <p>Supports 10,000+ websites and automatically detects m3u8/HLS streams and MP4 video links. Download or translate with one click via browser extension.</p>
       </div>
       <div class="card">
         <div class="icon">&#9889;</div>
@@ -212,7 +241,7 @@
       <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension and CLI depend on it. Install it first before using any of the methods below.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="ms-windows-store://pdp/?productid=9N06RSDW81SN">Download EchoShortsPlayer</a>
+        <a class="btn btn-green" href="ms-windows-store://pdp/?productid=9N06RSDW81SN">Descarcă din Windows Store</a>
       </div>
 
       <p><strong>System requirements:</strong> Windows 10/11, NVIDIA GPU with 8 GB+ VRAM, CUDA drivers installed.</p>

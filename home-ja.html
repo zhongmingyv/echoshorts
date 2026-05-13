@@ -34,10 +34,35 @@
 
     /* --- Hero --- */
     .hero { margin-bottom: 56px; }
-    .hero .logo { font-size: 13px; font-weight: 700; color: #4ade80; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
-    .hero h1 { font-size: 36px; font-weight: 700; color: #fff; line-height: 1.25; margin-bottom: 16px; }
-    .hero h1 span { color: #4ade80; }
-    .hero p { font-size: 15px; color: #999; line-height: 1.7; max-width: 640px; }
+    .hero .logo { text-align: center; margin-bottom: 20px; }
+    .hero .logo img { width: 760px; max-width: 100%; height: auto; display: inline-block; }
+    .hero .hero-intro {
+      font-size: 20px;
+      font-weight: 700;
+      color: #ffffff;
+      text-align: left;
+      margin: 0 0 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #222;
+    }
+    .hero .hero-intro .num { color: #4ade80; margin-right: 10px; }
+    .hero .hero-points {
+      width: 100%;
+      margin: 0;
+      padding: 18px 22px;
+      list-style: none;
+      background: #151515;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      box-sizing: border-box;
+    }
+    .hero .hero-points li {
+      font-size: 18px;
+      color: #d8d8d8;
+      line-height: 1.9;
+      margin-bottom: 6px;
+    }
+    .hero .hero-points li:last-child { margin-bottom: 0; }
 
     /* --- Section Title --- */
     .section-title { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #222; }
@@ -156,9 +181,14 @@
 
     <!-- ============ HERO ============ -->
     <div class="hero">
-      <div class="logo">EchoShortsPlayer</div>
-      <h1>AI動画翻訳＆字幕<br><span>ストリーミング、翻訳、ダウンロード &mdash; すべてオフライン</span></h1>
-      <p>EchoShortsPlayerは、視聴中のオンライン動画をリアルタイムで翻訳します。動画の再生に合わせて字幕が表示され、待ち時間はありません。公開されている動画をダウンロードしてオフラインで視聴できます。音声認識と翻訳はすべてデバイス上で100%ローカルに実行されます。インターネット不要、アカウント不要、データがコンピュータから外部に送信されることはありません。99以上の言語、m3u8ストリームおよびMP4ファイルに対応。</p>
+      <div class="logo"><img src="Wide310x150Logo.png" alt="EchoShortsPlayer Logo"></div>
+      <div class="hero-intro"><span class="num">#0</span>EchoShortsPlayerとは</div>
+      <ul class="hero-points">
+        <li>✦ オンライン動画を視聴しながらリアルタイム翻訳。オフライン動画の一括翻訳にも対応。</li>
+        <li>✦ 10,000以上のサイトに対応し、ブラウザ拡張機能からワンクリックでダウンロードまたは録画できます。</li>
+        <li>✦ ユーザーデータを記録・収集せず、プライバシーを保護します。</li>
+        <li>✦ 99以上の言語と複数の大規模モデルに対応。</li>
+      </ul>
     </div>
 
     <!-- ============ FEATURES ============ -->
@@ -175,14 +205,13 @@
         <p>複数の翻訳エンジン：</p>
         <ul>
           <li>Opus-MT — 高速、9言語対応</li>
-          <li>NLLB — 32以上の言語、任意の言語間翻訳</li>
           <li>Qwen — 最高品質、CJK最適化</li>
         </ul>
       </div>
       <div class="card">
         <div class="icon">&#128246;</div>
         <h3>メディア検出</h3>
-        <p>あらゆるWebページ上のm3u8/HLSストリームおよびMP4動画リンクを自動検出。ブラウザ拡張機能でワンクリックダウンロードまたは翻訳。</p>
+        <p>10,000+サイトをサポートし、あらゆるWebページ上のm3u8/HLSストリームおよびMP4動画リンクを自動検出。ブラウザ拡張機能でワンクリックダウンロードまたは翻訳。</p>
       </div>
       <div class="card">
         <div class="icon">&#9889;</div>
@@ -212,7 +241,7 @@
       <p>EchoShortsPlayerは、AIモデルをローカルで実行するデスクトップアプリケーションです。ブラウザ拡張機能とCLIはこれに依存しています。以下の方法を使用する前に、まずインストールしてください。</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="ms-windows-store://pdp/?productid=9N06RSDW81SN">EchoShortsPlayerをダウンロード</a>
+        <a class="btn btn-green" href="ms-windows-store://pdp/?productid=9N06RSDW81SN">Windows Store からダウンロード</a>
       </div>
 
       <p><strong>システム要件：</strong> Windows 10/11、8 GB以上のVRAMを搭載したNVIDIA GPU、CUDAドライバーのインストール。</p>

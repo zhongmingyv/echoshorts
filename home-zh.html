@@ -34,10 +34,35 @@
 
     /* --- Hero --- */
     .hero { margin-bottom: 56px; }
-    .hero .logo { font-size: 13px; font-weight: 700; color: #4ade80; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
-    .hero h1 { font-size: 36px; font-weight: 700; color: #fff; line-height: 1.25; margin-bottom: 16px; }
-    .hero h1 span { color: #4ade80; }
-    .hero p { font-size: 15px; color: #999; line-height: 1.7; max-width: 640px; }
+    .hero .logo { text-align: center; margin-bottom: 20px; }
+    .hero .logo img { width: 760px; max-width: 100%; height: auto; display: inline-block; }
+    .hero .hero-intro {
+      font-size: 20px;
+      font-weight: 700;
+      color: #ffffff;
+      text-align: left;
+      margin: 0 0 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #222;
+    }
+    .hero .hero-intro .num { color: #4ade80; margin-right: 10px; }
+    .hero .hero-points {
+      width: 100%;
+      margin: 0;
+      padding: 18px 22px;
+      list-style: none;
+      background: #151515;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      box-sizing: border-box;
+    }
+    .hero .hero-points li {
+      font-size: 18px;
+      color: #d8d8d8;
+      line-height: 1.9;
+      margin-bottom: 6px;
+    }
+    .hero .hero-points li:last-child { margin-bottom: 0; }
 
     /* --- Section Title --- */
     .section-title { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #222; }
@@ -156,9 +181,14 @@
 
     <!-- ============ HERO ============ -->
     <div class="hero">
-      <div class="logo">EchoShortsPlayer</div>
-      <h1>AI 视频翻译与字幕<br><span>边播边译、下载、全程离线</span></h1>
-      <p>EchoShortsPlayer 支持在线视频边播放边实时翻译——字幕随视频同步显示，无需等待。可下载公开可访问的视频供离线观看。所有语音识别和翻译 100% 在本地设备运行：无需网络、无需账号、数据绝不离开您的电脑。支持 99+ 种语言、m3u8 流和 MP4 文件。</p>
+      <div class="logo"><img src="Wide310x150Logo.png" alt="EchoShortsPlayer Logo"></div>
+      <div class="hero-intro"><span class="num">#0</span>什么是EchoShortsPlayer</div>
+      <ul class="hero-points">
+        <li>✦ 在线视频边播放边翻译，离线视频批量翻译。</li>
+        <li>✦ 支持 10000+ 网站，通过浏览器扩展一键下载或录制视频。</li>
+        <li>✦ 不记录不采集用户数据，保证隐私。</li>
+        <li>✦ 支持 99+ 种语言、多种大模型。</li>
+      </ul>
     </div>
 
     <!-- ============ FEATURES ============ -->
@@ -175,14 +205,13 @@
         <p>多种翻译引擎：</p>
         <ul>
           <li>Opus-MT — 快速，9 种语言</li>
-          <li>NLLB — 32+ 种语言，任意互译</li>
           <li>Qwen — 最高质量，CJK 优化</li>
         </ul>
       </div>
       <div class="card">
         <div class="icon">&#128246;</div>
         <h3>媒体检测</h3>
-        <p>自动检测网页上的 m3u8/HLS 流和 MP4 视频链接。通过浏览器扩展一键下载或翻译。</p>
+        <p>支持 10000+ 网站，自动检测网页上的 m3u8/HLS 流和 MP4 视频链接。通过浏览器扩展一键下载或翻译。</p>
       </div>
       <div class="card">
         <div class="icon">&#9889;</div>
@@ -212,7 +241,7 @@
       <p>EchoShortsPlayer 是在本地运行 AI 模型的桌面应用。浏览器扩展和 CLI 都依赖它。请先安装后再使用下列任何方式。</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="ms-windows-store://pdp/?productid=9N06RSDW81SN">下载 EchoShortsPlayer</a>
+        <a class="btn btn-green" href="ms-windows-store://pdp/?productid=9N06RSDW81SN">window store下载</a>
         <a class="btn btn-outline" href="https://pan.baidu.com/s/17DYHiy6ysiePFQw8MwVwqg?pwd=6c8v" target="_blank" rel="noopener noreferrer">百度网盘下载</a>
       </div>
 

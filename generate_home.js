@@ -18,7 +18,11 @@ const langs = {
       title: 'EchoShortsPlayer - AI 视频字幕翻译',
       logo: 'EchoShortsPlayer',
       h1: 'AI 视频翻译与字幕<br><span>边播边译、下载、全程离线</span>',
-      heroP: 'EchoShortsPlayer 支持在线视频边播放边实时翻译——字幕随视频同步显示，无需等待。可下载公开可访问的视频供离线观看。所有语音识别和翻译 100% 在本地设备运行：无需网络、无需账号、数据绝不离开您的电脑。支持 99+ 种语言、m3u8 流和 MP4 文件。',
+      heroIntro: '什么是EchoShortsPlayer',
+      heroB1: '在线视频边播放边翻译，离线视频批量翻译。',
+      heroB2: '支持 10000+ 网站，通过浏览器扩展一键下载或录制视频。',
+      heroB3: '不记录不采集用户数据，保证隐私。',
+      heroB4: '支持 99+ 种语言、多种大模型。',
       sec1: '功能特性',
       sec2: '使用方式',
       sec3: '隐私政策与免责声明',
@@ -26,14 +30,14 @@ const langs = {
       // Feature cards
       f1t: '语音识别', f1p: '基于 OpenAI Whisper。支持 99 种语言，自动语言检测。多种模型大小可选，从 tiny（快速）到 large-v3（最高精度）。',
       f2t: 'AI 翻译', f2p: '多种翻译引擎：', f2l1: 'Opus-MT — 快速，9 种语言', f2l2: 'NLLB — 32+ 种语言，任意互译', f2l3: 'Qwen — 最高质量，CJK 优化',
-      f3t: '媒体检测', f3p: '自动检测网页上的 m3u8/HLS 流和 MP4 视频链接。通过浏览器扩展一键下载或翻译。',
+      f3t: '媒体检测', f3p: '支持 10000+ 网站，自动检测网页上的 m3u8/HLS 流和 MP4 视频链接。通过浏览器扩展一键下载或翻译。',
       f4t: '实时字幕', f4p: '流式翻译模式：字幕在观看时实时显示。无需等待整个视频下载完成。SRT 字幕文件保存在本地供后续使用。',
       f5t: '100% 离线 & 隐私', f5p: '所有处理都在本地完成。不向外部服务器发送任何数据。无需账号、无跟踪、无广告。您的内容留在您的设备上。',
       f6t: '硬件要求', f6p: 'NVIDIA 显卡，8 GB+ 显存，并安装 CUDA 驱动。支持 GPU 加速的语音识别和翻译，获得最佳性能。',
       // Install section
       instTitle: '&#128229; 安装 EchoShortsPlayer', instTag: '必需', instSub: '桌面应用——所有功能的核心引擎',
       instP1: 'EchoShortsPlayer 是在本地运行 AI 模型的桌面应用。浏览器扩展和 CLI 都依赖它。请先安装后再使用下列任何方式。',
-      instDlBtn: '下载 EchoShortsPlayer',
+      instDlBtn: 'window store下载',
       instReq: '<strong>系统要求：</strong>Windows 10/11，NVIDIA 显卡 8 GB+ 显存，已安装 CUDA 驱动。',
       instAfter: '安装后启动应用。它会在 <code>localhost:18632</code> 启动本地后端服务器，扩展和 CLI 都通过它通信。',
       // Extension
@@ -100,18 +104,22 @@ const langs = {
       title: 'EchoShortsPlayer - AI 影片字幕翻譯',
       logo: 'EchoShortsPlayer',
       h1: 'AI 影片翻譯與字幕<br><span>邊播邊譯、下載、全程離線</span>',
-      heroP: 'EchoShortsPlayer 支援線上影片邊播放邊即時翻譯——字幕隨影片同步顯示，無需等待。可下載公開可存取的影片供離線觀看。所有語音辨識和翻譯 100% 在本機裝置執行：無需網路、無需帳號、資料絕不離開您的電腦。支援 99+ 種語言、m3u8 串流和 MP4 檔案。',
+      heroIntro: '什麼是EchoShortsPlayer',
+      heroB1: '線上影片邊播放邊翻譯，離線影片批量翻譯。',
+      heroB2: '支援 10000+ 網站，透過瀏覽器擴充功能一鍵下載或錄製影片。',
+      heroB3: '不記錄、不蒐集使用者資料，保障隱私。',
+      heroB4: '支援 99+ 種語言與多種大模型。',
       sec1: '功能特性', sec2: '使用方式', sec3: '隱私政策與免責聲明',
       storeBtn: '從 Microsoft Store 下載',
       f1t: '語音辨識', f1p: '基於 OpenAI Whisper。支援 99 種語言，自動語言偵測。多種模型大小可選，從 tiny（快速）到 large-v3（最高精度）。',
       f2t: 'AI 翻譯', f2p: '多種翻譯引擎：', f2l1: 'Opus-MT — 快速，9 種語言', f2l2: 'NLLB — 32+ 種語言，任意互譯', f2l3: 'Qwen — 最高品質，CJK 最佳化',
-      f3t: '媒體偵測', f3p: '自動偵測網頁上的 m3u8/HLS 串流和 MP4 影片連結。透過瀏覽器擴充功能一鍵下載或翻譯。',
+      f3t: '媒體偵測', f3p: '支援 10000+ 網站，自動偵測網頁上的 m3u8/HLS 串流和 MP4 影片連結。透過瀏覽器擴充功能一鍵下載或翻譯。',
       f4t: '即時字幕', f4p: '串流翻譯模式：字幕在觀看時即時顯示。無需等待整部影片下載完成。SRT 字幕檔案儲存在本機供後續使用。',
       f5t: '100% 離線 & 隱私', f5p: '所有處理都在本機完成。不向外部伺服器傳送任何資料。無需帳號、無追蹤、無廣告。您的內容留在您的裝置上。',
       f6t: '硬體需求', f6p: 'NVIDIA 顯示卡，8 GB+ 視訊記憶體，並安裝 CUDA 驅動程式。支援 GPU 加速的語音辨識和翻譯，獲得最佳效能。',
       instTitle: '&#128229; 安裝 EchoShortsPlayer', instTag: '必需', instSub: '桌面應用——所有功能的核心引擎',
       instP1: 'EchoShortsPlayer 是在本機執行 AI 模型的桌面應用。瀏覽器擴充功能和 CLI 都依賴它。請先安裝後再使用下列任何方式。',
-      instDlBtn: '下載 EchoShortsPlayer',
+      instDlBtn: 'Windows Store 下載',
       instReq: '<strong>系統需求：</strong>Windows 10/11，NVIDIA 顯示卡 8 GB+ 視訊記憶體，已安裝 CUDA 驅動程式。',
       instAfter: '安裝後啟動應用。它會在 <code>localhost:18632</code> 啟動本機後端伺服器，擴充功能和 CLI 都透過它通訊。',
       extTitle: '&#128268; Chrome 擴充功能（影片嗅探）', extTag: '強烈推薦', extSub: '深度網路級媒體攔截',
@@ -286,7 +294,6 @@ function buildTranslated(key, data) {
     .replace(`<option value="home.html" selected>English</option>`, `<option value="home.html">English</option>`)
     .replace(`<option value="${file}">${data.label}</option>`, `<option value="${file}" selected>${data.label}</option>`)
     .replace('AI Video Translation &amp; Subtitles<br><span>Stream, Translate, Download &mdash; All Offline</span>', t.h1)
-    .replace(/EchoShortsPlayer translates online videos.*?m3u8 streams and MP4 files\./s, t.heroP)
     .replace('<span class="num">#1</span> Features', `<span class="num">#1</span> ${t.sec1}`)
     .replace('<span class="num">#2</span> How to Use', `<span class="num">#2</span> ${t.sec2}`)
     .replace('<span class="num">#3</span> Privacy Policy &amp; Disclaimer', `<span class="num">#3</span> ${t.sec3}`)
@@ -294,14 +301,14 @@ function buildTranslated(key, data) {
     .replace('>Speech Recognition<', `>${t.f1t}<`).replace(/Powered by OpenAI Whisper\. Supports 99 languages.*?highest accuracy\)\./, t.f1p)
     .replace('>AI Translation<', `>${t.f2t}<`).replace('Multiple translation engines:', t.f2p)
     .replace('Opus-MT &mdash; fast, 9 languages', t.f2l1).replace('NLLB &mdash; 32+ languages, any-to-any', t.f2l2).replace('Qwen &mdash; best quality, CJK-optimized', t.f2l3)
-    .replace('>Media Detection<', `>${t.f3t}<`).replace(/Automatically detects m3u8\/HLS.*?extension\./, t.f3p)
+    .replace('>Media Detection<', `>${t.f3t}<`).replace(/(?:Supports 10,000\+ websites and )?automatically detects m3u8\/HLS.*?extension\./i, t.f3p)
     .replace('>Real-time Subtitles<', `>${t.f4t}<`).replace(/Stream translation mode.*?future use\./, t.f4p)
     .replace('>100% Offline &amp; Private<', `>${t.f5t}<`).replace(/All processing happens locally.*?on your device\./, t.f5p)
     .replace('>Hardware Requirements<', `>${t.f6t}<`).replace(/NVIDIA GPU with 8 GB\+.*?optimal performance\./, t.f6p)
     .replace(/Install EchoShortsPlayer <span class="tag">Required/, `${t.instTitle.replace(/&#\d+; /, '')} <span class="tag">${t.instTag}`)
     .replace('Desktop application &mdash; the core engine for all features', t.instSub)
     .replace(/EchoShortsPlayer is the desktop application.*?methods below\./, t.instP1)
-    .replace('>Download EchoShortsPlayer<', `>${t.instDlBtn}<`)
+    .replace('>Download EchoShortsPlayer<', `>${getInstallBtnLabel(key, t)}<`)
     .replace(/<p><strong>System requirements:<\/strong>.*?installed\.<\/p>/, `<p>${t.instReq}</p>`)
     .replace(/<p>After installation, launch the application\..*?communicate with\.<\/p>/, `<p>${t.instAfter}</p>`)
     .replace('Chrome Extension (Video Sniffing) <span class="tag">Strongly recommended', `${t.extTitle.replace(/&#\d+; /, '')} <span class="tag">${t.extTag}`)
@@ -330,10 +337,14 @@ function buildTranslated(key, data) {
     html = html.replace(/See the full list of supported language codes[\s\S]*?Language Code Reference<\/a>/, t.cliLangLink);
   }
 
+  html = applyHeroList(html, t, key);
   html = applyExtensionInstallUsage(html, t);
   html = applyAdvantages(html, t);
   html = applyPrivacyBlock(html, key);
   html = applyPrivacySupportLine(html, key);
+  if (key === 'zh') {
+    html = applyZhBaiduDownloadButton(html);
+  }
 
   fs.writeFileSync(path.join(__dirname, file), html, 'utf8');
 }
@@ -428,6 +439,274 @@ const cliLangLinkTranslations = {
   'it': 'Consulta l\'elenco completo dei codici lingua supportati per <code>--source</code> e <code>--target</code>: <a href="language-codes.html">Riferimento codici lingua</a>',
 };
 
+const heroIntroByLang = {
+  ja: 'EchoShortsPlayerとは',
+  ko: 'EchoShortsPlayer란',
+  es: 'Que es EchoShortsPlayer',
+  fr: 'Qu est-ce que EchoShortsPlayer',
+  de: 'Was ist EchoShortsPlayer',
+  ru: 'Что такое EchoShortsPlayer',
+  pt: 'O que e EchoShortsPlayer',
+  ar: 'ما هو EchoShortsPlayer',
+  hi: 'EchoShortsPlayer क्या है',
+  th: 'EchoShortsPlayer คืออะไร',
+  vi: 'EchoShortsPlayer la gi',
+  ms: 'Apa itu EchoShortsPlayer',
+  id: 'Apa itu EchoShortsPlayer',
+  tr: 'EchoShortsPlayer nedir',
+  pl: 'Czym jest EchoShortsPlayer',
+  nl: 'Wat is EchoShortsPlayer',
+  sv: 'Vad ar EchoShortsPlayer',
+  da: 'Hvad er EchoShortsPlayer',
+  nb: 'Hva er EchoShortsPlayer',
+  fi: 'Mika on EchoShortsPlayer',
+  cs: 'Co je EchoShortsPlayer',
+  hu: 'Mi az EchoShortsPlayer',
+  ro: 'Ce este EchoShortsPlayer',
+  el: 'Τι είναι το EchoShortsPlayer',
+  he: 'מה זה EchoShortsPlayer',
+  uk: 'Що таке EchoShortsPlayer',
+  bn: 'EchoShortsPlayer কী',
+  ta: 'EchoShortsPlayer என்றால் என்ன',
+  te: 'EchoShortsPlayer అంటే ఏమిటి',
+  ur: 'EchoShortsPlayer کیا ہے',
+  fa: 'EchoShortsPlayer چیست',
+  sw: 'EchoShortsPlayer ni nini',
+  km: 'តើ EchoShortsPlayer គឺជាអ្វី',
+  it: 'Che cos e EchoShortsPlayer',
+};
+
+const heroBulletsByLang = {
+  ja: [
+    'オンライン動画を視聴しながらリアルタイム翻訳。オフライン動画の一括翻訳にも対応。',
+    '10,000以上のサイトに対応し、ブラウザ拡張機能からワンクリックでダウンロードまたは録画できます。',
+    'ユーザーデータを記録・収集せず、プライバシーを保護します。',
+    '99以上の言語と複数の大規模モデルに対応。',
+  ],
+  ko: [
+    '온라인 영상을 보면서 실시간 번역하고, 오프라인 영상 일괄 번역도 지원합니다.',
+    '10,000개 이상의 웹사이트를 지원하며 브라우저 확장 프로그램으로 원클릭 다운로드 또는 녹화가 가능합니다.',
+    '사용자 데이터를 기록하거나 수집하지 않아 개인정보를 보호합니다.',
+    '99개 이상의 언어와 다양한 대규모 모델을 지원합니다.',
+  ],
+  es: [
+    'Traduccion en tiempo real mientras reproduces videos en linea, y traduccion por lotes para videos sin conexion.',
+    'Compatible con mas de 10,000 sitios web, con descarga o grabacion en un clic mediante la extension del navegador.',
+    'No registra ni recopila datos de usuario, garantizando la privacidad.',
+    'Compatible con mas de 99 idiomas y multiples modelos grandes.',
+  ],
+  fr: [
+    'Traduction en temps reel pendant la lecture des videos en ligne, avec traduction par lots des videos hors ligne.',
+    'Prend en charge plus de 10 000 sites, avec telechargement ou enregistrement en un clic via l extension navigateur.',
+    'N enregistre ni ne collecte les donnees utilisateur, pour proteger la vie privee.',
+    'Prend en charge plus de 99 langues et plusieurs grands modeles.',
+  ],
+  de: [
+    'Echtzeitubersetzung wahrend der Wiedergabe von Online-Videos sowie Stapelubersetzung fur Offline-Videos.',
+    'Unterstutzt uber 10.000 Websites mit Ein-Klick-Download oder Aufnahme uber die Browser-Erweiterung.',
+    'Erfasst und speichert keine Nutzerdaten und schutzt so Ihre Privatsphare.',
+    'Unterstutzt uber 99 Sprachen und mehrere grosse Modelle.',
+  ],
+  ru: [
+    'Перевод онлайн-видео в реальном времени во время просмотра и пакетный перевод офлайн-видео.',
+    'Поддерживает более 10 000 сайтов, с загрузкой или записью в один клик через расширение браузера.',
+    'Не записывает и не собирает данные пользователей, обеспечивая приватность.',
+    'Поддерживает 99+ языков и несколько крупных моделей.',
+  ],
+  pt: [
+    'Traducao em tempo real enquanto voce assiste videos online, com traducao em lote para videos offline.',
+    'Suporta mais de 10.000 sites, com download ou gravacao em um clique pela extensao do navegador.',
+    'Nao registra nem coleta dados do usuario, garantindo privacidade.',
+    'Suporta mais de 99 idiomas e varios modelos grandes.',
+  ],
+  ar: [
+    'ترجمة فورية أثناء تشغيل الفيديوهات عبر الإنترنت، مع دعم الترجمة الدفعية للفيديوهات غير المتصلة.',
+    'يدعم أكثر من 10,000 موقع مع تنزيل أو تسجيل بنقرة واحدة عبر إضافة المتصفح.',
+    'لا يسجل ولا يجمع بيانات المستخدم، مما يضمن الخصوصية.',
+    'يدعم أكثر من 99 لغة وعدة نماذج كبيرة.',
+  ],
+  hi: [
+    'ऑनलाइन वीडियो देखते समय रियल-टाइम अनुवाद, और ऑफलाइन वीडियो के लिए बैच अनुवाद।',
+    '10,000+ वेबसाइटों का समर्थन, ब्राउज़र एक्सटेंशन से एक क्लिक में डाउनलोड या रिकॉर्डिंग।',
+    'उपयोगकर्ता डेटा न रिकॉर्ड करता है, न एकत्र करता है; गोपनीयता सुरक्षित रहती है।',
+    '99+ भाषाओं और कई बड़े मॉडलों का समर्थन।',
+  ],
+  th: [
+    'แปลแบบเรียลไทม์ระหว่างรับชมวิดีโอออนไลน์ และรองรับการแปลแบบกลุ่มสำหรับวิดีโอออฟไลน์',
+    'รองรับมากกว่า 10,000 เว็บไซต์ พร้อมดาวน์โหลดหรือบันทึกได้ในคลิกเดียวผ่านส่วนขยายเบราว์เซอร์',
+    'ไม่บันทึกและไม่เก็บข้อมูลผู้ใช้ เพื่อความเป็นส่วนตัว',
+    'รองรับมากกว่า 99 ภาษา และโมเดลขนาดใหญ่หลายแบบ',
+  ],
+  vi: [
+    'Dich thoi gian thuc khi xem video truc tuyen, dong thoi ho tro dich hang loat video ngoai tuyen.',
+    'Ho tro hon 10.000 trang web, tai xuong hoac ghi lai chi voi mot nhap qua tien ich trinh duyet.',
+    'Khong ghi nhat ky va khong thu thap du lieu nguoi dung, dam bao quyen rieng tu.',
+    'Ho tro hon 99 ngon ngu va nhieu mo hinh lon.',
+  ],
+  ms: [
+    'Terjemahan masa nyata semasa menonton video dalam talian, serta terjemahan kelompok untuk video luar talian.',
+    'Menyokong 10,000+ laman web dengan muat turun atau rakaman satu klik melalui sambungan pelayar.',
+    'Tidak merekod atau mengumpul data pengguna, memastikan privasi.',
+    'Menyokong 99+ bahasa dan pelbagai model besar.',
+  ],
+  id: [
+    'Terjemahan real-time saat menonton video online, serta terjemahan batch untuk video offline.',
+    'Mendukung 10.000+ situs, dengan unduh atau rekam sekali klik lewat ekstensi browser.',
+    'Tidak mencatat maupun mengumpulkan data pengguna, menjaga privasi.',
+    'Mendukung 99+ bahasa dan berbagai model besar.',
+  ],
+  tr: [
+    'Cevrimici videolari izlerken gercek zamanli ceviri ve cevrimdisi videolar icin toplu ceviri destegi.',
+    '10.000+ siteyi destekler; tarayici eklentisiyle tek tikla indirme veya kayit yapabilirsiniz.',
+    'Kullanici verilerini kaydetmez veya toplamaz, gizliligi korur.',
+    '99+ dil ve birden fazla buyuk modeli destekler.',
+  ],
+  pl: [
+    'Tlumaczenie w czasie rzeczywistym podczas ogladania wideo online oraz tlumaczenie wsadowe filmow offline.',
+    'Obsluguje ponad 10 000 witryn; pobieranie lub nagrywanie jednym kliknieciem przez rozszerzenie przegladarki.',
+    'Nie rejestruje ani nie zbiera danych uzytkownika, dbajac o prywatnosc.',
+    'Obsluguje ponad 99 jezykow i wiele duzych modeli.',
+  ],
+  nl: [
+    'Realtime vertaling tijdens het kijken van online videos, plus batchvertaling voor offline videos.',
+    'Ondersteunt 10.000+ websites met downloaden of opnemen met een klik via de browserextensie.',
+    'Legt geen gebruikersgegevens vast en verzamelt ze niet, voor betere privacy.',
+    'Ondersteunt 99+ talen en meerdere grote modellen.',
+  ],
+  sv: [
+    'Realtidsoversattning medan du tittar pa onlinevideo samt batchoversattning for offlinevideo.',
+    'Stoder 10 000+ webbplatser med nedladdning eller inspelning med ett klick via webblasartillagget.',
+    'Loggar inte och samlar inte in anvandardata, vilket skyddar integriteten.',
+    'Stoder 99+ sprak och flera stora modeller.',
+  ],
+  da: [
+    'Realtidsoversaettelse mens du ser onlinevideoer samt batchoversaettelse af offlinevideoer.',
+    'Understotter 10.000+ websites med download eller optagelse med et klik via browserudvidelsen.',
+    'Logger eller indsamler ikke brugerdata og beskytter privatlivet.',
+    'Understotter 99+ sprog og flere store modeller.',
+  ],
+  nb: [
+    'Sanntidsoversettelse mens du ser nettvideo, samt batchoversettelse for offlinevideoer.',
+    'Stotter 10 000+ nettsteder med nedlasting eller opptak med ett klikk via nettleserutvidelsen.',
+    'Logger eller samler ikke inn brukerdata, og beskytter personvernet.',
+    'Stotter 99+ sprak og flere store modeller.',
+  ],
+  fi: [
+    'Reaaliaikainen kaannos verkkovideoita katsottaessa seka era-ajokaannos offline-videoille.',
+    'Tukee yli 10 000 sivustoa; lataus tai tallennus yhdella napsautuksella selainlaajennuksella.',
+    'Ei kirjaa eika keraa kayttajadataa, joten yksityisyys säilyy.',
+    'Tukee yli 99 kieltä ja useita suuria malleja.',
+  ],
+  cs: [
+    'Preklad v realnem case pri sledovani online videi a davkovy preklad offline videi.',
+    'Podporuje vice nez 10 000 webu, stazeni nebo nahrani jednim kliknutim pres rozsireni prohlizece.',
+    'Nezaznamenava ani nesbira uzivatelska data, cimz chrani soukromi.',
+    'Podporuje 99+ jazyku a vice velkych modelu.',
+  ],
+  hu: [
+    'Valos ideju forditas online videok nezese kozben, valamint tombos forditas offline videokhoz.',
+    'Tobb mint 10 000 webhelyet tamogat, egykattintasos letoltessel vagy rogzitessel bongeszo-kiegeszitovel.',
+    'Nem rogzit es nem gyujt felhasznaloi adatokat, igy vedi az adatvedelmet.',
+    '99+ nyelvet es tobb nagy modellt tamogat.',
+  ],
+  ro: [
+    'Traducere in timp real in timp ce vizionezi videoclipuri online si traducere in lot pentru videoclipuri offline.',
+    'Suporta peste 10.000 de site-uri, cu descarcare sau inregistrare dintr-un clic prin extensia browserului.',
+    'Nu inregistreaza si nu colecteaza datele utilizatorilor, protejand confidentialitatea.',
+    'Suporta peste 99 de limbi si mai multe modele mari.',
+  ],
+  el: [
+    'Μετάφραση σε πραγματικό χρόνο κατά την αναπαραγωγή online βίντεο και μαζική μετάφραση για offline βίντεο.',
+    'Υποστηρίζει 10.000+ ιστότοπους, με λήψη ή εγγραφή με ένα κλικ μέσω επέκτασης προγράμματος περιήγησης.',
+    'Δεν καταγράφει και δεν συλλέγει δεδομένα χρηστών, διασφαλίζοντας το απόρρητο.',
+    'Υποστηρίζει 99+ γλώσσες και πολλαπλά μεγάλα μοντέλα.',
+  ],
+  he: [
+    'תרגום בזמן אמת בזמן צפייה בווידאו אונליין, וגם תרגום אצווה לווידאו אופליין.',
+    'תומך ביותר מ-10,000 אתרים עם הורדה או הקלטה בלחיצה אחת דרך תוסף הדפדפן.',
+    'לא מתעד ולא אוסף נתוני משתמשים, כדי להגן על הפרטיות.',
+    'תומך ביותר מ-99 שפות ובמספר מודלים גדולים.',
+  ],
+  uk: [
+    'Переклад у реальному часі під час перегляду онлайн-відео та пакетний переклад офлайн-відео.',
+    'Підтримує понад 10 000 сайтів, з завантаженням або записом в один клік через розширення браузера.',
+    'Не веде журнал і не збирає дані користувачів, забезпечуючи конфіденційність.',
+    'Підтримує 99+ мов і кілька великих моделей.',
+  ],
+  bn: [
+    'অনলাইন ভিডিও দেখার সময় রিয়েল-টাইম অনুবাদ, এবং অফলাইন ভিডিওর জন্য ব্যাচ অনুবাদ সমর্থন।',
+    '১০,০০০+ ওয়েবসাইট সমর্থন করে; ব্রাউজার এক্সটেনশনের মাধ্যমে এক ক্লিকে ডাউনলোড বা রেকর্ড করা যায়।',
+    'ব্যবহারকারীর ডেটা লগ বা সংগ্রহ করে না, ফলে গোপনীয়তা সুরক্ষিত থাকে।',
+    '৯৯+ ভাষা এবং একাধিক বড় মডেল সমর্থন করে।',
+  ],
+  ta: [
+    'ஆன்லைன் வீடியோக்களை பார்க்கும் போது நேரடி மொழிபெயர்ப்பு, மேலும் ஆஃப்லைன் வீடியோக்களுக்கு தொகுதி மொழிபெயர்ப்பு.',
+    '10,000+ தளங்களை ஆதரிக்கிறது; உலாவி நீட்டிப்பின் மூலம் ஒரே கிளிக்கில் பதிவிறக்கம் அல்லது பதிவு செய்யலாம்.',
+    'பயனர் தரவை பதிவு செய்யவோ சேகரிக்கவோ செய்யாது; தனியுரிமை பாதுகாக்கப்படுகிறது.',
+    '99+ மொழிகள் மற்றும் பல பெரிய மாதிரிகளை ஆதரிக்கிறது.',
+  ],
+  te: [
+    'ఆన్‌లైన్ వీడియోలు చూస్తూనే రియల్-టైమ్ అనువాదం, అలాగే ఆఫ్‌లైన్ వీడియోలకు బ్యాచ్ అనువాదం.',
+    '10,000+ వెబ్‌సైట్లకు మద్దతు; బ్రౌజర్ ఎక్స్‌టెన్షన్ ద్వారా ఒక్క క్లిక్‌తో డౌన్‌లోడ్ లేదా రికార్డ్ చేయవచ్చు.',
+    'వినియోగదారు డేటాను నమోదు చేయదు లేదా సేకరించదు; గోప్యతను కాపాడుతుంది.',
+    '99+ భాషలు మరియు అనేక పెద్ద మోడళ్లకు మద్దతు ఇస్తుంది.',
+  ],
+  ur: [
+    'آن لائن ویڈیو دیکھتے وقت ریئل ٹائم ترجمہ، اور آف لائن ویڈیو کے لیے بیچ ترجمہ۔',
+    '10,000+ ویب سائٹس کی سپورٹ، براؤزر ایکسٹینشن سے ایک کلک میں ڈاؤن لوڈ یا ریکارڈنگ۔',
+    'صارف کا ڈیٹا لاگ یا جمع نہیں کرتا، اس طرح رازداری محفوظ رہتی ہے۔',
+    '99+ زبانوں اور متعدد بڑے ماڈلز کی سپورٹ۔',
+  ],
+  fa: [
+    'ترجمه هم زمان هنگام تماشای ویدئوی آنلاین، و همچنین ترجمه دسته ای برای ویدئوهای آفلاین.',
+    'پشتیبانی از بیش از 10,000 وب سایت با دانلود یا ضبط تک کلیکی از طریق افزونه مرورگر.',
+    'هیچ داده کاربری را ثبت یا جمع آوری نمی کند و حریم خصوصی را حفظ می کند.',
+    'پشتیبانی از بیش از 99 زبان و چندین مدل بزرگ.',
+  ],
+  sw: [
+    'Tafsiri ya wakati halisi unapokagua video mtandaoni, pamoja na tafsiri ya kundi kwa video za nje ya mtandao.',
+    'Inatumia tovuti 10,000+ kwa kupakua au kurekodi kwa mbofyo mmoja kupitia kiendelezi cha kivinjari.',
+    'Haiandiki wala kukusanya data ya mtumiaji, hivyo faragha inalindwa.',
+    'Inatumia lugha 99+ na miundo mikubwa mingi.',
+  ],
+  km: [
+    'បកប្រែពេលជាក់ស្តែងខណៈពេលមើលវីដេអូអនឡាញ និងគាំទ្របកប្រែជាក្រុមសម្រាប់វីដេអូក្រៅបណ្តាញ។',
+    'គាំទ្រវេបសាយលើស 10,000 ជាមួយការទាញយក ឬថតតែម្តងតាមរយៈផ្នែកបន្ថែមកម្មវិធីរុករក។',
+    'មិនកត់ត្រា និងមិនប្រមូលទិន្នន័យអ្នកប្រើ ដើម្បីការពារឯកជនភាព។',
+    'គាំទ្រភាសាលើស 99 និងម៉ូដែលធំៗច្រើន។',
+  ],
+  it: [
+    'Traduzione in tempo reale durante la visione di video online, oltre alla traduzione batch per video offline.',
+    'Supporta oltre 10.000 siti con download o registrazione in un clic tramite estensione del browser.',
+    'Non registra ne raccoglie dati utente, garantendo la privacy.',
+    'Supporta oltre 99 lingue e piu modelli di grandi dimensioni.',
+  ],
+};
+
+function applyHeroList(html, t, key) {
+  const intro = (t && t.heroIntro) || heroIntroByLang[key] || 'What is EchoShortsPlayer';
+  let items;
+  if (t && t.heroB1 && t.heroB2 && t.heroB3 && t.heroB4) {
+    items = [t.heroB1, t.heroB2, t.heroB3, t.heroB4];
+  } else if (heroBulletsByLang[key]) {
+    items = heroBulletsByLang[key];
+  } else if (t && t.heroP) {
+    items = [t.heroP];
+  } else {
+    items = [
+      'Real-time translation while watching online videos, plus batch translation for offline videos.',
+      'Supports 10,000+ websites, with one-click download or recording through the browser extension.',
+      'No user data is logged or collected, ensuring privacy.',
+      'Supports 99+ languages and multiple large models.',
+    ];
+  }
+
+  const listHtml = items.map((line) => `        <li>✦ ${line}</li>`).join('\n');
+  html = html.replace(/<div class="hero-intro"><span class="num">#0<\/span>.*?<\/div>/, `<div class="hero-intro"><span class="num">#0</span>${intro}</div>`);
+  html = html.replace(/<ul class="hero-points">[\s\S]*?<\/ul>/, `<ul class="hero-points">\n${listHtml}\n      </ul>`);
+  return html;
+}
+
 /** Same markup as home.html; replaced per locale before the privacy section. */
 const PRIVACY_SUPPORT_HTML_EN = '<p class="privacy-support-note">For technical support, please contact <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a>.</p>';
 
@@ -476,6 +755,24 @@ function applyPrivacySupportLine(html, langKey) {
   return html.replace(PRIVACY_SUPPORT_HTML_EN, line);
 }
 
+function getInstallBtnLabel(langKey, t) {
+  if (langKey === 'zh') return 'window store下载';
+  if (langKey === 'cht') return 'Windows Store 下載';
+  const localizedStore = storeBtnTranslations[langKey];
+  if (localizedStore) return localizedStore.replace(/Microsoft Store/g, 'Windows Store');
+  if (t && t.instDlBtn) return t.instDlBtn.replace(/EchoShortsPlayer/gi, 'Windows Store');
+  return 'Download from Windows Store';
+}
+
+function applyZhBaiduDownloadButton(html) {
+  const rowRe = /<div class="btn-row">\s*<a class="btn btn-green" href="ms-windows-store:\/\/pdp\/\?productid=9N06RSDW81SN">[^<]*<\/a>\s*<\/div>/;
+  const rowHtml = `<div class="btn-row">
+        <a class="btn btn-green" href="ms-windows-store://pdp/?productid=9N06RSDW81SN">window store下载</a>
+        <a class="btn btn-outline" href="https://pan.baidu.com/s/17DYHiy6ysiePFQw8MwVwqg?pwd=6c8v" target="_blank" rel="noopener noreferrer">百度网盘下载</a>
+      </div>`;
+  return html.replace(rowRe, rowHtml);
+}
+
 // --- Load full translations for remaining languages ---
 const _ft1 = require('./fullTranslations.js');
 const _ft2 = require('./fullTranslations2.js');
@@ -494,20 +791,19 @@ function buildOther(key, data) {
     html = html
       .replace(/<title>.*?<\/title>/, `<title>${t.title}</title>`)
       .replace('AI Video Translation &amp; Subtitles<br><span>Stream, Translate, Download &mdash; All Offline</span>', t.h1)
-      .replace(/EchoShortsPlayer translates online videos.*?m3u8 streams and MP4 files\./s, t.heroP)
       .replace('<span class="num">#1</span> Features', `<span class="num">#1</span> ${t.sec1}`)
       .replace('<span class="num">#2</span> How to Use', `<span class="num">#2</span> ${t.sec2}`)
       .replace('>Speech Recognition<', `>${t.f1t}<`).replace(/Powered by OpenAI Whisper\. Supports 99 languages.*?highest accuracy\)\./, t.f1p)
       .replace('>AI Translation<', `>${t.f2t}<`).replace('Multiple translation engines:', t.f2p)
       .replace('Opus-MT &mdash; fast, 9 languages', t.f2l1).replace('NLLB &mdash; 32+ languages, any-to-any', t.f2l2).replace('Qwen &mdash; best quality, CJK-optimized', t.f2l3)
-      .replace('>Media Detection<', `>${t.f3t}<`).replace(/Automatically detects m3u8\/HLS.*?extension\./, t.f3p)
+      .replace('>Media Detection<', `>${t.f3t}<`).replace(/(?:Supports 10,000\+ websites and )?automatically detects m3u8\/HLS.*?extension\./i, t.f3p)
       .replace('>Real-time Subtitles<', `>${t.f4t}<`).replace(/Stream translation mode.*?future use\./, t.f4p)
       .replace('>100% Offline &amp; Private<', `>${t.f5t}<`).replace(/All processing happens locally.*?on your device\./, t.f5p)
       .replace('>Hardware Requirements<', `>${t.f6t}<`).replace(/NVIDIA GPU with 8 GB\+.*?optimal performance\./, t.f6p)
       .replace('Install EchoShortsPlayer <span class="tag">Required', `${t.instTitle} <span class="tag">${t.instTag}`)
       .replace('Desktop application &mdash; the core engine for all features', t.instSub)
       .replace(/EchoShortsPlayer is the desktop application.*?methods below\./, t.instP1)
-      .replace('>Download EchoShortsPlayer<', `>${t.instDlBtn}<`)
+      .replace('>Download EchoShortsPlayer<', `>${getInstallBtnLabel(key, t)}<`)
       .replace(/<p><strong>System requirements:<\/strong>.*?installed\.<\/p>/, `<p>${t.instReq}</p>`)
       .replace(/<p>After installation, launch the application\..*?communicate with\.<\/p>/, `<p>${t.instAfter}</p>`)
       .replace('Chrome Extension (Video Sniffing) <span class="tag">Strongly recommended', `${t.extTitle} <span class="tag">${t.extTag}`)
@@ -543,6 +839,7 @@ function buildOther(key, data) {
   }
 
   const extT = (t && t.extI1) ? t : extensionStepTranslations[key];
+  html = applyHeroList(html, t, key);
   html = applyExtensionInstallUsage(html, extT);
 
   // Apply advantage translations (h4 titles + bullet items). Prefer fullTrans
@@ -561,8 +858,9 @@ function buildOther(key, data) {
   // Apply store button translation from the mapping (fallback for languages without full translations)
   const storeLabel = storeBtnTranslations[key];
   if (storeLabel && html.includes('>Download from Microsoft Store<')) {
-    html = html.replace('>Download from Microsoft Store<', `>${storeLabel}<`);
+    html = html.replace('>Download from Microsoft Store<', `>${storeLabel.replace(/Microsoft Store/g, 'Windows Store')}<`);
   }
+  html = html.replace('>Download EchoShortsPlayer<', `>${getInstallBtnLabel(key, t)}<`);
 
   // Apply CLI "Parameter reference:" label (fallback for languages without full translations)
   const cliParamsLabel = cliParamsLabelTranslations[key];
@@ -578,6 +876,9 @@ function buildOther(key, data) {
 
   html = applyPrivacyBlock(html, key);
   html = applyPrivacySupportLine(html, key);
+  if (key === 'zh') {
+    html = applyZhBaiduDownloadButton(html);
+  }
 
   fs.writeFileSync(path.join(__dirname, file), html, 'utf8');
 }

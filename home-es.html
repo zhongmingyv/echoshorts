@@ -34,10 +34,35 @@
 
     /* --- Hero --- */
     .hero { margin-bottom: 56px; }
-    .hero .logo { font-size: 13px; font-weight: 700; color: #4ade80; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
-    .hero h1 { font-size: 36px; font-weight: 700; color: #fff; line-height: 1.25; margin-bottom: 16px; }
-    .hero h1 span { color: #4ade80; }
-    .hero p { font-size: 15px; color: #999; line-height: 1.7; max-width: 640px; }
+    .hero .logo { text-align: center; margin-bottom: 20px; }
+    .hero .logo img { width: 760px; max-width: 100%; height: auto; display: inline-block; }
+    .hero .hero-intro {
+      font-size: 20px;
+      font-weight: 700;
+      color: #ffffff;
+      text-align: left;
+      margin: 0 0 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #222;
+    }
+    .hero .hero-intro .num { color: #4ade80; margin-right: 10px; }
+    .hero .hero-points {
+      width: 100%;
+      margin: 0;
+      padding: 18px 22px;
+      list-style: none;
+      background: #151515;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      box-sizing: border-box;
+    }
+    .hero .hero-points li {
+      font-size: 18px;
+      color: #d8d8d8;
+      line-height: 1.9;
+      margin-bottom: 6px;
+    }
+    .hero .hero-points li:last-child { margin-bottom: 0; }
 
     /* --- Section Title --- */
     .section-title { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #222; }
@@ -156,9 +181,14 @@
 
     <!-- ============ HERO ============ -->
     <div class="hero">
-      <div class="logo">EchoShortsPlayer</div>
-      <h1>Traducción de Video &amp; Subtítulos con IA<br><span>Transmite, Traduce, Descarga &mdash; Todo Sin Conexión</span></h1>
-      <p>EchoShortsPlayer traduce videos en línea en tiempo real mientras los miras: los subtítulos aparecen mientras se reproduce el video, sin esperas. Descarga videos de acceso público para verlos sin conexión. Todo el reconocimiento de voz y la traducción se ejecutan 100% localmente en tu dispositivo: sin internet, sin cuentas, ningún dato sale de tu computadora. Compatible con más de 99 idiomas, transmisiones m3u8 y archivos MP4.</p>
+      <div class="logo"><img src="Wide310x150Logo.png" alt="EchoShortsPlayer Logo"></div>
+      <div class="hero-intro"><span class="num">#0</span>Que es EchoShortsPlayer</div>
+      <ul class="hero-points">
+        <li>✦ Traduccion en tiempo real mientras reproduces videos en linea, y traduccion por lotes para videos sin conexion.</li>
+        <li>✦ Compatible con mas de 10,000 sitios web, con descarga o grabacion en un clic mediante la extension del navegador.</li>
+        <li>✦ No registra ni recopila datos de usuario, garantizando la privacidad.</li>
+        <li>✦ Compatible con mas de 99 idiomas y multiples modelos grandes.</li>
+      </ul>
     </div>
 
     <!-- ============ FEATURES ============ -->
@@ -175,14 +205,13 @@
         <p>Múltiples motores de traducción:</p>
         <ul>
           <li>Opus-MT — rápido, 9 idiomas</li>
-          <li>NLLB — más de 32 idiomas, cualquier combinación</li>
           <li>Qwen — mejor calidad, optimizado para CJK</li>
         </ul>
       </div>
       <div class="card">
         <div class="icon">&#128246;</div>
         <h3>Detección de Medios</h3>
-        <p>Detecta automáticamente transmisiones m3u8/HLS y enlaces de video MP4 en cualquier página web. Descarga o traduce con un solo clic mediante la extensión del navegador.</p>
+        <p>Compatible con más de 10,000 sitios web y detecta automáticamente transmisiones m3u8/HLS y enlaces de video MP4 en cualquier página web. Descarga o traduce con un solo clic mediante la extensión del navegador.</p>
       </div>
       <div class="card">
         <div class="icon">&#9889;</div>
@@ -212,7 +241,7 @@
       <p>EchoShortsPlayer es la aplicación de escritorio que ejecuta los modelos de IA localmente. La extensión del navegador y la CLI dependen de ella. Instálala primero antes de usar cualquiera de los métodos siguientes.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="ms-windows-store://pdp/?productid=9N06RSDW81SN">Descargar EchoShortsPlayer</a>
+        <a class="btn btn-green" href="ms-windows-store://pdp/?productid=9N06RSDW81SN">Descargar de Windows Store</a>
       </div>
 
       <p><strong>Requisitos del sistema:</strong> Windows 10/11, GPU NVIDIA con 8 GB o más de VRAM, controladores CUDA instalados.</p>

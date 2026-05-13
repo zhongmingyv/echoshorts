@@ -1,6 +1,27 @@
 ## 2026-05-13
 
 - `home-zh.html`：在「安装 EchoShortsPlayer」按钮区新增百度网盘下载入口，链接为 `https://pan.baidu.com/s/17DYHiy6ysiePFQw8MwVwqg?pwd=6c8v`，按钮文案为「百度网盘下载」，样式使用 `btn btn-outline` 并以新标签页打开。
+- 首页「媒体检测」文案同步升级为“支持 10000+ 网站”：更新 `generate_home.js`（简中/繁中 `f3p` 与替换正则兼容）、`home.html` 英文模板对应句、`fullTranslations.js` 与 `fullTranslations2.js` 中已有翻译语言的 `f3p`；已执行 `node generate_home.js` 重新生成全部 `home-*.html`。
+- `home-zh.html` Hero 区调整：顶部改为居中显示 `echoshortsplayer.png` logo，移除原主标题「AI 视频翻译与字幕…」，简介段落改为「EchoShortsPlayer 支持：」下 4 条要点（在线视频边播边译/离线批量翻译、10000+ 网站一键下载或录制、隐私不采集、99+ 语言与多模型）。
+- `home-zh.html`：安装区主按钮文案由「下载 EchoShortsPlayer」改为「window store下载」，链接保持 `ms-windows-store://pdp/?productid=9N06RSDW81SN` 不变。
+- 多语言首页同步上述安装区改动（除中文外无百度网盘按钮）：更新 `home.html` 模板 Hero 为顶部居中 logo 图片样式；在 `generate_home.js` 新增 `getInstallBtnLabel`（各语言安装按钮改为 Windows Store 下载文案）与 `applyZhBaiduDownloadButton`（仅 `home-zh.html` 注入百度网盘按钮）；并将中文 `heroP` 同步到生成脚本，执行 `node generate_home.js` 重新生成全部 `home-*.html`。
+- `home-cht.html`：将 Hero 说明文字改为更大更清晰（`font-size: 18px`、亮色、更大行高），并把原单段长文改为「EchoShortsPlayer 支援：」下 4 条分行要点显示。
+- `home-zh.html` 与 `home-cht.html`：统一 Hero 说明区字号与版式，改为一致的「标题 + 卡片式要点列表」样式（`hero-intro` + `hero-points`），每项独立分行，提升清晰度与可读性。
+- `home-zh.html`：Hero 标题文案由「EchoShortsPlayer 支持：」改为「什么是EchoShortsPlayer」。
+- `home-zh.html`：Hero 要点第 2 条文案由「通过浏览器扩展一键下载或录制。」改为「通过浏览器扩展一键下载或录制视频。」。
+- `home-zh.html`：Hero 要点符号由 `⚪` 调整为更醒目的 `✦`，并统一每条前导样式。
+- `home-zh.html`：Hero logo 图片由 `echoshortsplayer.png` 改为 `Wide310x150Logo.png`。
+- `home-zh.html`：Hero logo 放大，` .hero .logo img ` 宽度由 `220px` 调整为 `760px`，与下方文字介绍区域同宽（保留 `max-width: 100%` 响应式）。
+- `home-zh.html`：Hero 标题改为左对齐并更新文案为 `#0 什么是EchoShortsPlayer`（`hero-intro` 增加 `max-width: 760px` 与居中容器对齐）。
+- `home-zh.html`：修复 `#0` 与 `#1` 左边缘未对齐问题，移除 `hero-intro` 的 `max-width + auto margin`，改为 `margin: 0 0 12px;` 使标题与章节标题同起点对齐。
+- `home-zh.html`：按需增强 `#0` 区样式：`#0` 改为绿色高亮（`hero-intro .num`），并将 `hero-points` 从 `max-width: 760px; margin: 0 auto;` 调整为 `width: 100%; margin: 0; box-sizing: border-box;`，使说明卡片宽度与下方内容区对齐。
+- `home-zh.html`：`#0` 标题样式继续对齐 `#1`：增大编号与文字间距（`margin-right: 10px`），并在标题下方新增横线分隔（`padding-bottom: 12px; border-bottom: 1px solid #222;`）。
+- 同步简中 Hero 改动到全语言首页：`home.html` 模板统一为 `#0` 标题 + 卡片式四条要点（`hero-intro` / `hero-points`）、绿色编号、标题下横线、`Wide310x150Logo.png` 与放大样式；`generate_home.js` 新增 `heroIntro`/`heroB1-4` 替换逻辑（简中/繁中使用本地化文案，其它语言使用模板文案），并执行 `node generate_home.js` 重生成全部 `home-*.html`。
+- 修复“选择日语仍显示英文”问题：`generate_home.js` 新增 `applyHeroList` 与 `heroIntroByLang`，优先使用各语言已存在的 `heroP`/`heroIntro` 文案渲染 Hero（无分条翻译时至少显示本语言段落而非英文）；已重新执行 `node generate_home.js` 生成全部 `home-*.html`。
+- Hero 四条要点多语言补齐：在 `generate_home.js` 新增 `heroBulletsByLang`（ja/ko/es/fr/de/ru/pt/ar/hi/th/vi/ms/id）并接入 `applyHeroList` 优先渲染，解决如 `home-ja.html` 仍是旧单段格式的问题；已执行 `node generate_home.js` 重生成全部 `home-*.html`。
+- Hero 四条要点继续“全部补齐”：`generate_home.js` 的 `heroBulletsByLang` 新增 tr/pl/nl/sv/da/nb/fi/cs/hu/ro/el/he/uk/bn/ta/te/ur/fa/sw/km/it，所有语言首页统一为 4 条本地化 bullet 结构；已执行 `node generate_home.js` 重生成全部 `home-*.html`。
+- 修复繁体中文 Hero 未同步最新版问题：更新 `generate_home.js` 中 `cht` 的 `heroB1-4` 为与简中一致的新版语义（含「10000+ 网站」「一键下载或录制影片」「不记录不蒐集」与「多種大模型」），并执行 `node generate_home.js` 重生成全部 `home-*.html`。
+- 删除所有首页中的 NLLB 宣传文案：从 `home.html` 模板「AI Translation」列表中移除 `NLLB — 32+ languages, any-to-any`，并执行 `node generate_home.js` 重新生成全部 `home-*.html`，确保各语言页面不再显示 NLLB 相关描述（当前暂不支持 NLLB）。
 
 ## 2026-05-12
 

@@ -34,10 +34,35 @@
 
     /* --- Hero --- */
     .hero { margin-bottom: 56px; }
-    .hero .logo { font-size: 13px; font-weight: 700; color: #4ade80; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
-    .hero h1 { font-size: 36px; font-weight: 700; color: #fff; line-height: 1.25; margin-bottom: 16px; }
-    .hero h1 span { color: #4ade80; }
-    .hero p { font-size: 15px; color: #999; line-height: 1.7; max-width: 640px; }
+    .hero .logo { text-align: center; margin-bottom: 20px; }
+    .hero .logo img { width: 760px; max-width: 100%; height: auto; display: inline-block; }
+    .hero .hero-intro {
+      font-size: 20px;
+      font-weight: 700;
+      color: #ffffff;
+      text-align: left;
+      margin: 0 0 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #222;
+    }
+    .hero .hero-intro .num { color: #4ade80; margin-right: 10px; }
+    .hero .hero-points {
+      width: 100%;
+      margin: 0;
+      padding: 18px 22px;
+      list-style: none;
+      background: #151515;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      box-sizing: border-box;
+    }
+    .hero .hero-points li {
+      font-size: 18px;
+      color: #d8d8d8;
+      line-height: 1.9;
+      margin-bottom: 6px;
+    }
+    .hero .hero-points li:last-child { margin-bottom: 0; }
 
     /* --- Section Title --- */
     .section-title { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #222; }
@@ -156,9 +181,14 @@
 
     <!-- ============ HERO ============ -->
     <div class="hero">
-      <div class="logo">EchoShortsPlayer</div>
-      <h1>ترجمة الفيديو &amp; الترجمات بالذكاء الاصطناعي<br><span>شاهد، ترجم، حمّل &mdash; كل شيء بدون إنترنت</span></h1>
-      <p>يترجم EchoShortsPlayer مقاطع الفيديو عبر الإنترنت في الوقت الفعلي أثناء المشاهدة — تظهر الترجمات أثناء تشغيل الفيديو، بدون انتظار. حمّل مقاطع الفيديو المتاحة للعامة للمشاهدة بدون إنترنت. يعمل التعرف على الكلام والترجمة بالكامل محلياً على جهازك: لا حاجة للإنترنت، لا حسابات، لا تخرج أي بيانات من حاسوبك. يدعم أكثر من 99 لغة، وبث m3u8 وملفات MP4.</p>
+      <div class="logo"><img src="Wide310x150Logo.png" alt="EchoShortsPlayer Logo"></div>
+      <div class="hero-intro"><span class="num">#0</span>ما هو EchoShortsPlayer</div>
+      <ul class="hero-points">
+        <li>✦ ترجمة فورية أثناء تشغيل الفيديوهات عبر الإنترنت، مع دعم الترجمة الدفعية للفيديوهات غير المتصلة.</li>
+        <li>✦ يدعم أكثر من 10,000 موقع مع تنزيل أو تسجيل بنقرة واحدة عبر إضافة المتصفح.</li>
+        <li>✦ لا يسجل ولا يجمع بيانات المستخدم، مما يضمن الخصوصية.</li>
+        <li>✦ يدعم أكثر من 99 لغة وعدة نماذج كبيرة.</li>
+      </ul>
     </div>
 
     <!-- ============ FEATURES ============ -->
@@ -175,14 +205,13 @@
         <p>محركات ترجمة متعددة:</p>
         <ul>
           <li>Opus-MT — سريع، 9 لغات</li>
-          <li>NLLB — أكثر من 32 لغة، من أي لغة إلى أي لغة</li>
           <li>Qwen — أفضل جودة، محسّن للغات CJK</li>
         </ul>
       </div>
       <div class="card">
         <div class="icon">&#128246;</div>
         <h3>كشف الوسائط</h3>
-        <p>يكشف تلقائياً بث m3u8/HLS وروابط فيديو MP4 على أي صفحة ويب. حمّل أو ترجم بنقرة واحدة عبر إضافة المتصفح.</p>
+        <p>يدعم أكثر من 10,000 موقع ويكشف تلقائياً بث m3u8/HLS وروابط فيديو MP4 على أي صفحة ويب. حمّل أو ترجم بنقرة واحدة عبر إضافة المتصفح.</p>
       </div>
       <div class="card">
         <div class="icon">&#9889;</div>
@@ -212,7 +241,7 @@
       <p>EchoShortsPlayer هو تطبيق سطح المكتب الذي يشغّل نماذج الذكاء الاصطناعي محلياً. تعتمد عليه إضافة المتصفح وسطر الأوامر. ثبّته أولاً قبل استخدام أي من الطرق أدناه.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="ms-windows-store://pdp/?productid=9N06RSDW81SN">تحميل EchoShortsPlayer</a>
+        <a class="btn btn-green" href="ms-windows-store://pdp/?productid=9N06RSDW81SN">تحميل من Windows Store</a>
       </div>
 
       <p><strong>متطلبات النظام:</strong> Windows 10/11، بطاقة رسومات NVIDIA بذاكرة فيديو 8 جيجابايت أو أكثر، تعريفات CUDA مثبتة.</p>
