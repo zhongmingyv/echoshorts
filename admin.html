@@ -210,8 +210,6 @@
         <input type="number" id="priceUsd" required step="0.01" min="0" placeholder="e.g. 9.99">
       </div>
       <div class="form-group">
-        <label for="paddlePriceId">Paddle Price ID (optional)</label>
-        <input type="text" id="paddlePriceId" placeholder="e.g. pri_xxxxx">
       </div>
       <div class="modal-error" id="modalError"></div>
       <div class="modal-actions">
@@ -274,7 +272,7 @@ async function loadApps() {
           <div class="app-meta">
             <span>${escHtml(app.appid)}</span>
             <span>$${Number(app.price_usd).toFixed(2)}</span>
-            ${app.paddle_price_id ? `<span>${escHtml(app.paddle_price_id)}</span>` : ''}
+
           </div>
         </div>
         <div class="app-actions">
@@ -319,9 +317,6 @@ document.getElementById('addAppForm').addEventListener('submit', async (e) => {
     name: document.getElementById('appName').value.trim(),
     price_usd: parseFloat(document.getElementById('priceUsd').value)
   };
-  const paddle = document.getElementById('paddlePriceId').value.trim();
-  if (paddle) body.paddle_price_id = paddle;
-
   try {
     const res = await fetch(API + '/admin/apps', {
       method: 'POST',
