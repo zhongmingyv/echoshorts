@@ -316,7 +316,7 @@ function editApp(appid, name, price) {
   document.getElementById('priceUsd').value = price;
   document.getElementById('modalTitle').textContent = 'Edit App';
   document.getElementById('addBtn').textContent = 'Save';
-  document.getElementById('addModal').classList.add('active');
+  document.getElementById('modalOverlay').classList.add('active');
 }
 
 document.getElementById('addAppForm').addEventListener('submit', async (e) => {
