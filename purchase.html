@@ -479,8 +479,8 @@ async function loadAppInfo() {
 
 function updatePriceDisplay() {
   if (!appInfo) return;
-  const price = appInfo.price || 0;
-  const currency = appInfo.currency || 'USD';
+  const price = appInfo.price_usd || appInfo.price || 0;
+  const currency = 'USD';
 
   document.getElementById('originalPrice').textContent = formatPrice(price, currency);
 
