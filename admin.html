@@ -195,7 +195,7 @@
 <!-- Add App Modal -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
-    <h2>Add New App</h2>
+    <h2 id="modalTitle">Add New App</h2>
     <form id="addAppForm">
       <div class="form-group">
         <label for="appid">App ID</label>
@@ -242,6 +242,9 @@ function logout() {
 
 function openModal() {
   document.getElementById('addAppForm').reset();
+  document.getElementById('appid').disabled = false;
+  document.getElementById('modalTitle').textContent = 'Add New App';
+  document.getElementById('addBtn').textContent = 'Add App';
   document.getElementById('modalError').textContent = '';
   document.getElementById('modalOverlay').classList.add('active');
 }
@@ -277,6 +280,7 @@ async function loadApps() {
           </div>
         </div>
         <div class="app-actions">
+          <button class="btn btn-outline btn-sm" onclick="editApp('${escHtml(app.appid)}','${escHtml(app.name)}',${app.price_usd})">Edit</button>
           <a href="admin-discounts.html?appid=${encodeURIComponent(app.appid)}" class="btn btn-outline btn-sm">Discounts</a>
           <a href="admin-licenses.html?appid=${encodeURIComponent(app.appid)}" class="btn btn-outline btn-sm">Licenses</a>
           <button class="btn btn-danger btn-sm" onclick="deleteApp('${escHtml(app.appid)}')">Delete</button>
@@ -303,6 +307,16 @@ async function deleteApp(appid) {
   } catch (err) {
     alert('Error: ' + err.message);
   }
+}
+
+function editApp(appid, name, price) {
+  document.getElementById('appid').value = appid;
+  document.getElementById('appid').disabled = true;
+  document.getElementById('appName').value = name;
+  document.getElementById('priceUsd').value = price;
+  document.getElementById('modalTitle').textContent = 'Edit App';
+  document.getElementById('addBtn').textContent = 'Save';
+  document.getElementById('addModal').classList.add('active');
 }
 
 document.getElementById('addAppForm').addEventListener('submit', async (e) => {
@@ -332,7 +346,7 @@ document.getElementById('addAppForm').addEventListener('submit', async (e) => {
     errorEl.textContent = err.message;
   } finally {
     btn.disabled = false;
-    btn.textContent = 'Add App';
+    document.getElementById('appid').disabled = false;
   }
 });
 
