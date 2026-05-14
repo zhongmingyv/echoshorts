@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>License Management - EchoShorts Admin</title>
+<style>
+  :root {
+    --bg: #0f0f0f;
+    --card-bg: #1a1a1a;
+    --text: #e0e0e0;
+    --muted: #999999;
+    --primary: #4ade80;
+    --border: #2a2a2a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+  .top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .breadcrumb {
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .breadcrumb a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb span { color: var(--text); font-weight: 600; }
+  .btn-logout {
+    padding: 6px 16px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--muted);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-logout:hover { border-color: #f87171; color: #f87171; }
+  .container {
+    max-width: 1100px;
+    margin: 24px auto;
+    padding: 0 24px;
+  }
+  .header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .header-row h2 { font-size: 20px; font-weight: 600; }
+  .total-count {
+    font-size: 14px;
+    color: var(--muted);
+    font-weight: 400;
+    margin-left: 8px;
+  }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .section-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .section-card h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .form-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .form-group label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .form-group input {
+    padding: 8px 12px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus { border-color: var(--primary); }
+  .btn-primary {
+    padding: 8px 20px;
+    background: var(--primary);
+    color: #0f0f0f;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.9; }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-danger {
+    padding: 8px 20px;
+    background: #f87171;
+    color: #0f0f0f;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .btn-danger:hover { opacity: 0.9; }
+  .btn-danger:disabled { opacity: 0.5; cursor: not-allowed; }
+  .search-bar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .search-bar input {
+    flex: 1;
+    padding: 10px 16px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-bar input:focus { border-color: var(--primary); }
+  .search-bar input::placeholder { color: var(--muted); }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    background: var(--card-bg);
+    white-space: nowrap;
+  }
+  td {
+    padding: 10px 16px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .badge-gray { background: rgba(153,153,153,0.15); color: #999999; }
+  .badge-green { background: rgba(74,222,128,0.15); color: #4ade80; }
+  .badge-red { background: rgba(248,113,113,0.15); color: #f87171; }
+  .loading {
+    text-align: center;
+    padding: 40px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .error-banner {
+    background: rgba(248,113,113,0.1);
+    border: 1px solid rgba(248,113,113,0.3);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    color: #f87171;
+    font-size: 14px;
+    display: none;
+  }
+  .success-banner {
+    background: rgba(74,222,128,0.1);
+    border: 1px solid rgba(74,222,128,0.3);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    color: #4ade80;
+    font-size: 14px;
+    display: none;
+  }
+  .empty-state {
+    text-align: center;
+    padding: 40px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .generated-codes {
+    margin-top: 12px;
+    padding: 12px;
+    background: var(--bg);
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 13px;
+    line-height: 1.8;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    word-break: break-all;
+  }
+  .truncated {
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  code {
+    background: var(--bg);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+  .ops-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .ops-row .section-card {
+    flex: 1;
+    min-width: 280px;
+    margin-bottom: 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="breadcrumb">
+    <a href="admin.html">Admin</a> &rsaquo; <span id="appName">...</span> &rsaquo; <span>Licenses</span>
+  </div>
+  <button class="btn-logout" onclick="logout()">Logout</button>
+</div>
+
+<div class="container">
+  <div class="error-banner" id="errorBanner"></div>
+  <div class="success-banner" id="successBanner"></div>
+
+  <div class="header-row">
+    <h2>License Codes <span class="total-count" id="totalCount"></span></h2>
+  </div>
+
+  <!-- Search -->
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search by code, email, or status..." onkeydown="if(event.key==='Enter')doSearch()">
+    <button class="btn-primary" onclick="doSearch()">Search</button>
+  </div>
+
+  <!-- Batch Operations -->
+  <div class="ops-row">
+    <!-- Batch Generate -->
+    <div class="section-card">
+      <h3>Batch Generate</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Prefix</label>
+          <input type="text" id="genPrefix" value="ECHO" style="width:120px;">
+        </div>
+        <div class="form-group">
+          <label>Count</label>
+          <input type="number" id="genCount" value="10" min="1" max="1000" style="width:80px;">
+        </div>
+        <button class="btn-primary" id="genBtn" onclick="batchGenerate()">Generate</button>
+      </div>
+      <div class="generated-codes" id="generatedCodes"></div>
+    </div>
+
+    <!-- Batch Disable -->
+    <div class="section-card">
+      <h3>Batch Disable</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Code Prefix</label>
+          <input type="text" id="disablePrefix" placeholder="e.g. ECHO" style="width:160px;">
+        </div>
+        <button class="btn-danger" id="disableBtn" onclick="batchDisable()">Disable All Matching</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="card">
+    <div class="loading" id="loadingMsg">Loading licenses...</div>
+    <table id="licenseTable" style="display:none;">
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Status</th>
+          <th>Email</th>
+          <th>Fingerprint</th>
+          <th>Activated At</th>
+          <th>Order ID</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+    <div class="empty-state" id="emptyState" style="display:none;">No licenses found.</div>
+  </div>
+</div>
+
+<script>
+const API = 'https://license.echoshorts.win';
+function authHeaders() { return { 'Authorization': 'Bearer ' + localStorage.getItem('admin_token'), 'Content-Type': 'application/json' }; }
+async function checkAuth() {
+  const token = localStorage.getItem('admin_token');
+  if (!token) { window.location.href = 'admin-login.html'; return false; }
+  try { const res = await fetch(API + '/admin/verify', { headers: authHeaders() }); if (!res.ok) throw new Error(); return true; } catch { localStorage.removeItem('admin_token'); window.location.href = 'admin-login.html'; return false; }
+}
+
+const params = new URLSearchParams(window.location.search);
+const appid = params.get('appid');
+let licenses = [];
+
+function logout() {
+  localStorage.removeItem('admin_token');
+  window.location.href = 'admin-login.html';
+}
+
+function showError(msg) {
+  const el = document.getElementById('errorBanner');
+  el.textContent = msg;
+  el.style.display = 'block';
+  setTimeout(() => { el.style.display = 'none'; }, 5000);
+}
+
+function showSuccess(msg) {
+  const el = document.getElementById('successBanner');
+  el.textContent = msg;
+  el.style.display = 'block';
+  setTimeout(() => { el.style.display = 'none'; }, 5000);
+}
+
+function escHtml(s) {
+  if (!s) return '';
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+function truncate(s, len) {
+  if (!s) return '-';
+  return s.length > len ? s.slice(0, len) + '...' : s;
+}
+
+function formatDate(d) {
+  if (!d) return '-';
+  try {
+    const dt = new Date(d);
+    return dt.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+      + ' ' + dt.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+  } catch { return d; }
+}
+
+function statusBadge(status) {
+  const s = (status || 'unused').toLowerCase();
+  if (s === 'activated' || s === 'active') return '<span class="badge badge-green">activated</span>';
+  if (s === 'disabled' || s === 'revoked') return '<span class="badge badge-red">disabled</span>';
+  return '<span class="badge badge-gray">unused</span>';
+}
+
+function renderTable() {
+  const tbody = document.getElementById('tableBody');
+  const table = document.getElementById('licenseTable');
+  const empty = document.getElementById('emptyState');
+  const countEl = document.getElementById('totalCount');
+
+  countEl.textContent = '(' + licenses.length + ' total)';
+
+  if (licenses.length === 0) {
+    table.style.display = 'none';
+    empty.style.display = 'block';
+    return;
+  }
+
+  table.style.display = 'table';
+  empty.style.display = 'none';
+
+  tbody.innerHTML = licenses.map(l => `<tr>
+    <td><code>${escHtml(l.code || l.license_code || l.key)}</code></td>
+    <td>${statusBadge(l.status)}</td>
+    <td>${escHtml(l.email || '-')}</td>
+    <td class="truncated" title="${escHtml(l.fingerprint || l.hardware_id || '')}">${escHtml(truncate(l.fingerprint || l.hardware_id || '', 16))}</td>
+    <td>${formatDate(l.activatedAt || l.activated_at)}</td>
+    <td>${escHtml(l.orderId || l.order_id || '-')}</td>
+  </tr>`).join('');
+}
+
+async function loadLicenses(search) {
+  const loading = document.getElementById('loadingMsg');
+  loading.style.display = 'block';
+  document.getElementById('licenseTable').style.display = 'none';
+  document.getElementById('emptyState').style.display = 'none';
+  try {
+    let url = `${API}/admin/apps/${appid}/licenses`;
+    if (search) url += '?search=' + encodeURIComponent(search);
+    const res = await fetch(url, { headers: authHeaders() });
+    if (!res.ok) throw new Error('Failed to load licenses');
+    const data = await res.json();
+    licenses = Array.isArray(data) ? data : (data.licenses || []);
+    renderTable();
+  } catch (err) {
+    showError(err.message);
+  } finally {
+    loading.style.display = 'none';
+  }
+}
+
+function doSearch() {
+  const q = document.getElementById('searchInput').value.trim();
+  loadLicenses(q || undefined);
+}
+
+async function batchGenerate() {
+  const btn = document.getElementById('genBtn');
+  const prefix = document.getElementById('genPrefix').value.trim() || 'ECHO';
+  const count = parseInt(document.getElementById('genCount').value) || 10;
+
+  btn.disabled = true;
+  btn.textContent = 'Generating...';
+  try {
+    const res = await fetch(`${API}/admin/apps/${appid}/licenses/generate`, {
+      method: 'POST',
+      headers: authHeaders(),
+      body: JSON.stringify({ count, prefix })
+    });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      throw new Error(data.error || 'Failed to generate');
+    }
+    const data = await res.json();
+    const codes = data.codes || data.licenses || [];
+
+    // Show generated codes
+    const codesEl = document.getElementById('generatedCodes');
+    if (codes.length > 0) {
+      codesEl.textContent = codes.map(c => typeof c === 'string' ? c : (c.code || c.license_code || c.key)).join('\n');
+      codesEl.style.display = 'block';
+    }
+
+    showSuccess(`Successfully generated ${codes.length} license codes.`);
+    await loadLicenses();
+  } catch (err) {
+    showError(err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Generate';
+  }
+}
+
+async function batchDisable() {
+  const prefix = document.getElementById('disablePrefix').value.trim();
+  if (!prefix) { showError('Please enter a prefix to match'); return; }
+
+  // Count matching licenses for confirmation
+  const matchCount = licenses.filter(l => {
+    const code = l.code || l.license_code || l.key || '';
+    return code.startsWith(prefix);
+  }).length;
+
+  const msg = matchCount > 0
+    ? `This will disable all licenses starting with "${prefix}" (at least ${matchCount} visible matches). Continue?`
+    : `This will disable all licenses on the server starting with "${prefix}". Continue?`;
+
+  if (!confirm(msg)) return;
+
+  const btn = document.getElementById('disableBtn');
+  btn.disabled = true;
+  btn.textContent = 'Disabling...';
+  try {
+    const res = await fetch(`${API}/admin/apps/${appid}/licenses/batch-disable`, {
+      method: 'POST',
+      headers: authHeaders(),
+      body: JSON.stringify({ prefix })
+    });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      throw new Error(data.error || 'Failed to batch disable');
+    }
+    const data = await res.json();
+    showSuccess(`Disabled ${data.count || data.affected || 'matching'} licenses.`);
+    await loadLicenses();
+  } catch (err) {
+    showError(err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Disable All Matching';
+  }
+}
+
+async function loadAppName() {
+  try {
+    const res = await fetch(`${API}/admin/apps`, { headers: authHeaders() });
+    if (res.ok) {
+      const data = await res.json();
+      const apps = Array.isArray(data) ? data : (data.apps || []);
+      const app = apps.find(a => a.appid === appid || a.id === appid);
+      if (app) {
+        document.getElementById('appName').textContent = app.name || appid;
+        return;
+      }
+    }
+  } catch {}
+  document.getElementById('appName').textContent = appid;
+}
+
+(async () => {
+  if (!appid) { window.location.href = 'admin.html'; return; }
+  if (!await checkAuth()) return;
+  loadAppName();
+  loadLicenses();
+})();
+</script>
+</body>
+</html>

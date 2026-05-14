@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard - EchoShorts</title>
+<style>
+  :root {
+    --bg: #0f0f0f;
+    --card-bg: #1a1a1a;
+    --text: #e0e0e0;
+    --muted: #999999;
+    --primary: #4ade80;
+    --border: #2a2a2a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .topbar h1 {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .btn:hover { opacity: 0.85; }
+  .btn-primary {
+    background: var(--primary);
+    color: #0f0f0f;
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
+  .btn-danger {
+    background: #dc2626;
+    color: #fff;
+  }
+  .btn-sm {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .toolbar h2 {
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .app-grid {
+    display: grid;
+    gap: 16px;
+  }
+  .app-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .app-info h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .app-meta {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .app-meta span + span::before {
+    content: " \00b7 ";
+    margin: 0 4px;
+  }
+  .app-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  /* Modal */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    width: 100%;
+    max-width: 440px;
+  }
+  .modal h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+  .form-group {
+    margin-bottom: 14px;
+  }
+  .form-group label {
+    display: block;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .form-group input {
+    width: 100%;
+    padding: 10px 14px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus { border-color: var(--primary); }
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+  .modal-error {
+    color: #f87171;
+    font-size: 13px;
+    margin-top: 10px;
+    min-height: 18px;
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <h1>EchoShorts Admin</h1>
+  <button class="btn btn-outline btn-sm" onclick="logout()">Logout</button>
+</div>
+
+<div class="container">
+  <div class="toolbar">
+    <h2>Apps</h2>
+    <button class="btn btn-primary" onclick="openModal()">Add New App</button>
+  </div>
+  <div class="app-grid" id="appGrid">
+    <div class="empty-state">Loading...</div>
+  </div>
+</div>
+
+<!-- Add App Modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h2>Add New App</h2>
+    <form id="addAppForm">
+      <div class="form-group">
+        <label for="appid">App ID</label>
+        <input type="text" id="appid" required placeholder="e.g. echoshorts">
+      </div>
+      <div class="form-group">
+        <label for="appName">Name</label>
+        <input type="text" id="appName" required placeholder="e.g. EchoShorts">
+      </div>
+      <div class="form-group">
+        <label for="priceUsd">Price (USD)</label>
+        <input type="number" id="priceUsd" required step="0.01" min="0" placeholder="e.g. 9.99">
+      </div>
+      <div class="form-group">
+        <label for="paddlePriceId">Paddle Price ID (optional)</label>
+        <input type="text" id="paddlePriceId" placeholder="e.g. pri_xxxxx">
+      </div>
+      <div class="modal-error" id="modalError"></div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-outline" onclick="closeModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="addBtn">Add App</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+const API = 'https://license.echoshorts.win';
+function authHeaders() {
+  return { 'Authorization': 'Bearer ' + localStorage.getItem('admin_token'), 'Content-Type': 'application/json' };
+}
+async function checkAuth() {
+  const token = localStorage.getItem('admin_token');
+  if (!token) { window.location.href = 'admin-login.html'; return false; }
+  try {
+    const res = await fetch(API + '/admin/verify', { headers: authHeaders() });
+    if (!res.ok) throw new Error();
+    return true;
+  } catch { localStorage.removeItem('admin_token'); window.location.href = 'admin-login.html'; return false; }
+}
+
+function logout() {
+  localStorage.removeItem('admin_token');
+  window.location.href = 'admin-login.html';
+}
+
+function openModal() {
+  document.getElementById('addAppForm').reset();
+  document.getElementById('modalError').textContent = '';
+  document.getElementById('modalOverlay').classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+}
+
+// Close modal on overlay click
+document.getElementById('modalOverlay').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) closeModal();
+});
+
+async function loadApps() {
+  const grid = document.getElementById('appGrid');
+  try {
+    const res = await fetch(API + '/admin/apps', { headers: authHeaders() });
+    if (!res.ok) throw new Error('Failed to load apps');
+    const apps = await res.json();
+    if (!apps.length) {
+      grid.innerHTML = '<div class="empty-state">No apps yet. Click "Add New App" to get started.</div>';
+      return;
+    }
+    grid.innerHTML = apps.map(app => `
+      <div class="app-card">
+        <div class="app-info">
+          <h3>${escHtml(app.name)}</h3>
+          <div class="app-meta">
+            <span>${escHtml(app.appid)}</span>
+            <span>$${Number(app.price_usd).toFixed(2)}</span>
+            ${app.paddle_price_id ? `<span>${escHtml(app.paddle_price_id)}</span>` : ''}
+          </div>
+        </div>
+        <div class="app-actions">
+          <a href="admin-discounts.html?appid=${encodeURIComponent(app.appid)}" class="btn btn-outline btn-sm">Discounts</a>
+          <a href="admin-licenses.html?appid=${encodeURIComponent(app.appid)}" class="btn btn-outline btn-sm">Licenses</a>
+          <button class="btn btn-danger btn-sm" onclick="deleteApp('${escHtml(app.appid)}')">Delete</button>
+        </div>
+      </div>
+    `).join('');
+  } catch (err) {
+    grid.innerHTML = `<div class="empty-state" style="color:#f87171">Error: ${escHtml(err.message)}</div>`;
+  }
+}
+
+async function deleteApp(appid) {
+  if (!confirm(`Delete app "${appid}"? This cannot be undone.`)) return;
+  try {
+    const res = await fetch(API + '/admin/apps/' + encodeURIComponent(appid), {
+      method: 'DELETE',
+      headers: authHeaders()
+    });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      throw new Error(data.error || 'Delete failed');
+    }
+    loadApps();
+  } catch (err) {
+    alert('Error: ' + err.message);
+  }
+}
+
+document.getElementById('addAppForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('addBtn');
+  const errorEl = document.getElementById('modalError');
+  errorEl.textContent = '';
+  btn.disabled = true;
+  btn.textContent = 'Adding...';
+
+  const body = {
+    appid: document.getElementById('appid').value.trim(),
+    name: document.getElementById('appName').value.trim(),
+    price_usd: parseFloat(document.getElementById('priceUsd').value)
+  };
+  const paddle = document.getElementById('paddlePriceId').value.trim();
+  if (paddle) body.paddle_price_id = paddle;
+
+  try {
+    const res = await fetch(API + '/admin/apps', {
+      method: 'POST',
+      headers: authHeaders(),
+      body: JSON.stringify(body)
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to add app');
+    closeModal();
+    loadApps();
+  } catch (err) {
+    errorEl.textContent = err.message;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Add App';
+  }
+});
+
+function escHtml(str) {
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+// Init
+(async () => {
+  if (await checkAuth()) loadApps();
+})();
+</script>
+</body>
+</html>

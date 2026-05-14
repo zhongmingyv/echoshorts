@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Purchase - EchoShorts</title>
+<style>
+  :root {
+    --bg: #0f0f0f;
+    --card-bg: #1a1a1a;
+    --text: #e0e0e0;
+    --muted: #999999;
+    --primary: #4ade80;
+    --primary-hover: #22c55e;
+    --border: #2a2a2a;
+    --error: #f87171;
+    --error-bg: #2d1b1b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    line-height: 1.6;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 480px;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    padding: 36px 32px;
+  }
+
+  .lang-toggle {
+    text-align: right;
+    margin-bottom: 8px;
+  }
+
+  .lang-toggle button {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 4px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .lang-toggle button:hover {
+    color: var(--primary);
+    border-color: var(--primary);
+  }
+
+  .app-header {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .app-header h1 {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .app-header .subtitle {
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  input[type="email"],
+  input[type="text"] {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: var(--text);
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  input:focus {
+    border-color: var(--primary);
+  }
+
+  input::placeholder {
+    color: #555;
+  }
+
+  .field-group {
+    margin-bottom: 20px;
+  }
+
+  .discount-row {
+    display: flex;
+    gap: 8px;
+  }
+
+  .discount-row input {
+    flex: 1;
+  }
+
+  .btn-apply {
+    background: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    padding: 0 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .btn-apply:hover {
+    background: var(--primary);
+    color: #000;
+  }
+
+  .btn-apply:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .price-section {
+    background: var(--bg);
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 24px;
+    border: 1px solid var(--border);
+  }
+
+  .price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: var(--muted);
+    padding: 4px 0;
+  }
+
+  .price-row.discount {
+    color: var(--primary);
+  }
+
+  .price-row.total {
+    border-top: 1px solid var(--border);
+    margin-top: 8px;
+    padding-top: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .price-row .strikethrough {
+    text-decoration: line-through;
+    color: var(--muted);
+    margin-right: 6px;
+    font-size: 13px;
+  }
+
+  .btn-pay {
+    width: 100%;
+    background: var(--primary);
+    color: #000;
+    border: none;
+    border-radius: 12px;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .btn-pay:hover {
+    background: var(--primary-hover);
+  }
+
+  .btn-pay:active {
+    transform: scale(0.98);
+  }
+
+  .btn-pay:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .error-msg {
+    background: var(--error-bg);
+    border: 1px solid var(--error);
+    color: var(--error);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 13px;
+    margin-bottom: 16px;
+    display: none;
+  }
+
+  .discount-msg {
+    font-size: 12px;
+    margin-top: 6px;
+    min-height: 18px;
+  }
+
+  .discount-msg.success { color: var(--primary); }
+  .discount-msg.error { color: var(--error); }
+
+  .spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+    vertical-align: middle;
+    margin-right: 6px;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .loading-skeleton {
+    text-align: center;
+    padding: 40px 0;
+  }
+
+  .skeleton-bar {
+    height: 18px;
+    background: var(--border);
+    border-radius: 8px;
+    margin: 10px auto;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #555;
+  }
+
+  .footer a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .footer a:hover {
+    color: var(--primary);
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="card">
+    <div class="lang-toggle">
+      <button id="langBtn" onclick="toggleLang()">中文</button>
+    </div>
+
+    <!-- Loading state -->
+    <div id="loadingState" class="loading-skeleton">
+      <div class="skeleton-bar" style="width:60%"></div>
+      <div class="skeleton-bar" style="width:40%"></div>
+    </div>
+
+    <!-- Main content (hidden until loaded) -->
+    <div id="mainContent" style="display:none">
+      <div class="app-header">
+        <h1 id="appTitle"></h1>
+        <p class="subtitle" data-i18n="subtitle">Purchase Activation Code</p>
+      </div>
+
+      <div id="errorMsg" class="error-msg"></div>
+
+      <div class="field-group">
+        <label data-i18n="emailLabel">Email</label>
+        <input type="email" id="emailInput" data-i18n-ph="emailPlaceholder" placeholder="your@email.com">
+      </div>
+
+      <div class="field-group">
+        <label data-i18n="discountLabel">Discount Code (optional)</label>
+        <div class="discount-row">
+          <input type="text" id="discountInput" data-i18n-ph="discountPlaceholder" placeholder="Enter code">
+          <button class="btn-apply" id="applyBtn" onclick="applyDiscount()" data-i18n="applyBtn">Apply</button>
+        </div>
+        <div id="discountMsg" class="discount-msg"></div>
+      </div>
+
+      <div class="price-section">
+        <div class="price-row">
+          <span data-i18n="originalPrice">Original Price</span>
+          <span id="originalPrice">--</span>
+        </div>
+        <div class="price-row discount" id="discountRow" style="display:none">
+          <span data-i18n="discount">Discount</span>
+          <span id="discountAmount"></span>
+        </div>
+        <div class="price-row total">
+          <span data-i18n="total">Total</span>
+          <span id="totalPrice">--</span>
+        </div>
+      </div>
+
+      <button class="btn-pay" id="payBtn" onclick="handlePay()" data-i18n="payBtn">Pay Now</button>
+    </div>
+
+    <!-- Error state -->
+    <div id="errorState" style="display:none; text-align:center; padding:30px 0;">
+      <p style="color:var(--error); margin-bottom:12px;" id="loadErrorText"></p>
+      <button class="btn-apply" onclick="loadAppInfo()" data-i18n="retry">Retry</button>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="https://echoshorts.win">echoshorts.win</a>
+  </div>
+</div>
+
+<script>
+const API_BASE = 'https://license.echoshorts.win';
+
+const i18n = {
+  en: {
+    subtitle: 'Purchase Activation Code',
+    emailLabel: 'Email',
+    emailPlaceholder: 'your@email.com',
+    discountLabel: 'Discount Code (optional)',
+    discountPlaceholder: 'Enter code',
+    applyBtn: 'Apply',
+    originalPrice: 'Original Price',
+    discount: 'Discount',
+    total: 'Total',
+    payBtn: 'Pay Now',
+    retry: 'Retry',
+    loadError: 'Failed to load app information.',
+    emailRequired: 'Please enter a valid email address.',
+    purchaseError: 'Purchase failed. Please try again.',
+    processing: 'Processing...',
+    discountApplied: 'Discount code applied!',
+    discountPreview: 'Discount will be validated at checkout.',
+    langSwitch: '中文'
+  },
+  zh: {
+    subtitle: '购买激活码',
+    emailLabel: '邮箱',
+    emailPlaceholder: '请输入邮箱地址',
+    discountLabel: '优惠码（可选）',
+    discountPlaceholder: '输入优惠码',
+    applyBtn: '应用',
+    originalPrice: '原价',
+    discount: '优惠',
+    total: '合计',
+    payBtn: '立即支付',
+    retry: '重试',
+    loadError: '加载应用信息失败。',
+    emailRequired: '请输入有效的邮箱地址。',
+    purchaseError: '购买失败，请重试。',
+    processing: '处理中...',
+    discountApplied: '优惠码已应用！',
+    discountPreview: '优惠码将在结账时验证。',
+    langSwitch: 'EN'
+  }
+};
+
+let lang = 'en';
+let appInfo = null;
+let appliedDiscount = null;
+
+function t(key) {
+  return i18n[lang][key] || key;
+}
+
+function toggleLang() {
+  lang = lang === 'en' ? 'zh' : 'en';
+  applyLang();
+}
+
+function applyLang() {
+  document.getElementById('langBtn').textContent = t('langSwitch');
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    el.textContent = t(el.getAttribute('data-i18n'));
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    el.placeholder = t(el.getAttribute('data-i18n-ph'));
+  });
+  // re-render discount message if present
+  if (appliedDiscount) {
+    showDiscountMsg(t('discountApplied'), 'success');
+  }
+}
+
+function getAppId() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('appid') || 'echoshortsplayer';
+}
+
+function formatPrice(amount, currency) {
+  if (!currency) currency = 'USD';
+  try {
+    return new Intl.NumberFormat(lang === 'zh' ? 'zh-CN' : 'en-US', {
+      style: 'currency',
+      currency: currency
+    }).format(amount);
+  } catch (e) {
+    return `${currency} ${amount}`;
+  }
+}
+
+function showError(msg) {
+  const el = document.getElementById('errorMsg');
+  el.textContent = msg;
+  el.style.display = 'block';
+  setTimeout(() => { el.style.display = 'none'; }, 5000);
+}
+
+function showDiscountMsg(msg, type) {
+  const el = document.getElementById('discountMsg');
+  el.textContent = msg;
+  el.className = 'discount-msg ' + type;
+}
+
+async function loadAppInfo() {
+  const appid = getAppId();
+  document.getElementById('loadingState').style.display = 'block';
+  document.getElementById('mainContent').style.display = 'none';
+  document.getElementById('errorState').style.display = 'none';
+
+  try {
+    const resp = await fetch(`${API_BASE}/app-info?appid=${encodeURIComponent(appid)}`);
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    appInfo = await resp.json();
+
+    document.getElementById('appTitle').textContent = appInfo.name || appid;
+    document.title = `Purchase - ${appInfo.name || appid}`;
+    updatePriceDisplay();
+
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+  } catch (err) {
+    console.error('Failed to load app info:', err);
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('errorState').style.display = 'block';
+    document.getElementById('loadErrorText').textContent = t('loadError');
+  }
+}
+
+function updatePriceDisplay() {
+  if (!appInfo) return;
+  const price = appInfo.price || 0;
+  const currency = appInfo.currency || 'USD';
+
+  document.getElementById('originalPrice').textContent = formatPrice(price, currency);
+
+  if (appliedDiscount) {
+    const discountAmt = price * (appliedDiscount.percent / 100);
+    const finalPrice = price - discountAmt;
+    document.getElementById('discountRow').style.display = 'flex';
+    document.getElementById('discountAmount').textContent = '-' + formatPrice(discountAmt, currency);
+    document.getElementById('totalPrice').textContent = formatPrice(finalPrice, currency);
+  } else {
+    document.getElementById('discountRow').style.display = 'none';
+    document.getElementById('totalPrice').textContent = formatPrice(price, currency);
+  }
+}
+
+function applyDiscount() {
+  const code = document.getElementById('discountInput').value.trim();
+  if (!code) {
+    appliedDiscount = null;
+    document.getElementById('discountMsg').textContent = '';
+    updatePriceDisplay();
+    return;
+  }
+
+  // Preview: assume a placeholder 10% discount for display.
+  // Actual validation is server-side during purchase.
+  appliedDiscount = { code: code, percent: 10 };
+  showDiscountMsg(t('discountPreview'), 'success');
+  updatePriceDisplay();
+}
+
+async function handlePay() {
+  const email = document.getElementById('emailInput').value.trim();
+  if (!email || !document.getElementById('emailInput').validity.valid) {
+    showError(t('emailRequired'));
+    document.getElementById('emailInput').focus();
+    return;
+  }
+
+  const appid = getAppId();
+  const discountCode = document.getElementById('discountInput').value.trim() || undefined;
+
+  const btn = document.getElementById('payBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>' + t('processing');
+
+  try {
+    const resp = await fetch(`${API_BASE}/purchase`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ appid, email, discountCode })
+    });
+
+    const data = await resp.json();
+
+    if (!resp.ok) {
+      throw new Error(data.error || data.message || t('purchaseError'));
+    }
+
+    if (data.checkoutUrl) {
+      window.location.href = data.checkoutUrl;
+    } else {
+      showError(t('purchaseError'));
+    }
+  } catch (err) {
+    console.error('Purchase error:', err);
+    showError(err.message || t('purchaseError'));
+  } finally {
+    btn.disabled = false;
+    btn.textContent = t('payBtn');
+  }
+}
+
+// Init
+loadAppInfo();
+</script>
+</body>
+</html>

@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discount Management - EchoShorts Admin</title>
+<style>
+  :root {
+    --bg: #0f0f0f;
+    --card-bg: #1a1a1a;
+    --text: #e0e0e0;
+    --muted: #999999;
+    --primary: #4ade80;
+    --border: #2a2a2a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+  .top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .breadcrumb {
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .breadcrumb a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb span { color: var(--text); font-weight: 600; }
+  .btn-logout {
+    padding: 6px 16px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--muted);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-logout:hover { border-color: #f87171; color: #f87171; }
+  .container {
+    max-width: 1000px;
+    margin: 24px auto;
+    padding: 0 24px;
+  }
+  .header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .header-row h2 { font-size: 20px; font-weight: 600; }
+  .btn-primary {
+    padding: 8px 20px;
+    background: var(--primary);
+    color: #0f0f0f;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.9; }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .form-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .form-card h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .form-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+    min-width: 120px;
+  }
+  .form-group label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .form-group input,
+  .form-group select {
+    padding: 8px 12px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: var(--primary);
+  }
+  .form-actions {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+  }
+  .btn-cancel {
+    padding: 8px 16px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--muted);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-cancel:hover { border-color: var(--text); color: var(--text); }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    background: var(--card-bg);
+  }
+  td {
+    padding: 12px 16px;
+    font-size: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .badge-green { background: rgba(74,222,128,0.15); color: #4ade80; }
+  .badge-red { background: rgba(248,113,113,0.15); color: #f87171; }
+  .badge-blue { background: rgba(96,165,250,0.15); color: #60a5fa; }
+  .actions {
+    display: flex;
+    gap: 8px;
+  }
+  .btn-sm {
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    transition: all 0.2s;
+  }
+  .btn-sm:hover { border-color: var(--text); color: var(--text); }
+  .btn-sm.danger:hover { border-color: #f87171; color: #f87171; }
+  .toggle-btn {
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    border: none;
+    font-weight: 600;
+    transition: opacity 0.2s;
+  }
+  .toggle-btn.on { background: rgba(74,222,128,0.15); color: #4ade80; }
+  .toggle-btn.off { background: rgba(248,113,113,0.15); color: #f87171; }
+  .toggle-btn:hover { opacity: 0.8; }
+  .loading {
+    text-align: center;
+    padding: 40px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .error-banner {
+    background: rgba(248,113,113,0.1);
+    border: 1px solid rgba(248,113,113,0.3);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    color: #f87171;
+    font-size: 14px;
+    display: none;
+  }
+  .empty-state {
+    text-align: center;
+    padding: 40px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .inline-edit input,
+  .inline-edit select {
+    padding: 4px 8px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text);
+    font-size: 13px;
+    outline: none;
+    width: 100%;
+  }
+  .inline-edit input:focus,
+  .inline-edit select:focus {
+    border-color: var(--primary);
+  }
+  .amount-hint {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="breadcrumb">
+    <a href="admin.html">Admin</a> &rsaquo; <span id="appName">...</span> &rsaquo; <span>Discounts</span>
+  </div>
+  <button class="btn-logout" onclick="logout()">Logout</button>
+</div>
+
+<div class="container">
+  <div class="error-banner" id="errorBanner"></div>
+
+  <div class="header-row">
+    <h2>Discount Codes</h2>
+    <button class="btn-primary" id="addBtn" onclick="showAddForm()">+ Add Discount</button>
+  </div>
+
+  <!-- Add Form -->
+  <div class="form-card" id="addForm" style="display:none;">
+    <h3 id="formTitle">Add Discount Code</h3>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Code</label>
+        <input type="text" id="formCode" placeholder="e.g. SAVE20">
+      </div>
+      <div class="form-group">
+        <label>Type</label>
+        <select id="formType" onchange="updateAmountHint()">
+          <option value="percent">Percent</option>
+          <option value="fixed">Fixed</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Amount</label>
+        <input type="number" id="formAmount" min="0" step="any" placeholder="0">
+        <div class="amount-hint" id="amountHint">Percentage off (e.g. 20 = 20%)</div>
+      </div>
+      <div class="form-group">
+        <label>Max Uses</label>
+        <input type="number" id="formMaxUses" min="0" placeholder="0 = unlimited" value="0">
+      </div>
+      <div class="form-actions">
+        <button class="btn-primary" id="formSubmit" onclick="submitForm()">Save</button>
+        <button class="btn-cancel" onclick="hideAddForm()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="card">
+    <div class="loading" id="loadingMsg">Loading discounts...</div>
+    <table id="discountTable" style="display:none;">
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Type</th>
+          <th>Amount</th>
+          <th>Used / Max</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+    <div class="empty-state" id="emptyState" style="display:none;">No discount codes yet. Click "Add Discount" to create one.</div>
+  </div>
+</div>
+
+<script>
+const API = 'https://license.echoshorts.win';
+function authHeaders() { return { 'Authorization': 'Bearer ' + localStorage.getItem('admin_token'), 'Content-Type': 'application/json' }; }
+async function checkAuth() {
+  const token = localStorage.getItem('admin_token');
+  if (!token) { window.location.href = 'admin-login.html'; return false; }
+  try { const res = await fetch(API + '/admin/verify', { headers: authHeaders() }); if (!res.ok) throw new Error(); return true; } catch { localStorage.removeItem('admin_token'); window.location.href = 'admin-login.html'; return false; }
+}
+
+const params = new URLSearchParams(window.location.search);
+const appid = params.get('appid');
+let editingCode = null;
+let discounts = [];
+
+function logout() {
+  localStorage.removeItem('admin_token');
+  window.location.href = 'admin-login.html';
+}
+
+function showError(msg) {
+  const el = document.getElementById('errorBanner');
+  el.textContent = msg;
+  el.style.display = 'block';
+  setTimeout(() => { el.style.display = 'none'; }, 5000);
+}
+
+function updateAmountHint() {
+  const type = document.getElementById('formType').value;
+  document.getElementById('amountHint').textContent = type === 'percent'
+    ? 'Percentage off (e.g. 20 = 20%)'
+    : 'Fixed amount in $ (e.g. 5.00)';
+}
+
+function showAddForm() {
+  editingCode = null;
+  document.getElementById('formTitle').textContent = 'Add Discount Code';
+  document.getElementById('formCode').value = '';
+  document.getElementById('formCode').disabled = false;
+  document.getElementById('formType').value = 'percent';
+  document.getElementById('formAmount').value = '';
+  document.getElementById('formMaxUses').value = '0';
+  document.getElementById('addForm').style.display = 'block';
+  document.getElementById('addBtn').style.display = 'none';
+  updateAmountHint();
+}
+
+function showEditForm(code) {
+  const d = discounts.find(x => x.code === code);
+  if (!d) return;
+  editingCode = code;
+  document.getElementById('formTitle').textContent = 'Edit Discount: ' + code;
+  document.getElementById('formCode').value = d.code;
+  document.getElementById('formCode').disabled = true;
+  document.getElementById('formType').value = d.type;
+  document.getElementById('formAmount').value = d.amount;
+  document.getElementById('formMaxUses').value = d.maxUses || 0;
+  document.getElementById('addForm').style.display = 'block';
+  document.getElementById('addBtn').style.display = 'none';
+  updateAmountHint();
+}
+
+function hideAddForm() {
+  document.getElementById('addForm').style.display = 'none';
+  document.getElementById('addBtn').style.display = 'inline-flex';
+  editingCode = null;
+}
+
+async function submitForm() {
+  const btn = document.getElementById('formSubmit');
+  const code = document.getElementById('formCode').value.trim();
+  const type = document.getElementById('formType').value;
+  const amount = parseFloat(document.getElementById('formAmount').value);
+  const maxUses = parseInt(document.getElementById('formMaxUses').value) || 0;
+
+  if (!code) { showError('Code is required'); return; }
+  if (isNaN(amount) || amount <= 0) { showError('Amount must be greater than 0'); return; }
+
+  btn.disabled = true;
+  btn.textContent = 'Saving...';
+  try {
+    const url = editingCode
+      ? `${API}/admin/apps/${appid}/discounts/${encodeURIComponent(editingCode)}`
+      : `${API}/admin/apps/${appid}/discounts`;
+    const method = editingCode ? 'PUT' : 'POST';
+    const body = editingCode
+      ? JSON.stringify({ type, amount, maxUses })
+      : JSON.stringify({ code, type, amount, maxUses });
+
+    const res = await fetch(url, { method, headers: authHeaders(), body });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      throw new Error(data.error || 'Failed to save discount');
+    }
+    hideAddForm();
+    await loadDiscounts();
+  } catch (err) {
+    showError(err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Save';
+  }
+}
+
+async function toggleEnabled(code, enabled) {
+  try {
+    const res = await fetch(`${API}/admin/apps/${appid}/discounts/${encodeURIComponent(code)}`, {
+      method: 'PUT',
+      headers: authHeaders(),
+      body: JSON.stringify({ enabled })
+    });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      throw new Error(data.error || 'Failed to update');
+    }
+    await loadDiscounts();
+  } catch (err) {
+    showError(err.message);
+  }
+}
+
+async function deleteDiscount(code) {
+  if (!confirm(`Delete discount code "${code}"? This cannot be undone.`)) return;
+  try {
+    const res = await fetch(`${API}/admin/apps/${appid}/discounts/${encodeURIComponent(code)}`, {
+      method: 'DELETE',
+      headers: authHeaders()
+    });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      throw new Error(data.error || 'Failed to delete');
+    }
+    await loadDiscounts();
+  } catch (err) {
+    showError(err.message);
+  }
+}
+
+function renderTable() {
+  const tbody = document.getElementById('tableBody');
+  const table = document.getElementById('discountTable');
+  const empty = document.getElementById('emptyState');
+
+  if (discounts.length === 0) {
+    table.style.display = 'none';
+    empty.style.display = 'block';
+    return;
+  }
+
+  table.style.display = 'table';
+  empty.style.display = 'none';
+
+  tbody.innerHTML = discounts.map(d => {
+    const amountDisplay = d.type === 'percent' ? d.amount + '%' : '$' + d.amount;
+    const maxDisplay = d.maxUses === 0 ? 'unlimited' : d.maxUses;
+    const usedDisplay = (d.usedCount || 0) + ' / ' + maxDisplay;
+    const enabled = d.enabled !== false;
+    const toggleClass = enabled ? 'on' : 'off';
+    const toggleLabel = enabled ? 'Enabled' : 'Disabled';
+    return `<tr>
+      <td><code style="background:var(--bg);padding:2px 8px;border-radius:4px;font-size:13px;">${escHtml(d.code)}</code></td>
+      <td><span class="badge ${d.type === 'percent' ? 'badge-blue' : 'badge-green'}">${d.type}</span></td>
+      <td>${amountDisplay}</td>
+      <td>${usedDisplay}</td>
+      <td>
+        <button class="toggle-btn ${toggleClass}" onclick="toggleEnabled('${escAttr(d.code)}', ${!enabled})">
+          ${toggleLabel}
+        </button>
+      </td>
+      <td class="actions">
+        <button class="btn-sm" onclick="showEditForm('${escAttr(d.code)}')">Edit</button>
+        <button class="btn-sm danger" onclick="deleteDiscount('${escAttr(d.code)}')">Delete</button>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function escHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+function escAttr(s) { return s.replace(/'/g, "\\'").replace(/"/g, '&quot;'); }
+
+async function loadDiscounts() {
+  const loading = document.getElementById('loadingMsg');
+  loading.style.display = 'block';
+  document.getElementById('discountTable').style.display = 'none';
+  document.getElementById('emptyState').style.display = 'none';
+  try {
+    const res = await fetch(`${API}/admin/apps/${appid}/discounts`, { headers: authHeaders() });
+    if (!res.ok) throw new Error('Failed to load discounts');
+    const data = await res.json();
+    discounts = Array.isArray(data) ? data : (data.discounts || []);
+    renderTable();
+  } catch (err) {
+    showError(err.message);
+  } finally {
+    loading.style.display = 'none';
+  }
+}
+
+async function loadAppName() {
+  try {
+    const res = await fetch(`${API}/admin/apps`, { headers: authHeaders() });
+    if (res.ok) {
+      const data = await res.json();
+      const apps = Array.isArray(data) ? data : (data.apps || []);
+      const app = apps.find(a => a.appid === appid || a.id === appid);
+      if (app) {
+        document.getElementById('appName').textContent = app.name || appid;
+        return;
+      }
+    }
+  } catch {}
+  document.getElementById('appName').textContent = appid;
+}
+
+(async () => {
+  if (!appid) { window.location.href = 'admin.html'; return; }
+  if (!await checkAuth()) return;
+  loadAppName();
+  loadDiscounts();
+})();
+</script>
+</body>
+</html>
