@@ -260,7 +260,8 @@ async function loadApps() {
   try {
     const res = await fetch(API + '/admin/apps', { headers: authHeaders() });
     if (!res.ok) throw new Error('Failed to load apps');
-    const apps = await res.json();
+    const data = await res.json();
+    const apps = data.apps || [];
     if (!apps.length) {
       grid.innerHTML = '<div class="empty-state">No apps yet. Click "Add New App" to get started.</div>';
       return;
