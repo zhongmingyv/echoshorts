@@ -28,14 +28,8 @@
     background: var(--card-bg);
     border-bottom: 1px solid var(--border);
   }
-  .breadcrumb {
-    font-size: 14px;
-    color: var(--muted);
-  }
-  .breadcrumb a {
-    color: var(--primary);
-    text-decoration: none;
-  }
+  .breadcrumb { font-size: 14px; color: var(--muted); }
+  .breadcrumb a { color: var(--primary); text-decoration: none; }
   .breadcrumb a:hover { text-decoration: underline; }
   .breadcrumb span { color: var(--text); font-weight: 600; }
   .btn-logout {
@@ -58,63 +52,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
     flex-wrap: wrap;
     gap: 12px;
   }
   .header-row h2 { font-size: 20px; font-weight: 600; }
-  .total-count {
-    font-size: 14px;
-    color: var(--muted);
-    font-weight: 400;
-    margin-left: 8px;
-  }
-  .card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-  }
-  .section-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 20px;
-  }
-  .section-card h3 {
-    font-size: 15px;
-    font-weight: 600;
-    margin-bottom: 14px;
-  }
-  .form-row {
-    display: flex;
-    gap: 12px;
-    align-items: flex-end;
-    flex-wrap: wrap;
-  }
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-  .form-group label {
-    font-size: 12px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  .form-group input {
-    padding: 8px 12px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    color: var(--text);
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  .form-group input:focus { border-color: var(--primary); }
+  .total-count { font-size: 14px; color: var(--muted); font-weight: 400; margin-left: 8px; }
+  .header-actions { display: flex; gap: 10px; }
   .btn-primary {
     padding: 8px 20px;
     background: var(--primary);
@@ -128,6 +72,18 @@
   }
   .btn-primary:hover { opacity: 0.9; }
   .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-outline {
+    padding: 8px 20px;
+    background: transparent;
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--primary);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { background: rgba(74,222,128,0.1); }
   .btn-danger {
     padding: 8px 20px;
     background: #f87171;
@@ -141,6 +97,7 @@
   }
   .btn-danger:hover { opacity: 0.9; }
   .btn-danger:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-sm { padding: 6px 14px; font-size: 13px; }
   .search-bar {
     display: flex;
     gap: 12px;
@@ -159,10 +116,13 @@
   }
   .search-bar input:focus { border-color: var(--primary); }
   .search-bar input::placeholder { color: var(--muted); }
-  table {
-    width: 100%;
-    border-collapse: collapse;
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
   }
+  table { width: 100%; border-collapse: collapse; }
   th {
     text-align: left;
     padding: 12px 16px;
@@ -191,38 +151,71 @@
   .badge-gray { background: rgba(153,153,153,0.15); color: #999999; }
   .badge-green { background: rgba(74,222,128,0.15); color: #4ade80; }
   .badge-red { background: rgba(248,113,113,0.15); color: #f87171; }
-  .loading {
-    text-align: center;
-    padding: 40px;
-    color: var(--muted);
-    font-size: 14px;
-  }
+  .loading { text-align: center; padding: 40px; color: var(--muted); font-size: 14px; }
   .error-banner {
-    background: rgba(248,113,113,0.1);
-    border: 1px solid rgba(248,113,113,0.3);
-    border-radius: 8px;
-    padding: 12px 16px;
-    margin-bottom: 16px;
-    color: #f87171;
-    font-size: 14px;
-    display: none;
+    background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.3);
+    border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; color: #f87171; font-size: 14px; display: none;
   }
   .success-banner {
-    background: rgba(74,222,128,0.1);
-    border: 1px solid rgba(74,222,128,0.3);
-    border-radius: 8px;
-    padding: 12px 16px;
-    margin-bottom: 16px;
-    color: #4ade80;
-    font-size: 14px;
-    display: none;
+    background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.3);
+    border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; color: #4ade80; font-size: 14px; display: none;
   }
-  .empty-state {
-    text-align: center;
-    padding: 40px;
+  .empty-state { text-align: center; padding: 40px; color: var(--muted); font-size: 14px; }
+  .truncated {
+    max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  code { background: var(--bg); padding: 2px 8px; border-radius: 4px; font-size: 12px; }
+
+  /* Modal */
+  .modal-overlay {
+    display: none;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    width: 460px;
+    max-width: 90vw;
+  }
+  .modal h3 { font-size: 16px; font-weight: 600; margin-bottom: 20px; }
+  .modal .form-group { margin-bottom: 14px; }
+  .modal .form-group label {
+    display: block;
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+  .modal .form-group input {
+    width: 100%;
+    padding: 8px 12px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 14px;
+    outline: none;
+  }
+  .modal .form-group input:focus { border-color: var(--primary); }
+  .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+  .btn-cancel {
+    padding: 8px 20px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 8px;
     color: var(--muted);
     font-size: 14px;
+    cursor: pointer;
   }
+  .btn-cancel:hover { border-color: var(--text); color: var(--text); }
   .generated-codes {
     margin-top: 12px;
     padding: 12px;
@@ -233,31 +226,41 @@
     line-height: 1.8;
     max-height: 200px;
     overflow-y: auto;
-    display: none;
     word-break: break-all;
   }
-  .truncated {
-    max-width: 120px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  code {
-    background: var(--bg);
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 12px;
-  }
-  .ops-row {
+
+  /* Pagination */
+  .pagination {
     display: flex;
-    gap: 16px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--muted);
   }
-  .ops-row .section-card {
-    flex: 1;
-    min-width: 280px;
-    margin-bottom: 0;
+  .pagination-controls { display: flex; align-items: center; gap: 8px; }
+  .pagination-controls button {
+    padding: 4px 12px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .pagination-controls button:hover { border-color: var(--primary); }
+  .pagination-controls button:disabled { opacity: 0.4; cursor: not-allowed; }
+  .pagination-controls button:disabled:hover { border-color: var(--border); }
+  .page-size-select {
+    padding: 4px 8px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 13px;
+    outline: none;
+    cursor: pointer;
   }
 </style>
 </head>
@@ -265,7 +268,7 @@
 
 <div class="top-bar">
   <div class="breadcrumb">
-    <a href="admin.html">Admin</a> &rsaquo; <span id="appName">...</span> &rsaquo; <span>Licenses</span>
+    <a href="admin.html">Admin</a> &rsaquo; <a id="appName" href="admin.html">...</a> &rsaquo; <span>Licenses</span>
   </div>
   <button class="btn-logout" onclick="logout()">Logout</button>
 </div>
@@ -276,44 +279,16 @@
 
   <div class="header-row">
     <h2>License Codes <span class="total-count" id="totalCount"></span></h2>
+    <div class="header-actions">
+      <button class="btn-outline btn-sm" onclick="openModal('generate')">Batch Generate</button>
+      <button class="btn-danger btn-sm" onclick="openModal('disable')">Batch Disable</button>
+    </div>
   </div>
 
   <!-- Search -->
   <div class="search-bar">
     <input type="text" id="searchInput" placeholder="Search by code, email, or status..." onkeydown="if(event.key==='Enter')doSearch()">
     <button class="btn-primary" onclick="doSearch()">Search</button>
-  </div>
-
-  <!-- Batch Operations -->
-  <div class="ops-row">
-    <!-- Batch Generate -->
-    <div class="section-card">
-      <h3>Batch Generate</h3>
-      <div class="form-row">
-        <div class="form-group">
-          <label>Prefix</label>
-          <input type="text" id="genPrefix" value="ECHO" style="width:120px;">
-        </div>
-        <div class="form-group">
-          <label>Count</label>
-          <input type="number" id="genCount" value="10" min="1" max="1000" style="width:80px;">
-        </div>
-        <button class="btn-primary" id="genBtn" onclick="batchGenerate()">Generate</button>
-      </div>
-      <div class="generated-codes" id="generatedCodes"></div>
-    </div>
-
-    <!-- Batch Disable -->
-    <div class="section-card">
-      <h3>Batch Disable</h3>
-      <div class="form-row">
-        <div class="form-group">
-          <label>Code Prefix</label>
-          <input type="text" id="disablePrefix" placeholder="e.g. ECHO" style="width:160px;">
-        </div>
-        <button class="btn-danger" id="disableBtn" onclick="batchDisable()">Disable All Matching</button>
-      </div>
-    </div>
   </div>
 
   <!-- Table -->
@@ -333,6 +308,66 @@
       <tbody id="tableBody"></tbody>
     </table>
     <div class="empty-state" id="emptyState" style="display:none;">No licenses found.</div>
+    <div class="pagination" id="pagination" style="display:none;">
+      <div>
+        <span id="pageInfo"></span>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        Per page:
+        <select class="page-size-select" id="pageSizeSelect" onchange="changePageSize()">
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+        </select>
+      </div>
+      <div class="pagination-controls">
+        <button onclick="goPage(1)" id="btnFirst">&laquo;</button>
+        <button onclick="goPage(currentPage-1)" id="btnPrev">&lsaquo; Prev</button>
+        <span id="pageNum"></span>
+        <button onclick="goPage(currentPage+1)" id="btnNext">Next &rsaquo;</button>
+        <button onclick="goPage(totalPages)" id="btnLast">&raquo;</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Generate Modal -->
+<div class="modal-overlay" id="generateModal" onclick="if(event.target===this)closeModal('generate')">
+  <div class="modal">
+    <h3>Batch Generate Licenses</h3>
+    <div class="form-group">
+      <label>Prefix</label>
+      <input type="text" id="genPrefix" value="ECHO" placeholder="e.g. ECHO">
+    </div>
+    <div class="form-group">
+      <label>Count</label>
+      <input type="number" id="genCount" value="10" min="1" max="1000" placeholder="e.g. 10">
+    </div>
+    <div id="genResult" style="display:none;">
+      <label style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;display:block;">Generated Codes</label>
+      <div class="generated-codes" id="generatedCodes"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('generate')">Close</button>
+      <button class="btn-primary" id="genBtn" onclick="batchGenerate()">Generate</button>
+    </div>
+  </div>
+</div>
+
+<!-- Batch Operations Modal -->
+<div class="modal-overlay" id="disableModal" onclick="if(event.target===this)closeModal('disable')">
+  <div class="modal">
+    <h3>Batch Operations</h3>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Operate on all licenses whose code starts with the given prefix. Already activated licenses cannot be re-enabled or deleted.</p>
+    <div class="form-group">
+      <label>Code Prefix</label>
+      <input type="text" id="batchPrefix" placeholder="e.g. ECHO">
+    </div>
+    <div class="modal-actions" style="flex-wrap:wrap;">
+      <button class="btn-cancel" onclick="closeModal('disable')">Cancel</button>
+      <button class="btn-outline btn-sm" id="enableBtn" onclick="batchOperation('enable')">Enable All Matching</button>
+      <button class="btn-danger btn-sm" id="disableBtn" onclick="batchOperation('disable')">Disable All Matching</button>
+      <button class="btn-danger btn-sm" style="background:#dc2626;" id="deleteBtn" onclick="batchOperation('delete')">Delete All Matching</button>
+    </div>
   </div>
 </div>
 
@@ -347,7 +382,10 @@ async function checkAuth() {
 
 const params = new URLSearchParams(window.location.search);
 const appid = params.get('appid');
-let licenses = [];
+let allLicenses = [];
+let currentPage = 1;
+let pageSize = 10;
+let totalPages = 1;
 
 function logout() {
   localStorage.removeItem('admin_token');
@@ -356,23 +394,19 @@ function logout() {
 
 function showError(msg) {
   const el = document.getElementById('errorBanner');
-  el.textContent = msg;
-  el.style.display = 'block';
+  el.textContent = msg; el.style.display = 'block';
   setTimeout(() => { el.style.display = 'none'; }, 5000);
 }
 
 function showSuccess(msg) {
   const el = document.getElementById('successBanner');
-  el.textContent = msg;
-  el.style.display = 'block';
+  el.textContent = msg; el.style.display = 'block';
   setTimeout(() => { el.style.display = 'none'; }, 5000);
 }
 
 function escHtml(s) {
   if (!s) return '';
-  const d = document.createElement('div');
-  d.textContent = s;
-  return d.innerHTML;
+  const d = document.createElement('div'); d.textContent = s; return d.innerHTML;
 }
 
 function truncate(s, len) {
@@ -396,31 +430,74 @@ function statusBadge(status) {
   return '<span class="badge badge-gray">unused</span>';
 }
 
+function openModal(type) {
+  document.getElementById(type + 'Modal').classList.add('active');
+  if (type === 'generate') {
+    document.getElementById('genResult').style.display = 'none';
+  }
+}
+
+function closeModal(type) {
+  document.getElementById(type + 'Modal').classList.remove('active');
+}
+
 function renderTable() {
   const tbody = document.getElementById('tableBody');
   const table = document.getElementById('licenseTable');
   const empty = document.getElementById('emptyState');
   const countEl = document.getElementById('totalCount');
+  const paginationEl = document.getElementById('pagination');
 
-  countEl.textContent = '(' + licenses.length + ' total)';
+  const total = allLicenses.length;
+  countEl.textContent = '(' + total + ' total)';
 
-  if (licenses.length === 0) {
+  if (total === 0) {
     table.style.display = 'none';
     empty.style.display = 'block';
+    paginationEl.style.display = 'none';
     return;
   }
 
+  totalPages = Math.ceil(total / pageSize);
+  if (currentPage > totalPages) currentPage = totalPages;
+  if (currentPage < 1) currentPage = 1;
+
+  const start = (currentPage - 1) * pageSize;
+  const end = Math.min(start + pageSize, total);
+  const pageData = allLicenses.slice(start, end);
+
   table.style.display = 'table';
   empty.style.display = 'none';
+  paginationEl.style.display = 'flex';
 
-  tbody.innerHTML = licenses.map(l => `<tr>
-    <td><code>${escHtml(l.code || l.license_code || l.key)}</code></td>
+  tbody.innerHTML = pageData.map(l => `<tr>
+    <td><code>${escHtml(l.code)}</code></td>
     <td>${statusBadge(l.status)}</td>
     <td>${escHtml(l.email || '-')}</td>
-    <td class="truncated" title="${escHtml(l.fingerprint || l.hardware_id || '')}">${escHtml(truncate(l.fingerprint || l.hardware_id || '', 16))}</td>
-    <td>${formatDate(l.activatedAt || l.activated_at)}</td>
-    <td>${escHtml(l.orderId || l.order_id || '-')}</td>
+    <td class="truncated" title="${escHtml(l.fingerprint || '')}">${escHtml(truncate(l.fingerprint || '', 16))}</td>
+    <td>${formatDate(l.activatedAt)}</td>
+    <td>${escHtml(l.orderId || '-')}</td>
   </tr>`).join('');
+
+  // Update pagination
+  document.getElementById('pageInfo').textContent = `${start + 1}-${end} of ${total}`;
+  document.getElementById('pageNum').textContent = `${currentPage} / ${totalPages}`;
+  document.getElementById('btnFirst').disabled = currentPage <= 1;
+  document.getElementById('btnPrev').disabled = currentPage <= 1;
+  document.getElementById('btnNext').disabled = currentPage >= totalPages;
+  document.getElementById('btnLast').disabled = currentPage >= totalPages;
+  document.getElementById('pageSizeSelect').value = pageSize;
+}
+
+function goPage(p) {
+  currentPage = Math.max(1, Math.min(p, totalPages));
+  renderTable();
+}
+
+function changePageSize() {
+  pageSize = parseInt(document.getElementById('pageSizeSelect').value) || 10;
+  currentPage = 1;
+  renderTable();
 }
 
 async function loadLicenses(search) {
@@ -428,13 +505,15 @@ async function loadLicenses(search) {
   loading.style.display = 'block';
   document.getElementById('licenseTable').style.display = 'none';
   document.getElementById('emptyState').style.display = 'none';
+  document.getElementById('pagination').style.display = 'none';
   try {
     let url = `${API}/admin/apps/${appid}/licenses`;
     if (search) url += '?search=' + encodeURIComponent(search);
     const res = await fetch(url, { headers: authHeaders() });
     if (!res.ok) throw new Error('Failed to load licenses');
     const data = await res.json();
-    licenses = Array.isArray(data) ? data : (data.licenses || []);
+    allLicenses = data.licenses || [];
+    currentPage = 1;
     renderTable();
   } catch (err) {
     showError(err.message);
@@ -466,13 +545,13 @@ async function batchGenerate() {
       throw new Error(data.error || 'Failed to generate');
     }
     const data = await res.json();
-    const codes = data.codes || data.licenses || [];
+    const codes = data.codes || [];
 
-    // Show generated codes
+    const resultEl = document.getElementById('genResult');
     const codesEl = document.getElementById('generatedCodes');
     if (codes.length > 0) {
-      codesEl.textContent = codes.map(c => typeof c === 'string' ? c : (c.code || c.license_code || c.key)).join('\n');
-      codesEl.style.display = 'block';
+      codesEl.textContent = codes.join('\n');
+      resultEl.style.display = 'block';
     }
 
     showSuccess(`Successfully generated ${codes.length} license codes.`);
@@ -485,43 +564,38 @@ async function batchGenerate() {
   }
 }
 
-async function batchDisable() {
-  const prefix = document.getElementById('disablePrefix').value.trim();
+async function batchOperation(action) {
+  const prefix = document.getElementById('batchPrefix').value.trim();
   if (!prefix) { showError('Please enter a prefix to match'); return; }
 
-  // Count matching licenses for confirmation
-  const matchCount = licenses.filter(l => {
-    const code = l.code || l.license_code || l.key || '';
-    return code.startsWith(prefix);
-  }).length;
+  const labels = { disable: 'disable', enable: 're-enable', delete: 'permanently delete' };
+  if (!confirm(`This will ${labels[action]} all matching licenses starting with "${prefix}". Continue?`)) return;
 
-  const msg = matchCount > 0
-    ? `This will disable all licenses starting with "${prefix}" (at least ${matchCount} visible matches). Continue?`
-    : `This will disable all licenses on the server starting with "${prefix}". Continue?`;
-
-  if (!confirm(msg)) return;
-
-  const btn = document.getElementById('disableBtn');
+  const btnMap = { disable: 'disableBtn', enable: 'enableBtn', delete: 'deleteBtn' };
+  const btn = document.getElementById(btnMap[action]);
+  const origText = btn.textContent;
   btn.disabled = true;
-  btn.textContent = 'Disabling...';
+  btn.textContent = 'Processing...';
   try {
-    const res = await fetch(`${API}/admin/apps/${appid}/licenses/batch-disable`, {
+    const res = await fetch(`${API}/admin/apps/${appid}/licenses/batch-${action}`, {
       method: 'POST',
       headers: authHeaders(),
       body: JSON.stringify({ prefix })
     });
     if (!res.ok) {
       const data = await res.json().catch(() => ({}));
-      throw new Error(data.error || 'Failed to batch disable');
+      throw new Error(data.error || `Failed to ${action}`);
     }
     const data = await res.json();
-    showSuccess(`Disabled ${data.count || data.affected || 'matching'} licenses.`);
+    const count = data.disabledCount ?? data.enabledCount ?? data.deletedCount ?? 0;
+    showSuccess(`${action === 'delete' ? 'Deleted' : action === 'enable' ? 'Enabled' : 'Disabled'} ${count} licenses.`);
+    closeModal('disable');
     await loadLicenses();
   } catch (err) {
     showError(err.message);
   } finally {
     btn.disabled = false;
-    btn.textContent = 'Disable All Matching';
+    btn.textContent = origText;
   }
 }
 
@@ -530,12 +604,9 @@ async function loadAppName() {
     const res = await fetch(`${API}/admin/apps`, { headers: authHeaders() });
     if (res.ok) {
       const data = await res.json();
-      const apps = Array.isArray(data) ? data : (data.apps || []);
-      const app = apps.find(a => a.appid === appid || a.id === appid);
-      if (app) {
-        document.getElementById('appName').textContent = app.name || appid;
-        return;
-      }
+      const apps = data.apps || [];
+      const app = apps.find(a => a.appid === appid);
+      if (app) { document.getElementById('appName').textContent = app.name || appid; return; }
     }
   } catch {}
   document.getElementById('appName').textContent = appid;

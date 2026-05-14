@@ -249,7 +249,7 @@
 
 <div class="top-bar">
   <div class="breadcrumb">
-    <a href="admin.html">Admin</a> &rsaquo; <span id="appName">...</span> &rsaquo; <span>Discounts</span>
+    <a href="admin.html">Admin</a> &rsaquo; <a id="appName" href="admin.html">...</a> &rsaquo; <span>Discounts</span>
   </div>
   <button class="btn-logout" onclick="logout()">Logout</button>
 </div>
@@ -279,8 +279,7 @@
       </div>
       <div class="form-group">
         <label>Amount</label>
-        <input type="number" id="formAmount" min="0" step="any" placeholder="0">
-        <div class="amount-hint" id="amountHint">Percentage off (e.g. 20 = 20%)</div>
+        <input type="number" id="formAmount" min="0" step="any" placeholder="e.g. 20 = 20%">
       </div>
       <div class="form-group">
         <label>Max Uses</label>
@@ -341,9 +340,9 @@ function showError(msg) {
 
 function updateAmountHint() {
   const type = document.getElementById('formType').value;
-  document.getElementById('amountHint').textContent = type === 'percent'
-    ? 'Percentage off (e.g. 20 = 20%)'
-    : 'Fixed amount in $ (e.g. 5.00)';
+  document.getElementById('formAmount').placeholder = type === 'percent'
+    ? 'e.g. 20 = 20%'
+    : 'e.g. 5.00';
 }
 
 function showAddForm() {
