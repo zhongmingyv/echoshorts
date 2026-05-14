@@ -44,24 +44,23 @@
     padding: 36px 32px;
   }
 
-  .lang-toggle {
+  .lang-switcher-wrap {
     text-align: right;
     margin-bottom: 8px;
   }
 
-  .lang-toggle button {
-    background: none;
+  .lang-switcher {
+    background: var(--card-bg);
     border: 1px solid var(--border);
-    color: var(--muted);
-    padding: 4px 12px;
     border-radius: 6px;
+    color: var(--text);
+    font-size: 12px;
+    padding: 5px 8px;
     cursor: pointer;
-    font-size: 13px;
-    transition: color 0.2s, border-color 0.2s;
+    outline: none;
   }
 
-  .lang-toggle button:hover {
-    color: var(--primary);
+  .lang-switcher:focus {
     border-color: var(--primary);
   }
 
@@ -286,8 +285,33 @@
 
 <div class="container">
   <div class="card">
-    <div class="lang-toggle">
-      <button id="langBtn" onclick="toggleLang()">中文</button>
+    <div class="lang-switcher-wrap">
+      <select id="langSelect" class="lang-switcher" onchange="changeLang()">
+        <option value="en">English</option>
+        <option value="zh">简体中文</option>
+        <option value="zh-TW">繁體中文</option>
+        <option value="ja">日本語</option>
+        <option value="ko">한국어</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+        <option value="es">Español</option>
+        <option value="pt">Português</option>
+        <option value="ru">Русский</option>
+        <option value="ar">العربية</option>
+        <option value="hi">हिन्दी</option>
+        <option value="th">ภาษาไทย</option>
+        <option value="vi">Tiếng Việt</option>
+        <option value="id">Bahasa Indonesia</option>
+        <option value="ms">Bahasa Melayu</option>
+        <option value="tr">Türkçe</option>
+        <option value="pl">Polski</option>
+        <option value="nl">Nederlands</option>
+        <option value="sv">Svenska</option>
+        <option value="da">Dansk</option>
+        <option value="nb">Norsk</option>
+        <option value="fi">Suomi</option>
+        <option value="it">Italiano</option>
+      </select>
     </div>
 
     <!-- Loading state -->
@@ -370,8 +394,7 @@ const i18n = {
     purchaseError: 'Purchase failed. Please try again.',
     processing: 'Processing...',
     discountApplied: 'Discount code applied!',
-    discountPreview: 'Discount will be validated at checkout.',
-    langSwitch: '中文'
+    discountPreview: 'Discount will be validated at checkout.'
   },
   zh: {
     subtitle: '购买激活码',
@@ -390,9 +413,435 @@ const i18n = {
     purchaseError: '购买失败，请重试。',
     processing: '处理中...',
     discountApplied: '优惠码已应用！',
-    discountPreview: '优惠码将在结账时验证。',
-    langSwitch: 'EN'
+    discountPreview: '优惠码将在结账时验证。'
+  },
+  'zh-TW': {
+    subtitle: '購買啟用碼',
+    emailLabel: '電子郵件',
+    emailPlaceholder: '請輸入電子郵件地址',
+    discountLabel: '優惠碼（選填）',
+    discountPlaceholder: '輸入優惠碼',
+    applyBtn: '套用',
+    originalPrice: '原價',
+    discount: '折扣',
+    total: '合計',
+    payBtn: '立即付款',
+    retry: '重試',
+    loadError: '載入應用程式資訊失敗。',
+    emailRequired: '請輸入有效的電子郵件地址。',
+    purchaseError: '購買失敗，請重試。',
+    processing: '處理中...',
+    discountApplied: '優惠碼已套用！',
+    discountPreview: '優惠碼將在結帳時驗證。'
+  },
+  ja: {
+    subtitle: 'アクティベーションコードの購入',
+    emailLabel: 'メールアドレス',
+    emailPlaceholder: 'your@email.com',
+    discountLabel: '割引コード（任意）',
+    discountPlaceholder: 'コードを入力',
+    applyBtn: '適用',
+    originalPrice: '通常価格',
+    discount: '割引',
+    total: '合計',
+    payBtn: '今すぐ支払う',
+    retry: '再試行',
+    loadError: 'アプリ情報の読み込みに失敗しました。',
+    emailRequired: '有効なメールアドレスを入力してください。',
+    purchaseError: '購入に失敗しました。もう一度お試しください。',
+    processing: '処理中...',
+    discountApplied: '割引コードが適用されました！',
+    discountPreview: '割引コードは決済時に検証されます。'
+  },
+  ko: {
+    subtitle: '활성화 코드 구매',
+    emailLabel: '이메일',
+    emailPlaceholder: 'your@email.com',
+    discountLabel: '할인 코드 (선택)',
+    discountPlaceholder: '코드 입력',
+    applyBtn: '적용',
+    originalPrice: '정가',
+    discount: '할인',
+    total: '합계',
+    payBtn: '지금 결제',
+    retry: '재시도',
+    loadError: '앱 정보를 불러오지 못했습니다.',
+    emailRequired: '유효한 이메일 주소를 입력해 주세요.',
+    purchaseError: '구매에 실패했습니다. 다시 시도해 주세요.',
+    processing: '처리 중...',
+    discountApplied: '할인 코드가 적용되었습니다!',
+    discountPreview: '할인 코드는 결제 시 검증됩니다.'
+  },
+  fr: {
+    subtitle: "Acheter un code d'activation",
+    emailLabel: 'E-mail',
+    emailPlaceholder: 'votre@email.com',
+    discountLabel: 'Code de réduction (facultatif)',
+    discountPlaceholder: 'Entrez le code',
+    applyBtn: 'Appliquer',
+    originalPrice: 'Prix original',
+    discount: 'Réduction',
+    total: 'Total',
+    payBtn: 'Payer maintenant',
+    retry: 'Réessayer',
+    loadError: "Échec du chargement des informations de l'application.",
+    emailRequired: 'Veuillez entrer une adresse e-mail valide.',
+    purchaseError: "L'achat a échoué. Veuillez réessayer.",
+    processing: 'Traitement...',
+    discountApplied: 'Code de réduction appliqué !',
+    discountPreview: 'Le code de réduction sera validé lors du paiement.'
+  },
+  de: {
+    subtitle: 'Aktivierungscode kaufen',
+    emailLabel: 'E-Mail',
+    emailPlaceholder: 'ihre@email.com',
+    discountLabel: 'Rabattcode (optional)',
+    discountPlaceholder: 'Code eingeben',
+    applyBtn: 'Anwenden',
+    originalPrice: 'Originalpreis',
+    discount: 'Rabatt',
+    total: 'Gesamt',
+    payBtn: 'Jetzt bezahlen',
+    retry: 'Erneut versuchen',
+    loadError: 'App-Informationen konnten nicht geladen werden.',
+    emailRequired: 'Bitte geben Sie eine gültige E-Mail-Adresse ein.',
+    purchaseError: 'Kauf fehlgeschlagen. Bitte versuchen Sie es erneut.',
+    processing: 'Verarbeitung...',
+    discountApplied: 'Rabattcode angewendet!',
+    discountPreview: 'Der Rabattcode wird beim Bezahlen überprüft.'
+  },
+  es: {
+    subtitle: 'Comprar código de activación',
+    emailLabel: 'Correo electrónico',
+    emailPlaceholder: 'tu@email.com',
+    discountLabel: 'Código de descuento (opcional)',
+    discountPlaceholder: 'Ingrese el código',
+    applyBtn: 'Aplicar',
+    originalPrice: 'Precio original',
+    discount: 'Descuento',
+    total: 'Total',
+    payBtn: 'Pagar ahora',
+    retry: 'Reintentar',
+    loadError: 'Error al cargar la información de la aplicación.',
+    emailRequired: 'Por favor, ingrese una dirección de correo electrónico válida.',
+    purchaseError: 'La compra falló. Por favor, inténtelo de nuevo.',
+    processing: 'Procesando...',
+    discountApplied: '¡Código de descuento aplicado!',
+    discountPreview: 'El código de descuento se validará al pagar.'
+  },
+  pt: {
+    subtitle: 'Comprar código de ativação',
+    emailLabel: 'E-mail',
+    emailPlaceholder: 'seu@email.com',
+    discountLabel: 'Código de desconto (opcional)',
+    discountPlaceholder: 'Insira o código',
+    applyBtn: 'Aplicar',
+    originalPrice: 'Preço original',
+    discount: 'Desconto',
+    total: 'Total',
+    payBtn: 'Pagar agora',
+    retry: 'Tentar novamente',
+    loadError: 'Falha ao carregar informações do aplicativo.',
+    emailRequired: 'Por favor, insira um endereço de e-mail válido.',
+    purchaseError: 'A compra falhou. Por favor, tente novamente.',
+    processing: 'Processando...',
+    discountApplied: 'Código de desconto aplicado!',
+    discountPreview: 'O código de desconto será validado no pagamento.'
+  },
+  ru: {
+    subtitle: 'Купить код активации',
+    emailLabel: 'Электронная почта',
+    emailPlaceholder: 'ваш@email.com',
+    discountLabel: 'Код скидки (необязательно)',
+    discountPlaceholder: 'Введите код',
+    applyBtn: 'Применить',
+    originalPrice: 'Первоначальная цена',
+    discount: 'Скидка',
+    total: 'Итого',
+    payBtn: 'Оплатить сейчас',
+    retry: 'Повторить',
+    loadError: 'Не удалось загрузить информацию о приложении.',
+    emailRequired: 'Пожалуйста, введите действительный адрес электронной почты.',
+    purchaseError: 'Покупка не удалась. Пожалуйста, попробуйте снова.',
+    processing: 'Обработка...',
+    discountApplied: 'Код скидки применён!',
+    discountPreview: 'Код скидки будет проверен при оплате.'
+  },
+  ar: {
+    subtitle: 'شراء رمز التفعيل',
+    emailLabel: 'البريد الإلكتروني',
+    emailPlaceholder: 'your@email.com',
+    discountLabel: 'رمز الخصم (اختياري)',
+    discountPlaceholder: 'أدخل الرمز',
+    applyBtn: 'تطبيق',
+    originalPrice: 'السعر الأصلي',
+    discount: 'الخصم',
+    total: 'الإجمالي',
+    payBtn: 'ادفع الآن',
+    retry: 'إعادة المحاولة',
+    loadError: 'فشل تحميل معلومات التطبيق.',
+    emailRequired: 'يرجى إدخال عنوان بريد إلكتروني صالح.',
+    purchaseError: 'فشلت عملية الشراء. يرجى المحاولة مرة أخرى.',
+    processing: 'جارٍ المعالجة...',
+    discountApplied: 'تم تطبيق رمز الخصم!',
+    discountPreview: 'سيتم التحقق من رمز الخصم عند الدفع.'
+  },
+  hi: {
+    subtitle: 'सक्रियण कोड खरीदें',
+    emailLabel: 'ईमेल',
+    emailPlaceholder: 'your@email.com',
+    discountLabel: 'छूट कोड (वैकल्पिक)',
+    discountPlaceholder: 'कोड दर्ज करें',
+    applyBtn: 'लागू करें',
+    originalPrice: 'मूल मूल्य',
+    discount: 'छूट',
+    total: 'कुल',
+    payBtn: 'अभी भुगतान करें',
+    retry: 'पुनः प्रयास करें',
+    loadError: 'ऐप जानकारी लोड करने में विफल।',
+    emailRequired: 'कृपया एक मान्य ईमेल पता दर्ज करें।',
+    purchaseError: 'खरीदारी विफल रही। कृपया पुनः प्रयास करें।',
+    processing: 'प्रसंस्करण...',
+    discountApplied: 'छूट कोड लागू किया गया!',
+    discountPreview: 'छूट कोड भुगतान के समय सत्यापित किया जाएगा।'
+  },
+  th: {
+    subtitle: 'ซื้อรหัสเปิดใช้งาน',
+    emailLabel: 'อีเมล',
+    emailPlaceholder: 'your@email.com',
+    discountLabel: 'รหัสส่วนลด (ไม่บังคับ)',
+    discountPlaceholder: 'ป้อนรหัส',
+    applyBtn: 'ใช้',
+    originalPrice: 'ราคาเดิม',
+    discount: 'ส่วนลด',
+    total: 'รวม',
+    payBtn: 'ชำระเงินตอนนี้',
+    retry: 'ลองอีกครั้ง',
+    loadError: 'ไม่สามารถโหลดข้อมูลแอปได้',
+    emailRequired: 'กรุณากรอกที่อยู่อีเมลที่ถูกต้อง',
+    purchaseError: 'การซื้อล้มเหลว กรุณาลองอีกครั้ง',
+    processing: 'กำลังดำเนินการ...',
+    discountApplied: 'ใช้รหัสส่วนลดแล้ว!',
+    discountPreview: 'รหัสส่วนลดจะถูกตรวจสอบเมื่อชำระเงิน'
+  },
+  vi: {
+    subtitle: 'Mua mã kích hoạt',
+    emailLabel: 'Email',
+    emailPlaceholder: 'your@email.com',
+    discountLabel: 'Mã giảm giá (tùy chọn)',
+    discountPlaceholder: 'Nhập mã',
+    applyBtn: 'Áp dụng',
+    originalPrice: 'Giá gốc',
+    discount: 'Giảm giá',
+    total: 'Tổng cộng',
+    payBtn: 'Thanh toán ngay',
+    retry: 'Thử lại',
+    loadError: 'Không thể tải thông tin ứng dụng.',
+    emailRequired: 'Vui lòng nhập địa chỉ email hợp lệ.',
+    purchaseError: 'Mua hàng thất bại. Vui lòng thử lại.',
+    processing: 'Đang xử lý...',
+    discountApplied: 'Đã áp dụng mã giảm giá!',
+    discountPreview: 'Mã giảm giá sẽ được xác nhận khi thanh toán.'
+  },
+  id: {
+    subtitle: 'Beli Kode Aktivasi',
+    emailLabel: 'Email',
+    emailPlaceholder: 'anda@email.com',
+    discountLabel: 'Kode Diskon (opsional)',
+    discountPlaceholder: 'Masukkan kode',
+    applyBtn: 'Terapkan',
+    originalPrice: 'Harga Asli',
+    discount: 'Diskon',
+    total: 'Total',
+    payBtn: 'Bayar Sekarang',
+    retry: 'Coba Lagi',
+    loadError: 'Gagal memuat informasi aplikasi.',
+    emailRequired: 'Silakan masukkan alamat email yang valid.',
+    purchaseError: 'Pembelian gagal. Silakan coba lagi.',
+    processing: 'Memproses...',
+    discountApplied: 'Kode diskon diterapkan!',
+    discountPreview: 'Kode diskon akan divalidasi saat pembayaran.'
+  },
+  ms: {
+    subtitle: 'Beli Kod Pengaktifan',
+    emailLabel: 'E-mel',
+    emailPlaceholder: 'anda@email.com',
+    discountLabel: 'Kod Diskaun (pilihan)',
+    discountPlaceholder: 'Masukkan kod',
+    applyBtn: 'Guna',
+    originalPrice: 'Harga Asal',
+    discount: 'Diskaun',
+    total: 'Jumlah',
+    payBtn: 'Bayar Sekarang',
+    retry: 'Cuba Lagi',
+    loadError: 'Gagal memuatkan maklumat aplikasi.',
+    emailRequired: 'Sila masukkan alamat e-mel yang sah.',
+    purchaseError: 'Pembelian gagal. Sila cuba lagi.',
+    processing: 'Memproses...',
+    discountApplied: 'Kod diskaun telah digunakan!',
+    discountPreview: 'Kod diskaun akan disahkan semasa pembayaran.'
+  },
+  tr: {
+    subtitle: 'Aktivasyon Kodu Satın Al',
+    emailLabel: 'E-posta',
+    emailPlaceholder: 'sizin@email.com',
+    discountLabel: 'İndirim Kodu (isteğe bağlı)',
+    discountPlaceholder: 'Kodu girin',
+    applyBtn: 'Uygula',
+    originalPrice: 'Orijinal Fiyat',
+    discount: 'İndirim',
+    total: 'Toplam',
+    payBtn: 'Şimdi Öde',
+    retry: 'Tekrar Dene',
+    loadError: 'Uygulama bilgileri yüklenemedi.',
+    emailRequired: 'Lütfen geçerli bir e-posta adresi girin.',
+    purchaseError: 'Satın alma başarısız oldu. Lütfen tekrar deneyin.',
+    processing: 'İşleniyor...',
+    discountApplied: 'İndirim kodu uygulandı!',
+    discountPreview: 'İndirim kodu ödeme sırasında doğrulanacaktır.'
+  },
+  pl: {
+    subtitle: 'Kup kod aktywacyjny',
+    emailLabel: 'E-mail',
+    emailPlaceholder: 'twoj@email.com',
+    discountLabel: 'Kod rabatowy (opcjonalnie)',
+    discountPlaceholder: 'Wpisz kod',
+    applyBtn: 'Zastosuj',
+    originalPrice: 'Cena oryginalna',
+    discount: 'Rabat',
+    total: 'Razem',
+    payBtn: 'Zapłać teraz',
+    retry: 'Ponów',
+    loadError: 'Nie udało się załadować informacji o aplikacji.',
+    emailRequired: 'Proszę podać prawidłowy adres e-mail.',
+    purchaseError: 'Zakup nie powiódł się. Proszę spróbować ponownie.',
+    processing: 'Przetwarzanie...',
+    discountApplied: 'Kod rabatowy zastosowany!',
+    discountPreview: 'Kod rabatowy zostanie zweryfikowany przy płatności.'
+  },
+  nl: {
+    subtitle: 'Activatiecode kopen',
+    emailLabel: 'E-mail',
+    emailPlaceholder: 'uw@email.com',
+    discountLabel: 'Kortingscode (optioneel)',
+    discountPlaceholder: 'Voer code in',
+    applyBtn: 'Toepassen',
+    originalPrice: 'Oorspronkelijke prijs',
+    discount: 'Korting',
+    total: 'Totaal',
+    payBtn: 'Nu betalen',
+    retry: 'Opnieuw proberen',
+    loadError: 'Kan app-informatie niet laden.',
+    emailRequired: 'Voer een geldig e-mailadres in.',
+    purchaseError: 'Aankoop mislukt. Probeer het opnieuw.',
+    processing: 'Verwerken...',
+    discountApplied: 'Kortingscode toegepast!',
+    discountPreview: 'De kortingscode wordt gevalideerd bij het afrekenen.'
+  },
+  sv: {
+    subtitle: 'Köp aktiveringskod',
+    emailLabel: 'E-post',
+    emailPlaceholder: 'din@email.com',
+    discountLabel: 'Rabattkod (valfritt)',
+    discountPlaceholder: 'Ange kod',
+    applyBtn: 'Tillämpa',
+    originalPrice: 'Ordinarie pris',
+    discount: 'Rabatt',
+    total: 'Totalt',
+    payBtn: 'Betala nu',
+    retry: 'Försök igen',
+    loadError: 'Kunde inte ladda appinformation.',
+    emailRequired: 'Ange en giltig e-postadress.',
+    purchaseError: 'Köpet misslyckades. Försök igen.',
+    processing: 'Bearbetar...',
+    discountApplied: 'Rabattkod tillämpad!',
+    discountPreview: 'Rabattkoden valideras vid betalning.'
+  },
+  da: {
+    subtitle: 'Køb aktiveringskode',
+    emailLabel: 'E-mail',
+    emailPlaceholder: 'din@email.com',
+    discountLabel: 'Rabatkode (valgfrit)',
+    discountPlaceholder: 'Indtast kode',
+    applyBtn: 'Anvend',
+    originalPrice: 'Oprindelig pris',
+    discount: 'Rabat',
+    total: 'I alt',
+    payBtn: 'Betal nu',
+    retry: 'Prøv igen',
+    loadError: 'Kunne ikke indlæse appoplysninger.',
+    emailRequired: 'Indtast venligst en gyldig e-mailadresse.',
+    purchaseError: 'Købet mislykkedes. Prøv venligst igen.',
+    processing: 'Behandler...',
+    discountApplied: 'Rabatkode anvendt!',
+    discountPreview: 'Rabatkoden valideres ved betaling.'
+  },
+  nb: {
+    subtitle: 'Kjøp aktiveringskode',
+    emailLabel: 'E-post',
+    emailPlaceholder: 'din@email.com',
+    discountLabel: 'Rabattkode (valgfritt)',
+    discountPlaceholder: 'Skriv inn kode',
+    applyBtn: 'Bruk',
+    originalPrice: 'Opprinnelig pris',
+    discount: 'Rabatt',
+    total: 'Totalt',
+    payBtn: 'Betal nå',
+    retry: 'Prøv igjen',
+    loadError: 'Kunne ikke laste appinformasjon.',
+    emailRequired: 'Vennligst oppgi en gyldig e-postadresse.',
+    purchaseError: 'Kjøpet mislyktes. Vennligst prøv igjen.',
+    processing: 'Behandler...',
+    discountApplied: 'Rabattkode brukt!',
+    discountPreview: 'Rabattkoden vil bli validert ved betaling.'
+  },
+  fi: {
+    subtitle: 'Osta aktivointikoodi',
+    emailLabel: 'Sähköposti',
+    emailPlaceholder: 'sinun@email.com',
+    discountLabel: 'Alennuskoodi (valinnainen)',
+    discountPlaceholder: 'Syötä koodi',
+    applyBtn: 'Käytä',
+    originalPrice: 'Alkuperäinen hinta',
+    discount: 'Alennus',
+    total: 'Yhteensä',
+    payBtn: 'Maksa nyt',
+    retry: 'Yritä uudelleen',
+    loadError: 'Sovellustietojen lataaminen epäonnistui.',
+    emailRequired: 'Anna kelvollinen sähköpostiosoite.',
+    purchaseError: 'Osto epäonnistui. Yritä uudelleen.',
+    processing: 'Käsitellään...',
+    discountApplied: 'Alennuskoodi käytetty!',
+    discountPreview: 'Alennuskoodi vahvistetaan maksun yhteydessä.'
+  },
+  it: {
+    subtitle: "Acquista codice di attivazione",
+    emailLabel: 'E-mail',
+    emailPlaceholder: 'tua@email.com',
+    discountLabel: 'Codice sconto (facoltativo)',
+    discountPlaceholder: 'Inserisci il codice',
+    applyBtn: 'Applica',
+    originalPrice: 'Prezzo originale',
+    discount: 'Sconto',
+    total: 'Totale',
+    payBtn: 'Paga ora',
+    retry: 'Riprova',
+    loadError: "Impossibile caricare le informazioni dell'app.",
+    emailRequired: 'Inserisci un indirizzo e-mail valido.',
+    purchaseError: 'Acquisto fallito. Riprova.',
+    processing: 'Elaborazione...',
+    discountApplied: 'Codice sconto applicato!',
+    discountPreview: 'Il codice sconto verrà verificato al momento del pagamento.'
   }
+};
+
+// Language-to-locale mapping for Intl formatting
+const langLocaleMap = {
+  en: 'en-US', zh: 'zh-CN', 'zh-TW': 'zh-TW', ja: 'ja-JP', ko: 'ko-KR',
+  fr: 'fr-FR', de: 'de-DE', es: 'es-ES', pt: 'pt-BR', ru: 'ru-RU',
+  ar: 'ar-SA', hi: 'hi-IN', th: 'th-TH', vi: 'vi-VN', id: 'id-ID',
+  ms: 'ms-MY', tr: 'tr-TR', pl: 'pl-PL', nl: 'nl-NL', sv: 'sv-SE',
+  da: 'da-DK', nb: 'nb-NO', fi: 'fi-FI', it: 'it-IT'
 };
 
 let lang = 'en';
@@ -400,16 +849,33 @@ let appInfo = null;
 let appliedDiscount = null;
 
 function t(key) {
-  return i18n[lang][key] || key;
+  return (i18n[lang] && i18n[lang][key]) || i18n.en[key] || key;
 }
 
-function toggleLang() {
-  lang = lang === 'en' ? 'zh' : 'en';
+function detectLang() {
+  // 1. URL parameter takes priority
+  const params = new URLSearchParams(window.location.search);
+  const urlLang = params.get('lang');
+  if (urlLang && i18n[urlLang]) return urlLang;
+
+  // 2. Browser language
+  const browserLang = navigator.language || navigator.userLanguage || 'en';
+  // Try exact match first (e.g. zh-TW)
+  if (i18n[browserLang]) return browserLang;
+  // Try base language (e.g. zh-CN -> zh, fr-CA -> fr)
+  const base = browserLang.split('-')[0];
+  if (i18n[base]) return base;
+
+  return 'en';
+}
+
+function changeLang() {
+  lang = document.getElementById('langSelect').value;
   applyLang();
 }
 
 function applyLang() {
-  document.getElementById('langBtn').textContent = t('langSwitch');
+  document.getElementById('langSelect').value = lang;
   document.querySelectorAll('[data-i18n]').forEach(el => {
     el.textContent = t(el.getAttribute('data-i18n'));
   });
@@ -430,7 +896,7 @@ function getAppId() {
 function formatPrice(amount, currency) {
   if (!currency) currency = 'USD';
   try {
-    return new Intl.NumberFormat(lang === 'zh' ? 'zh-CN' : 'en-US', {
+    return new Intl.NumberFormat(langLocaleMap[lang] || 'en-US', {
       style: 'currency',
       currency: currency
     }).format(amount);
@@ -531,7 +997,7 @@ async function handlePay() {
     const resp = await fetch(`${API_BASE}/purchase`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ appid, email, discountCode })
+      body: JSON.stringify({ appid, email, discountCode, lang })
     });
 
     const data = await resp.json();
@@ -555,6 +1021,8 @@ async function handlePay() {
 }
 
 // Init
+lang = detectLang();
+applyLang();
 loadAppInfo();
 </script>
 </body>

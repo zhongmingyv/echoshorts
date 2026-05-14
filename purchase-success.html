@@ -33,37 +33,26 @@
             line-height: 1.6;
         }
 
-        .lang-toggle {
+        .lang-switcher-wrap {
             position: fixed;
             top: 20px;
             right: 20px;
-            display: flex;
-            gap: 4px;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 4px;
             z-index: 10;
         }
 
-        .lang-btn {
-            background: none;
-            border: none;
-            color: var(--muted);
-            padding: 6px 14px;
+        .lang-switcher {
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
             border-radius: 6px;
+            color: #e0e0e0;
+            font-size: 12px;
+            padding: 5px 8px;
             cursor: pointer;
-            font-size: 14px;
-            transition: all 0.2s;
+            outline: none;
         }
 
-        .lang-btn.active {
-            background: var(--border);
-            color: var(--text);
-        }
-
-        .lang-btn:hover {
-            color: var(--text);
+        .lang-switcher:focus {
+            border-color: var(--primary);
         }
 
         .card {
@@ -206,7 +195,7 @@
                 padding: 20px;
             }
 
-            .lang-toggle {
+            .lang-switcher-wrap {
                 top: 12px;
                 right: 12px;
             }
@@ -215,9 +204,33 @@
 </head>
 <body>
 
-<div class="lang-toggle">
-    <button class="lang-btn active" onclick="setLang('en')">EN</button>
-    <button class="lang-btn" onclick="setLang('zh')">中文</button>
+<div class="lang-switcher-wrap">
+    <select id="langSelect" class="lang-switcher" onchange="changeLang()">
+        <option value="en">English</option>
+        <option value="zh">简体中文</option>
+        <option value="zh-TW">繁體中文</option>
+        <option value="ja">日本語</option>
+        <option value="ko">한국어</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+        <option value="es">Español</option>
+        <option value="pt">Português</option>
+        <option value="ru">Русский</option>
+        <option value="ar">العربية</option>
+        <option value="hi">हिन्दी</option>
+        <option value="th">ภาษาไทย</option>
+        <option value="vi">Tiếng Việt</option>
+        <option value="id">Bahasa Indonesia</option>
+        <option value="ms">Bahasa Melayu</option>
+        <option value="tr">Türkçe</option>
+        <option value="pl">Polski</option>
+        <option value="nl">Nederlands</option>
+        <option value="sv">Svenska</option>
+        <option value="da">Dansk</option>
+        <option value="nb">Norsk</option>
+        <option value="fi">Suomi</option>
+        <option value="it">Italiano</option>
+    </select>
 </div>
 
 <div class="card">
@@ -228,49 +241,398 @@
         </svg>
     </div>
 
-    <h1 data-en="Payment Successful!" data-zh="支付成功！">Payment Successful!</h1>
+    <h1 data-i18n="title">Payment Successful!</h1>
 
-    <p class="subtitle" data-en="Your activation code has been sent to your email. Please check your inbox." data-zh="激活码已发送至您的邮箱，请查收。">Your activation code has been sent to your email. Please check your inbox.</p>
+    <p class="subtitle" data-i18n="subtitle">Your activation code has been sent to your email. Please check your inbox.</p>
 
     <div class="steps">
-        <div class="steps-title" data-en="How to Activate" data-zh="如何激活">How to Activate</div>
+        <div class="steps-title" data-i18n="howTitle">How to Activate</div>
         <div class="step">
             <span class="step-number">1</span>
-            <span class="step-text" data-en="Open EchoShortsPlayer" data-zh="打开 EchoShortsPlayer">Open EchoShortsPlayer</span>
+            <span class="step-text" data-i18n="step1">Open EchoShortsPlayer</span>
         </div>
         <div class="step">
             <span class="step-number">2</span>
-            <span class="step-text" data-en="On the activation page, paste your activation code" data-zh="在激活页面中，粘贴您的激活码">On the activation page, paste your activation code</span>
+            <span class="step-text" data-i18n="step2">On the activation page, paste your activation code</span>
         </div>
         <div class="step">
             <span class="step-number">3</span>
-            <span class="step-text" data-en='Click "Activate"' data-zh='点击"激活"'>Click "Activate"</span>
+            <span class="step-text" data-i18n="step3">Click "Activate"</span>
         </div>
     </div>
 
     <div class="notice">
-        <div class="notice-title" data-en="Didn't receive the email?" data-zh="没有收到邮件？">Didn't receive the email?</div>
-        <div class="notice-text" data-en="Check your spam or junk folder. The email may take a few minutes to arrive. If you still haven't received it after 10 minutes, please contact support." data-zh="请检查垃圾邮件文件夹。邮件可能需要几分钟才能送达。如果10分钟后仍未收到，请联系客服。">Check your spam or junk folder. The email may take a few minutes to arrive. If you still haven't received it after 10 minutes, please contact support.</div>
+        <div class="notice-title" data-i18n="notReceived">Didn't receive the email?</div>
+        <div class="notice-text">
+            <span data-i18n="tip1">Check your spam/junk folder</span><br>
+            <span data-i18n="tip2">Wait a few minutes and check again</span><br>
+            <span data-i18n="tip3">Contact support if the issue persists</span>
+        </div>
     </div>
 
     <a href="https://echoshorts.win" class="back-link">
         <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <span data-en="Back to echoshorts.win" data-zh="返回 echoshorts.win">Back to echoshorts.win</span>
+        <span data-i18n="backLink">Back to EchoShorts</span>
     </a>
 </div>
 
 <script>
-    function setLang(lang) {
-        document.querySelectorAll('.lang-btn').forEach(function(btn) {
-            btn.classList.toggle('active', btn.textContent.trim() === (lang === 'en' ? 'EN' : '中文'));
-        });
-        document.querySelectorAll('[data-en]').forEach(function(el) {
-            el.textContent = el.getAttribute('data-' + lang);
-        });
-        document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
-    }
+const i18n = {
+  en: {
+    title: 'Payment Successful!',
+    subtitle: 'Your activation code has been sent to your email. Please check your inbox.',
+    howTitle: 'How to Activate',
+    step1: 'Open EchoShortsPlayer',
+    step2: 'On the activation page, paste your activation code',
+    step3: 'Click "Activate"',
+    notReceived: "Didn't receive the email?",
+    tip1: 'Check your spam/junk folder',
+    tip2: 'Wait a few minutes and check again',
+    tip3: 'Contact support if the issue persists',
+    backLink: 'Back to EchoShorts'
+  },
+  zh: {
+    title: '支付成功！',
+    subtitle: '激活码已发送至您的邮箱，请查收。',
+    howTitle: '如何激活',
+    step1: '打开 EchoShortsPlayer',
+    step2: '在激活页面中，粘贴您的激活码',
+    step3: '点击"激活"',
+    notReceived: '没有收到邮件？',
+    tip1: '请检查垃圾邮件文件夹',
+    tip2: '等待几分钟后再次查看',
+    tip3: '如问题持续存在，请联系客服',
+    backLink: '返回 EchoShorts'
+  },
+  'zh-TW': {
+    title: '付款成功！',
+    subtitle: '啟用碼已發送至您的電子郵件，請查收。',
+    howTitle: '如何啟用',
+    step1: '開啟 EchoShortsPlayer',
+    step2: '在啟用頁面中，貼上您的啟用碼',
+    step3: '點擊「啟用」',
+    notReceived: '沒有收到郵件？',
+    tip1: '請檢查垃圾郵件資料夾',
+    tip2: '等待幾分鐘後再次查看',
+    tip3: '如問題持續存在，請聯繫客服',
+    backLink: '返回 EchoShorts'
+  },
+  ja: {
+    title: 'お支払い完了！',
+    subtitle: 'アクティベーションコードをメールで送信しました。受信トレイをご確認ください。',
+    howTitle: 'アクティベーション方法',
+    step1: 'EchoShortsPlayerを開く',
+    step2: 'アクティベーションページでコードを貼り付ける',
+    step3: '「アクティベート」をクリック',
+    notReceived: 'メールが届きませんか？',
+    tip1: '迷惑メールフォルダを確認してください',
+    tip2: '数分待ってから再度確認してください',
+    tip3: '問題が続く場合はサポートにお問い合わせください',
+    backLink: 'EchoShortsに戻る'
+  },
+  ko: {
+    title: '결제 완료!',
+    subtitle: '활성화 코드가 이메일로 전송되었습니다. 받은편지함을 확인해 주세요.',
+    howTitle: '활성화 방법',
+    step1: 'EchoShortsPlayer 열기',
+    step2: '활성화 페이지에서 활성화 코드를 붙여넣기',
+    step3: '"활성화" 클릭',
+    notReceived: '이메일을 받지 못하셨나요?',
+    tip1: '스팸/정크 폴더를 확인하세요',
+    tip2: '몇 분 후 다시 확인하세요',
+    tip3: '문제가 지속되면 고객지원에 문의하세요',
+    backLink: 'EchoShorts로 돌아가기'
+  },
+  fr: {
+    title: 'Paiement réussi !',
+    subtitle: 'Votre code d\'activation a été envoyé par e-mail. Veuillez vérifier votre boîte de réception.',
+    howTitle: 'Comment activer',
+    step1: 'Ouvrir EchoShortsPlayer',
+    step2: 'Sur la page d\'activation, collez votre code d\'activation',
+    step3: 'Cliquez sur « Activer »',
+    notReceived: 'Vous n\'avez pas reçu l\'e-mail ?',
+    tip1: 'Vérifiez votre dossier spam/courrier indésirable',
+    tip2: 'Attendez quelques minutes et vérifiez à nouveau',
+    tip3: 'Contactez le support si le problème persiste',
+    backLink: 'Retour à EchoShorts'
+  },
+  de: {
+    title: 'Zahlung erfolgreich!',
+    subtitle: 'Ihr Aktivierungscode wurde per E-Mail gesendet. Bitte überprüfen Sie Ihren Posteingang.',
+    howTitle: 'So aktivieren Sie',
+    step1: 'EchoShortsPlayer öffnen',
+    step2: 'Auf der Aktivierungsseite Ihren Aktivierungscode einfügen',
+    step3: '„Aktivieren" klicken',
+    notReceived: 'E-Mail nicht erhalten?',
+    tip1: 'Überprüfen Sie Ihren Spam-/Junk-Ordner',
+    tip2: 'Warten Sie einige Minuten und prüfen Sie erneut',
+    tip3: 'Kontaktieren Sie den Support, wenn das Problem weiterhin besteht',
+    backLink: 'Zurück zu EchoShorts'
+  },
+  es: {
+    title: '¡Pago exitoso!',
+    subtitle: 'Tu código de activación ha sido enviado a tu correo electrónico. Por favor revisa tu bandeja de entrada.',
+    howTitle: 'Cómo activar',
+    step1: 'Abrir EchoShortsPlayer',
+    step2: 'En la página de activación, pega tu código de activación',
+    step3: 'Haz clic en "Activar"',
+    notReceived: '¿No recibiste el correo?',
+    tip1: 'Revisa tu carpeta de spam/correo no deseado',
+    tip2: 'Espera unos minutos y vuelve a revisar',
+    tip3: 'Contacta al soporte si el problema persiste',
+    backLink: 'Volver a EchoShorts'
+  },
+  pt: {
+    title: 'Pagamento realizado com sucesso!',
+    subtitle: 'Seu código de ativação foi enviado para o seu e-mail. Por favor, verifique sua caixa de entrada.',
+    howTitle: 'Como ativar',
+    step1: 'Abrir o EchoShortsPlayer',
+    step2: 'Na página de ativação, cole seu código de ativação',
+    step3: 'Clique em "Ativar"',
+    notReceived: 'Não recebeu o e-mail?',
+    tip1: 'Verifique sua pasta de spam/lixo eletrônico',
+    tip2: 'Aguarde alguns minutos e verifique novamente',
+    tip3: 'Entre em contato com o suporte se o problema persistir',
+    backLink: 'Voltar ao EchoShorts'
+  },
+  ru: {
+    title: 'Оплата прошла успешно!',
+    subtitle: 'Код активации отправлен на вашу электронную почту. Пожалуйста, проверьте входящие.',
+    howTitle: 'Как активировать',
+    step1: 'Откройте EchoShortsPlayer',
+    step2: 'На странице активации вставьте код активации',
+    step3: 'Нажмите «Активировать»',
+    notReceived: 'Не получили письмо?',
+    tip1: 'Проверьте папку «Спам»',
+    tip2: 'Подождите несколько минут и проверьте снова',
+    tip3: 'Свяжитесь с поддержкой, если проблема сохраняется',
+    backLink: 'Вернуться к EchoShorts'
+  },
+  ar: {
+    title: 'تمت عملية الدفع بنجاح!',
+    subtitle: 'تم إرسال رمز التفعيل إلى بريدك الإلكتروني. يرجى التحقق من صندوق الوارد.',
+    howTitle: 'كيفية التفعيل',
+    step1: 'افتح EchoShortsPlayer',
+    step2: 'في صفحة التفعيل، الصق رمز التفعيل',
+    step3: 'انقر على "تفعيل"',
+    notReceived: 'لم تستلم البريد الإلكتروني؟',
+    tip1: 'تحقق من مجلد البريد العشوائي/غير المرغوب فيه',
+    tip2: 'انتظر بضع دقائق وتحقق مرة أخرى',
+    tip3: 'تواصل مع الدعم إذا استمرت المشكلة',
+    backLink: 'العودة إلى EchoShorts'
+  },
+  hi: {
+    title: 'भुगतान सफल!',
+    subtitle: 'आपका एक्टिवेशन कोड आपके ईमेल पर भेज दिया गया है। कृपया अपना इनबॉक्स जांचें।',
+    howTitle: 'कैसे एक्टिवेट करें',
+    step1: 'EchoShortsPlayer खोलें',
+    step2: 'एक्टिवेशन पेज पर, अपना एक्टिवेशन कोड पेस्ट करें',
+    step3: '"एक्टिवेट" पर क्लिक करें',
+    notReceived: 'ईमेल नहीं मिला?',
+    tip1: 'अपना स्पैम/जंक फ़ोल्डर जांचें',
+    tip2: 'कुछ मिनट प्रतीक्षा करें और फिर से जांचें',
+    tip3: 'समस्या बनी रहने पर सहायता से संपर्क करें',
+    backLink: 'EchoShorts पर वापस जाएं'
+  },
+  th: {
+    title: 'ชำระเงินสำเร็จ!',
+    subtitle: 'รหัสเปิดใช้งานถูกส่งไปยังอีเมลของคุณแล้ว กรุณาตรวจสอบกล่องจดหมาย',
+    howTitle: 'วิธีเปิดใช้งาน',
+    step1: 'เปิด EchoShortsPlayer',
+    step2: 'ในหน้าเปิดใช้งาน วางรหัสเปิดใช้งานของคุณ',
+    step3: 'คลิก "เปิดใช้งาน"',
+    notReceived: 'ไม่ได้รับอีเมล?',
+    tip1: 'ตรวจสอบโฟลเดอร์สแปม/ขยะ',
+    tip2: 'รอสักครู่แล้วตรวจสอบอีกครั้ง',
+    tip3: 'ติดต่อฝ่ายสนับสนุนหากปัญหายังคงอยู่',
+    backLink: 'กลับไปที่ EchoShorts'
+  },
+  vi: {
+    title: 'Thanh toán thành công!',
+    subtitle: 'Mã kích hoạt đã được gửi đến email của bạn. Vui lòng kiểm tra hộp thư đến.',
+    howTitle: 'Cách kích hoạt',
+    step1: 'Mở EchoShortsPlayer',
+    step2: 'Tại trang kích hoạt, dán mã kích hoạt của bạn',
+    step3: 'Nhấn "Kích hoạt"',
+    notReceived: 'Không nhận được email?',
+    tip1: 'Kiểm tra thư mục spam/thư rác',
+    tip2: 'Đợi vài phút rồi kiểm tra lại',
+    tip3: 'Liên hệ hỗ trợ nếu vấn đề vẫn tiếp diễn',
+    backLink: 'Quay lại EchoShorts'
+  },
+  id: {
+    title: 'Pembayaran Berhasil!',
+    subtitle: 'Kode aktivasi telah dikirim ke email Anda. Silakan periksa kotak masuk Anda.',
+    howTitle: 'Cara Mengaktifkan',
+    step1: 'Buka EchoShortsPlayer',
+    step2: 'Di halaman aktivasi, tempel kode aktivasi Anda',
+    step3: 'Klik "Aktifkan"',
+    notReceived: 'Tidak menerima email?',
+    tip1: 'Periksa folder spam/sampah',
+    tip2: 'Tunggu beberapa menit dan periksa kembali',
+    tip3: 'Hubungi dukungan jika masalah berlanjut',
+    backLink: 'Kembali ke EchoShorts'
+  },
+  ms: {
+    title: 'Pembayaran Berjaya!',
+    subtitle: 'Kod pengaktifan telah dihantar ke e-mel anda. Sila semak peti masuk anda.',
+    howTitle: 'Cara Mengaktifkan',
+    step1: 'Buka EchoShortsPlayer',
+    step2: 'Di halaman pengaktifan, tampal kod pengaktifan anda',
+    step3: 'Klik "Aktifkan"',
+    notReceived: 'Tidak menerima e-mel?',
+    tip1: 'Semak folder spam/sampah',
+    tip2: 'Tunggu beberapa minit dan semak semula',
+    tip3: 'Hubungi sokongan jika masalah berterusan',
+    backLink: 'Kembali ke EchoShorts'
+  },
+  tr: {
+    title: 'Ödeme Başarılı!',
+    subtitle: 'Aktivasyon kodunuz e-postanıza gönderildi. Lütfen gelen kutunuzu kontrol edin.',
+    howTitle: 'Nasıl Aktifleştirilir',
+    step1: 'EchoShortsPlayer\'ı açın',
+    step2: 'Aktivasyon sayfasında aktivasyon kodunuzu yapıştırın',
+    step3: '"Aktifleştir" düğmesine tıklayın',
+    notReceived: 'E-postayı almadınız mı?',
+    tip1: 'Spam/gereksiz posta klasörünüzü kontrol edin',
+    tip2: 'Birkaç dakika bekleyin ve tekrar kontrol edin',
+    tip3: 'Sorun devam ederse destek ile iletişime geçin',
+    backLink: 'EchoShorts\'a Dön'
+  },
+  pl: {
+    title: 'Płatność zakończona sukcesem!',
+    subtitle: 'Kod aktywacyjny został wysłany na Twój e-mail. Sprawdź skrzynkę odbiorczą.',
+    howTitle: 'Jak aktywować',
+    step1: 'Otwórz EchoShortsPlayer',
+    step2: 'Na stronie aktywacji wklej kod aktywacyjny',
+    step3: 'Kliknij „Aktywuj"',
+    notReceived: 'Nie otrzymałeś e-maila?',
+    tip1: 'Sprawdź folder spam/śmieci',
+    tip2: 'Poczekaj kilka minut i sprawdź ponownie',
+    tip3: 'Skontaktuj się z pomocą techniczną, jeśli problem nie ustępuje',
+    backLink: 'Powrót do EchoShorts'
+  },
+  nl: {
+    title: 'Betaling geslaagd!',
+    subtitle: 'Uw activatiecode is naar uw e-mail verzonden. Controleer uw inbox.',
+    howTitle: 'Hoe te activeren',
+    step1: 'Open EchoShortsPlayer',
+    step2: 'Plak uw activatiecode op de activatiepagina',
+    step3: 'Klik op "Activeren"',
+    notReceived: 'E-mail niet ontvangen?',
+    tip1: 'Controleer uw spam-/ongewenste-mailmap',
+    tip2: 'Wacht een paar minuten en controleer opnieuw',
+    tip3: 'Neem contact op met ondersteuning als het probleem aanhoudt',
+    backLink: 'Terug naar EchoShorts'
+  },
+  sv: {
+    title: 'Betalningen lyckades!',
+    subtitle: 'Din aktiveringskod har skickats till din e-post. Kontrollera din inkorg.',
+    howTitle: 'Så här aktiverar du',
+    step1: 'Öppna EchoShortsPlayer',
+    step2: 'På aktiveringssidan, klistra in din aktiveringskod',
+    step3: 'Klicka på "Aktivera"',
+    notReceived: 'Fick du inget e-postmeddelande?',
+    tip1: 'Kontrollera din skräppost-/spammapp',
+    tip2: 'Vänta några minuter och kontrollera igen',
+    tip3: 'Kontakta support om problemet kvarstår',
+    backLink: 'Tillbaka till EchoShorts'
+  },
+  da: {
+    title: 'Betaling gennemført!',
+    subtitle: 'Din aktiveringskode er sendt til din e-mail. Tjek venligst din indbakke.',
+    howTitle: 'Sådan aktiverer du',
+    step1: 'Åbn EchoShortsPlayer',
+    step2: 'På aktiveringssiden, indsæt din aktiveringskode',
+    step3: 'Klik på "Aktiver"',
+    notReceived: 'Har du ikke modtaget e-mailen?',
+    tip1: 'Tjek din spam-/uønsket post-mappe',
+    tip2: 'Vent et par minutter og tjek igen',
+    tip3: 'Kontakt support, hvis problemet fortsætter',
+    backLink: 'Tilbage til EchoShorts'
+  },
+  nb: {
+    title: 'Betaling vellykket!',
+    subtitle: 'Aktiveringskoden din er sendt til e-posten din. Vennligst sjekk innboksen.',
+    howTitle: 'Slik aktiverer du',
+    step1: 'Åpne EchoShortsPlayer',
+    step2: 'På aktiveringssiden, lim inn aktiveringskoden din',
+    step3: 'Klikk på «Aktiver»',
+    notReceived: 'Har du ikke mottatt e-posten?',
+    tip1: 'Sjekk spam-/søppelpostmappen din',
+    tip2: 'Vent noen minutter og sjekk igjen',
+    tip3: 'Kontakt brukerstøtte hvis problemet vedvarer',
+    backLink: 'Tilbake til EchoShorts'
+  },
+  fi: {
+    title: 'Maksu onnistui!',
+    subtitle: 'Aktivointikoodisi on lähetetty sähköpostiisi. Tarkista saapuneet-kansiosi.',
+    howTitle: 'Aktivointiohjeet',
+    step1: 'Avaa EchoShortsPlayer',
+    step2: 'Liitä aktivointikoodisi aktivointisivulla',
+    step3: 'Napsauta "Aktivoi"',
+    notReceived: 'Etkö saanut sähköpostia?',
+    tip1: 'Tarkista roskaposti-/roskapostikansiosi',
+    tip2: 'Odota muutama minuutti ja tarkista uudelleen',
+    tip3: 'Ota yhteyttä tukeen, jos ongelma jatkuu',
+    backLink: 'Takaisin EchoShortsiin'
+  },
+  it: {
+    title: 'Pagamento riuscito!',
+    subtitle: 'Il tuo codice di attivazione è stato inviato alla tua e-mail. Controlla la tua casella di posta.',
+    howTitle: 'Come attivare',
+    step1: 'Apri EchoShortsPlayer',
+    step2: 'Nella pagina di attivazione, incolla il tuo codice di attivazione',
+    step3: 'Fai clic su "Attiva"',
+    notReceived: 'Non hai ricevuto l\'e-mail?',
+    tip1: 'Controlla la cartella spam/posta indesiderata',
+    tip2: 'Attendi qualche minuto e ricontrolla',
+    tip3: 'Contatta l\'assistenza se il problema persiste',
+    backLink: 'Torna a EchoShorts'
+  }
+};
+
+let lang = 'en';
+
+function t(key) {
+    return (i18n[lang] && i18n[lang][key]) || i18n.en[key] || key;
+}
+
+function detectLang() {
+    // 1. URL parameter takes priority
+    const params = new URLSearchParams(window.location.search);
+    const urlLang = params.get('lang');
+    if (urlLang && i18n[urlLang]) return urlLang;
+
+    // 2. Browser language
+    const browserLang = navigator.language || navigator.userLanguage || 'en';
+    // Try exact match first (e.g. zh-TW)
+    if (i18n[browserLang]) return browserLang;
+    // Try base language (e.g. zh-CN -> zh, fr-CA -> fr)
+    const base = browserLang.split('-')[0];
+    if (i18n[base]) return base;
+
+    return 'en';
+}
+
+function changeLang() {
+    lang = document.getElementById('langSelect').value;
+    applyLang();
+}
+
+function applyLang() {
+    document.getElementById('langSelect').value = lang;
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        el.textContent = t(el.getAttribute('data-i18n'));
+    });
+    document.documentElement.lang = lang;
+}
+
+// Initialize
+lang = detectLang();
+applyLang();
 </script>
 
 </body>
