@@ -209,8 +209,6 @@
         <label for="priceUsd">Price (USD)</label>
         <input type="number" id="priceUsd" required step="0.01" min="0" placeholder="e.g. 9.99">
       </div>
-      <div class="form-group">
-      </div>
       <div class="modal-error" id="modalError"></div>
       <div class="modal-actions">
         <button type="button" class="btn btn-outline" onclick="closeModal()">Cancel</button>
@@ -330,7 +328,7 @@ document.getElementById('addAppForm').addEventListener('submit', async (e) => {
   const body = {
     appid: document.getElementById('appid').value.trim(),
     name: document.getElementById('appName').value.trim(),
-    price_usd: parseFloat(document.getElementById('priceUsd').value)
+    price_usd: parseFloat(document.getElementById('priceUsd').value),
   };
   try {
     const res = await fetch(API + '/admin/apps', {
