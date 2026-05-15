@@ -289,23 +289,6 @@
   </div>
 </div>
 
-<!-- Admin Key Modal -->
-<div class="modal-overlay" id="keyModalOverlay">
-  <div class="modal">
-    <h2>Enter VNPaddle Admin Key</h2>
-    <form id="keyForm">
-      <div class="form-group">
-        <label for="adminKeyInput">Admin Key</label>
-        <input type="password" id="adminKeyInput" required placeholder="Paste your admin key here">
-      </div>
-      <div class="modal-error" id="keyModalError"></div>
-      <div class="modal-actions">
-        <button type="submit" class="btn btn-primary">Save Key</button>
-      </div>
-    </form>
-  </div>
-</div>
-
 <!-- App Modal -->
 <div class="modal-overlay" id="appModalOverlay">
   <div class="modal">
@@ -372,13 +355,10 @@
 
 <script>
 const AUTH_API = 'https://license.echoshorts.win';
-const VNPADDLE_API = 'https://pay.echoshorts.win';
+const PADDLE_API = 'https://pay.echoshorts.win';
 
 function authHeaders() {
   return { 'Authorization': 'Bearer ' + localStorage.getItem('admin_token'), 'Content-Type': 'application/json' };
-}
-function vnpaddleHeaders() {
-  return { 'X-Admin-Key': localStorage.getItem('vnpaddle_admin_key') || '', 'Content-Type': 'application/json' };
 }
 
 // ---- Auth ----
@@ -401,26 +381,6 @@ function logout() {
   window.location.href = 'admin-login.html';
 }
 
-function checkAdminKey() {
-  if (!localStorage.getItem('vnpaddle_admin_key')) {
-    document.getElementById('keyModalOverlay').classList.add('active');
-    return false;
-  }
-  return true;
-}
-
-document.getElementById('keyForm').addEventListener('submit', (e) => {
-  e.preventDefault();
-  const key = document.getElementById('adminKeyInput').value.trim();
-  if (!key) {
-    document.getElementById('keyModalError').textContent = 'Key cannot be empty.';
-    return;
-  }
-  localStorage.setItem('vnpaddle_admin_key', key);
-  document.getElementById('keyModalOverlay').classList.remove('active');
-  loadApps();
-});
-
 // ---- Escape HTML ----
 function esc(str) {
   const d = document.createElement('div');
@@ -436,7 +396,7 @@ async function loadApps() {
   const tbody = document.getElementById('appsBody');
   tbody.innerHTML = '<tr><td colspan="6" class="empty-state">Loading...</td></tr>';
   try {
-    const res = await fetch(VNPADDLE_API + '/api/admin/apps', { headers: vnpaddleHeaders() });
+    const res = await fetch(PADDLE_API + '/api/admin/apps', { headers: authHeaders() });
     if (!res.ok) throw new Error('Failed to load apps (' + res.status + ')');
     const data = await res.json();
     const apps = data.apps || data || [];
@@ -506,9 +466,9 @@ function editApp(app) {
 async function deleteApp(appid) {
   if (!confirm('Delete app "' + appid + '"? This cannot be undone.')) return;
   try {
-    const res = await fetch(VNPADDLE_API + '/api/admin/apps/' + encodeURIComponent(appid), {
+    const res = await fetch(PADDLE_API + '/api/admin/apps/' + encodeURIComponent(appid), {
       method: 'DELETE',
-      headers: vnpaddleHeaders()
+      headers: authHeaders()
     });
     if (!res.ok) {
       const d = await res.json().catch(() => ({}));
@@ -535,9 +495,9 @@ document.getElementById('appForm').addEventListener('submit', async (e) => {
     paddle_product_id: document.getElementById('fPaddleProductId').value.trim(),
   };
   try {
-    const res = await fetch(VNPADDLE_API + '/api/admin/apps', {
+    const res = await fetch(PADDLE_API + '/api/admin/apps', {
       method: 'POST',
-      headers: vnpaddleHeaders(),
+      headers: authHeaders(),
       body: JSON.stringify(body)
     });
     const data = await res.json();
@@ -561,8 +521,8 @@ async function loadPrices() {
   }
   tbody.innerHTML = '<tr><td colspan="5" class="empty-state">Loading...</td></tr>';
   try {
-    const res = await fetch(VNPADDLE_API + '/api/admin/prices?appid=' + encodeURIComponent(appid), {
-      headers: vnpaddleHeaders()
+    const res = await fetch(PADDLE_API + '/api/admin/prices?appid=' + encodeURIComponent(appid), {
+      headers: authHeaders()
     });
     if (!res.ok) throw new Error('Failed to load prices (' + res.status + ')');
     const data = await res.json();
@@ -629,9 +589,9 @@ function editPrice(price) {
 async function deletePrice(priceId) {
   if (!confirm('Delete price "' + priceId + '"? This cannot be undone.')) return;
   try {
-    const res = await fetch(VNPADDLE_API + '/api/admin/prices/' + encodeURIComponent(priceId), {
+    const res = await fetch(PADDLE_API + '/api/admin/prices/' + encodeURIComponent(priceId), {
       method: 'DELETE',
-      headers: vnpaddleHeaders()
+      headers: authHeaders()
     });
     if (!res.ok) {
       const d = await res.json().catch(() => ({}));
@@ -657,9 +617,9 @@ document.getElementById('priceForm').addEventListener('submit', async (e) => {
     money: parseFloat(document.getElementById('fPriceMoney').value),
   };
   try {
-    const res = await fetch(VNPADDLE_API + '/api/admin/prices', {
+    const res = await fetch(PADDLE_API + '/api/admin/prices', {
       method: 'POST',
-      headers: vnpaddleHeaders(),
+      headers: authHeaders(),
       body: JSON.stringify(body)
     });
     const data = await res.json();
@@ -677,8 +637,6 @@ document.getElementById('priceForm').addEventListener('submit', async (e) => {
 document.querySelectorAll('.modal-overlay').forEach(el => {
   el.addEventListener('click', (e) => {
     if (e.target === e.currentTarget) {
-      // Don't allow closing the key modal by clicking outside if key is not set
-      if (el.id === 'keyModalOverlay' && !localStorage.getItem('vnpaddle_admin_key')) return;
       el.classList.remove('active');
       // Re-enable disabled fields
       document.getElementById('fAppid').disabled = false;
@@ -691,9 +649,7 @@ document.querySelectorAll('.modal-overlay').forEach(el => {
 // ---- Init ----
 (async () => {
   if (await checkAuth()) {
-    if (checkAdminKey()) {
-      loadApps();
-    }
+    loadApps();
   }
 })();
 </script>
