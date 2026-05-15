@@ -234,17 +234,17 @@
 </div>
 
 <div class="container">
-  <!-- Section 1: Apps -->
+  <!-- Section 1: Products -->
   <div class="section">
     <div class="toolbar">
-      <h2>Apps</h2>
-      <button class="btn btn-primary" onclick="openAppModal()">Add App</button>
+      <h2>Products</h2>
+      <button class="btn btn-primary" onclick="openAppModal()">Add Product</button>
     </div>
     <div class="table-wrap">
       <table>
         <thead>
           <tr>
-            <th>App ID</th>
+            <th>Product ID</th>
             <th>Name</th>
             <th>Notify URL</th>
             <th>Enabled</th>
@@ -265,7 +265,7 @@
       <h2>Prices</h2>
       <div class="toolbar-right">
         <select class="filter-select" id="priceAppFilter" onchange="loadPrices()">
-          <option value="">-- Select App --</option>
+          <option value="">-- Select Product --</option>
         </select>
         <button class="btn btn-primary" onclick="openPriceModal()">Add Price</button>
       </div>
@@ -275,27 +275,28 @@
         <thead>
           <tr>
             <th>Price ID</th>
-            <th>App ID</th>
+            <th>Paddle Price ID</th>
+            <th>Product</th>
             <th>Name</th>
             <th>Money (USD)</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody id="pricesBody">
-          <tr><td colspan="5" class="empty-state">Select an app to view prices.</td></tr>
+          <tr><td colspan="6" class="empty-state">Select a product to view prices.</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 </div>
 
-<!-- App Modal -->
+<!-- Product Modal -->
 <div class="modal-overlay" id="appModalOverlay">
   <div class="modal">
-    <h2 id="appModalTitle">Add App</h2>
+    <h2 id="appModalTitle">Add Product</h2>
     <form id="appForm">
       <div class="form-group">
-        <label for="fAppid">App ID</label>
+        <label for="fAppid">Product ID</label>
         <input type="text" id="fAppid" required placeholder="e.g. echoshorts">
       </div>
       <div class="form-group">
@@ -317,7 +318,7 @@
       <div class="modal-error" id="appModalError"></div>
       <div class="modal-actions">
         <button type="button" class="btn btn-outline" onclick="closeAppModal()">Cancel</button>
-        <button type="submit" class="btn btn-primary" id="appSubmitBtn">Add App</button>
+        <button type="submit" class="btn btn-primary" id="appSubmitBtn">Add Product</button>
       </div>
     </form>
   </div>
@@ -328,13 +329,17 @@
   <div class="modal">
     <h2 id="priceModalTitle">Add Price</h2>
     <form id="priceForm">
-      <div class="form-group">
-        <label for="fPriceId">Price ID</label>
-        <input type="text" id="fPriceId" required placeholder="e.g. pri_abc123">
+      <div class="form-group" id="fPriceIdGroup" style="display:none">
+        <label>Price ID</label>
+        <input type="text" id="fPriceIdDisplay" disabled style="opacity:0.6">
       </div>
       <div class="form-group">
-        <label for="fPriceAppid">App ID</label>
+        <label for="fPriceAppid">Product ID</label>
         <input type="text" id="fPriceAppid" required placeholder="e.g. echoshorts">
+      </div>
+      <div class="form-group">
+        <label for="fPaddlePriceId">Paddle Price ID</label>
+        <input type="text" id="fPaddlePriceId" required placeholder="e.g. pri_01xxxxx">
       </div>
       <div class="form-group">
         <label for="fPriceName">Name</label>
@@ -403,7 +408,7 @@ async function loadApps() {
     cachedApps = Array.isArray(apps) ? apps : [];
     populateAppFilter();
     if (!cachedApps.length) {
-      tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No apps yet. Click "Add App" to get started.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No products yet. Click "Add Product" to get started.</td></tr>';
       return;
     }
     tbody.innerHTML = cachedApps.map(app => `
@@ -429,7 +434,7 @@ async function loadApps() {
 function populateAppFilter() {
   const sel = document.getElementById('priceAppFilter');
   const cur = sel.value;
-  sel.innerHTML = '<option value="">-- Select App --</option>' +
+  sel.innerHTML = '<option value="">-- Select Product --</option>' +
     cachedApps.map(a => `<option value="${esc(a.appid)}">${esc(a.appid)} - ${esc(a.name)}</option>`).join('');
   if (cur) sel.value = cur;
 }
@@ -438,7 +443,7 @@ function openAppModal(app) {
   document.getElementById('appForm').reset();
   document.getElementById('appModalError').textContent = '';
   if (app) {
-    document.getElementById('appModalTitle').textContent = 'Edit App';
+    document.getElementById('appModalTitle').textContent = 'Edit Product';
     document.getElementById('appSubmitBtn').textContent = 'Save';
     document.getElementById('fAppid').value = app.appid;
     document.getElementById('fAppid').disabled = true;
@@ -447,8 +452,8 @@ function openAppModal(app) {
     document.getElementById('fSecret').value = app.secret || '';
     document.getElementById('fPaddleProductId').value = app.paddle_product_id || '';
   } else {
-    document.getElementById('appModalTitle').textContent = 'Add App';
-    document.getElementById('appSubmitBtn').textContent = 'Add App';
+    document.getElementById('appModalTitle').textContent = 'Add Product';
+    document.getElementById('appSubmitBtn').textContent = 'Add Product';
     document.getElementById('fAppid').disabled = false;
   }
   document.getElementById('appModalOverlay').classList.add('active');
@@ -464,7 +469,7 @@ function editApp(app) {
 }
 
 async function deleteApp(appid) {
-  if (!confirm('Delete app "' + appid + '"? This cannot be undone.')) return;
+  if (!confirm('Delete product "' + appid + '"? This cannot be undone.')) return;
   try {
     const res = await fetch(PADDLE_API + '/api/admin/apps/' + encodeURIComponent(appid), {
       method: 'DELETE',
@@ -501,7 +506,7 @@ document.getElementById('appForm').addEventListener('submit', async (e) => {
       body: JSON.stringify(body)
     });
     const data = await res.json();
-    if (!res.ok) throw new Error(data.error || 'Failed to save app');
+    if (!res.ok) throw new Error(data.error || 'Failed to save product');
     closeAppModal();
     loadApps();
   } catch (err) {
@@ -516,10 +521,10 @@ async function loadPrices() {
   const appid = document.getElementById('priceAppFilter').value;
   const tbody = document.getElementById('pricesBody');
   if (!appid) {
-    tbody.innerHTML = '<tr><td colspan="5" class="empty-state">Select an app to view prices.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="6" class="empty-state">Select a product to view prices.</td></tr>';
     return;
   }
-  tbody.innerHTML = '<tr><td colspan="5" class="empty-state">Loading...</td></tr>';
+  tbody.innerHTML = '<tr><td colspan="6" class="empty-state">Loading...</td></tr>';
   try {
     const res = await fetch(PADDLE_API + '/api/admin/prices?appid=' + encodeURIComponent(appid), {
       headers: authHeaders()
@@ -529,12 +534,13 @@ async function loadPrices() {
     const prices = json.data?.prices || json.prices || [];
     const list = Array.isArray(prices) ? prices : [];
     if (!list.length) {
-      tbody.innerHTML = '<tr><td colspan="5" class="empty-state">No prices for this app. Click "Add Price" to create one.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No prices for this product. Click "Add Price" to create one.</td></tr>';
       return;
     }
     tbody.innerHTML = list.map(p => `
       <tr>
         <td>${esc(p.priceId)}</td>
+        <td>${esc(p.paddlePriceId || '-')}</td>
         <td>${esc(p.appid)}</td>
         <td>${esc(p.name)}</td>
         <td>$${Number(p.money).toFixed(2)}</td>
@@ -547,26 +553,31 @@ async function loadPrices() {
       </tr>
     `).join('');
   } catch (err) {
-    tbody.innerHTML = `<tr><td colspan="5" class="empty-state" style="color:#f87171">Error: ${esc(err.message)}</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="6" class="empty-state" style="color:#f87171">Error: ${esc(err.message)}</td></tr>`;
   }
 }
+
+let editingPriceId = null;
 
 function openPriceModal(price) {
   document.getElementById('priceForm').reset();
   document.getElementById('priceModalError').textContent = '';
   if (price) {
+    editingPriceId = price.priceId;
     document.getElementById('priceModalTitle').textContent = 'Edit Price';
     document.getElementById('priceSubmitBtn').textContent = 'Save';
-    document.getElementById('fPriceId').value = price.priceId;
-    document.getElementById('fPriceId').disabled = true;
+    document.getElementById('fPriceIdGroup').style.display = '';
+    document.getElementById('fPriceIdDisplay').value = price.priceId;
     document.getElementById('fPriceAppid').value = price.appid;
     document.getElementById('fPriceAppid').disabled = true;
+    document.getElementById('fPaddlePriceId').value = price.paddlePriceId || '';
     document.getElementById('fPriceName').value = price.name || '';
     document.getElementById('fPriceMoney').value = price.money || '';
   } else {
+    editingPriceId = null;
     document.getElementById('priceModalTitle').textContent = 'Add Price';
     document.getElementById('priceSubmitBtn').textContent = 'Add Price';
-    document.getElementById('fPriceId').disabled = false;
+    document.getElementById('fPriceIdGroup').style.display = 'none';
     document.getElementById('fPriceAppid').disabled = false;
     const selectedAppid = document.getElementById('priceAppFilter').value;
     if (selectedAppid) {
@@ -578,8 +589,8 @@ function openPriceModal(price) {
 
 function closePriceModal() {
   document.getElementById('priceModalOverlay').classList.remove('active');
-  document.getElementById('fPriceId').disabled = false;
   document.getElementById('fPriceAppid').disabled = false;
+  editingPriceId = null;
 }
 
 function editPrice(price) {
@@ -610,18 +621,34 @@ document.getElementById('priceForm').addEventListener('submit', async (e) => {
   errorEl.textContent = '';
   btn.disabled = true;
 
-  const body = {
-    priceId: document.getElementById('fPriceId').value.trim(),
-    appid: document.getElementById('fPriceAppid').value.trim(),
-    name: document.getElementById('fPriceName').value.trim(),
-    money: parseFloat(document.getElementById('fPriceMoney').value),
-  };
   try {
-    const res = await fetch(PADDLE_API + '/api/admin/prices', {
-      method: 'POST',
-      headers: authHeaders(),
-      body: JSON.stringify(body)
-    });
+    let res;
+    if (editingPriceId) {
+      // Update existing price
+      const body = {
+        paddlePriceId: document.getElementById('fPaddlePriceId').value.trim(),
+        name: document.getElementById('fPriceName').value.trim(),
+        money: parseFloat(document.getElementById('fPriceMoney').value),
+      };
+      res = await fetch(PADDLE_API + '/api/admin/prices/' + encodeURIComponent(editingPriceId), {
+        method: 'PUT',
+        headers: authHeaders(),
+        body: JSON.stringify(body)
+      });
+    } else {
+      // Create new price
+      const body = {
+        appid: document.getElementById('fPriceAppid').value.trim(),
+        paddlePriceId: document.getElementById('fPaddlePriceId').value.trim(),
+        name: document.getElementById('fPriceName').value.trim(),
+        money: parseFloat(document.getElementById('fPriceMoney').value),
+      };
+      res = await fetch(PADDLE_API + '/api/admin/prices', {
+        method: 'POST',
+        headers: authHeaders(),
+        body: JSON.stringify(body)
+      });
+    }
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || 'Failed to save price');
     closePriceModal();
@@ -640,8 +667,8 @@ document.querySelectorAll('.modal-overlay').forEach(el => {
       el.classList.remove('active');
       // Re-enable disabled fields
       document.getElementById('fAppid').disabled = false;
-      document.getElementById('fPriceId').disabled = false;
       document.getElementById('fPriceAppid').disabled = false;
+      editingPriceId = null;
     }
   });
 });
