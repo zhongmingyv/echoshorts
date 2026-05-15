@@ -140,8 +140,11 @@
       'ar':    { alreadyPaid: 'لقد دفعت بالفعل', paidHint: 'انقر هنا إذا كنت قد دفعت بالفعل عبر رمز QR', successTitle: 'تم الدفع بنجاح!', successText: '.سيتم إرسال رمز التفعيل إلى بريدك الإلكتروني', successBtn: 'متابعة', initFail: 'فشل في التهيئة' }
     };
 
+    var langAliases = { 'zh': 'zh-CN', 'zh-cn': 'zh-CN', 'zh-tw': 'zh-TW', 'cht': 'zh-TW' };
+
     function t(key) {
-      return (i18n[currentLang] || i18n['en'])[key] || i18n['en'][key];
+      var lang = langAliases[currentLang] || currentLang;
+      return (i18n[lang] || i18n['en'])[key] || i18n['en'][key];
     }
 
     function switchLang(lang) {

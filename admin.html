@@ -282,6 +282,7 @@ async function loadApps() {
         </div>
         <div class="app-actions">
           <button class="btn btn-outline btn-sm" onclick="editApp('${escHtml(app.appid)}','${escHtml(app.name)}','${escHtml(app.priceId || '')}')">Edit</button>
+          <a href="admin-orders.html?appid=${encodeURIComponent(app.appid)}" class="btn btn-outline btn-sm">Orders</a>
           <a href="admin-discounts.html?appid=${encodeURIComponent(app.appid)}" class="btn btn-outline btn-sm">Discounts</a>
           <a href="admin-licenses.html?appid=${encodeURIComponent(app.appid)}" class="btn btn-outline btn-sm">Licenses</a>
           <button class="btn btn-danger btn-sm" onclick="deleteApp('${escHtml(app.appid)}')">Delete</button>

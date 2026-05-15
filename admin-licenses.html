@@ -281,7 +281,7 @@
     <h2>License Codes <span class="total-count" id="totalCount"></span></h2>
     <div class="header-actions">
       <button class="btn-outline btn-sm" onclick="openModal('generate')">Batch Generate</button>
-      <button class="btn-danger btn-sm" onclick="openModal('disable')">Batch Disable</button>
+      <button class="btn-outline btn-sm" onclick="openModal('disable')">Batch Modify</button>
     </div>
   </div>
 
@@ -302,6 +302,7 @@
           <th>Email</th>
           <th>Fingerprint</th>
           <th>Activated At</th>
+          <th>Expires At</th>
           <th>Order ID</th>
         </tr>
       </thead>
@@ -342,6 +343,13 @@
       <label>Count</label>
       <input type="number" id="genCount" value="10" min="1" max="1000" placeholder="e.g. 10">
     </div>
+    <div class="form-group">
+      <label>Expires At</label>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <input type="date" id="genExpiresAt" value="2099-01-01" style="flex:1;">
+        <button type="button" class="btn-outline btn-sm" onclick="document.getElementById('genExpiresAt').value='2099-01-01'">Permanent</button>
+      </div>
+    </div>
     <div id="genResult" style="display:none;">
       <label style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;display:block;">Generated Codes</label>
       <div class="generated-codes" id="generatedCodes"></div>
@@ -356,17 +364,25 @@
 <!-- Batch Operations Modal -->
 <div class="modal-overlay" id="disableModal" onclick="if(event.target===this)closeModal('disable')">
   <div class="modal">
-    <h3>Batch Operations</h3>
+    <h3>Batch Modify</h3>
     <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Operate on all licenses whose code starts with the given prefix. Already activated licenses cannot be re-enabled or deleted.</p>
     <div class="form-group">
       <label>Code Prefix</label>
       <input type="text" id="batchPrefix" placeholder="e.g. ECHO">
     </div>
-    <div class="modal-actions" style="flex-wrap:wrap;">
+    <div class="form-group">
+      <label>Update Expiry (for batch expiry only)</label>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <input type="date" id="batchExpiresAt" style="flex:1;">
+        <button type="button" class="btn-outline btn-sm" onclick="document.getElementById('batchExpiresAt').value='2099-01-01'">Permanent</button>
+      </div>
+    </div>
+    <div class="modal-actions" style="flex-wrap:wrap;gap:8px;">
       <button class="btn-cancel" onclick="closeModal('disable')">Cancel</button>
-      <button class="btn-outline btn-sm" id="enableBtn" onclick="batchOperation('enable')">Enable All Matching</button>
-      <button class="btn-danger btn-sm" id="disableBtn" onclick="batchOperation('disable')">Disable All Matching</button>
-      <button class="btn-danger btn-sm" style="background:#dc2626;" id="deleteBtn" onclick="batchOperation('delete')">Delete All Matching</button>
+      <button class="btn-primary btn-sm" id="expiryBtn" onclick="batchUpdateExpiry()">Update Expiry</button>
+      <button class="btn-outline btn-sm" id="enableBtn" onclick="batchOperation('enable')">Enable</button>
+      <button class="btn-danger btn-sm" id="disableBtn" onclick="batchOperation('disable')">Disable</button>
+      <button class="btn-danger btn-sm" style="background:#dc2626;" id="deleteBtn" onclick="batchOperation('delete')">Delete</button>
     </div>
   </div>
 </div>
@@ -423,6 +439,18 @@ function formatDate(d) {
   } catch { return d; }
 }
 
+function formatExpiry(d) {
+  if (!d) return '<span class="badge badge-green">permanent</span>';
+  try {
+    const dt = new Date(d);
+    if (dt.getFullYear() >= 2098) return '<span class="badge badge-green">permanent</span>';
+    const now = new Date();
+    const badge = dt < now ? 'badge-red' : 'badge-gray';
+    const label = dt.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    return `<span class="badge ${badge}">${label}</span>`;
+  } catch { return d; }
+}
+
 function statusBadge(status) {
   const s = (status || 'unused').toLowerCase();
   if (s === 'activated' || s === 'active') return '<span class="badge badge-green">activated</span>';
@@ -476,6 +504,7 @@ function renderTable() {
     <td>${escHtml(l.email || '-')}</td>
     <td class="truncated" title="${escHtml(l.fingerprint || '')}">${escHtml(truncate(l.fingerprint || '', 16))}</td>
     <td>${formatDate(l.activatedAt)}</td>
+    <td>${formatExpiry(l.expiresAt)}</td>
     <td>${escHtml(l.orderId || '-')}</td>
   </tr>`).join('');
 
@@ -531,6 +560,8 @@ async function batchGenerate() {
   const btn = document.getElementById('genBtn');
   const prefix = document.getElementById('genPrefix').value.trim() || 'ECHO';
   const count = parseInt(document.getElementById('genCount').value) || 10;
+  const expiresDateStr = document.getElementById('genExpiresAt').value;
+  const expiresAt = expiresDateStr ? new Date(expiresDateStr + 'T00:00:00.000Z').toISOString() : '2099-01-01T00:00:00.000Z';
 
   btn.disabled = true;
   btn.textContent = 'Generating...';
@@ -538,7 +569,7 @@ async function batchGenerate() {
     const res = await fetch(`${API}/admin/apps/${appid}/licenses/generate`, {
       method: 'POST',
       headers: authHeaders(),
-      body: JSON.stringify({ count, prefix })
+      body: JSON.stringify({ count, prefix, expiresAt })
     });
     if (!res.ok) {
       const data = await res.json().catch(() => ({}));
@@ -589,6 +620,41 @@ async function batchOperation(action) {
     const data = await res.json();
     const count = data.disabledCount ?? data.enabledCount ?? data.deletedCount ?? 0;
     showSuccess(`${action === 'delete' ? 'Deleted' : action === 'enable' ? 'Enabled' : 'Disabled'} ${count} licenses.`);
+    closeModal('disable');
+    await loadLicenses();
+  } catch (err) {
+    showError(err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = origText;
+  }
+}
+
+async function batchUpdateExpiry() {
+  const prefix = document.getElementById('batchPrefix').value.trim();
+  if (!prefix) { showError('Please enter a prefix to match'); return; }
+  const expiresDateStr = document.getElementById('batchExpiresAt').value;
+  if (!expiresDateStr) { showError('Please select an expiry date'); return; }
+  const expiresAt = new Date(expiresDateStr + 'T00:00:00.000Z').toISOString();
+
+  if (!confirm(`This will update expiry to ${expiresDateStr} for all licenses starting with "${prefix}". Continue?`)) return;
+
+  const btn = document.getElementById('expiryBtn');
+  const origText = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'Updating...';
+  try {
+    const res = await fetch(`${API}/admin/apps/${appid}/licenses/batch-update-expiry`, {
+      method: 'POST',
+      headers: authHeaders(),
+      body: JSON.stringify({ prefix, expiresAt })
+    });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      throw new Error(data.error || 'Failed to update expiry');
+    }
+    const data = await res.json();
+    showSuccess(`Updated expiry for ${data.updatedCount} licenses.`);
     closeModal('disable');
     await loadLicenses();
   } catch (err) {

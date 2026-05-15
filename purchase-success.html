@@ -157,6 +157,9 @@
             line-height: 1.7;
         }
 
+        .notice-text a { color: #4ade80; text-decoration: none; }
+        .notice-text a:hover { text-decoration: underline; }
+
         .back-link {
             display: inline-flex;
             align-items: center;
@@ -264,9 +267,10 @@
     <div class="notice">
         <div class="notice-title" data-i18n="notReceived">Didn't receive the email?</div>
         <div class="notice-text">
-            <span data-i18n="tip1">Check your spam/junk folder</span><br>
-            <span data-i18n="tip2">Wait a few minutes and check again</span><br>
-            <span data-i18n="tip3">Contact support if the issue persists</span>
+            <span data-i18n="delayNotice">Due to third-party payment processor delays, it may take 1-10 minutes to receive your activation code. Please be patient.</span><br><br>
+            <span data-i18n="supportNotice">If you haven't received it after 30 minutes, please send a screenshot of your payment confirmation to</span>
+            <a href="mailto:supports@echoshorts.win" style="color:#4ade80;">supports@echoshorts.win</a>
+            <span data-i18n="supportNotice2">and we will verify your payment as soon as possible.</span>
         </div>
     </div>
 
@@ -288,9 +292,9 @@ const i18n = {
     step2: 'On the activation page, paste your activation code',
     step3: 'Click "Activate"',
     notReceived: "Didn't receive the email?",
-    tip1: 'Check your spam/junk folder',
-    tip2: 'Wait a few minutes and check again',
-    tip3: 'Contact support if the issue persists',
+    delayNotice: 'Due to third-party payment processor delays, it may take 1-10 minutes to receive your activation code. Please be patient.',
+    supportNotice: "If you haven't received it after 30 minutes, please send a screenshot of your payment confirmation to",
+    supportNotice2: 'and we will verify your payment as soon as possible.',
     backLink: 'Back to EchoShorts'
   },
   zh: {
@@ -301,9 +305,9 @@ const i18n = {
     step2: '在激活页面中，粘贴您的激活码',
     step3: '点击"激活"',
     notReceived: '没有收到邮件？',
-    tip1: '请检查垃圾邮件文件夹',
-    tip2: '等待几分钟后再次查看',
-    tip3: '如问题持续存在，请联系客服',
+    delayNotice: '由于第三方结算方通知存在延迟，收到激活码可能需要 1-10 分钟，请耐心等待。',
+    supportNotice: '如果超过 30 分钟仍未收到，请将支付信息截图发送至',
+    supportNotice2: '，我们将尽快为您核实。',
     backLink: '返回 EchoShorts'
   },
   'zh-TW': {
@@ -314,9 +318,9 @@ const i18n = {
     step2: '在啟用頁面中，貼上您的啟用碼',
     step3: '點擊「啟用」',
     notReceived: '沒有收到郵件？',
-    tip1: '請檢查垃圾郵件資料夾',
-    tip2: '等待幾分鐘後再次查看',
-    tip3: '如問題持續存在，請聯繫客服',
+    delayNotice: '由於第三方結算方通知存在延遲，收到啟用碼可能需要 1-10 分鐘，請耐心等待。',
+    supportNotice: '如果超過 30 分鐘仍未收到，請將付款資訊截圖發送至',
+    supportNotice2: '，我們將盡快為您核實。',
     backLink: '返回 EchoShorts'
   },
   ja: {
@@ -327,9 +331,9 @@ const i18n = {
     step2: 'アクティベーションページでコードを貼り付ける',
     step3: '「アクティベート」をクリック',
     notReceived: 'メールが届きませんか？',
-    tip1: '迷惑メールフォルダを確認してください',
-    tip2: '数分待ってから再度確認してください',
-    tip3: '問題が続く場合はサポートにお問い合わせください',
+    delayNotice: 'サードパーティ決済処理の遅延により、アクティベーションコードの受信に1〜10分かかる場合があります。しばらくお待ちください。',
+    supportNotice: '30分経っても届かない場合は、お支払い確認のスクリーンショットを以下のアドレスにお送りください：',
+    supportNotice2: 'できるだけ早くお支払いを確認いたします。',
     backLink: 'EchoShortsに戻る'
   },
   ko: {
@@ -340,9 +344,9 @@ const i18n = {
     step2: '활성화 페이지에서 활성화 코드를 붙여넣기',
     step3: '"활성화" 클릭',
     notReceived: '이메일을 받지 못하셨나요?',
-    tip1: '스팸/정크 폴더를 확인하세요',
-    tip2: '몇 분 후 다시 확인하세요',
-    tip3: '문제가 지속되면 고객지원에 문의하세요',
+    delayNotice: '제3자 결제 처리 지연으로 인해 활성화 코드를 받는 데 1~10분이 소요될 수 있습니다. 잠시만 기다려 주세요.',
+    supportNotice: '30분이 지나도 받지 못한 경우, 결제 확인 스크린샷을 다음 주소로 보내주세요:',
+    supportNotice2: '가능한 빨리 결제를 확인해 드리겠습니다.',
     backLink: 'EchoShorts로 돌아가기'
   },
   fr: {
@@ -353,9 +357,9 @@ const i18n = {
     step2: 'Sur la page d\'activation, collez votre code d\'activation',
     step3: 'Cliquez sur « Activer »',
     notReceived: 'Vous n\'avez pas reçu l\'e-mail ?',
-    tip1: 'Vérifiez votre dossier spam/courrier indésirable',
-    tip2: 'Attendez quelques minutes et vérifiez à nouveau',
-    tip3: 'Contactez le support si le problème persiste',
+    delayNotice: 'En raison de retards du processeur de paiement tiers, la réception de votre code d\'activation peut prendre 1 à 10 minutes. Veuillez patienter.',
+    supportNotice: 'Si vous ne l\'avez pas reçu après 30 minutes, veuillez envoyer une capture d\'écran de votre confirmation de paiement à',
+    supportNotice2: 'et nous vérifierons votre paiement dans les plus brefs délais.',
     backLink: 'Retour à EchoShorts'
   },
   de: {
@@ -366,9 +370,9 @@ const i18n = {
     step2: 'Auf der Aktivierungsseite Ihren Aktivierungscode einfügen',
     step3: '„Aktivieren" klicken',
     notReceived: 'E-Mail nicht erhalten?',
-    tip1: 'Überprüfen Sie Ihren Spam-/Junk-Ordner',
-    tip2: 'Warten Sie einige Minuten und prüfen Sie erneut',
-    tip3: 'Kontaktieren Sie den Support, wenn das Problem weiterhin besteht',
+    delayNotice: 'Aufgrund von Verzögerungen beim Drittanbieter-Zahlungsdienstleister kann es 1-10 Minuten dauern, bis Sie Ihren Aktivierungscode erhalten. Bitte haben Sie Geduld.',
+    supportNotice: 'Falls Sie ihn nach 30 Minuten noch nicht erhalten haben, senden Sie bitte einen Screenshot Ihrer Zahlungsbestätigung an',
+    supportNotice2: 'und wir werden Ihre Zahlung so schnell wie möglich überprüfen.',
     backLink: 'Zurück zu EchoShorts'
   },
   es: {
@@ -379,9 +383,9 @@ const i18n = {
     step2: 'En la página de activación, pega tu código de activación',
     step3: 'Haz clic en "Activar"',
     notReceived: '¿No recibiste el correo?',
-    tip1: 'Revisa tu carpeta de spam/correo no deseado',
-    tip2: 'Espera unos minutos y vuelve a revisar',
-    tip3: 'Contacta al soporte si el problema persiste',
+    delayNotice: 'Debido a retrasos del procesador de pagos de terceros, puede tardar de 1 a 10 minutos en recibir su código de activación. Por favor, tenga paciencia.',
+    supportNotice: 'Si no lo ha recibido después de 30 minutos, envíe una captura de pantalla de su confirmación de pago a',
+    supportNotice2: 'y verificaremos su pago lo antes posible.',
     backLink: 'Volver a EchoShorts'
   },
   pt: {
@@ -392,9 +396,9 @@ const i18n = {
     step2: 'Na página de ativação, cole seu código de ativação',
     step3: 'Clique em "Ativar"',
     notReceived: 'Não recebeu o e-mail?',
-    tip1: 'Verifique sua pasta de spam/lixo eletrônico',
-    tip2: 'Aguarde alguns minutos e verifique novamente',
-    tip3: 'Entre em contato com o suporte se o problema persistir',
+    delayNotice: 'Devido a atrasos no processador de pagamento de terceiros, pode levar de 1 a 10 minutos para receber seu código de ativação. Por favor, aguarde.',
+    supportNotice: 'Se não receber após 30 minutos, envie uma captura de tela da confirmação de pagamento para',
+    supportNotice2: 'e verificaremos seu pagamento o mais rápido possível.',
     backLink: 'Voltar ao EchoShorts'
   },
   ru: {
@@ -405,9 +409,9 @@ const i18n = {
     step2: 'На странице активации вставьте код активации',
     step3: 'Нажмите «Активировать»',
     notReceived: 'Не получили письмо?',
-    tip1: 'Проверьте папку «Спам»',
-    tip2: 'Подождите несколько минут и проверьте снова',
-    tip3: 'Свяжитесь с поддержкой, если проблема сохраняется',
+    delayNotice: 'Из-за задержек стороннего платёжного процессора получение кода активации может занять от 1 до 10 минут. Пожалуйста, подождите.',
+    supportNotice: 'Если вы не получили его в течение 30 минут, отправьте скриншот подтверждения оплаты на',
+    supportNotice2: 'и мы проверим ваш платёж как можно скорее.',
     backLink: 'Вернуться к EchoShorts'
   },
   ar: {
@@ -418,9 +422,9 @@ const i18n = {
     step2: 'في صفحة التفعيل، الصق رمز التفعيل',
     step3: 'انقر على "تفعيل"',
     notReceived: 'لم تستلم البريد الإلكتروني؟',
-    tip1: 'تحقق من مجلد البريد العشوائي/غير المرغوب فيه',
-    tip2: 'انتظر بضع دقائق وتحقق مرة أخرى',
-    tip3: 'تواصل مع الدعم إذا استمرت المشكلة',
+    delayNotice: 'بسبب تأخيرات معالج الدفع الخارجي، قد يستغرق استلام رمز التفعيل من 1 إلى 10 دقائق. يرجى الانتظار.',
+    supportNotice: 'إذا لم تستلمه بعد 30 دقيقة، يرجى إرسال لقطة شاشة لتأكيد الدفع إلى',
+    supportNotice2: 'وسنتحقق من دفعتك في أقرب وقت ممكن.',
     backLink: 'العودة إلى EchoShorts'
   },
   hi: {
@@ -431,9 +435,9 @@ const i18n = {
     step2: 'एक्टिवेशन पेज पर, अपना एक्टिवेशन कोड पेस्ट करें',
     step3: '"एक्टिवेट" पर क्लिक करें',
     notReceived: 'ईमेल नहीं मिला?',
-    tip1: 'अपना स्पैम/जंक फ़ोल्डर जांचें',
-    tip2: 'कुछ मिनट प्रतीक्षा करें और फिर से जांचें',
-    tip3: 'समस्या बनी रहने पर सहायता से संपर्क करें',
+    delayNotice: 'तृतीय-पक्ष भुगतान प्रोसेसर में देरी के कारण, आपका एक्टिवेशन कोड प्राप्त करने में 1-10 मिनट लग सकते हैं। कृपया धैर्य रखें।',
+    supportNotice: 'यदि 30 मिनट के बाद भी नहीं मिला है, तो कृपया अपने भुगतान पुष्टि का स्क्रीनशॉट इस पते पर भेजें:',
+    supportNotice2: 'और हम जल्द से जल्द आपके भुगतान की पुष्टि करेंगे।',
     backLink: 'EchoShorts पर वापस जाएं'
   },
   th: {
@@ -444,9 +448,9 @@ const i18n = {
     step2: 'ในหน้าเปิดใช้งาน วางรหัสเปิดใช้งานของคุณ',
     step3: 'คลิก "เปิดใช้งาน"',
     notReceived: 'ไม่ได้รับอีเมล?',
-    tip1: 'ตรวจสอบโฟลเดอร์สแปม/ขยะ',
-    tip2: 'รอสักครู่แล้วตรวจสอบอีกครั้ง',
-    tip3: 'ติดต่อฝ่ายสนับสนุนหากปัญหายังคงอยู่',
+    delayNotice: 'เนื่องจากความล่าช้าของผู้ประมวลผลการชำระเงินบุคคลที่สาม อาจใช้เวลา 1-10 นาทีในการรับรหัสเปิดใช้งาน กรุณารอสักครู่',
+    supportNotice: 'หากยังไม่ได้รับหลังจาก 30 นาที กรุณาส่งภาพหน้าจอยืนยันการชำระเงินไปที่',
+    supportNotice2: 'และเราจะตรวจสอบการชำระเงินของคุณโดยเร็วที่สุด',
     backLink: 'กลับไปที่ EchoShorts'
   },
   vi: {
@@ -457,9 +461,9 @@ const i18n = {
     step2: 'Tại trang kích hoạt, dán mã kích hoạt của bạn',
     step3: 'Nhấn "Kích hoạt"',
     notReceived: 'Không nhận được email?',
-    tip1: 'Kiểm tra thư mục spam/thư rác',
-    tip2: 'Đợi vài phút rồi kiểm tra lại',
-    tip3: 'Liên hệ hỗ trợ nếu vấn đề vẫn tiếp diễn',
+    delayNotice: 'Do sự chậm trễ của bên xử lý thanh toán thứ ba, có thể mất 1-10 phút để nhận mã kích hoạt. Vui lòng kiên nhẫn chờ đợi.',
+    supportNotice: 'Nếu bạn chưa nhận được sau 30 phút, vui lòng gửi ảnh chụp màn hình xác nhận thanh toán đến',
+    supportNotice2: 'và chúng tôi sẽ xác minh thanh toán của bạn sớm nhất có thể.',
     backLink: 'Quay lại EchoShorts'
   },
   id: {
@@ -470,9 +474,9 @@ const i18n = {
     step2: 'Di halaman aktivasi, tempel kode aktivasi Anda',
     step3: 'Klik "Aktifkan"',
     notReceived: 'Tidak menerima email?',
-    tip1: 'Periksa folder spam/sampah',
-    tip2: 'Tunggu beberapa menit dan periksa kembali',
-    tip3: 'Hubungi dukungan jika masalah berlanjut',
+    delayNotice: 'Karena keterlambatan pemroses pembayaran pihak ketiga, mungkin diperlukan 1-10 menit untuk menerima kode aktivasi Anda. Harap bersabar.',
+    supportNotice: 'Jika Anda belum menerimanya setelah 30 menit, silakan kirim tangkapan layar konfirmasi pembayaran Anda ke',
+    supportNotice2: 'dan kami akan memverifikasi pembayaran Anda sesegera mungkin.',
     backLink: 'Kembali ke EchoShorts'
   },
   ms: {
@@ -483,9 +487,9 @@ const i18n = {
     step2: 'Di halaman pengaktifan, tampal kod pengaktifan anda',
     step3: 'Klik "Aktifkan"',
     notReceived: 'Tidak menerima e-mel?',
-    tip1: 'Semak folder spam/sampah',
-    tip2: 'Tunggu beberapa minit dan semak semula',
-    tip3: 'Hubungi sokongan jika masalah berterusan',
+    delayNotice: 'Disebabkan kelewatan pemproses pembayaran pihak ketiga, ia mungkin mengambil masa 1-10 minit untuk menerima kod pengaktifan anda. Sila bersabar.',
+    supportNotice: 'Jika anda belum menerimanya selepas 30 minit, sila hantar tangkapan skrin pengesahan pembayaran anda ke',
+    supportNotice2: 'dan kami akan mengesahkan pembayaran anda secepat mungkin.',
     backLink: 'Kembali ke EchoShorts'
   },
   tr: {
@@ -496,9 +500,9 @@ const i18n = {
     step2: 'Aktivasyon sayfasında aktivasyon kodunuzu yapıştırın',
     step3: '"Aktifleştir" düğmesine tıklayın',
     notReceived: 'E-postayı almadınız mı?',
-    tip1: 'Spam/gereksiz posta klasörünüzü kontrol edin',
-    tip2: 'Birkaç dakika bekleyin ve tekrar kontrol edin',
-    tip3: 'Sorun devam ederse destek ile iletişime geçin',
+    delayNotice: 'Üçüncü taraf ödeme işlemcisi gecikmelerinden dolayı aktivasyon kodunuzu almanız 1-10 dakika sürebilir. Lütfen sabırlı olun.',
+    supportNotice: '30 dakika sonra hâlâ almadıysanız, lütfen ödeme onayınızın ekran görüntüsünü şu adrese gönderin:',
+    supportNotice2: 've ödemenizi en kısa sürede doğrulayacağız.',
     backLink: 'EchoShorts\'a Dön'
   },
   pl: {
@@ -509,9 +513,9 @@ const i18n = {
     step2: 'Na stronie aktywacji wklej kod aktywacyjny',
     step3: 'Kliknij „Aktywuj"',
     notReceived: 'Nie otrzymałeś e-maila?',
-    tip1: 'Sprawdź folder spam/śmieci',
-    tip2: 'Poczekaj kilka minut i sprawdź ponownie',
-    tip3: 'Skontaktuj się z pomocą techniczną, jeśli problem nie ustępuje',
+    delayNotice: 'Ze względu na opóźnienia zewnętrznego procesora płatności, otrzymanie kodu aktywacyjnego może potrwać od 1 do 10 minut. Prosimy o cierpliwość.',
+    supportNotice: 'Jeśli nie otrzymałeś go po 30 minutach, wyślij zrzut ekranu potwierdzenia płatności na adres',
+    supportNotice2: 'a my zweryfikujemy Twoją płatność jak najszybciej.',
     backLink: 'Powrót do EchoShorts'
   },
   nl: {
@@ -522,9 +526,9 @@ const i18n = {
     step2: 'Plak uw activatiecode op de activatiepagina',
     step3: 'Klik op "Activeren"',
     notReceived: 'E-mail niet ontvangen?',
-    tip1: 'Controleer uw spam-/ongewenste-mailmap',
-    tip2: 'Wacht een paar minuten en controleer opnieuw',
-    tip3: 'Neem contact op met ondersteuning als het probleem aanhoudt',
+    delayNotice: 'Door vertragingen bij de externe betalingsverwerker kan het 1-10 minuten duren voordat u uw activatiecode ontvangt. Even geduld alstublieft.',
+    supportNotice: 'Als u het na 30 minuten nog niet heeft ontvangen, stuur dan een screenshot van uw betalingsbevestiging naar',
+    supportNotice2: 'en wij zullen uw betaling zo snel mogelijk verifiëren.',
     backLink: 'Terug naar EchoShorts'
   },
   sv: {
@@ -535,9 +539,9 @@ const i18n = {
     step2: 'På aktiveringssidan, klistra in din aktiveringskod',
     step3: 'Klicka på "Aktivera"',
     notReceived: 'Fick du inget e-postmeddelande?',
-    tip1: 'Kontrollera din skräppost-/spammapp',
-    tip2: 'Vänta några minuter och kontrollera igen',
-    tip3: 'Kontakta support om problemet kvarstår',
+    delayNotice: 'På grund av fördröjningar hos tredjepartsbetalningsprocessorn kan det ta 1-10 minuter att ta emot din aktiveringskod. Vänligen ha tålamod.',
+    supportNotice: 'Om du inte har fått den efter 30 minuter, skicka en skärmbild av din betalningsbekräftelse till',
+    supportNotice2: 'så verifierar vi din betalning så snart som möjligt.',
     backLink: 'Tillbaka till EchoShorts'
   },
   da: {
@@ -548,9 +552,9 @@ const i18n = {
     step2: 'På aktiveringssiden, indsæt din aktiveringskode',
     step3: 'Klik på "Aktiver"',
     notReceived: 'Har du ikke modtaget e-mailen?',
-    tip1: 'Tjek din spam-/uønsket post-mappe',
-    tip2: 'Vent et par minutter og tjek igen',
-    tip3: 'Kontakt support, hvis problemet fortsætter',
+    delayNotice: 'På grund af forsinkelser hos tredjeparts betalingsprocessoren kan det tage 1-10 minutter at modtage din aktiveringskode. Vær venligst tålmodig.',
+    supportNotice: 'Hvis du ikke har modtaget den efter 30 minutter, send venligst et skærmbillede af din betalingsbekræftelse til',
+    supportNotice2: 'og vi vil verificere din betaling hurtigst muligt.',
     backLink: 'Tilbage til EchoShorts'
   },
   nb: {
@@ -561,9 +565,9 @@ const i18n = {
     step2: 'På aktiveringssiden, lim inn aktiveringskoden din',
     step3: 'Klikk på «Aktiver»',
     notReceived: 'Har du ikke mottatt e-posten?',
-    tip1: 'Sjekk spam-/søppelpostmappen din',
-    tip2: 'Vent noen minutter og sjekk igjen',
-    tip3: 'Kontakt brukerstøtte hvis problemet vedvarer',
+    delayNotice: 'På grunn av forsinkelser hos tredjeparts betalingsbehandler kan det ta 1-10 minutter å motta aktiveringskoden din. Vennligst vær tålmodig.',
+    supportNotice: 'Hvis du ikke har mottatt den etter 30 minutter, vennligst send et skjermbilde av betalingsbekreftelsen din til',
+    supportNotice2: 'og vi vil verifisere betalingen din så snart som mulig.',
     backLink: 'Tilbake til EchoShorts'
   },
   fi: {
@@ -574,9 +578,9 @@ const i18n = {
     step2: 'Liitä aktivointikoodisi aktivointisivulla',
     step3: 'Napsauta "Aktivoi"',
     notReceived: 'Etkö saanut sähköpostia?',
-    tip1: 'Tarkista roskaposti-/roskapostikansiosi',
-    tip2: 'Odota muutama minuutti ja tarkista uudelleen',
-    tip3: 'Ota yhteyttä tukeen, jos ongelma jatkuu',
+    delayNotice: 'Kolmannen osapuolen maksunvälittäjän viiveiden vuoksi aktivointikoodin vastaanottaminen voi kestää 1-10 minuuttia. Ole kärsivällinen.',
+    supportNotice: 'Jos et ole saanut sitä 30 minuutin jälkeen, lähetä kuvakaappaus maksuvahvistuksestasi osoitteeseen',
+    supportNotice2: 'ja tarkistamme maksusi mahdollisimman pian.',
     backLink: 'Takaisin EchoShortsiin'
   },
   it: {
@@ -587,9 +591,9 @@ const i18n = {
     step2: 'Nella pagina di attivazione, incolla il tuo codice di attivazione',
     step3: 'Fai clic su "Attiva"',
     notReceived: 'Non hai ricevuto l\'e-mail?',
-    tip1: 'Controlla la cartella spam/posta indesiderata',
-    tip2: 'Attendi qualche minuto e ricontrolla',
-    tip3: 'Contatta l\'assistenza se il problema persiste',
+    delayNotice: 'A causa di ritardi del processore di pagamento di terze parti, potrebbero essere necessari 1-10 minuti per ricevere il codice di attivazione. Si prega di avere pazienza.',
+    supportNotice: 'Se non lo hai ricevuto dopo 30 minuti, invia uno screenshot della conferma di pagamento a',
+    supportNotice2: 'e verificheremo il tuo pagamento il prima possibile.',
     backLink: 'Torna a EchoShorts'
   }
 };
@@ -601,20 +605,27 @@ function t(key) {
 }
 
 function detectLang() {
+    // Lang alias map: normalize common variants to i18n keys
+    const langAlias = { 'zh-CN': 'zh', 'zh-Hans': 'zh', 'zh-Hant': 'zh-TW' };
+
+    function resolve(code) {
+        if (!code) return null;
+        if (i18n[code]) return code;
+        if (langAlias[code] && i18n[langAlias[code]]) return langAlias[code];
+        const base = code.split('-')[0];
+        if (i18n[base]) return base;
+        return null;
+    }
+
     // 1. URL parameter takes priority
     const params = new URLSearchParams(window.location.search);
     const urlLang = params.get('lang');
-    if (urlLang && i18n[urlLang]) return urlLang;
+    const resolved = resolve(urlLang);
+    if (resolved) return resolved;
 
     // 2. Browser language
     const browserLang = navigator.language || navigator.userLanguage || 'en';
-    // Try exact match first (e.g. zh-TW)
-    if (i18n[browserLang]) return browserLang;
-    // Try base language (e.g. zh-CN -> zh, fr-CA -> fr)
-    const base = browserLang.split('-')[0];
-    if (i18n[base]) return base;
-
-    return 'en';
+    return resolve(browserLang) || 'en';
 }
 
 function changeLang() {
