@@ -1,3 +1,7 @@
+## 2026-05-15
+
+- `home-zh.html`：独立安装包区「百度网盘下载」旁新增「下载大模型」按钮，链接为 `https://pan.baidu.com/s/17ST4WQREfwigw4WhuuN57g?pwd=b7xa`，样式 `btn btn-outline`，新标签页打开。
+
 ## 2026-05-13
 
 - 全语言首页 `#4 合作伙伴计划`：`home.html` 增加 `PARTNER_PROGRAM_BEGIN/END` 占位；新增 `partnerProgramCore.js`、`partnerProgramLocales.js`、`partnerProgramTranslations.js`，在 `generate_home.js` 中 `applyPartnerProgram` 按语言注入区块；已执行 `node generate_home.js` 更新全部 `home-*.html`（各语言文案集中在 `partnerProgramLocales.js` 维护）。
