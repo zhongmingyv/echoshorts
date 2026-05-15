@@ -349,7 +349,7 @@
           <span id="originalPrice">--</span>
         </div>
         <div class="price-row discount" id="discountRow" style="display:none">
-          <span data-i18n="discount">Discount</span>
+          <span data-i18n="discountPrice">Discount Price</span>
           <span id="discountAmount"></span>
         </div>
         <div class="price-row total">
@@ -945,24 +945,27 @@ async function loadAppInfo() {
 
 function updatePriceDisplay() {
   if (!appInfo) return;
-  const price = appInfo.price_usd || appInfo.price || 0;
+  const originalPrice = appInfo.price_usd || appInfo.price || 0;
   const currency = 'USD';
 
-  document.getElementById('originalPrice').textContent = formatPrice(price, currency);
+  document.getElementById('originalPrice').textContent = formatPrice(originalPrice, currency);
 
-  if (appliedDiscount) {
-    const discountAmt = price * (appliedDiscount.percent / 100);
-    const finalPrice = price - discountAmt;
+  if (appliedDiscount && appliedDiscount.money !== undefined) {
+    // Discount has its own price — show original (strikethrough) and new price
     document.getElementById('discountRow').style.display = 'flex';
-    document.getElementById('discountAmount').textContent = '-' + formatPrice(discountAmt, currency);
-    document.getElementById('totalPrice').textContent = formatPrice(finalPrice, currency);
+    document.getElementById('originalPrice').style.textDecoration = 'line-through';
+    document.getElementById('originalPrice').style.opacity = '0.5';
+    document.getElementById('discountAmount').textContent = formatPrice(appliedDiscount.money, currency);
+    document.getElementById('totalPrice').textContent = formatPrice(appliedDiscount.money, currency);
   } else {
     document.getElementById('discountRow').style.display = 'none';
-    document.getElementById('totalPrice').textContent = formatPrice(price, currency);
+    document.getElementById('originalPrice').style.textDecoration = 'none';
+    document.getElementById('originalPrice').style.opacity = '1';
+    document.getElementById('totalPrice').textContent = formatPrice(originalPrice, currency);
   }
 }
 
-function applyDiscount() {
+async function applyDiscount() {
   const code = document.getElementById('discountInput').value.trim();
   if (!code) {
     appliedDiscount = null;
@@ -971,10 +974,31 @@ function applyDiscount() {
     return;
   }
 
-  // Preview: assume a placeholder 10% discount for display.
-  // Actual validation is server-side during purchase.
-  appliedDiscount = { code: code, percent: 10 };
-  showDiscountMsg(t('discountPreview'), 'success');
+  const appid = getAppId();
+  const btn = document.getElementById('applyBtn');
+  btn.disabled = true;
+  btn.textContent = '...';
+
+  try {
+    const res = await fetch(`${API_BASE}/check-discount?appid=${encodeURIComponent(appid)}&code=${encodeURIComponent(code)}`);
+    const data = await res.json();
+
+    if (data.valid) {
+      appliedDiscount = { code: code, priceId: data.priceId, money: data.money, priceName: data.priceName };
+      showDiscountMsg(data.priceName || t('discountApplied'), 'success');
+    } else {
+      appliedDiscount = null;
+      const reasons = { not_found: t('discountInvalid') || 'Invalid code', disabled: t('discountDisabled') || 'Code disabled', exhausted: t('discountExhausted') || 'Code exhausted' };
+      showDiscountMsg(reasons[data.reason] || 'Invalid code', 'error');
+    }
+  } catch {
+    appliedDiscount = null;
+    showDiscountMsg(t('discountError') || 'Failed to verify', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = t('applyBtn');
+  }
+
   updatePriceDisplay();
 }
 
