@@ -10,25 +10,60 @@
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
       background: #f5f7fa;
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
-    .container { text-align: center; padding: 40px; }
-    .spinner {
-      width: 40px; height: 40px;
-      border: 4px solid #e0e0e0;
-      border-top-color: #4f46e5;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 20px;
+    .checkout-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
     }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .status { color: #666; font-size: 16px; }
-    .success { color: #16a34a; font-size: 18px; font-weight: 600; }
-    .error { color: #dc2626; font-size: 16px; }
-    .back-link { margin-top: 20px; }
-    .back-link a { color: #4f46e5; text-decoration: none; cursor: pointer; }
+    /* Paddle inline checkout will render here */
+    .paddle-checkout {
+      min-height: 400px;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .bottom-bar {
+      text-align: center;
+      padding: 20px;
+    }
+    .bottom-bar a {
+      display: inline-block;
+      padding: 12px 32px;
+      background: #4f46e5;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .bottom-bar a:hover { background: #4338ca; }
+    .bottom-bar .hint {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #888;
+    }
+    .success-msg {
+      text-align: center;
+      padding: 60px 20px;
+    }
+    .success-msg h2 {
+      color: #16a34a;
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+    .success-msg p {
+      color: #666;
+      font-size: 15px;
+      margin-bottom: 20px;
+    }
+    .error-msg {
+      text-align: center;
+      padding: 60px 20px;
+      color: #dc2626;
+    }
     .lang-switcher {
       position: fixed; top: 16px; right: 16px;
       background: #fff; border: 1px solid #e0e0e0; border-radius: 8px;
@@ -57,15 +92,25 @@
     <option value="ar">العربية</option>
   </select>
 
-  <div class="container">
-    <div id="loading">
-      <div class="spinner"></div>
-      <p class="status" id="loading-text"></p>
+  <div class="checkout-container">
+    <!-- Paddle inline checkout renders inside this div -->
+    <div class="paddle-checkout" id="paddle-checkout"></div>
+
+    <!-- Always visible: already paid button -->
+    <div class="bottom-bar" id="bottomBar" style="display:none;">
+      <a id="paidBtn" onclick="goSuccess()"></a>
+      <div class="hint" id="paidHint"></div>
     </div>
-    <div id="result" style="display:none;"></div>
-    <div id="alreadyPaidLink" style="display:none; margin-top:30px; text-align:center;">
-      <a id="alreadyPaidBtn" style="color:#4f46e5; text-decoration:none; cursor:pointer; font-size:14px;"></a>
+
+    <!-- Success message (shown when checkout.completed fires) -->
+    <div class="success-msg" id="successMsg" style="display:none;">
+      <h2 id="successTitle"></h2>
+      <p id="successText"></p>
+      <a id="successBtn" style="display:inline-block;padding:12px 32px;background:#16a34a;color:#fff;font-size:15px;font-weight:600;border-radius:8px;text-decoration:none;cursor:pointer;" onclick="goSuccess()"></a>
     </div>
+
+    <!-- Error -->
+    <div class="error-msg" id="errorMsg" style="display:none;"></div>
   </div>
 
   <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
@@ -73,62 +118,70 @@
     var params = new URLSearchParams(window.location.search);
     var TXN_ID = params.get('txn_id') || '';
     var currentLang = params.get('lang') || 'en';
-    var successUrl = params.get('success_url') || '';
+    var successUrl = params.get('success_url') ? decodeURIComponent(params.get('success_url')) : '';
 
     var PADDLE_CONFIG_URL = 'https://pay.echoshorts.win/api/paddle-config';
 
     var i18n = {
-      'en':    { loading: 'Loading checkout...', success: 'Payment successful!', close: 'You can close this page now.', closed: 'Checkout was closed.', retry: 'Try again', initFail: 'Failed to initialize', alreadyPaid: 'I have already paid →' },
-      'zh-CN': { loading: '正在加载结账页面...', success: '支付成功！', close: '您现在可以关闭此页面。', closed: '结账已关闭。', retry: '重试', initFail: '初始化失败', alreadyPaid: '我已完成支付 →' },
-      'zh-TW': { loading: '正在載入結帳頁面...', success: '付款成功！', close: '您現在可以關閉此頁面。', closed: '結帳已關閉。', retry: '重試', initFail: '初始化失敗', alreadyPaid: '我已完成付款 →' },
-      'vi':    { loading: 'Đang tải trang thanh toán...', success: 'Thanh toán thành công!', close: 'Bạn có thể đóng trang này.', closed: 'Thanh toán đã bị đóng.', retry: 'Thử lại', initFail: 'Khởi tạo thất bại', alreadyPaid: 'Tôi đã thanh toán →' },
-      'ja':    { loading: 'チェックアウトを読み込み中...', success: '支払い完了！', close: 'このページを閉じてください。', closed: 'チェックアウトが閉じられました。', retry: 'もう一度試す', initFail: '初期化に失敗しました', alreadyPaid: '支払い済みです →' },
-      'ko':    { loading: '결제 페이지 로딩 중...', success: '결제 완료!', close: '이 페이지를 닫으셔도 됩니다.', closed: '결제가 닫혔습니다.', retry: '다시 시도', initFail: '초기화 실패', alreadyPaid: '이미 결제했습니다 →' },
-      'th':    { loading: 'กำลังโหลดหน้าชำระเงิน...', success: 'ชำระเงินสำเร็จ!', close: 'คุณสามารถปิดหน้านี้ได้', closed: 'การชำระเงินถูกปิด', retry: 'ลองอีกครั้ง', initFail: 'เริ่มต้นล้มเหลว', alreadyPaid: 'ฉันชำระเงินแล้ว →' },
-      'id':    { loading: 'Memuat halaman pembayaran...', success: 'Pembayaran berhasil!', close: 'Anda dapat menutup halaman ini.', closed: 'Pembayaran ditutup.', retry: 'Coba lagi', initFail: 'Gagal menginisialisasi', alreadyPaid: 'Saya sudah membayar →' },
-      'ms':    { loading: 'Memuatkan halaman pembayaran...', success: 'Pembayaran berjaya!', close: 'Anda boleh menutup halaman ini.', closed: 'Pembayaran ditutup.', retry: 'Cuba lagi', initFail: 'Gagal memulakan', alreadyPaid: 'Saya sudah membayar →' },
-      'es':    { loading: 'Cargando página de pago...', success: '¡Pago exitoso!', close: 'Puede cerrar esta página.', closed: 'El pago fue cerrado.', retry: 'Intentar de nuevo', initFail: 'Error al inicializar', alreadyPaid: 'Ya he pagado →' },
-      'fr':    { loading: 'Chargement du paiement...', success: 'Paiement réussi !', close: 'Vous pouvez fermer cette page.', closed: 'Le paiement a été fermé.', retry: 'Réessayer', initFail: "Échec de l'initialisation", alreadyPaid: "J'ai déjà payé →" },
-      'de':    { loading: 'Zahlungsseite wird geladen...', success: 'Zahlung erfolgreich!', close: 'Sie können diese Seite schließen.', closed: 'Zahlungsvorgang geschlossen.', retry: 'Erneut versuchen', initFail: 'Initialisierung fehlgeschlagen', alreadyPaid: 'Ich habe bereits bezahlt →' },
-      'pt':    { loading: 'Carregando página de pagamento...', success: 'Pagamento realizado!', close: 'Você pode fechar esta página.', closed: 'O pagamento foi fechado.', retry: 'Tentar novamente', initFail: 'Falha ao inicializar', alreadyPaid: 'Já paguei →' },
-      'ru':    { loading: 'Загрузка страницы оплаты...', success: 'Оплата прошла успешно!', close: 'Вы можете закрыть эту страницу.', closed: 'Оплата была закрыта.', retry: 'Попробовать снова', initFail: 'Ошибка инициализации', alreadyPaid: 'Я уже оплатил →' },
-      'ar':    { loading: '...جارٍ تحميل صفحة الدفع', success: 'تم الدفع بنجاح!', close: '.يمكنك إغلاق هذه الصفحة الآن', closed: '.تم إغلاق صفحة الدفع', retry: 'حاول مرة أخرى', initFail: 'فشل في التهيئة', alreadyPaid: '← لقد دفعت بالفعل' }
+      'en':    { alreadyPaid: 'I have completed payment', paidHint: 'Click here if you have already paid (e.g. via QR code on your phone)', successTitle: 'Payment Successful!', successText: 'Your activation code will be sent to your email shortly.', successBtn: 'Continue', initFail: 'Failed to initialize checkout' },
+      'zh-CN': { alreadyPaid: '我已完成支付', paidHint: '如果您已通过扫码等方式完成支付，请点击此处', successTitle: '支付成功！', successText: '激活码将很快发送到您的邮箱。', successBtn: '继续', initFail: '初始化结账失败' },
+      'zh-TW': { alreadyPaid: '我已完成付款', paidHint: '如果您已透過掃碼等方式完成付款，請點擊此處', successTitle: '付款成功！', successText: '啟用碼將很快發送到您的信箱。', successBtn: '繼續', initFail: '初始化結帳失敗' },
+      'vi':    { alreadyPaid: 'Tôi đã thanh toán', paidHint: 'Nhấn vào đây nếu bạn đã thanh toán qua QR code', successTitle: 'Thanh toán thành công!', successText: 'Mã kích hoạt sẽ được gửi đến email của bạn.', successBtn: 'Tiếp tục', initFail: 'Khởi tạo thất bại' },
+      'ja':    { alreadyPaid: '支払い済みです', paidHint: 'QRコード等で支払い済みの場合はこちらをクリック', successTitle: '支払い完了！', successText: 'アクティベーションコードがメールで送信されます。', successBtn: '続行', initFail: '初期化に失敗しました' },
+      'ko':    { alreadyPaid: '결제 완료했습니다', paidHint: 'QR코드 등으로 이미 결제하셨다면 여기를 클릭하세요', successTitle: '결제 완료!', successText: '활성화 코드가 이메일로 발송됩니다.', successBtn: '계속', initFail: '초기화 실패' },
+      'th':    { alreadyPaid: 'ฉันชำระเงินแล้ว', paidHint: 'คลิกที่นี่หากคุณชำระเงินผ่าน QR code แล้ว', successTitle: 'ชำระเงินสำเร็จ!', successText: 'รหัสเปิดใช้งานจะถูกส่งไปยังอีเมลของคุณ', successBtn: 'ดำเนินการต่อ', initFail: 'เริ่มต้นล้มเหลว' },
+      'id':    { alreadyPaid: 'Saya sudah membayar', paidHint: 'Klik di sini jika Anda sudah membayar melalui QR code', successTitle: 'Pembayaran berhasil!', successText: 'Kode aktivasi akan dikirim ke email Anda.', successBtn: 'Lanjutkan', initFail: 'Gagal menginisialisasi' },
+      'ms':    { alreadyPaid: 'Saya sudah membayar', paidHint: 'Klik di sini jika anda sudah membayar melalui QR code', successTitle: 'Pembayaran berjaya!', successText: 'Kod pengaktifan akan dihantar ke e-mel anda.', successBtn: 'Teruskan', initFail: 'Gagal memulakan' },
+      'es':    { alreadyPaid: 'Ya he pagado', paidHint: 'Haz clic aquí si ya pagaste por QR code', successTitle: '¡Pago exitoso!', successText: 'Tu código de activación será enviado a tu correo.', successBtn: 'Continuar', initFail: 'Error al inicializar' },
+      'fr':    { alreadyPaid: "J'ai déjà payé", paidHint: 'Cliquez ici si vous avez déjà payé par QR code', successTitle: 'Paiement réussi !', successText: "Votre code d'activation sera envoyé par e-mail.", successBtn: 'Continuer', initFail: "Échec de l'initialisation" },
+      'de':    { alreadyPaid: 'Ich habe bereits bezahlt', paidHint: 'Klicken Sie hier, wenn Sie bereits per QR-Code bezahlt haben', successTitle: 'Zahlung erfolgreich!', successText: 'Ihr Aktivierungscode wird per E-Mail gesendet.', successBtn: 'Weiter', initFail: 'Initialisierung fehlgeschlagen' },
+      'pt':    { alreadyPaid: 'Já paguei', paidHint: 'Clique aqui se você já pagou via QR code', successTitle: 'Pagamento realizado!', successText: 'Seu código de ativação será enviado por e-mail.', successBtn: 'Continuar', initFail: 'Falha ao inicializar' },
+      'ru':    { alreadyPaid: 'Я уже оплатил', paidHint: 'Нажмите здесь, если вы уже оплатили через QR-код', successTitle: 'Оплата прошла!', successText: 'Код активации будет отправлен на вашу почту.', successBtn: 'Продолжить', initFail: 'Ошибка инициализации' },
+      'ar':    { alreadyPaid: 'لقد دفعت بالفعل', paidHint: 'انقر هنا إذا كنت قد دفعت بالفعل عبر رمز QR', successTitle: 'تم الدفع بنجاح!', successText: '.سيتم إرسال رمز التفعيل إلى بريدك الإلكتروني', successBtn: 'متابعة', initFail: 'فشل في التهيئة' }
     };
 
     function t(key) {
       return (i18n[currentLang] || i18n['en'])[key] || i18n['en'][key];
     }
 
-    function applyLang() {
-      document.getElementById('lang-select').value = currentLang;
-      document.getElementById('loading-text').textContent = t('loading');
-      document.documentElement.lang = currentLang;
-      if (currentLang === 'ar') {
-        document.documentElement.dir = 'rtl';
-      } else {
-        document.documentElement.dir = 'ltr';
-      }
-    }
-
     function switchLang(lang) {
       currentLang = lang;
-      var url = new URL(window.location);
-      url.searchParams.set('lang', lang);
-      window.history.replaceState(null, '', url);
       applyLang();
     }
 
-    function showResult(html) {
-      document.getElementById('loading').style.display = 'none';
-      document.getElementById('result').style.display = 'block';
-      document.getElementById('result').innerHTML = html;
+    function applyLang() {
+      document.getElementById('lang-select').value = currentLang;
+      document.getElementById('paidBtn').textContent = t('alreadyPaid');
+      document.getElementById('paidHint').textContent = t('paidHint');
+      document.documentElement.lang = currentLang;
+    }
+
+    function goSuccess() {
+      if (successUrl) {
+        window.location.href = successUrl;
+      } else {
+        window.location.href = 'https://echoshorts.win/purchase-success.html';
+      }
+    }
+
+    function showSuccess() {
+      document.getElementById('paddle-checkout').style.display = 'none';
+      document.getElementById('bottomBar').style.display = 'none';
+      var msg = document.getElementById('successMsg');
+      document.getElementById('successTitle').textContent = t('successTitle');
+      document.getElementById('successText').textContent = t('successText');
+      document.getElementById('successBtn').textContent = t('successBtn');
+      msg.style.display = 'block';
+      // Auto redirect after 3 seconds
+      setTimeout(goSuccess, 3000);
     }
 
     async function init() {
       applyLang();
 
       if (!TXN_ID) {
-        showResult('<p class="error">Missing transaction ID</p>');
+        document.getElementById('errorMsg').textContent = 'Missing transaction ID';
+        document.getElementById('errorMsg').style.display = 'block';
         return;
       }
 
@@ -143,52 +196,34 @@
 
         Paddle.Initialize({
           token: config.client_token,
+          checkout: {
+            settings: {
+              displayMode: 'inline',
+              frameTarget: 'paddle-checkout',
+              frameInitialHeight: 450,
+              frameStyle: 'width: 100%; border: none; border-radius: 12px; min-height: 400px;'
+            }
+          },
           eventCallback: function(event) {
             console.log('[Paddle Event]', event.name, event);
             if (event.name === 'checkout.completed') {
-              if (successUrl) {
-                window.location.href = successUrl;
-              } else {
-                showResult(
-                  '<p class="success">' + t('success') + '</p>' +
-                  '<div class="back-link"><p>' + t('close') + '</p></div>'
-                );
-              }
-            }
-            if (event.name === 'checkout.closed') {
-              showResult(
-                '<p class="error">' + t('closed') + '</p>' +
-                '<div class="back-link"><a onclick="openCheckout()">' + t('retry') + '</a></div>' +
-                (successUrl ? '<div class="back-link" style="margin-top:12px"><a onclick="window.location.href=\'' + successUrl + '\'">' + t('alreadyPaid') + '</a></div>' : '')
-              );
+              showSuccess();
             }
           }
         });
 
-        openCheckout();
-      } catch (err) {
-        showResult('<p class="error">' + t('initFail') + ': ' + err.message + '</p>');
-      }
-    }
+        Paddle.Checkout.open({
+          transactionId: TXN_ID
+        });
 
-    function openCheckout() {
-      document.getElementById('loading').style.display = 'block';
-      document.getElementById('result').style.display = 'none';
-      document.getElementById('loading-text').textContent = t('loading');
-
-      Paddle.Checkout.open({
-        transactionId: TXN_ID
-      });
-
-      // Show "already paid" link after 10 seconds (for QR code payments where browser can't detect completion)
-      if (successUrl) {
+        // Show "already paid" button after 5 seconds
         setTimeout(function() {
-          var link = document.getElementById('alreadyPaidLink');
-          var btn = document.getElementById('alreadyPaidBtn');
-          btn.textContent = t('alreadyPaid');
-          btn.onclick = function() { window.location.href = successUrl; };
-          link.style.display = 'block';
-        }, 10000);
+          document.getElementById('bottomBar').style.display = 'block';
+        }, 5000);
+
+      } catch (err) {
+        document.getElementById('errorMsg').textContent = t('initFail') + ': ' + err.message;
+        document.getElementById('errorMsg').style.display = 'block';
       }
     }
 
