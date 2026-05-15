@@ -63,6 +63,9 @@
       <p class="status" id="loading-text"></p>
     </div>
     <div id="result" style="display:none;"></div>
+    <div id="alreadyPaidLink" style="display:none; margin-top:30px; text-align:center;">
+      <a id="alreadyPaidBtn" style="color:#4f46e5; text-decoration:none; cursor:pointer; font-size:14px;"></a>
+    </div>
   </div>
 
   <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
@@ -75,21 +78,21 @@
     var PADDLE_CONFIG_URL = 'https://pay.echoshorts.win/api/paddle-config';
 
     var i18n = {
-      'en':    { loading: 'Loading checkout...', success: 'Payment successful!', close: 'You can close this page now.', closed: 'Checkout was closed.', retry: 'Try again', initFail: 'Failed to initialize' },
-      'zh-CN': { loading: '正在加载结账页面...', success: '支付成功！', close: '您现在可以关闭此页面。', closed: '结账已关闭。', retry: '重试', initFail: '初始化失败' },
-      'zh-TW': { loading: '正在載入結帳頁面...', success: '付款成功！', close: '您現在可以關閉此頁面。', closed: '結帳已關閉。', retry: '重試', initFail: '初始化失敗' },
-      'vi':    { loading: 'Đang tải trang thanh toán...', success: 'Thanh toán thành công!', close: 'Bạn có thể đóng trang này.', closed: 'Thanh toán đã bị đóng.', retry: 'Thử lại', initFail: 'Khởi tạo thất bại' },
-      'ja':    { loading: 'チェックアウトを読み込み中...', success: '支払い完了！', close: 'このページを閉じてください。', closed: 'チェックアウトが閉じられました。', retry: 'もう一度試す', initFail: '初期化に失敗しました' },
-      'ko':    { loading: '결제 페이지 로딩 중...', success: '결제 완료!', close: '이 페이지를 닫으셔도 됩니다.', closed: '결제가 닫혔습니다.', retry: '다시 시도', initFail: '초기화 실패' },
-      'th':    { loading: 'กำลังโหลดหน้าชำระเงิน...', success: 'ชำระเงินสำเร็จ!', close: 'คุณสามารถปิดหน้านี้ได้', closed: 'การชำระเงินถูกปิด', retry: 'ลองอีกครั้ง', initFail: 'เริ่มต้นล้มเหลว' },
-      'id':    { loading: 'Memuat halaman pembayaran...', success: 'Pembayaran berhasil!', close: 'Anda dapat menutup halaman ini.', closed: 'Pembayaran ditutup.', retry: 'Coba lagi', initFail: 'Gagal menginisialisasi' },
-      'ms':    { loading: 'Memuatkan halaman pembayaran...', success: 'Pembayaran berjaya!', close: 'Anda boleh menutup halaman ini.', closed: 'Pembayaran ditutup.', retry: 'Cuba lagi', initFail: 'Gagal memulakan' },
-      'es':    { loading: 'Cargando página de pago...', success: '¡Pago exitoso!', close: 'Puede cerrar esta página.', closed: 'El pago fue cerrado.', retry: 'Intentar de nuevo', initFail: 'Error al inicializar' },
-      'fr':    { loading: 'Chargement du paiement...', success: 'Paiement réussi !', close: 'Vous pouvez fermer cette page.', closed: 'Le paiement a été fermé.', retry: 'Réessayer', initFail: "Échec de l'initialisation" },
-      'de':    { loading: 'Zahlungsseite wird geladen...', success: 'Zahlung erfolgreich!', close: 'Sie können diese Seite schließen.', closed: 'Zahlungsvorgang geschlossen.', retry: 'Erneut versuchen', initFail: 'Initialisierung fehlgeschlagen' },
-      'pt':    { loading: 'Carregando página de pagamento...', success: 'Pagamento realizado!', close: 'Você pode fechar esta página.', closed: 'O pagamento foi fechado.', retry: 'Tentar novamente', initFail: 'Falha ao inicializar' },
-      'ru':    { loading: 'Загрузка страницы оплаты...', success: 'Оплата прошла успешно!', close: 'Вы можете закрыть эту страницу.', closed: 'Оплата была закрыта.', retry: 'Попробовать снова', initFail: 'Ошибка инициализации' },
-      'ar':    { loading: '...جارٍ تحميل صفحة الدفع', success: 'تم الدفع بنجاح!', close: '.يمكنك إغلاق هذه الصفحة الآن', closed: '.تم إغلاق صفحة الدفع', retry: 'حاول مرة أخرى', initFail: 'فشل في التهيئة' }
+      'en':    { loading: 'Loading checkout...', success: 'Payment successful!', close: 'You can close this page now.', closed: 'Checkout was closed.', retry: 'Try again', initFail: 'Failed to initialize', alreadyPaid: 'I have already paid →' },
+      'zh-CN': { loading: '正在加载结账页面...', success: '支付成功！', close: '您现在可以关闭此页面。', closed: '结账已关闭。', retry: '重试', initFail: '初始化失败', alreadyPaid: '我已完成支付 →' },
+      'zh-TW': { loading: '正在載入結帳頁面...', success: '付款成功！', close: '您現在可以關閉此頁面。', closed: '結帳已關閉。', retry: '重試', initFail: '初始化失敗', alreadyPaid: '我已完成付款 →' },
+      'vi':    { loading: 'Đang tải trang thanh toán...', success: 'Thanh toán thành công!', close: 'Bạn có thể đóng trang này.', closed: 'Thanh toán đã bị đóng.', retry: 'Thử lại', initFail: 'Khởi tạo thất bại', alreadyPaid: 'Tôi đã thanh toán →' },
+      'ja':    { loading: 'チェックアウトを読み込み中...', success: '支払い完了！', close: 'このページを閉じてください。', closed: 'チェックアウトが閉じられました。', retry: 'もう一度試す', initFail: '初期化に失敗しました', alreadyPaid: '支払い済みです →' },
+      'ko':    { loading: '결제 페이지 로딩 중...', success: '결제 완료!', close: '이 페이지를 닫으셔도 됩니다.', closed: '결제가 닫혔습니다.', retry: '다시 시도', initFail: '초기화 실패', alreadyPaid: '이미 결제했습니다 →' },
+      'th':    { loading: 'กำลังโหลดหน้าชำระเงิน...', success: 'ชำระเงินสำเร็จ!', close: 'คุณสามารถปิดหน้านี้ได้', closed: 'การชำระเงินถูกปิด', retry: 'ลองอีกครั้ง', initFail: 'เริ่มต้นล้มเหลว', alreadyPaid: 'ฉันชำระเงินแล้ว →' },
+      'id':    { loading: 'Memuat halaman pembayaran...', success: 'Pembayaran berhasil!', close: 'Anda dapat menutup halaman ini.', closed: 'Pembayaran ditutup.', retry: 'Coba lagi', initFail: 'Gagal menginisialisasi', alreadyPaid: 'Saya sudah membayar →' },
+      'ms':    { loading: 'Memuatkan halaman pembayaran...', success: 'Pembayaran berjaya!', close: 'Anda boleh menutup halaman ini.', closed: 'Pembayaran ditutup.', retry: 'Cuba lagi', initFail: 'Gagal memulakan', alreadyPaid: 'Saya sudah membayar →' },
+      'es':    { loading: 'Cargando página de pago...', success: '¡Pago exitoso!', close: 'Puede cerrar esta página.', closed: 'El pago fue cerrado.', retry: 'Intentar de nuevo', initFail: 'Error al inicializar', alreadyPaid: 'Ya he pagado →' },
+      'fr':    { loading: 'Chargement du paiement...', success: 'Paiement réussi !', close: 'Vous pouvez fermer cette page.', closed: 'Le paiement a été fermé.', retry: 'Réessayer', initFail: "Échec de l'initialisation", alreadyPaid: "J'ai déjà payé →" },
+      'de':    { loading: 'Zahlungsseite wird geladen...', success: 'Zahlung erfolgreich!', close: 'Sie können diese Seite schließen.', closed: 'Zahlungsvorgang geschlossen.', retry: 'Erneut versuchen', initFail: 'Initialisierung fehlgeschlagen', alreadyPaid: 'Ich habe bereits bezahlt →' },
+      'pt':    { loading: 'Carregando página de pagamento...', success: 'Pagamento realizado!', close: 'Você pode fechar esta página.', closed: 'O pagamento foi fechado.', retry: 'Tentar novamente', initFail: 'Falha ao inicializar', alreadyPaid: 'Já paguei →' },
+      'ru':    { loading: 'Загрузка страницы оплаты...', success: 'Оплата прошла успешно!', close: 'Вы можете закрыть эту страницу.', closed: 'Оплата была закрыта.', retry: 'Попробовать снова', initFail: 'Ошибка инициализации', alreadyPaid: 'Я уже оплатил →' },
+      'ar':    { loading: '...جارٍ تحميل صفحة الدفع', success: 'تم الدفع بنجاح!', close: '.يمكنك إغلاق هذه الصفحة الآن', closed: '.تم إغلاق صفحة الدفع', retry: 'حاول مرة أخرى', initFail: 'فشل في التهيئة', alreadyPaid: '← لقد دفعت بالفعل' }
     };
 
     function t(key) {
@@ -141,6 +144,7 @@
         Paddle.Initialize({
           token: config.client_token,
           eventCallback: function(event) {
+            console.log('[Paddle Event]', event.name, event);
             if (event.name === 'checkout.completed') {
               if (successUrl) {
                 window.location.href = successUrl;
@@ -154,7 +158,8 @@
             if (event.name === 'checkout.closed') {
               showResult(
                 '<p class="error">' + t('closed') + '</p>' +
-                '<div class="back-link"><a onclick="openCheckout()">' + t('retry') + '</a></div>'
+                '<div class="back-link"><a onclick="openCheckout()">' + t('retry') + '</a></div>' +
+                (successUrl ? '<div class="back-link" style="margin-top:12px"><a onclick="window.location.href=\'' + successUrl + '\'">' + t('alreadyPaid') + '</a></div>' : '')
               );
             }
           }
@@ -174,6 +179,17 @@
       Paddle.Checkout.open({
         transactionId: TXN_ID
       });
+
+      // Show "already paid" link after 10 seconds (for QR code payments where browser can't detect completion)
+      if (successUrl) {
+        setTimeout(function() {
+          var link = document.getElementById('alreadyPaidLink');
+          var btn = document.getElementById('alreadyPaidBtn');
+          btn.textContent = t('alreadyPaid');
+          btn.onclick = function() { window.location.href = successUrl; };
+          link.style.display = 'block';
+        }, 10000);
+      }
     }
 
     init();
