@@ -785,11 +785,37 @@ function getInstallBtnLabel(langKey, t) {
 
 function applyZhBaiduDownloadButton(html) {
   const rowRe = /<div class="btn-row">\s*<a class="btn btn-green" href="ms-windows-store:\/\/pdp\/\?productid=9N06RSDW81SN">[^<]*<\/a>\s*<\/div>/;
-  const rowHtml = `<div class="btn-row">
-        <a class="btn btn-green" href="ms-windows-store://pdp/?productid=9N06RSDW81SN">window store下载</a>
-        <a class="btn btn-outline" href="https://pan.baidu.com/s/17DYHiy6ysiePFQw8MwVwqg?pwd=6c8v" target="_blank" rel="noopener noreferrer">百度网盘下载</a>
+  const cardsHtml = `<div class="install-channels">
+        <div class="channel-card">
+          <div class="channel-header">
+            <span class="channel-icon">&#127979;</span>
+            <h4>Microsoft Store 版</h4>
+          </div>
+          <ul class="channel-features">
+            <li>&#10003; 含免费试用期</li>
+            <li>&#10003; 通过 Store 购买/续费</li>
+            <li>&#10003; 自动更新</li>
+          </ul>
+          <div class="btn-row">
+            <a class="btn btn-green" href="ms-windows-store://pdp/?productid=9N06RSDW81SN">下载 Store 版</a>
+          </div>
+        </div>
+        <div class="channel-card">
+          <div class="channel-header">
+            <span class="channel-icon">&#128230;</span>
+            <h4>独立安装包</h4>
+          </div>
+          <ul class="channel-features">
+            <li>&#10003; 百度网盘下载</li>
+            <li>&#9888; 需要单独购买激活码</li>
+          </ul>
+          <div class="btn-row">
+            <a class="btn btn-outline" href="https://pan.baidu.com/s/17DYHiy6ysiePFQw8MwVwqg?pwd=6c8v" target="_blank" rel="noopener noreferrer">百度网盘下载</a>
+            <a class="btn btn-green" href="https://echoshorts.win/purchase.html?appid=echoshortsplayer&lang=zh" target="_blank">购买激活码</a>
+          </div>
+        </div>
       </div>`;
-  return html.replace(rowRe, rowHtml);
+  return html.replace(rowRe, cardsHtml);
 }
 
 // --- Load full translations for remaining languages ---
