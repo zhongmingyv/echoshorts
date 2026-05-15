@@ -271,15 +271,8 @@
         <input type="text" id="formCode" placeholder="e.g. SAVE20">
       </div>
       <div class="form-group">
-        <label>Type</label>
-        <select id="formType" onchange="updateAmountHint()">
-          <option value="percent">Percent</option>
-          <option value="fixed">Fixed</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Amount</label>
-        <input type="number" id="formAmount" min="0" step="any" placeholder="e.g. 20 = 20%">
+        <label>Price ID</label>
+        <input type="text" id="formPriceId" placeholder="e.g. pri_01xxxxx">
       </div>
       <div class="form-group">
         <label>Max Uses</label>
@@ -299,8 +292,7 @@
       <thead>
         <tr>
           <th>Code</th>
-          <th>Type</th>
-          <th>Amount</th>
+          <th>Price ID</th>
           <th>Used / Max</th>
           <th>Status</th>
           <th>Actions</th>
@@ -338,24 +330,15 @@ function showError(msg) {
   setTimeout(() => { el.style.display = 'none'; }, 5000);
 }
 
-function updateAmountHint() {
-  const type = document.getElementById('formType').value;
-  document.getElementById('formAmount').placeholder = type === 'percent'
-    ? 'e.g. 20 = 20%'
-    : 'e.g. 5.00';
-}
-
 function showAddForm() {
   editingCode = null;
   document.getElementById('formTitle').textContent = 'Add Discount Code';
   document.getElementById('formCode').value = '';
   document.getElementById('formCode').disabled = false;
-  document.getElementById('formType').value = 'percent';
-  document.getElementById('formAmount').value = '';
+  document.getElementById('formPriceId').value = '';
   document.getElementById('formMaxUses').value = '0';
   document.getElementById('addForm').style.display = 'block';
   document.getElementById('addBtn').style.display = 'none';
-  updateAmountHint();
 }
 
 function showEditForm(code) {
@@ -365,12 +348,10 @@ function showEditForm(code) {
   document.getElementById('formTitle').textContent = 'Edit Discount: ' + code;
   document.getElementById('formCode').value = d.code;
   document.getElementById('formCode').disabled = true;
-  document.getElementById('formType').value = d.type;
-  document.getElementById('formAmount').value = d.amount;
+  document.getElementById('formPriceId').value = d.priceId || '';
   document.getElementById('formMaxUses').value = d.maxUses || 0;
   document.getElementById('addForm').style.display = 'block';
   document.getElementById('addBtn').style.display = 'none';
-  updateAmountHint();
 }
 
 function hideAddForm() {
@@ -382,12 +363,11 @@ function hideAddForm() {
 async function submitForm() {
   const btn = document.getElementById('formSubmit');
   const code = document.getElementById('formCode').value.trim();
-  const type = document.getElementById('formType').value;
-  const amount = parseFloat(document.getElementById('formAmount').value);
+  const priceId = document.getElementById('formPriceId').value.trim();
   const maxUses = parseInt(document.getElementById('formMaxUses').value) || 0;
 
   if (!code) { showError('Code is required'); return; }
-  if (isNaN(amount) || amount <= 0) { showError('Amount must be greater than 0'); return; }
+  if (!priceId) { showError('Price ID is required'); return; }
 
   btn.disabled = true;
   btn.textContent = 'Saving...';
@@ -397,8 +377,8 @@ async function submitForm() {
       : `${API}/admin/apps/${appid}/discounts`;
     const method = editingCode ? 'PUT' : 'POST';
     const body = editingCode
-      ? JSON.stringify({ type, amount, maxUses })
-      : JSON.stringify({ code, type, amount, maxUses });
+      ? JSON.stringify({ priceId, maxUses })
+      : JSON.stringify({ code, priceId, maxUses });
 
     const res = await fetch(url, { method, headers: authHeaders(), body });
     if (!res.ok) {
@@ -464,7 +444,6 @@ function renderTable() {
   empty.style.display = 'none';
 
   tbody.innerHTML = discounts.map(d => {
-    const amountDisplay = d.type === 'percent' ? d.amount + '%' : '$' + d.amount;
     const maxDisplay = d.maxUses === 0 ? 'unlimited' : d.maxUses;
     const usedDisplay = (d.usedCount || 0) + ' / ' + maxDisplay;
     const enabled = d.enabled !== false;
@@ -472,8 +451,7 @@ function renderTable() {
     const toggleLabel = enabled ? 'Enabled' : 'Disabled';
     return `<tr>
       <td><code style="background:var(--bg);padding:2px 8px;border-radius:4px;font-size:13px;">${escHtml(d.code)}</code></td>
-      <td><span class="badge ${d.type === 'percent' ? 'badge-blue' : 'badge-green'}">${d.type}</span></td>
-      <td>${amountDisplay}</td>
+      <td><code style="font-size:12px;">${escHtml(d.priceId || '-')}</code></td>
       <td>${usedDisplay}</td>
       <td>
         <button class="toggle-btn ${toggleClass}" onclick="toggleEnabled('${escAttr(d.code)}', ${!enabled})">

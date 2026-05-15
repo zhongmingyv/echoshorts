@@ -179,7 +179,10 @@
 
 <div class="topbar">
   <h1>EchoShorts Admin</h1>
-  <button class="btn btn-outline btn-sm" onclick="logout()">Logout</button>
+  <div style="display:flex;gap:10px;">
+    <a href="paddle.html" class="btn btn-outline btn-sm" style="text-decoration:none;">Paddle Management</a>
+    <button class="btn btn-outline btn-sm" onclick="logout()">Logout</button>
+  </div>
 </div>
 
 <div class="container">
@@ -206,8 +209,8 @@
         <input type="text" id="appName" required placeholder="e.g. EchoShorts">
       </div>
       <div class="form-group">
-        <label for="priceUsd">Price (USD)</label>
-        <input type="number" id="priceUsd" required step="0.01" min="0" placeholder="e.g. 9.99">
+        <label for="priceId">Default Price ID</label>
+        <input type="text" id="priceId" placeholder="e.g. pri_01xxxxx">
       </div>
       <div class="modal-error" id="modalError"></div>
       <div class="modal-actions">
@@ -273,12 +276,12 @@ async function loadApps() {
           <h3>${escHtml(app.name)}</h3>
           <div class="app-meta">
             <span>${escHtml(app.appid)}</span>
-            <span>$${Number(app.price_usd).toFixed(2)}</span>
+            <span>${app.priceId ? escHtml(app.priceId) : 'No price set'}</span>
 
           </div>
         </div>
         <div class="app-actions">
-          <button class="btn btn-outline btn-sm" onclick="editApp('${escHtml(app.appid)}','${escHtml(app.name)}',${app.price_usd})">Edit</button>
+          <button class="btn btn-outline btn-sm" onclick="editApp('${escHtml(app.appid)}','${escHtml(app.name)}','${escHtml(app.priceId || '')}')">Edit</button>
           <a href="admin-discounts.html?appid=${encodeURIComponent(app.appid)}" class="btn btn-outline btn-sm">Discounts</a>
           <a href="admin-licenses.html?appid=${encodeURIComponent(app.appid)}" class="btn btn-outline btn-sm">Licenses</a>
           <button class="btn btn-danger btn-sm" onclick="deleteApp('${escHtml(app.appid)}')">Delete</button>
@@ -307,11 +310,11 @@ async function deleteApp(appid) {
   }
 }
 
-function editApp(appid, name, price) {
+function editApp(appid, name, priceId) {
   document.getElementById('appid').value = appid;
   document.getElementById('appid').disabled = true;
   document.getElementById('appName').value = name;
-  document.getElementById('priceUsd').value = price;
+  document.getElementById('priceId').value = priceId || '';
   document.getElementById('modalTitle').textContent = 'Edit App';
   document.getElementById('addBtn').textContent = 'Save';
   document.getElementById('modalOverlay').classList.add('active');
@@ -328,7 +331,7 @@ document.getElementById('addAppForm').addEventListener('submit', async (e) => {
   const body = {
     appid: document.getElementById('appid').value.trim(),
     name: document.getElementById('appName').value.trim(),
-    price_usd: parseFloat(document.getElementById('priceUsd').value),
+    priceId: document.getElementById('priceId').value.trim() || null,
   };
   try {
     const res = await fetch(API + '/admin/apps', {

@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paddle Management - EchoShorts</title>
+<style>
+  :root {
+    --bg: #0f0f0f;
+    --card-bg: #1a1a1a;
+    --text: #e0e0e0;
+    --muted: #999999;
+    --primary: #4ade80;
+    --border: #2a2a2a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .topbar h1 {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .topbar-actions {
+    display: flex;
+    gap: 8px;
+  }
+  .btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+  }
+  .btn:hover { opacity: 0.85; }
+  .btn-primary {
+    background: var(--primary);
+    color: #0f0f0f;
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
+  .btn-danger {
+    background: #dc2626;
+    color: #fff;
+  }
+  .btn-sm {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  .container {
+    max-width: 1060px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+  .section {
+    margin-bottom: 40px;
+  }
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .toolbar h2 {
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .toolbar-right {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  /* Table */
+  .table-wrap {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  thead th {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border);
+  }
+  tbody td {
+    padding: 12px 16px;
+    font-size: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+  tbody tr:hover {
+    background: rgba(255,255,255,0.02);
+  }
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .badge-green {
+    background: rgba(74, 222, 128, 0.15);
+    color: #4ade80;
+  }
+  .badge-red {
+    background: rgba(248, 113, 113, 0.15);
+    color: #f87171;
+  }
+  .actions-cell {
+    display: flex;
+    gap: 6px;
+  }
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  /* Select / Filter */
+  .filter-select {
+    padding: 8px 14px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 14px;
+    outline: none;
+    min-width: 180px;
+  }
+  .filter-select:focus { border-color: var(--primary); }
+
+  /* Modal */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    width: 100%;
+    max-width: 440px;
+  }
+  .modal h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+  .form-group {
+    margin-bottom: 14px;
+  }
+  .form-group label {
+    display: block;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .form-group input, .form-group select {
+    width: 100%;
+    padding: 10px 14px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus, .form-group select:focus { border-color: var(--primary); }
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+  .modal-error {
+    color: #f87171;
+    font-size: 13px;
+    margin-top: 10px;
+    min-height: 18px;
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <h1>Paddle Management</h1>
+  <div class="topbar-actions">
+    <a href="admin.html" class="btn btn-outline btn-sm">Switch to License Admin</a>
+    <button class="btn btn-outline btn-sm" onclick="logout()">Logout</button>
+  </div>
+</div>
+
+<div class="container">
+  <!-- Section 1: Apps -->
+  <div class="section">
+    <div class="toolbar">
+      <h2>Apps</h2>
+      <button class="btn btn-primary" onclick="openAppModal()">Add App</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>App ID</th>
+            <th>Name</th>
+            <th>Notify URL</th>
+            <th>Enabled</th>
+            <th>Paddle Product ID</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="appsBody">
+          <tr><td colspan="6" class="empty-state">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Section 2: Prices -->
+  <div class="section">
+    <div class="toolbar">
+      <h2>Prices</h2>
+      <div class="toolbar-right">
+        <select class="filter-select" id="priceAppFilter" onchange="loadPrices()">
+          <option value="">-- Select App --</option>
+        </select>
+        <button class="btn btn-primary" onclick="openPriceModal()">Add Price</button>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Price ID</th>
+            <th>App ID</th>
+            <th>Name</th>
+            <th>Money (USD)</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="pricesBody">
+          <tr><td colspan="5" class="empty-state">Select an app to view prices.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Admin Key Modal -->
+<div class="modal-overlay" id="keyModalOverlay">
+  <div class="modal">
+    <h2>Enter VNPaddle Admin Key</h2>
+    <form id="keyForm">
+      <div class="form-group">
+        <label for="adminKeyInput">Admin Key</label>
+        <input type="password" id="adminKeyInput" required placeholder="Paste your admin key here">
+      </div>
+      <div class="modal-error" id="keyModalError"></div>
+      <div class="modal-actions">
+        <button type="submit" class="btn btn-primary">Save Key</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- App Modal -->
+<div class="modal-overlay" id="appModalOverlay">
+  <div class="modal">
+    <h2 id="appModalTitle">Add App</h2>
+    <form id="appForm">
+      <div class="form-group">
+        <label for="fAppid">App ID</label>
+        <input type="text" id="fAppid" required placeholder="e.g. echoshorts">
+      </div>
+      <div class="form-group">
+        <label for="fAppName">Name</label>
+        <input type="text" id="fAppName" required placeholder="e.g. EchoShorts">
+      </div>
+      <div class="form-group">
+        <label for="fNotifyUrl">Notify URL</label>
+        <input type="url" id="fNotifyUrl" placeholder="https://example.com/webhook">
+      </div>
+      <div class="form-group">
+        <label for="fSecret">Secret</label>
+        <input type="text" id="fSecret" placeholder="Webhook secret">
+      </div>
+      <div class="form-group">
+        <label for="fPaddleProductId">Paddle Product ID</label>
+        <input type="text" id="fPaddleProductId" placeholder="e.g. pro_abc123">
+      </div>
+      <div class="modal-error" id="appModalError"></div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-outline" onclick="closeAppModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="appSubmitBtn">Add App</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Price Modal -->
+<div class="modal-overlay" id="priceModalOverlay">
+  <div class="modal">
+    <h2 id="priceModalTitle">Add Price</h2>
+    <form id="priceForm">
+      <div class="form-group">
+        <label for="fPriceId">Price ID</label>
+        <input type="text" id="fPriceId" required placeholder="e.g. pri_abc123">
+      </div>
+      <div class="form-group">
+        <label for="fPriceAppid">App ID</label>
+        <input type="text" id="fPriceAppid" required placeholder="e.g. echoshorts">
+      </div>
+      <div class="form-group">
+        <label for="fPriceName">Name</label>
+        <input type="text" id="fPriceName" required placeholder="e.g. Pro Plan">
+      </div>
+      <div class="form-group">
+        <label for="fPriceMoney">Money (USD)</label>
+        <input type="number" id="fPriceMoney" required step="0.01" min="0" placeholder="e.g. 9.99">
+      </div>
+      <div class="modal-error" id="priceModalError"></div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-outline" onclick="closePriceModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="priceSubmitBtn">Add Price</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+const AUTH_API = 'https://license.echoshorts.win';
+const VNPADDLE_API = 'https://pay.echoshorts.win';
+
+function authHeaders() {
+  return { 'Authorization': 'Bearer ' + localStorage.getItem('admin_token'), 'Content-Type': 'application/json' };
+}
+function vnpaddleHeaders() {
+  return { 'X-Admin-Key': localStorage.getItem('vnpaddle_admin_key') || '', 'Content-Type': 'application/json' };
+}
+
+// ---- Auth ----
+async function checkAuth() {
+  const token = localStorage.getItem('admin_token');
+  if (!token) { window.location.href = 'admin-login.html'; return false; }
+  try {
+    const res = await fetch(AUTH_API + '/admin/verify', { headers: authHeaders() });
+    if (!res.ok) throw new Error();
+    return true;
+  } catch {
+    localStorage.removeItem('admin_token');
+    window.location.href = 'admin-login.html';
+    return false;
+  }
+}
+
+function logout() {
+  localStorage.removeItem('admin_token');
+  window.location.href = 'admin-login.html';
+}
+
+function checkAdminKey() {
+  if (!localStorage.getItem('vnpaddle_admin_key')) {
+    document.getElementById('keyModalOverlay').classList.add('active');
+    return false;
+  }
+  return true;
+}
+
+document.getElementById('keyForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const key = document.getElementById('adminKeyInput').value.trim();
+  if (!key) {
+    document.getElementById('keyModalError').textContent = 'Key cannot be empty.';
+    return;
+  }
+  localStorage.setItem('vnpaddle_admin_key', key);
+  document.getElementById('keyModalOverlay').classList.remove('active');
+  loadApps();
+});
+
+// ---- Escape HTML ----
+function esc(str) {
+  const d = document.createElement('div');
+  d.textContent = str == null ? '' : String(str);
+  return d.innerHTML;
+}
+
+// ---- Apps cache for prices dropdown ----
+let cachedApps = [];
+
+// ---- Apps ----
+async function loadApps() {
+  const tbody = document.getElementById('appsBody');
+  tbody.innerHTML = '<tr><td colspan="6" class="empty-state">Loading...</td></tr>';
+  try {
+    const res = await fetch(VNPADDLE_API + '/api/admin/apps', { headers: vnpaddleHeaders() });
+    if (!res.ok) throw new Error('Failed to load apps (' + res.status + ')');
+    const data = await res.json();
+    const apps = data.apps || data || [];
+    cachedApps = Array.isArray(apps) ? apps : [];
+    populateAppFilter();
+    if (!cachedApps.length) {
+      tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No apps yet. Click "Add App" to get started.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = cachedApps.map(app => `
+      <tr>
+        <td>${esc(app.appid)}</td>
+        <td>${esc(app.name)}</td>
+        <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${esc(app.notify_url)}">${esc(app.notify_url || '-')}</td>
+        <td><span class="badge ${app.enabled ? 'badge-green' : 'badge-red'}">${app.enabled ? 'Yes' : 'No'}</span></td>
+        <td>${esc(app.paddle_product_id || '-')}</td>
+        <td>
+          <div class="actions-cell">
+            <button class="btn btn-outline btn-sm" onclick='editApp(${JSON.stringify(app).replace(/'/g,"&#39;")})'>Edit</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteApp('${esc(app.appid)}')">Delete</button>
+          </div>
+        </td>
+      </tr>
+    `).join('');
+  } catch (err) {
+    tbody.innerHTML = `<tr><td colspan="6" class="empty-state" style="color:#f87171">Error: ${esc(err.message)}</td></tr>`;
+  }
+}
+
+function populateAppFilter() {
+  const sel = document.getElementById('priceAppFilter');
+  const cur = sel.value;
+  sel.innerHTML = '<option value="">-- Select App --</option>' +
+    cachedApps.map(a => `<option value="${esc(a.appid)}">${esc(a.appid)} - ${esc(a.name)}</option>`).join('');
+  if (cur) sel.value = cur;
+}
+
+function openAppModal(app) {
+  document.getElementById('appForm').reset();
+  document.getElementById('appModalError').textContent = '';
+  if (app) {
+    document.getElementById('appModalTitle').textContent = 'Edit App';
+    document.getElementById('appSubmitBtn').textContent = 'Save';
+    document.getElementById('fAppid').value = app.appid;
+    document.getElementById('fAppid').disabled = true;
+    document.getElementById('fAppName').value = app.name || '';
+    document.getElementById('fNotifyUrl').value = app.notify_url || '';
+    document.getElementById('fSecret').value = app.secret || '';
+    document.getElementById('fPaddleProductId').value = app.paddle_product_id || '';
+  } else {
+    document.getElementById('appModalTitle').textContent = 'Add App';
+    document.getElementById('appSubmitBtn').textContent = 'Add App';
+    document.getElementById('fAppid').disabled = false;
+  }
+  document.getElementById('appModalOverlay').classList.add('active');
+}
+
+function closeAppModal() {
+  document.getElementById('appModalOverlay').classList.remove('active');
+  document.getElementById('fAppid').disabled = false;
+}
+
+function editApp(app) {
+  openAppModal(app);
+}
+
+async function deleteApp(appid) {
+  if (!confirm('Delete app "' + appid + '"? This cannot be undone.')) return;
+  try {
+    const res = await fetch(VNPADDLE_API + '/api/admin/apps/' + encodeURIComponent(appid), {
+      method: 'DELETE',
+      headers: vnpaddleHeaders()
+    });
+    if (!res.ok) {
+      const d = await res.json().catch(() => ({}));
+      throw new Error(d.error || 'Delete failed');
+    }
+    loadApps();
+  } catch (err) {
+    alert('Error: ' + err.message);
+  }
+}
+
+document.getElementById('appForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('appSubmitBtn');
+  const errorEl = document.getElementById('appModalError');
+  errorEl.textContent = '';
+  btn.disabled = true;
+
+  const body = {
+    appid: document.getElementById('fAppid').value.trim(),
+    name: document.getElementById('fAppName').value.trim(),
+    notify_url: document.getElementById('fNotifyUrl').value.trim(),
+    secret: document.getElementById('fSecret').value.trim(),
+    paddle_product_id: document.getElementById('fPaddleProductId').value.trim(),
+  };
+  try {
+    const res = await fetch(VNPADDLE_API + '/api/admin/apps', {
+      method: 'POST',
+      headers: vnpaddleHeaders(),
+      body: JSON.stringify(body)
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to save app');
+    closeAppModal();
+    loadApps();
+  } catch (err) {
+    errorEl.textContent = err.message;
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+// ---- Prices ----
+async function loadPrices() {
+  const appid = document.getElementById('priceAppFilter').value;
+  const tbody = document.getElementById('pricesBody');
+  if (!appid) {
+    tbody.innerHTML = '<tr><td colspan="5" class="empty-state">Select an app to view prices.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = '<tr><td colspan="5" class="empty-state">Loading...</td></tr>';
+  try {
+    const res = await fetch(VNPADDLE_API + '/api/admin/prices?appid=' + encodeURIComponent(appid), {
+      headers: vnpaddleHeaders()
+    });
+    if (!res.ok) throw new Error('Failed to load prices (' + res.status + ')');
+    const data = await res.json();
+    const prices = data.prices || data || [];
+    const list = Array.isArray(prices) ? prices : [];
+    if (!list.length) {
+      tbody.innerHTML = '<tr><td colspan="5" class="empty-state">No prices for this app. Click "Add Price" to create one.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = list.map(p => `
+      <tr>
+        <td>${esc(p.priceId)}</td>
+        <td>${esc(p.appid)}</td>
+        <td>${esc(p.name)}</td>
+        <td>$${Number(p.money).toFixed(2)}</td>
+        <td>
+          <div class="actions-cell">
+            <button class="btn btn-outline btn-sm" onclick='editPrice(${JSON.stringify(p).replace(/'/g,"&#39;")})'>Edit</button>
+            <button class="btn btn-danger btn-sm" onclick="deletePrice('${esc(p.priceId)}')">Delete</button>
+          </div>
+        </td>
+      </tr>
+    `).join('');
+  } catch (err) {
+    tbody.innerHTML = `<tr><td colspan="5" class="empty-state" style="color:#f87171">Error: ${esc(err.message)}</td></tr>`;
+  }
+}
+
+function openPriceModal(price) {
+  document.getElementById('priceForm').reset();
+  document.getElementById('priceModalError').textContent = '';
+  if (price) {
+    document.getElementById('priceModalTitle').textContent = 'Edit Price';
+    document.getElementById('priceSubmitBtn').textContent = 'Save';
+    document.getElementById('fPriceId').value = price.priceId;
+    document.getElementById('fPriceId').disabled = true;
+    document.getElementById('fPriceAppid').value = price.appid;
+    document.getElementById('fPriceAppid').disabled = true;
+    document.getElementById('fPriceName').value = price.name || '';
+    document.getElementById('fPriceMoney').value = price.money || '';
+  } else {
+    document.getElementById('priceModalTitle').textContent = 'Add Price';
+    document.getElementById('priceSubmitBtn').textContent = 'Add Price';
+    document.getElementById('fPriceId').disabled = false;
+    document.getElementById('fPriceAppid').disabled = false;
+    const selectedAppid = document.getElementById('priceAppFilter').value;
+    if (selectedAppid) {
+      document.getElementById('fPriceAppid').value = selectedAppid;
+    }
+  }
+  document.getElementById('priceModalOverlay').classList.add('active');
+}
+
+function closePriceModal() {
+  document.getElementById('priceModalOverlay').classList.remove('active');
+  document.getElementById('fPriceId').disabled = false;
+  document.getElementById('fPriceAppid').disabled = false;
+}
+
+function editPrice(price) {
+  openPriceModal(price);
+}
+
+async function deletePrice(priceId) {
+  if (!confirm('Delete price "' + priceId + '"? This cannot be undone.')) return;
+  try {
+    const res = await fetch(VNPADDLE_API + '/api/admin/prices/' + encodeURIComponent(priceId), {
+      method: 'DELETE',
+      headers: vnpaddleHeaders()
+    });
+    if (!res.ok) {
+      const d = await res.json().catch(() => ({}));
+      throw new Error(d.error || 'Delete failed');
+    }
+    loadPrices();
+  } catch (err) {
+    alert('Error: ' + err.message);
+  }
+}
+
+document.getElementById('priceForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('priceSubmitBtn');
+  const errorEl = document.getElementById('priceModalError');
+  errorEl.textContent = '';
+  btn.disabled = true;
+
+  const body = {
+    priceId: document.getElementById('fPriceId').value.trim(),
+    appid: document.getElementById('fPriceAppid').value.trim(),
+    name: document.getElementById('fPriceName').value.trim(),
+    money: parseFloat(document.getElementById('fPriceMoney').value),
+  };
+  try {
+    const res = await fetch(VNPADDLE_API + '/api/admin/prices', {
+      method: 'POST',
+      headers: vnpaddleHeaders(),
+      body: JSON.stringify(body)
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to save price');
+    closePriceModal();
+    loadPrices();
+  } catch (err) {
+    errorEl.textContent = err.message;
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+// ---- Close modals on overlay click ----
+document.querySelectorAll('.modal-overlay').forEach(el => {
+  el.addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) {
+      // Don't allow closing the key modal by clicking outside if key is not set
+      if (el.id === 'keyModalOverlay' && !localStorage.getItem('vnpaddle_admin_key')) return;
+      el.classList.remove('active');
+      // Re-enable disabled fields
+      document.getElementById('fAppid').disabled = false;
+      document.getElementById('fPriceId').disabled = false;
+      document.getElementById('fPriceAppid').disabled = false;
+    }
+  });
+});
+
+// ---- Init ----
+(async () => {
+  if (await checkAuth()) {
+    if (checkAdminKey()) {
+      loadApps();
+    }
+  }
+})();
+</script>
+</body>
+</html>
