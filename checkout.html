@@ -127,6 +127,7 @@
     var TXN_ID = params.get('txn_id') || '';
     var currentLang = params.get('lang') || 'en';
     var successUrl = params.get('success_url') ? decodeURIComponent(params.get('success_url')) : '';
+    var CUSTOMER_EMAIL = params.get('email') || '';
 
     var PADDLE_CONFIG_URL = 'https://pay.echoshorts.win/api/paddle-config';
 
@@ -225,9 +226,10 @@
 
         var checkoutOpts = { transactionId: TXN_ID };
         var normalizedLang = langAliases[currentLang] || currentLang;
-        if (normalizedLang === 'zh-CN') {
-          checkoutOpts.customer = { address: { countryCode: 'CN' } };
-        }
+        var customer = {};
+        if (CUSTOMER_EMAIL) customer.email = CUSTOMER_EMAIL;
+        if (normalizedLang === 'zh-CN') customer.address = { countryCode: 'CN' };
+        if (Object.keys(customer).length > 0) checkoutOpts.customer = customer;
         Paddle.Checkout.open(checkoutOpts);
 
         // Show "already paid" button after 5 seconds
