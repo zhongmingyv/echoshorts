@@ -45,7 +45,7 @@
 
 - 酒店页「硬件设备选购」标题后追加「及有偿技术支持」，并在描述「门锁、读卡器、门卡等硬件如需采购」后追加「及有偿技术支持」；同步更新 13 种语言（en/zh/cht/ja/ko/pt/ru/es/fr/de/id/vi/th）的 `hardwareTitle` 与 `hardwareDescBefore` 文案；运行 `node generate_hotel.js` 重新生成全部 `hotel*.html`。
 
-- 工具导航 `index*.html`：移除 e-hotel、e-billiard 两个 `<article class="tool-card">`（仅保留 EchoPShortsPlayer）；`generate_index.js` 去掉 `SHOW_HOTEL_BILLIARD_INTRO`、酒店/台球链接与相关翻译键，`.tool-grid` 恢复单列居中；已执行 `node generate_index.js` 更新全部 `index*.html`。
+- 工具导航 `index*.html`：移除 e-hotel、e-billiard 两个 `<article class="tool-card">`（仅保留 EchoShortsPlayer）；`generate_index.js` 去掉 `SHOW_HOTEL_BILLIARD_INTRO`、酒店/台球链接与相关翻译键，`.tool-grid` 恢复单列居中；已执行 `node generate_index.js` 更新全部 `index*.html`。
 
 - 修复各语言 `home-*.html` 中「为什么使用扩展？/ Why use the extension?」「为什么使用 CLI？/ Why use the CLI?」h4 标题与其下 4 + 5 条优势 `<li>` 长期保持英文的问题：在 `generate_home.js` 新增 `applyAdvantages()` 统一替换标题与列表项；新增 `advantageTranslations.js`，为未在 `fullTranslations.js` / `fullTranslations2.js` 中的 22 种语言（bn / cs / da / el / fa / fi / he / hu / id / it / km / nb / nl / pl / ro / sv / sw / ta / te / tr / uk / ur）补齐 `extAdvTitle` / `extAdv1‑4`、`cliAdvTitle` / `cliAdv1‑5` 译文；已在 `buildTranslated`（zh/cht）和 `buildOther` 内调用，移除原先各处冗余的 `Why use ...` 字符串替换。重新运行 `node generate_home.js` 生成全部 `home-*.html`。
 
@@ -74,7 +74,7 @@
 ## 2026-05-05
 
 - 重写 `index.html` 作为三个工具的主页面。
-- 首页展示三个入口卡片：`EchoPShortsPlayer`、`酒店系统`、`台球系统`。
+- 首页展示三个入口卡片：`EchoShortsPlayer`、`酒店系统`、`台球系统`。
 - 三个卡片分别使用图片：`echoshortsplayer.png`、`ehotel.png`、`ebilliard.png`。
 - 跳转链接按需求设置为：`home.html`、`billiard.html`、`hotel.html`。
 - 介绍文案保持简短，不展开详细功能说明。
