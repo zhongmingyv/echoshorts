@@ -139,6 +139,34 @@
       .lang-switcher { padding: 14px 18px 0; }
       footer { flex-direction: column; gap: 8px; }
     }
+
+    /* Chrome extension preview image with click-to-zoom lightbox */
+    .ext-preview {
+      display: block;
+      width: 100%;
+      max-width: 320px;
+      height: auto;
+      margin: 0 0 16px;
+      border-radius: 8px;
+      border: 1px solid #2a2a2a;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      cursor: zoom-in;
+      background: #fff;
+      transition: transform 0.15s ease;
+    }
+    .ext-preview:hover { transform: translateY(-2px); }
+    .ext-preview.ext-zoomed {
+      position: fixed;
+      inset: 0;
+      margin: auto;
+      max-width: 92vw;
+      max-height: 92vh;
+      width: auto;
+      z-index: 9999;
+      cursor: zoom-out;
+      transform: none;
+      box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.88), 0 8px 40px rgba(0, 0, 0, 0.8);
+    }
   </style>
   <!-- Microsoft Clarity -->
   <script type="text/javascript">
@@ -321,6 +349,8 @@
         <li>点击 <strong>录制</strong>，在浏览器中播放视频；播放结束后点击 <strong>停止</strong>，扩展会自动保存本标签页中您观看过的视频。</li>
         <li>将鼠标悬停在列表项上，可高亮页面中对应的视频元素。</li>
       </ol>
+
+      <img src="plugin.png" alt="EchoShorts extension popup preview" class="ext-preview" onclick="this.classList.toggle('ext-zoomed')">
 
       <div class="advantages">
         <h4>扩展安全吗？</h4>

@@ -139,6 +139,34 @@
       .lang-switcher { padding: 14px 18px 0; }
       footer { flex-direction: column; gap: 8px; }
     }
+
+    /* Chrome extension preview image with click-to-zoom lightbox */
+    .ext-preview {
+      display: block;
+      width: 100%;
+      max-width: 320px;
+      height: auto;
+      margin: 0 0 16px;
+      border-radius: 8px;
+      border: 1px solid #2a2a2a;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      cursor: zoom-in;
+      background: #fff;
+      transition: transform 0.15s ease;
+    }
+    .ext-preview:hover { transform: translateY(-2px); }
+    .ext-preview.ext-zoomed {
+      position: fixed;
+      inset: 0;
+      margin: auto;
+      max-width: 92vw;
+      max-height: 92vh;
+      width: auto;
+      z-index: 9999;
+      cursor: zoom-out;
+      transform: none;
+      box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.88), 0 8px 40px rgba(0, 0, 0, 0.8);
+    }
   </style>
   <!-- Microsoft Clarity -->
   <script type="text/javascript">
@@ -294,6 +322,8 @@
         <li><strong>녹화</strong>를 클릭한 뒤 브라우저에서 동영상을 재생하고, 재생이 끝나면 <strong>중지</strong>를 클릭하세요 — 이 탭에서 시청한 동영상이 자동으로 저장됩니다.</li>
         <li>항목 위에 마우스를 올리면 페이지의 해당 비디오 요소가 강조 표시됩니다.</li>
       </ol>
+
+      <img src="plugin.png" alt="EchoShorts extension popup preview" class="ext-preview" onclick="this.classList.toggle('ext-zoomed')">
 
       <div class="advantages">
         <h4>확장 프로그램은 안전한가요?</h4>
