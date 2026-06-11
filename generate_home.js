@@ -8,7 +8,8 @@ const path = require('path');
 const extensionStepTranslations = require('./extensionStepTranslations.js');
 const advantageTranslations = require('./advantageTranslations.js');
 
-const template = fs.readFileSync(path.join(__dirname, 'home.html'), 'utf8');
+const PAGES_DIR = path.join(__dirname, 'player');
+const template = fs.readFileSync(path.join(PAGES_DIR, 'home.html'), 'utf8');
 const getPartnerProgramHtml = require('./partnerProgramTranslations');
 
 /** Replace <!-- PARTNER_PROGRAM_BEGIN --> ... <!-- PARTNER_PROGRAM_END --> with localized #4 block. */
@@ -365,7 +366,7 @@ function buildTranslated(key, data) {
     html = applyZhBaiduDownloadButton(html);
   }
 
-  fs.writeFileSync(path.join(__dirname, file), html, 'utf8');
+  fs.writeFileSync(path.join(PAGES_DIR, file), html, 'utf8');
 }
 
 // --- Store button translations for all languages ---
@@ -926,7 +927,7 @@ function buildOther(key, data) {
     html = applyZhBaiduDownloadButton(html);
   }
 
-  fs.writeFileSync(path.join(__dirname, file), html, 'utf8');
+  fs.writeFileSync(path.join(PAGES_DIR, file), html, 'utf8');
 }
 
 // --- Main ---
@@ -937,7 +938,7 @@ for (const [key, data] of Object.entries(langs)) {
 }
 
 // Get all home-*.html files to ensure we update all of them
-const homeFiles = fs.readdirSync(__dirname).filter(f => f.startsWith('home-') && f.endsWith('.html'));
+const homeFiles = fs.readdirSync(PAGES_DIR).filter(f => f.startsWith('home-') && f.endsWith('.html'));
 homeFiles.forEach(file => {
   const key = file.replace('home-', '').replace('.html', '');
   if (langs[key]) return;

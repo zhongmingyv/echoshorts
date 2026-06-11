@@ -148,11 +148,31 @@
   .truncated {
     max-width: 110px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
-  .url-cell {
-    max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  .url-cell { white-space: nowrap; }
+  .url-cell .url-text {
+    display: inline-block;
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
   }
   .url-cell a { color: var(--primary); text-decoration: none; }
   .url-cell a:hover { text-decoration: underline; }
+  .btn-copy {
+    vertical-align: middle;
+    margin-left: 6px;
+    padding: 2px 7px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.4;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-copy:hover, .btn-copy.copied { border-color: var(--primary); color: var(--primary); }
   code { background: var(--bg); padding: 2px 8px; border-radius: 4px; font-size: 12px; }
 
   .pagination {
@@ -475,8 +495,8 @@ function renderTable() {
     <td class="truncated" title="${escHtml(o.orderId)}"><code>${escHtml(truncate(o.orderId, 12))}</code></td>
     <td>${statusBadge(o.status)}</td>
     <td>${escHtml(o.email || '-')}</td>
-    <td class="url-cell" title="${escHtml(o.videoUrl)}"><a href="${escHtml(o.videoUrl)}" target="_blank" rel="noopener noreferrer">${escHtml(o.videoUrl || '-')}</a></td>
-    <td>${o.needSubtitle ? '<span class="badge badge-green">Yes (' + escHtml(LANG_NAMES[o.subtitleLang] || o.subtitleLang || '-') + ')</span>' : '<span class="badge badge-gray">No</span>'}</td>
+    <td class="url-cell" title="${escHtml(o.videoUrl)}"><span class="url-text"><a href="${escHtml(o.videoUrl)}" target="_blank" rel="noopener noreferrer">${escHtml(o.videoUrl || '-')}</a></span><button class="btn-copy" title="Copy URL" onclick="copyUrl('${escHtml(o.orderId)}', this)">&#x2398;</button></td>
+    <td>${o.needSubtitle ? '<span class="badge badge-green">' + escHtml(LANG_NAMES[o.subtitleLang] || o.subtitleLang || '-') + '</span>' : '<span class="badge badge-gray">No</span>'}</td>
     <td>${escHtml(o.payMethod || '-')}</td>
     <td>${priceOf(o)}</td>
     <td>${o.ownerNotified ? '<span class="badge badge-green">Yes</span>' : '<span class="badge badge-gray">No</span>'}</td>
@@ -529,6 +549,25 @@ async function loadOrders(search) {
 function doSearch() {
   const q = document.getElementById('searchInput').value.trim();
   loadOrders(q || undefined);
+}
+
+async function copyUrl(orderId, btn) {
+  const o = allOrders.find(x => x.orderId === orderId);
+  if (!o || !o.videoUrl) return;
+  try {
+    await navigator.clipboard.writeText(o.videoUrl);
+  } catch {
+    const ta = document.createElement('textarea');
+    ta.value = o.videoUrl;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    ta.remove();
+  }
+  const old = btn.innerHTML;
+  btn.innerHTML = '&#x2713;';
+  btn.classList.add('copied');
+  setTimeout(() => { btn.innerHTML = old; btn.classList.remove('copied'); }, 1200);
 }
 
 let modalOrderId = null;

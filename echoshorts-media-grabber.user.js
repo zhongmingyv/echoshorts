@@ -10,7 +10,7 @@
 // @connect      localhost
 // @connect      127.0.0.1
 // @run-at       document-start
-// @homepageURL  https://echoshorts.win/home.html
+// @homepageURL  https://echoshorts.win/player/home.html
 // @supportURL   mailto:supports@echoshorts.win
 // @license      MIT
 // ==/UserScript==
