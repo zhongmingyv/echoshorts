@@ -96,6 +96,34 @@
   .checkbox-row .cb-text { font-size: 14px; color: var(--text); }
   .checkbox-row .cb-note { font-size: 12px; color: var(--muted); display: block; }
 
+  .subtitle-lang-row {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+    padding-inline-start: 28px;
+  }
+  .subtitle-lang-row .sub-lang-label {
+    font-size: 13px;
+    color: var(--muted);
+    margin: 0;
+    flex-shrink: 0;
+    font-weight: 400;
+  }
+  .subtitle-lang-row select {
+    flex: 1;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 14px;
+    padding: 9px 12px;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .subtitle-lang-row select:focus { border-color: var(--primary); }
+
   .price-section {
     background: var(--bg);
     border: 1px solid var(--border);
@@ -230,9 +258,12 @@
         <input type="checkbox" id="subtitleCheck" onchange="updateState()">
         <span>
           <span class="cb-text" data-i18n="subtitleCheck">I need subtitles</span>
-          <span class="cb-note" id="subtitleNote"></span>
         </span>
       </label>
+      <div class="subtitle-lang-row" id="subtitleLangRow">
+        <span class="sub-lang-label" id="subtitleLangLabel">Subtitle language:</span>
+        <select id="subtitleLangSelect" onchange="subtitleLangTouched = true"></select>
+      </div>
     </div>
 
     <div class="price-section">
@@ -382,6 +413,18 @@ function buildLangSwitcher() {
   });
 }
 
+let subtitleLangTouched = false;
+
+function buildSubtitleLangSelect() {
+  const sel = document.getElementById('subtitleLangSelect');
+  Object.keys(i18n).forEach(code => {
+    const opt = document.createElement('option');
+    opt.value = code;
+    opt.textContent = LANG_NAMES[code] || code;
+    sel.appendChild(opt);
+  });
+}
+
 function changeLang() {
   lang = document.getElementById('langSelect').value;
   applyLang();
@@ -398,8 +441,9 @@ function applyLang() {
   document.querySelectorAll('[data-i18n-ph]').forEach(el => {
     el.placeholder = t(el.getAttribute('data-i18n-ph'));
   });
-  document.getElementById('subtitleNote').textContent =
-    t('subtitleNote').replace('{lang}', LANG_NAMES[lang] || lang);
+  document.getElementById('subtitleLangLabel').textContent =
+    t('subtitleNote').replace('{lang}', '').trim();
+  if (!subtitleLangTouched) document.getElementById('subtitleLangSelect').value = lang;
   updateState();
 }
 
@@ -438,6 +482,9 @@ function updateState() {
 
   document.getElementById('payBtn').disabled = !!blocked;
   document.getElementById('paypalWrap').classList.toggle('disabled', !!blocked);
+
+  document.getElementById('subtitleLangRow').style.display =
+    document.getElementById('subtitleCheck').checked ? 'flex' : 'none';
 }
 
 function showError(msg) {
@@ -474,7 +521,7 @@ function validateForm() {
     email,
     videoUrl: url,
     needSubtitle,
-    subtitleLang: needSubtitle ? lang : null,
+    subtitleLang: needSubtitle ? document.getElementById('subtitleLangSelect').value : null,
     lang
   };
 }
@@ -582,6 +629,7 @@ function renderPaypalButtons() {
 
 // ── Init ──
 buildLangSwitcher();
+buildSubtitleLangSelect();
 lang = detectLang();
 applyLang();
 loadBlacklist();

@@ -513,7 +513,6 @@ const template = (lang, text) => {
 </head>
 <body>
   <script src="lang-query.js"></script>
-  <script src="index-back-nav.js"></script>
   <div class="lang-switcher">
     <select onchange="location.href=this.value">
 ${makeOptions(lang)}
