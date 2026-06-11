@@ -105,9 +105,10 @@
     background: var(--card-bg);
     border: 1px solid var(--border);
     border-radius: 12px;
-    overflow: hidden;
+    overflow-x: auto;
   }
   table { width: 100%; border-collapse: collapse; }
+  td { white-space: nowrap; }
   th {
     text-align: left;
     padding: 12px 16px;
@@ -145,10 +146,10 @@
   }
   .empty-state { text-align: center; padding: 40px; color: var(--muted); font-size: 14px; }
   .truncated {
-    max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    max-width: 110px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
   .url-cell {
-    max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
   .url-cell a { color: var(--primary); text-decoration: none; }
   .url-cell a:hover { text-decoration: underline; }
