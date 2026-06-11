@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Domain Blacklist - EchoShorts Admin</title>
+<style>
+  :root {
+    --bg: #0f0f0f;
+    --card-bg: #1a1a1a;
+    --text: #e0e0e0;
+    --muted: #999999;
+    --primary: #4ade80;
+    --border: #2a2a2a;
+    --error: #f87171;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+  .top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .breadcrumb { font-size: 14px; color: var(--muted); }
+  .breadcrumb a { color: var(--primary); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb span { color: var(--text); font-weight: 600; }
+  .btn-logout {
+    padding: 6px 16px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--muted);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-logout:hover { border-color: #f87171; color: #f87171; }
+  .container {
+    max-width: 720px;
+    margin: 24px auto;
+    padding: 0 24px;
+  }
+  .header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .header-row h2 { font-size: 20px; font-weight: 600; }
+  .total-count { font-size: 14px; color: var(--muted); font-weight: 400; margin-left: 8px; }
+  .hint { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+  .hint code { background: var(--card-bg); padding: 1px 6px; border-radius: 4px; }
+  .add-bar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .add-bar input {
+    flex: 1;
+    padding: 10px 16px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .add-bar input:focus { border-color: var(--primary); }
+  .add-bar input::placeholder { color: var(--muted); }
+  .btn-primary {
+    padding: 8px 20px;
+    background: var(--primary);
+    color: #0f0f0f;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.9; }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .domain-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .domain-row:last-child { border-bottom: none; }
+  .domain-row:hover { background: rgba(255,255,255,0.02); }
+  .domain-row code { background: var(--bg); padding: 3px 10px; border-radius: 4px; font-size: 13px; }
+  .wildcard-tag {
+    margin-left: 8px;
+    font-size: 11px;
+    color: #facc15;
+    background: rgba(250,204,21,0.12);
+    padding: 1px 8px;
+    border-radius: 10px;
+  }
+  .btn-remove {
+    padding: 4px 14px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--muted);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-remove:hover { border-color: var(--error); color: var(--error); }
+  .loading { text-align: center; padding: 40px; color: var(--muted); font-size: 14px; }
+  .empty-state { text-align: center; padding: 40px; color: var(--muted); font-size: 14px; }
+  .error-banner {
+    background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.3);
+    border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; color: #f87171; font-size: 14px; display: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="breadcrumb">
+    <a href="admin.html">Admin</a> &rsaquo; <a href="admin-downloads.html">Video Downloads</a> &rsaquo; <span>Domain Blacklist</span>
+  </div>
+  <button class="btn-logout" onclick="logout()">Logout</button>
+</div>
+
+<div class="container">
+  <div class="error-banner" id="errorBanner"></div>
+
+  <div class="header-row">
+    <h2>Domain Blacklist <span class="total-count" id="totalCount"></span></h2>
+  </div>
+
+  <p class="hint">
+    Video URLs from these domains are rejected (subdomains included).
+    Use <code>name.*</code> to match all TLDs, e.g. <code>amazon.*</code> blocks amazon.com, amazon.de, amazon.co.jp.
+  </p>
+
+  <div class="add-bar">
+    <input type="text" id="domainInput" placeholder="e.g. netflix.com or amazon.*" onkeydown="if(event.key==='Enter')addDomain()">
+    <button class="btn-primary" id="addBtn" onclick="addDomain()">Add</button>
+  </div>
+
+  <div class="card">
+    <div class="loading" id="loadingMsg">Loading blacklist...</div>
+    <div id="domainList" style="display:none;"></div>
+    <div class="empty-state" id="emptyState" style="display:none;">Blacklist is empty.</div>
+  </div>
+</div>
+
+<script>
+const API = 'https://license.echoshorts.win';
+
+function authHeaders() { return { 'Authorization': 'Bearer ' + localStorage.getItem('admin_token'), 'Content-Type': 'application/json' }; }
+async function checkAuth() {
+  const token = localStorage.getItem('admin_token');
+  if (!token) { window.location.href = 'admin-login.html'; return false; }
+  try { const res = await fetch(API + '/admin/verify', { headers: authHeaders() }); if (!res.ok) throw new Error(); return true; } catch { localStorage.removeItem('admin_token'); window.location.href = 'admin-login.html'; return false; }
+}
+
+function logout() {
+  localStorage.removeItem('admin_token');
+  window.location.href = 'admin-login.html';
+}
+
+function showError(msg) {
+  const el = document.getElementById('errorBanner');
+  el.textContent = msg; el.style.display = 'block';
+  setTimeout(() => { el.style.display = 'none'; }, 5000);
+}
+
+function escHtml(s) {
+  if (!s) return '';
+  const d = document.createElement('div'); d.textContent = s; return d.innerHTML;
+}
+
+let domains = [];
+
+function renderList() {
+  const list = document.getElementById('domainList');
+  const empty = document.getElementById('emptyState');
+  document.getElementById('totalCount').textContent = '(' + domains.length + ' total)';
+
+  if (domains.length === 0) {
+    list.style.display = 'none';
+    empty.style.display = 'block';
+    return;
+  }
+  list.style.display = 'block';
+  empty.style.display = 'none';
+  list.innerHTML = domains.map(d => `<div class="domain-row">
+    <span><code>${escHtml(d)}</code>${d.endsWith('.*') ? '<span class="wildcard-tag">all TLDs</span>' : ''}</span>
+    <button class="btn-remove" onclick="removeDomain('${escHtml(d)}')">Remove</button>
+  </div>`).join('');
+}
+
+async function loadBlacklist() {
+  const loading = document.getElementById('loadingMsg');
+  loading.style.display = 'block';
+  document.getElementById('domainList').style.display = 'none';
+  document.getElementById('emptyState').style.display = 'none';
+  try {
+    const res = await fetch(`${API}/download-blacklist`);
+    if (!res.ok) throw new Error('Failed to load blacklist');
+    const data = await res.json();
+    domains = data.domains || [];
+    renderList();
+  } catch (err) {
+    showError(err.message);
+  } finally {
+    loading.style.display = 'none';
+  }
+}
+
+async function addDomain() {
+  const input = document.getElementById('domainInput');
+  const domain = input.value.trim().toLowerCase();
+  if (!domain) return;
+
+  const btn = document.getElementById('addBtn');
+  btn.disabled = true;
+  try {
+    const res = await fetch(`${API}/admin/download-blacklist`, {
+      method: 'POST',
+      headers: authHeaders(),
+      body: JSON.stringify({ domain })
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      const msgs = { invalid_domain: 'Invalid domain format.', already_exists: 'Domain is already in the blacklist.' };
+      throw new Error(msgs[data.error] || data.error || 'Failed to add domain');
+    }
+    domains = data.domains;
+    input.value = '';
+    renderList();
+  } catch (err) {
+    showError(err.message);
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+async function removeDomain(domain) {
+  if (!confirm('Remove "' + domain + '" from the blacklist?')) return;
+  try {
+    const res = await fetch(`${API}/admin/download-blacklist`, {
+      method: 'DELETE',
+      headers: authHeaders(),
+      body: JSON.stringify({ domain })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to remove domain');
+    domains = data.domains;
+    renderList();
+  } catch (err) {
+    showError(err.message);
+  }
+}
+
+(async () => {
+  if (!await checkAuth()) return;
+  loadBlacklist();
+})();
+</script>
+</body>
+</html>

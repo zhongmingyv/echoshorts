@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video Download Orders - EchoShorts Admin</title>
+<style>
+  :root {
+    --bg: #0f0f0f;
+    --card-bg: #1a1a1a;
+    --text: #e0e0e0;
+    --muted: #999999;
+    --primary: #4ade80;
+    --border: #2a2a2a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+  .top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .breadcrumb { font-size: 14px; color: var(--muted); }
+  .breadcrumb a { color: var(--primary); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb span { color: var(--text); font-weight: 600; }
+  .btn-logout {
+    padding: 6px 16px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--muted);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-logout:hover { border-color: #f87171; color: #f87171; }
+  .container {
+    max-width: 1300px;
+    margin: 24px auto;
+    padding: 0 24px;
+  }
+  .header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .header-row h2 { font-size: 20px; font-weight: 600; }
+  .total-count { font-size: 14px; color: var(--muted); font-weight: 400; margin-left: 8px; }
+  .btn-primary {
+    padding: 8px 20px;
+    background: var(--primary);
+    color: #0f0f0f;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.9; }
+  .btn-outline {
+    padding: 8px 20px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+  .search-bar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .search-bar input {
+    flex: 1;
+    padding: 10px 16px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-bar input:focus { border-color: var(--primary); }
+  .search-bar input::placeholder { color: var(--muted); }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  table { width: 100%; border-collapse: collapse; }
+  th {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    background: var(--card-bg);
+    white-space: nowrap;
+  }
+  td {
+    padding: 10px 16px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .badge-gray { background: rgba(153,153,153,0.15); color: #999999; }
+  .badge-green { background: rgba(74,222,128,0.15); color: #4ade80; }
+  .badge-red { background: rgba(248,113,113,0.15); color: #f87171; }
+  .badge-yellow { background: rgba(250,204,21,0.15); color: #facc15; }
+  .badge-blue { background: rgba(96,165,250,0.15); color: #60a5fa; }
+  .loading { text-align: center; padding: 40px; color: var(--muted); font-size: 14px; }
+  .error-banner {
+    background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.3);
+    border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; color: #f87171; font-size: 14px; display: none;
+  }
+  .empty-state { text-align: center; padding: 40px; color: var(--muted); font-size: 14px; }
+  .truncated {
+    max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .url-cell {
+    max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .url-cell a { color: var(--primary); text-decoration: none; }
+  .url-cell a:hover { text-decoration: underline; }
+  code { background: var(--bg); padding: 2px 8px; border-radius: 4px; font-size: 12px; }
+
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .pagination-controls { display: flex; align-items: center; gap: 8px; }
+  .pagination-controls button {
+    padding: 4px 12px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .pagination-controls button:hover { border-color: var(--primary); }
+  .pagination-controls button:disabled { opacity: 0.4; cursor: not-allowed; }
+  .pagination-controls button:disabled:hover { border-color: var(--border); }
+  .page-size-select {
+    padding: 4px 8px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 13px;
+    outline: none;
+    cursor: pointer;
+  }
+  .btn-send {
+    padding: 4px 14px;
+    background: transparent;
+    border: 1px solid var(--primary);
+    border-radius: 6px;
+    color: var(--primary);
+    font-size: 12px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .btn-send:hover { background: rgba(74,222,128,0.1); }
+  .btn-resend { border-color: var(--border); color: var(--muted); }
+  .btn-resend:hover { border-color: var(--primary); color: var(--primary); background: transparent; }
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    width: 100%;
+    max-width: 480px;
+    margin: 16px;
+  }
+  .modal h3 { font-size: 17px; margin-bottom: 18px; }
+  .modal-field { margin-bottom: 14px; }
+  .modal-field label {
+    display: block;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .readonly-box {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 13px;
+    word-break: break-all;
+  }
+  .modal-field input, .modal-field textarea {
+    width: 100%;
+    padding: 9px 12px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 13px;
+    outline: none;
+    font-family: inherit;
+    resize: vertical;
+    transition: border-color 0.2s;
+  }
+  .modal-field input:focus, .modal-field textarea:focus { border-color: var(--primary); }
+  .modal-error { display: none; color: #f87171; font-size: 13px; margin-top: 10px; }
+  .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 18px; }
+  .btn-cancel {
+    padding: 8px 20px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--muted);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-cancel:hover { color: var(--text); border-color: var(--muted); }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="breadcrumb">
+    <a href="admin.html">Admin</a> &rsaquo; <span>Video Download Orders</span>
+  </div>
+  <button class="btn-logout" onclick="logout()">Logout</button>
+</div>
+
+<div class="container">
+  <div class="error-banner" id="errorBanner"></div>
+
+  <div class="header-row">
+    <h2>Video Download Orders <span class="total-count" id="totalCount"></span></h2>
+    <a href="admin-blacklist.html" class="btn-outline">Domain Blacklist</a>
+  </div>
+
+  <!-- Search -->
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search by order ID, email, status, video URL, or pay method..." onkeydown="if(event.key==='Enter')doSearch()">
+    <button class="btn-primary" onclick="doSearch()">Search</button>
+  </div>
+
+  <!-- Table -->
+  <div class="card">
+    <div class="loading" id="loadingMsg">Loading orders...</div>
+    <table id="orderTable" style="display:none;">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Status</th>
+          <th>Email</th>
+          <th>Video URL</th>
+          <th>Subtitle</th>
+          <th>Pay Method</th>
+          <th>Price</th>
+          <th>Notified</th>
+          <th>Created At</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+    <div class="empty-state" id="emptyState" style="display:none;">No orders found.</div>
+    <div class="pagination" id="pagination" style="display:none;">
+      <div>
+        <span id="pageInfo"></span>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        Per page:
+        <select class="page-size-select" id="pageSizeSelect" onchange="changePageSize()">
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+        </select>
+      </div>
+      <div class="pagination-controls">
+        <button onclick="goPage(1)" id="btnFirst">&laquo;</button>
+        <button onclick="goPage(currentPage-1)" id="btnPrev">&lsaquo; Prev</button>
+        <span id="pageNum"></span>
+        <button onclick="goPage(currentPage+1)" id="btnNext">Next &rsaquo;</button>
+        <button onclick="goPage(totalPages)" id="btnLast">&raquo;</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Send Download Link Modal -->
+<div class="modal-overlay" id="sendModal" onclick="if(event.target===this)closeSendModal()">
+  <div class="modal">
+    <h3>Send Download Link</h3>
+    <div class="modal-field">
+      <label>Customer Email</label>
+      <div class="readonly-box" id="mEmail"></div>
+    </div>
+    <div class="modal-field">
+      <label>Video URL</label>
+      <div class="readonly-box" id="mVideoUrl"></div>
+    </div>
+    <div class="modal-field">
+      <label>Download Link *</label>
+      <input type="text" id="mDownloadLink" placeholder="https://www.swisstransfer.com/d/...">
+    </div>
+    <div class="modal-field">
+      <label>Extra Note (optional, appended at the end of the email)</label>
+      <textarea id="mNote" rows="3" placeholder="Optional extra message to the customer..."></textarea>
+    </div>
+    <div class="modal-error" id="mError"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeSendModal()">Cancel</button>
+      <button class="btn-primary" id="mSendBtn" onclick="sendDownloadLink()">Send Email</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const API = 'https://license.echoshorts.win';
+const APPID = 'echoshorts-download';
+
+function authHeaders() { return { 'Authorization': 'Bearer ' + localStorage.getItem('admin_token'), 'Content-Type': 'application/json' }; }
+async function checkAuth() {
+  const token = localStorage.getItem('admin_token');
+  if (!token) { window.location.href = 'admin-login.html'; return false; }
+  try { const res = await fetch(API + '/admin/verify', { headers: authHeaders() }); if (!res.ok) throw new Error(); return true; } catch { localStorage.removeItem('admin_token'); window.location.href = 'admin-login.html'; return false; }
+}
+
+let allOrders = [];
+let currentPage = 1;
+let pageSize = 10;
+let totalPages = 1;
+
+function logout() {
+  localStorage.removeItem('admin_token');
+  window.location.href = 'admin-login.html';
+}
+
+function showError(msg) {
+  const el = document.getElementById('errorBanner');
+  el.textContent = msg; el.style.display = 'block';
+  setTimeout(() => { el.style.display = 'none'; }, 5000);
+}
+
+function escHtml(s) {
+  if (!s) return '';
+  const d = document.createElement('div'); d.textContent = s; return d.innerHTML;
+}
+
+function truncate(s, len) {
+  if (!s) return '-';
+  return s.length > len ? s.slice(0, len) + '...' : s;
+}
+
+function formatDate(d) {
+  if (!d) return '-';
+  try {
+    const dt = new Date(d);
+    return dt.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+      + ' ' + dt.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+  } catch { return d; }
+}
+
+function statusBadge(status) {
+  const s = (status || 'pending').toLowerCase();
+  if (s === 'delivered') return '<span class="badge badge-green">delivered</span>';
+  if (s === 'completed') return '<span class="badge badge-yellow">completed</span>';
+  if (s === 'failed') return '<span class="badge badge-red">failed</span>';
+  if (s === 'pending') return '<span class="badge badge-gray">pending</span>';
+  if (s === 'paypal_claimed') return '<span class="badge badge-blue">paypal_claimed</span>';
+  return '<span class="badge badge-gray">' + escHtml(s) + '</span>';
+}
+
+function actionCell(o) {
+  const s = (o.status || '').toLowerCase();
+  if (s === 'completed' || s === 'paypal_claimed') {
+    return `<button class="btn-send" onclick="openSendModal('${escHtml(o.orderId)}')">Send Link</button>`;
+  }
+  if (s === 'delivered') {
+    return `<button class="btn-send btn-resend" onclick="openSendModal('${escHtml(o.orderId)}')">Resend</button>`;
+  }
+  return '-';
+}
+
+function priceOf(o) {
+  return o.needSubtitle ? '$1.99' : '$1.00';
+}
+
+function renderTable() {
+  const tbody = document.getElementById('tableBody');
+  const table = document.getElementById('orderTable');
+  const empty = document.getElementById('emptyState');
+  const countEl = document.getElementById('totalCount');
+  const paginationEl = document.getElementById('pagination');
+
+  const total = allOrders.length;
+  countEl.textContent = '(' + total + ' total)';
+
+  if (total === 0) {
+    table.style.display = 'none';
+    empty.style.display = 'block';
+    paginationEl.style.display = 'none';
+    return;
+  }
+
+  totalPages = Math.ceil(total / pageSize);
+  if (currentPage > totalPages) currentPage = totalPages;
+  if (currentPage < 1) currentPage = 1;
+
+  const start = (currentPage - 1) * pageSize;
+  const end = Math.min(start + pageSize, total);
+  const pageData = allOrders.slice(start, end);
+
+  table.style.display = 'table';
+  empty.style.display = 'none';
+  paginationEl.style.display = 'flex';
+
+  tbody.innerHTML = pageData.map(o => `<tr>
+    <td class="truncated" title="${escHtml(o.orderId)}"><code>${escHtml(truncate(o.orderId, 12))}</code></td>
+    <td>${statusBadge(o.status)}</td>
+    <td>${escHtml(o.email || '-')}</td>
+    <td class="url-cell" title="${escHtml(o.videoUrl)}"><a href="${escHtml(o.videoUrl)}" target="_blank" rel="noopener noreferrer">${escHtml(o.videoUrl || '-')}</a></td>
+    <td>${o.needSubtitle ? '<span class="badge badge-green">Yes (' + escHtml(o.subtitleLang || '-') + ')</span>' : '<span class="badge badge-gray">No</span>'}</td>
+    <td>${escHtml(o.payMethod || '-')}</td>
+    <td>${priceOf(o)}</td>
+    <td>${o.ownerNotified ? '<span class="badge badge-green">Yes</span>' : '<span class="badge badge-gray">No</span>'}</td>
+    <td>${formatDate(o.createdAt)}</td>
+    <td>${actionCell(o)}</td>
+  </tr>`).join('');
+
+  document.getElementById('pageInfo').textContent = `${start + 1}-${end} of ${total}`;
+  document.getElementById('pageNum').textContent = `${currentPage} / ${totalPages}`;
+  document.getElementById('btnFirst').disabled = currentPage <= 1;
+  document.getElementById('btnPrev').disabled = currentPage <= 1;
+  document.getElementById('btnNext').disabled = currentPage >= totalPages;
+  document.getElementById('btnLast').disabled = currentPage >= totalPages;
+  document.getElementById('pageSizeSelect').value = pageSize;
+}
+
+function goPage(p) {
+  currentPage = Math.max(1, Math.min(p, totalPages));
+  renderTable();
+}
+
+function changePageSize() {
+  pageSize = parseInt(document.getElementById('pageSizeSelect').value) || 10;
+  currentPage = 1;
+  renderTable();
+}
+
+async function loadOrders(search) {
+  const loading = document.getElementById('loadingMsg');
+  loading.style.display = 'block';
+  document.getElementById('orderTable').style.display = 'none';
+  document.getElementById('emptyState').style.display = 'none';
+  document.getElementById('pagination').style.display = 'none';
+  try {
+    let url = `${API}/admin/apps/${APPID}/orders`;
+    if (search) url += '?search=' + encodeURIComponent(search);
+    const res = await fetch(url, { headers: authHeaders() });
+    if (!res.ok) throw new Error('Failed to load orders');
+    const data = await res.json();
+    allOrders = data.orders || [];
+    currentPage = 1;
+    renderTable();
+  } catch (err) {
+    showError(err.message);
+  } finally {
+    loading.style.display = 'none';
+  }
+}
+
+function doSearch() {
+  const q = document.getElementById('searchInput').value.trim();
+  loadOrders(q || undefined);
+}
+
+let modalOrderId = null;
+
+function openSendModal(orderId) {
+  const o = allOrders.find(x => x.orderId === orderId);
+  if (!o) return;
+  modalOrderId = orderId;
+  document.getElementById('mEmail').textContent = o.email || '-';
+  document.getElementById('mVideoUrl').textContent = o.videoUrl || '-';
+  document.getElementById('mDownloadLink').value = o.downloadLink || '';
+  document.getElementById('mNote').value = '';
+  document.getElementById('mError').style.display = 'none';
+  document.getElementById('sendModal').style.display = 'flex';
+  document.getElementById('mDownloadLink').focus();
+}
+
+function closeSendModal() {
+  document.getElementById('sendModal').style.display = 'none';
+  modalOrderId = null;
+}
+
+function showModalError(msg) {
+  const el = document.getElementById('mError');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+async function sendDownloadLink() {
+  const link = document.getElementById('mDownloadLink').value.trim();
+  let valid = false;
+  try { const u = new URL(link); valid = u.protocol === 'http:' || u.protocol === 'https:'; } catch {}
+  if (!valid) { showModalError('Please enter a valid download URL (http/https).'); return; }
+
+  const note = document.getElementById('mNote').value.trim();
+  const btn = document.getElementById('mSendBtn');
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+  document.getElementById('mError').style.display = 'none';
+  try {
+    const res = await fetch(`${API}/admin/download-orders/${modalOrderId}/send-link`, {
+      method: 'POST',
+      headers: authHeaders(),
+      body: JSON.stringify({ downloadLink: link, note })
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      const msgs = {
+        invalid_download_link: 'Invalid download link.',
+        order_not_found: 'Order not found.',
+        resend_not_configured: 'RESEND_API_KEY is not configured on the worker.',
+        email_send_failed: 'Email sending failed: ' + (data.detail || '')
+      };
+      throw new Error(msgs[data.error] || data.error || 'Failed to send email');
+    }
+    const idx = allOrders.findIndex(x => x.orderId === modalOrderId);
+    if (idx !== -1 && data.order) allOrders[idx] = data.order;
+    closeSendModal();
+    renderTable();
+  } catch (err) {
+    showModalError(err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Send Email';
+  }
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && document.getElementById('sendModal').style.display === 'flex') closeSendModal();
+});
+
+(async () => {
+  if (!await checkAuth()) return;
+  loadOrders();
+})();
+</script>
+</body>
+</html>

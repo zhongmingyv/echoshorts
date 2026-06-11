@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video Download - EchoShorts</title>
+<style>
+  :root {
+    --bg: #0f0f0f;
+    --card-bg: #1a1a1a;
+    --text: #e0e0e0;
+    --muted: #999999;
+    --primary: #4ade80;
+    --primary-hover: #22c55e;
+    --border: #2a2a2a;
+    --error: #f87171;
+    --error-bg: #2d1b1b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    line-height: 1.6;
+  }
+
+  .container { width: 100%; max-width: 480px; }
+
+  .card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    padding: 36px 32px;
+  }
+
+  .lang-switcher-wrap { text-align: right; margin-bottom: 8px; }
+  html[dir="rtl"] .lang-switcher-wrap { text-align: left; }
+
+  .lang-switcher {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 12px;
+    padding: 5px 8px;
+    cursor: pointer;
+    outline: none;
+  }
+  .lang-switcher:focus { border-color: var(--primary); }
+
+  .app-header { text-align: center; margin-bottom: 24px; }
+  .app-header h1 { font-size: 22px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .app-header .tagline { font-size: 13px; color: var(--muted); }
+
+  label { display: block; font-size: 14px; font-weight: 500; color: var(--muted); margin-bottom: 6px; }
+
+  input[type="email"], input[type="url"], input[type="text"] {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: var(--text);
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  input:focus { border-color: var(--primary); }
+  input::placeholder { color: #555; }
+  input.input-error { border-color: var(--error); }
+
+  .field-group { margin-bottom: 18px; }
+
+  .checkbox-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .checkbox-row input[type="checkbox"] {
+    width: 18px; height: 18px;
+    margin-top: 3px;
+    accent-color: var(--primary);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .checkbox-row .cb-text { font-size: 14px; color: var(--text); }
+  .checkbox-row .cb-note { font-size: 12px; color: var(--muted); display: block; }
+
+  .price-section {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 18px;
+  }
+  .price-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .price-row .amount { color: var(--primary); }
+
+  .domain-error {
+    display: none;
+    background: var(--error-bg);
+    border: 1px solid var(--error);
+    color: var(--error);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 13px;
+    margin-bottom: 18px;
+  }
+
+  .error-msg {
+    display: none;
+    background: var(--error-bg);
+    border: 1px solid var(--error);
+    color: var(--error);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 13px;
+    margin-bottom: 18px;
+  }
+
+  .btn-pay {
+    width: 100%;
+    background: var(--primary);
+    color: #0f0f0f;
+    border: none;
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, opacity 0.2s;
+  }
+  .btn-pay:hover:not(:disabled) { background: var(--primary-hover); }
+  .btn-pay:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .pay-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--muted);
+    font-size: 12px;
+    margin: 16px 0;
+  }
+  .pay-divider::before, .pay-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  #paypalWrap { position: relative; min-height: 10px; }
+  #paypalWrap.disabled { opacity: 0.4; pointer-events: none; }
+  .paypal-unavailable {
+    display: none;
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+    padding: 12px;
+  }
+
+  .delivery-note {
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 18px;
+  }
+
+  .spinner {
+    display: inline-block;
+    width: 14px; height: 14px;
+    border: 2px solid rgba(0,0,0,0.3);
+    border-top-color: #0f0f0f;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    vertical-align: -2px;
+    margin-inline-end: 8px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .footer { text-align: center; margin-top: 20px; font-size: 12px; }
+  .footer a { color: var(--muted); text-decoration: none; }
+  .footer a:hover { color: var(--primary); }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="lang-switcher-wrap">
+    <select class="lang-switcher" id="langSelect" onchange="changeLang()"></select>
+  </div>
+
+  <div class="card">
+    <div class="app-header">
+      <h1 data-i18n="title">Video Download</h1>
+      <p class="tagline" data-i18n="tagline">Paste a video link, pay, and we will email you the download link.</p>
+    </div>
+
+    <div id="errorMsg" class="error-msg"></div>
+
+    <div class="field-group">
+      <label data-i18n="emailLabel">Email</label>
+      <input type="email" id="emailInput" data-i18n-ph="emailPlaceholder" placeholder="your@email.com">
+    </div>
+
+    <div class="field-group">
+      <label data-i18n="urlLabel">Video URL</label>
+      <input type="url" id="urlInput" data-i18n-ph="urlPlaceholder" placeholder="https://..." oninput="updateState()">
+    </div>
+
+    <div id="domainError" class="domain-error"></div>
+
+    <div class="field-group">
+      <label class="checkbox-row">
+        <input type="checkbox" id="subtitleCheck" onchange="updateState()">
+        <span>
+          <span class="cb-text" data-i18n="subtitleCheck">I need subtitles</span>
+          <span class="cb-note" id="subtitleNote"></span>
+        </span>
+      </label>
+    </div>
+
+    <div class="price-section">
+      <div class="price-row">
+        <span data-i18n="totalLabel">Total</span>
+        <span class="amount" id="totalPrice">$1.00</span>
+      </div>
+    </div>
+
+    <button class="btn-pay" id="payBtn" onclick="handlePay()" data-i18n="payBtn">Pay Now</button>
+
+    <div class="pay-divider"><span data-i18n="orPay">or</span></div>
+
+    <div id="paypalWrap">
+      <div id="paypal-button-container"></div>
+      <div class="paypal-unavailable" id="paypalUnavailable"></div>
+    </div>
+
+    <p class="delivery-note" data-i18n="deliveryNote">The download link will be sent to your email within 48 hours after payment.</p>
+  </div>
+
+  <div class="footer">
+    <a href="https://echoshorts.win">echoshorts.win</a>
+  </div>
+</div>
+
+<script>
+const API_BASE = 'https://license.echoshorts.win';
+const PAYPAL_CLIENT_ID = 'YOUR_PAYPAL_CLIENT_ID'; // TODO: replace after PayPal account approval
+const PRICE_BASIC = '1.00';
+const PRICE_SUBTITLE = '1.99';
+
+// Fallback list used until the live blacklist loads from the worker.
+// Entries ending in ".*" match the name across all TLDs (e.g. "amazon.*").
+let blacklistDomains = [
+  'netflix.com',
+  'disneyplus.com',
+  'disney.com',
+  'primevideo.com',
+  'amazon.*',
+  'apple.com',
+  'hbomax.com',
+  'max.com',
+  'hbo.com',
+  'iqiyi.com',
+  'iq.com',
+  'qq.com',
+  'wetv.vip',
+  'youku.com'
+];
+
+async function loadBlacklist() {
+  try {
+    const res = await fetch(`${API_BASE}/download-blacklist`);
+    if (!res.ok) return;
+    const data = await res.json();
+    if (Array.isArray(data.domains)) {
+      blacklistDomains = data.domains;
+      updateState();
+    }
+  } catch {}
+}
+
+const LANG_NAMES = {
+  en: 'English', zh: '简体中文', 'zh-TW': '繁體中文', ar: 'العربية', bn: 'বাংলা',
+  cs: 'Čeština', da: 'Dansk', de: 'Deutsch', el: 'Ελληνικά', es: 'Español',
+  fa: 'فارسی', fi: 'Suomi', fr: 'Français', he: 'עברית', hi: 'हिन्दी',
+  hu: 'Magyar', id: 'Bahasa Indonesia', it: 'Italiano', ja: '日本語', km: 'ខ្មែរ',
+  ko: '한국어', ms: 'Bahasa Melayu', nb: 'Norsk', nl: 'Nederlands', pl: 'Polski',
+  pt: 'Português', ro: 'Română', ru: 'Русский', sv: 'Svenska', sw: 'Kiswahili',
+  ta: 'தமிழ்', te: 'తెలుగు', th: 'ไทย', tr: 'Türkçe', uk: 'Українська',
+  ur: 'اردو', vi: 'Tiếng Việt'
+};
+
+const RTL_LANGS = ['ar', 'fa', 'he', 'ur'];
+
+const i18n = {
+  en: { title: 'Video Download', tagline: 'Paste a video link, pay, and we will email you the download link.', emailLabel: 'Email', emailPlaceholder: 'your@email.com', urlLabel: 'Video URL', urlPlaceholder: 'https://...', subtitleCheck: 'I need subtitles (+$0.99)', subtitleNote: 'Subtitle language: {lang}', totalLabel: 'Total', payBtn: 'Pay Now', orPay: 'or', blacklistError: 'This domain is not supported.', emailRequired: 'Please enter a valid email address.', urlRequired: 'Please enter a valid video URL.', deliveryNote: 'The download link will be sent to your email within 48 hours after payment.', processing: 'Processing...', purchaseError: 'Failed to start checkout. Please try again.', paypalUnavailable: 'PayPal is temporarily unavailable.' },
+  zh: { title: '视频下载', tagline: '粘贴视频链接并付款，下载链接将发送到您的邮箱。', emailLabel: '邮箱', emailPlaceholder: '请输入邮箱地址', urlLabel: '视频链接', urlPlaceholder: 'https://...', subtitleCheck: '我需要字幕（+$0.99）', subtitleNote: '字幕语言：{lang}', totalLabel: '合计', payBtn: '立即支付', orPay: '或', blacklistError: '该域名不支持。', emailRequired: '请输入有效的邮箱地址。', urlRequired: '请输入有效的视频链接。', deliveryNote: '付款后 48 小时内，下载链接将发送到您的邮箱。', processing: '处理中...', purchaseError: '发起支付失败，请重试。', paypalUnavailable: 'PayPal 暂时不可用。' },
+  'zh-TW': { title: '影片下載', tagline: '貼上影片連結並付款，下載連結將傳送到您的信箱。', emailLabel: '電子郵件', emailPlaceholder: '請輸入電子郵件地址', urlLabel: '影片連結', urlPlaceholder: 'https://...', subtitleCheck: '我需要字幕（+$0.99）', subtitleNote: '字幕語言：{lang}', totalLabel: '合計', payBtn: '立即付款', orPay: '或', blacklistError: '不支援該網域。', emailRequired: '請輸入有效的電子郵件地址。', urlRequired: '請輸入有效的影片連結。', deliveryNote: '付款後 48 小時內，下載連結將傳送到您的信箱。', processing: '處理中...', purchaseError: '發起付款失敗，請重試。', paypalUnavailable: 'PayPal 暫時無法使用。' },
+  ar: { title: 'تحميل الفيديو', tagline: 'الصق رابط الفيديو وادفع، وسنرسل رابط التحميل إلى بريدك الإلكتروني.', emailLabel: 'البريد الإلكتروني', emailPlaceholder: 'your@email.com', urlLabel: 'رابط الفيديو', urlPlaceholder: 'https://...', subtitleCheck: 'أحتاج إلى ترجمة (+$0.99)', subtitleNote: 'لغة الترجمة: {lang}', totalLabel: 'الإجمالي', payBtn: 'ادفع الآن', orPay: 'أو', blacklistError: 'هذا النطاق غير مدعوم.', emailRequired: 'يرجى إدخال بريد إلكتروني صالح.', urlRequired: 'يرجى إدخال رابط فيديو صالح.', deliveryNote: 'سيتم إرسال رابط التحميل إلى بريدك الإلكتروني خلال 48 ساعة بعد الدفع.', processing: 'جارٍ المعالجة...', purchaseError: 'فشل بدء الدفع. يرجى المحاولة مرة أخرى.', paypalUnavailable: 'PayPal غير متاح مؤقتًا.' },
+  bn: { title: 'ভিডিও ডাউনলোড', tagline: 'ভিডিও লিঙ্ক পেস্ট করুন, অর্থ প্রদান করুন, ডাউনলোড লিঙ্ক আপনার ইমেইলে পাঠানো হবে।', emailLabel: 'ইমেইল', emailPlaceholder: 'your@email.com', urlLabel: 'ভিডিও URL', urlPlaceholder: 'https://...', subtitleCheck: 'আমার সাবটাইটেল দরকার (+$0.99)', subtitleNote: 'সাবটাইটেলের ভাষা: {lang}', totalLabel: 'মোট', payBtn: 'এখনই পরিশোধ করুন', orPay: 'অথবা', blacklistError: 'এই ডোমেইন সমর্থিত নয়।', emailRequired: 'একটি বৈধ ইমেইল ঠিকানা লিখুন।', urlRequired: 'একটি বৈধ ভিডিও URL লিখুন।', deliveryNote: 'পেমেন্টের পর ৪৮ ঘণ্টার মধ্যে ডাউনলোড লিঙ্ক আপনার ইমেইলে পাঠানো হবে।', processing: 'প্রক্রিয়াকরণ চলছে...', purchaseError: 'চেকআউট শুরু করা যায়নি। আবার চেষ্টা করুন।', paypalUnavailable: 'PayPal সাময়িকভাবে অনুপলব্ধ।' },
+  cs: { title: 'Stažení videa', tagline: 'Vložte odkaz na video, zaplaťte a odkaz ke stažení vám pošleme e-mailem.', emailLabel: 'E-mail', emailPlaceholder: 'vas@email.com', urlLabel: 'URL videa', urlPlaceholder: 'https://...', subtitleCheck: 'Potřebuji titulky (+0,99 $)', subtitleNote: 'Jazyk titulků: {lang}', totalLabel: 'Celkem', payBtn: 'Zaplatit', orPay: 'nebo', blacklistError: 'Tato doména není podporována.', emailRequired: 'Zadejte platnou e-mailovou adresu.', urlRequired: 'Zadejte platnou URL videa.', deliveryNote: 'Odkaz ke stažení vám zašleme e-mailem do 48 hodin po zaplacení.', processing: 'Zpracovává se...', purchaseError: 'Platbu se nepodařilo zahájit. Zkuste to znovu.', paypalUnavailable: 'PayPal je dočasně nedostupný.' },
+  da: { title: 'Videodownload', tagline: 'Indsæt et videolink, betal, og vi sender downloadlinket til din e-mail.', emailLabel: 'E-mail', emailPlaceholder: 'din@email.com', urlLabel: 'Video-URL', urlPlaceholder: 'https://...', subtitleCheck: 'Jeg har brug for undertekster (+0,99 $)', subtitleNote: 'Undertekstsprog: {lang}', totalLabel: 'I alt', payBtn: 'Betal nu', orPay: 'eller', blacklistError: 'Dette domæne understøttes ikke.', emailRequired: 'Indtast en gyldig e-mailadresse.', urlRequired: 'Indtast en gyldig video-URL.', deliveryNote: 'Downloadlinket sendes til din e-mail inden for 48 timer efter betaling.', processing: 'Behandler...', purchaseError: 'Kunne ikke starte betaling. Prøv igen.', paypalUnavailable: 'PayPal er midlertidigt utilgængelig.' },
+  de: { title: 'Video-Download', tagline: 'Videolink einfügen, bezahlen, und wir senden Ihnen den Download-Link per E-Mail.', emailLabel: 'E-Mail', emailPlaceholder: 'ihre@email.com', urlLabel: 'Video-URL', urlPlaceholder: 'https://...', subtitleCheck: 'Ich benötige Untertitel (+0,99 $)', subtitleNote: 'Untertitelsprache: {lang}', totalLabel: 'Gesamt', payBtn: 'Jetzt bezahlen', orPay: 'oder', blacklistError: 'Diese Domain wird nicht unterstützt.', emailRequired: 'Bitte geben Sie eine gültige E-Mail-Adresse ein.', urlRequired: 'Bitte geben Sie eine gültige Video-URL ein.', deliveryNote: 'Der Download-Link wird innerhalb von 48 Stunden nach Zahlung an Ihre E-Mail gesendet.', processing: 'Wird verarbeitet...', purchaseError: 'Zahlung konnte nicht gestartet werden. Bitte erneut versuchen.', paypalUnavailable: 'PayPal ist vorübergehend nicht verfügbar.' },
+  el: { title: 'Λήψη βίντεο', tagline: 'Επικολλήστε έναν σύνδεσμο βίντεο, πληρώστε και θα σας στείλουμε τον σύνδεσμο λήψης με email.', emailLabel: 'Email', emailPlaceholder: 'your@email.com', urlLabel: 'URL βίντεο', urlPlaceholder: 'https://...', subtitleCheck: 'Χρειάζομαι υπότιτλους (+0,99 $)', subtitleNote: 'Γλώσσα υποτίτλων: {lang}', totalLabel: 'Σύνολο', payBtn: 'Πληρωμή τώρα', orPay: 'ή', blacklistError: 'Αυτός ο τομέας δεν υποστηρίζεται.', emailRequired: 'Εισαγάγετε μια έγκυρη διεύθυνση email.', urlRequired: 'Εισαγάγετε ένα έγκυρο URL βίντεο.', deliveryNote: 'Ο σύνδεσμος λήψης θα σταλεί στο email σας εντός 48 ωρών μετά την πληρωμή.', processing: 'Επεξεργασία...', purchaseError: 'Αποτυχία έναρξης πληρωμής. Δοκιμάστε ξανά.', paypalUnavailable: 'Το PayPal δεν είναι προσωρινά διαθέσιμο.' },
+  es: { title: 'Descarga de video', tagline: 'Pega un enlace de video, paga y te enviaremos el enlace de descarga por correo.', emailLabel: 'Correo electrónico', emailPlaceholder: 'tu@email.com', urlLabel: 'URL del video', urlPlaceholder: 'https://...', subtitleCheck: 'Necesito subtítulos (+$0.99)', subtitleNote: 'Idioma de los subtítulos: {lang}', totalLabel: 'Total', payBtn: 'Pagar ahora', orPay: 'o', blacklistError: 'Este dominio no es compatible.', emailRequired: 'Introduce una dirección de correo válida.', urlRequired: 'Introduce una URL de video válida.', deliveryNote: 'El enlace de descarga se enviará a tu correo dentro de las 48 horas posteriores al pago.', processing: 'Procesando...', purchaseError: 'No se pudo iniciar el pago. Inténtalo de nuevo.', paypalUnavailable: 'PayPal no está disponible temporalmente.' },
+  fa: { title: 'دانلود ویدیو', tagline: 'لینک ویدیو را وارد کنید، پرداخت کنید و لینک دانلود به ایمیل شما ارسال می‌شود.', emailLabel: 'ایمیل', emailPlaceholder: 'your@email.com', urlLabel: 'لینک ویدیو', urlPlaceholder: 'https://...', subtitleCheck: 'به زیرنویس نیاز دارم (+$0.99)', subtitleNote: 'زبان زیرنویس: {lang}', totalLabel: 'مجموع', payBtn: 'پرداخت', orPay: 'یا', blacklistError: 'این دامنه پشتیبانی نمی‌شود.', emailRequired: 'لطفاً یک آدرس ایمیل معتبر وارد کنید.', urlRequired: 'لطفاً یک لینک ویدیوی معتبر وارد کنید.', deliveryNote: 'لینک دانلود ظرف ۴۸ ساعت پس از پرداخت به ایمیل شما ارسال می‌شود.', processing: 'در حال پردازش...', purchaseError: 'شروع پرداخت ناموفق بود. دوباره تلاش کنید.', paypalUnavailable: 'PayPal موقتاً در دسترس نیست.' },
+  fi: { title: 'Videon lataus', tagline: 'Liitä videolinkki, maksa, ja lähetämme latauslinkin sähköpostiisi.', emailLabel: 'Sähköposti', emailPlaceholder: 'sinun@email.com', urlLabel: 'Videon URL', urlPlaceholder: 'https://...', subtitleCheck: 'Tarvitsen tekstitykset (+0,99 $)', subtitleNote: 'Tekstityskieli: {lang}', totalLabel: 'Yhteensä', payBtn: 'Maksa nyt', orPay: 'tai', blacklistError: 'Tätä verkkotunnusta ei tueta.', emailRequired: 'Anna kelvollinen sähköpostiosoite.', urlRequired: 'Anna kelvollinen videon URL.', deliveryNote: 'Latauslinkki lähetetään sähköpostiisi 48 tunnin kuluessa maksusta.', processing: 'Käsitellään...', purchaseError: 'Maksun aloitus epäonnistui. Yritä uudelleen.', paypalUnavailable: 'PayPal ei ole tilapäisesti käytettävissä.' },
+  fr: { title: 'Téléchargement de vidéo', tagline: 'Collez un lien vidéo, payez, et nous vous enverrons le lien de téléchargement par e-mail.', emailLabel: 'E-mail', emailPlaceholder: 'votre@email.com', urlLabel: 'URL de la vidéo', urlPlaceholder: 'https://...', subtitleCheck: "J'ai besoin de sous-titres (+0,99 $)", subtitleNote: 'Langue des sous-titres : {lang}', totalLabel: 'Total', payBtn: 'Payer maintenant', orPay: 'ou', blacklistError: "Ce domaine n'est pas pris en charge.", emailRequired: 'Veuillez saisir une adresse e-mail valide.', urlRequired: 'Veuillez saisir une URL de vidéo valide.', deliveryNote: 'Le lien de téléchargement sera envoyé à votre e-mail dans les 48 heures suivant le paiement.', processing: 'Traitement...', purchaseError: 'Échec du démarrage du paiement. Veuillez réessayer.', paypalUnavailable: 'PayPal est temporairement indisponible.' },
+  he: { title: 'הורדת וידאו', tagline: 'הדביקו קישור לווידאו, שלמו, ונשלח את קישור ההורדה למייל שלכם.', emailLabel: 'אימייל', emailPlaceholder: 'your@email.com', urlLabel: 'כתובת הווידאו', urlPlaceholder: 'https://...', subtitleCheck: 'אני צריך כתוביות (+$0.99)', subtitleNote: 'שפת הכתוביות: {lang}', totalLabel: 'סה"כ', payBtn: 'שלם עכשיו', orPay: 'או', blacklistError: 'דומיין זה אינו נתמך.', emailRequired: 'נא להזין כתובת אימייל תקינה.', urlRequired: 'נא להזין כתובת וידאו תקינה.', deliveryNote: 'קישור ההורדה יישלח לאימייל שלכם תוך 48 שעות לאחר התשלום.', processing: 'מעבד...', purchaseError: 'התשלום נכשל. נסו שוב.', paypalUnavailable: 'PayPal אינו זמין זמנית.' },
+  hi: { title: 'वीडियो डाउनलोड', tagline: 'वीडियो लिंक पेस्ट करें, भुगतान करें, और हम डाउनलोड लिंक आपके ईमेल पर भेजेंगे।', emailLabel: 'ईमेल', emailPlaceholder: 'your@email.com', urlLabel: 'वीडियो URL', urlPlaceholder: 'https://...', subtitleCheck: 'मुझे सबटाइटल चाहिए (+$0.99)', subtitleNote: 'सबटाइटल भाषा: {lang}', totalLabel: 'कुल', payBtn: 'अभी भुगतान करें', orPay: 'या', blacklistError: 'यह डोमेन समर्थित नहीं है।', emailRequired: 'कृपया एक मान्य ईमेल पता दर्ज करें।', urlRequired: 'कृपया एक मान्य वीडियो URL दर्ज करें।', deliveryNote: 'भुगतान के बाद 48 घंटों के भीतर डाउनलोड लिंक आपके ईमेल पर भेजा जाएगा।', processing: 'प्रोसेस हो रहा है...', purchaseError: 'भुगतान शुरू नहीं हो सका। पुनः प्रयास करें।', paypalUnavailable: 'PayPal अस्थायी रूप से अनुपलब्ध है।' },
+  hu: { title: 'Videó letöltés', tagline: 'Illessze be a videó linkjét, fizessen, és e-mailben elküldjük a letöltési linket.', emailLabel: 'E-mail', emailPlaceholder: 'on@email.com', urlLabel: 'Videó URL', urlPlaceholder: 'https://...', subtitleCheck: 'Feliratra van szükségem (+0,99 $)', subtitleNote: 'Felirat nyelve: {lang}', totalLabel: 'Összesen', payBtn: 'Fizetés most', orPay: 'vagy', blacklistError: 'Ez a domain nem támogatott.', emailRequired: 'Adjon meg egy érvényes e-mail címet.', urlRequired: 'Adjon meg egy érvényes videó URL-t.', deliveryNote: 'A letöltési linket a fizetés után 48 órán belül elküldjük az e-mail címére.', processing: 'Feldolgozás...', purchaseError: 'A fizetés indítása sikertelen. Próbálja újra.', paypalUnavailable: 'A PayPal átmenetileg nem érhető el.' },
+  id: { title: 'Unduh Video', tagline: 'Tempel tautan video, bayar, dan kami akan mengirimkan tautan unduhan ke email Anda.', emailLabel: 'Email', emailPlaceholder: 'anda@email.com', urlLabel: 'URL Video', urlPlaceholder: 'https://...', subtitleCheck: 'Saya butuh subtitle (+$0.99)', subtitleNote: 'Bahasa subtitle: {lang}', totalLabel: 'Total', payBtn: 'Bayar Sekarang', orPay: 'atau', blacklistError: 'Domain ini tidak didukung.', emailRequired: 'Masukkan alamat email yang valid.', urlRequired: 'Masukkan URL video yang valid.', deliveryNote: 'Tautan unduhan akan dikirim ke email Anda dalam 48 jam setelah pembayaran.', processing: 'Memproses...', purchaseError: 'Gagal memulai pembayaran. Silakan coba lagi.', paypalUnavailable: 'PayPal sementara tidak tersedia.' },
+  it: { title: 'Download video', tagline: 'Incolla un link video, paga e ti invieremo il link di download via e-mail.', emailLabel: 'E-mail', emailPlaceholder: 'tua@email.com', urlLabel: 'URL del video', urlPlaceholder: 'https://...', subtitleCheck: 'Ho bisogno dei sottotitoli (+0,99 $)', subtitleNote: 'Lingua dei sottotitoli: {lang}', totalLabel: 'Totale', payBtn: 'Paga ora', orPay: 'oppure', blacklistError: 'Questo dominio non è supportato.', emailRequired: 'Inserisci un indirizzo e-mail valido.', urlRequired: 'Inserisci un URL video valido.', deliveryNote: 'Il link di download sarà inviato alla tua e-mail entro 48 ore dal pagamento.', processing: 'Elaborazione...', purchaseError: 'Impossibile avviare il pagamento. Riprova.', paypalUnavailable: 'PayPal è temporaneamente non disponibile.' },
+  ja: { title: '動画ダウンロード', tagline: '動画リンクを貼り付けてお支払いいただくと、ダウンロードリンクをメールでお送りします。', emailLabel: 'メールアドレス', emailPlaceholder: 'your@email.com', urlLabel: '動画URL', urlPlaceholder: 'https://...', subtitleCheck: '字幕が必要（+$0.99）', subtitleNote: '字幕の言語：{lang}', totalLabel: '合計', payBtn: '今すぐ支払う', orPay: 'または', blacklistError: 'このドメインはサポートされていません。', emailRequired: '有効なメールアドレスを入力してください。', urlRequired: '有効な動画URLを入力してください。', deliveryNote: 'お支払い後48時間以内にダウンロードリンクをメールでお送りします。', processing: '処理中...', purchaseError: '決済を開始できませんでした。もう一度お試しください。', paypalUnavailable: 'PayPalは一時的に利用できません。' },
+  km: { title: 'ទាញយកវីដេអូ', tagline: 'បិទភ្ជាប់តំណវីដេអូ បង់ប្រាក់ ហើយយើងនឹងផ្ញើតំណទាញយកទៅអ៊ីមែលរបស់អ្នក។', emailLabel: 'អ៊ីមែល', emailPlaceholder: 'your@email.com', urlLabel: 'URL វីដេអូ', urlPlaceholder: 'https://...', subtitleCheck: 'ខ្ញុំត្រូវការអក្សររត់ (+$0.99)', subtitleNote: 'ភាសាអក្សររត់៖ {lang}', totalLabel: 'សរុប', payBtn: 'បង់ប្រាក់ឥឡូវនេះ', orPay: 'ឬ', blacklistError: 'ដែនnày​មិនត្រូវបានគាំទ្រទេ។', emailRequired: 'សូមបញ្ចូលអាសយដ្ឋានអ៊ីមែលត្រឹមត្រូវ។', urlRequired: 'សូមបញ្ចូល URL វីដេអូត្រឹមត្រូវ។', deliveryNote: 'តំណទាញយកនឹងត្រូវផ្ញើទៅអ៊ីមែលរបស់អ្នកក្នុងរយៈពេល 48 ម៉ោងបន្ទាប់ពីបង់ប្រាក់។', processing: 'កំពុងដំណើរការ...', purchaseError: 'មិនអាចចាប់ផ្តើមការទូទាត់បានទេ។ សូមព្យាយាមម្តងទៀត។', paypalUnavailable: 'PayPal មិនអាចប្រើបានជាបណ្តោះអាសន្ន។' },
+  ko: { title: '동영상 다운로드', tagline: '동영상 링크를 붙여넣고 결제하면 다운로드 링크를 이메일로 보내드립니다.', emailLabel: '이메일', emailPlaceholder: 'your@email.com', urlLabel: '동영상 URL', urlPlaceholder: 'https://...', subtitleCheck: '자막이 필요합니다 (+$0.99)', subtitleNote: '자막 언어: {lang}', totalLabel: '합계', payBtn: '지금 결제', orPay: '또는', blacklistError: '이 도메인은 지원되지 않습니다.', emailRequired: '유효한 이메일 주소를 입력하세요.', urlRequired: '유효한 동영상 URL을 입력하세요.', deliveryNote: '결제 후 48시간 이내에 다운로드 링크가 이메일로 전송됩니다.', processing: '처리 중...', purchaseError: '결제를 시작하지 못했습니다. 다시 시도해 주세요.', paypalUnavailable: 'PayPal을 일시적으로 사용할 수 없습니다.' },
+  ms: { title: 'Muat Turun Video', tagline: 'Tampal pautan video, bayar, dan kami akan menghantar pautan muat turun ke e-mel anda.', emailLabel: 'E-mel', emailPlaceholder: 'anda@email.com', urlLabel: 'URL Video', urlPlaceholder: 'https://...', subtitleCheck: 'Saya perlukan sari kata (+$0.99)', subtitleNote: 'Bahasa sari kata: {lang}', totalLabel: 'Jumlah', payBtn: 'Bayar Sekarang', orPay: 'atau', blacklistError: 'Domain ini tidak disokong.', emailRequired: 'Masukkan alamat e-mel yang sah.', urlRequired: 'Masukkan URL video yang sah.', deliveryNote: 'Pautan muat turun akan dihantar ke e-mel anda dalam masa 48 jam selepas pembayaran.', processing: 'Memproses...', purchaseError: 'Gagal memulakan pembayaran. Sila cuba lagi.', paypalUnavailable: 'PayPal tidak tersedia buat sementara waktu.' },
+  nb: { title: 'Videonedlasting', tagline: 'Lim inn en videolenke, betal, og vi sender nedlastingslenken til e-posten din.', emailLabel: 'E-post', emailPlaceholder: 'din@email.com', urlLabel: 'Video-URL', urlPlaceholder: 'https://...', subtitleCheck: 'Jeg trenger undertekster (+0,99 $)', subtitleNote: 'Undertekstspråk: {lang}', totalLabel: 'Totalt', payBtn: 'Betal nå', orPay: 'eller', blacklistError: 'Dette domenet støttes ikke.', emailRequired: 'Skriv inn en gyldig e-postadresse.', urlRequired: 'Skriv inn en gyldig video-URL.', deliveryNote: 'Nedlastingslenken sendes til e-posten din innen 48 timer etter betaling.', processing: 'Behandler...', purchaseError: 'Kunne ikke starte betalingen. Prøv igjen.', paypalUnavailable: 'PayPal er midlertidig utilgjengelig.' },
+  nl: { title: 'Video downloaden', tagline: 'Plak een videolink, betaal, en we sturen de downloadlink naar je e-mail.', emailLabel: 'E-mail', emailPlaceholder: 'jouw@email.com', urlLabel: 'Video-URL', urlPlaceholder: 'https://...', subtitleCheck: 'Ik heb ondertitels nodig (+$0,99)', subtitleNote: 'Ondertiteltaal: {lang}', totalLabel: 'Totaal', payBtn: 'Nu betalen', orPay: 'of', blacklistError: 'Dit domein wordt niet ondersteund.', emailRequired: 'Voer een geldig e-mailadres in.', urlRequired: 'Voer een geldige video-URL in.', deliveryNote: 'De downloadlink wordt binnen 48 uur na betaling naar je e-mail gestuurd.', processing: 'Bezig met verwerken...', purchaseError: 'Betaling starten mislukt. Probeer het opnieuw.', paypalUnavailable: 'PayPal is tijdelijk niet beschikbaar.' },
+  pl: { title: 'Pobieranie wideo', tagline: 'Wklej link do wideo, zapłać, a my wyślemy link do pobrania na Twój e-mail.', emailLabel: 'E-mail', emailPlaceholder: 'twoj@email.com', urlLabel: 'URL wideo', urlPlaceholder: 'https://...', subtitleCheck: 'Potrzebuję napisów (+0,99 $)', subtitleNote: 'Język napisów: {lang}', totalLabel: 'Razem', payBtn: 'Zapłać teraz', orPay: 'lub', blacklistError: 'Ta domena nie jest obsługiwana.', emailRequired: 'Wprowadź prawidłowy adres e-mail.', urlRequired: 'Wprowadź prawidłowy URL wideo.', deliveryNote: 'Link do pobrania zostanie wysłany na Twój e-mail w ciągu 48 godzin po dokonaniu płatności.', processing: 'Przetwarzanie...', purchaseError: 'Nie udało się rozpocząć płatności. Spróbuj ponownie.', paypalUnavailable: 'PayPal jest tymczasowo niedostępny.' },
+  pt: { title: 'Download de vídeo', tagline: 'Cole um link de vídeo, pague e enviaremos o link de download para o seu e-mail.', emailLabel: 'E-mail', emailPlaceholder: 'seu@email.com', urlLabel: 'URL do vídeo', urlPlaceholder: 'https://...', subtitleCheck: 'Preciso de legendas (+$0,99)', subtitleNote: 'Idioma das legendas: {lang}', totalLabel: 'Total', payBtn: 'Pagar agora', orPay: 'ou', blacklistError: 'Este domínio não é suportado.', emailRequired: 'Insira um endereço de e-mail válido.', urlRequired: 'Insira uma URL de vídeo válida.', deliveryNote: 'O link de download será enviado para o seu e-mail em até 48 horas após o pagamento.', processing: 'Processando...', purchaseError: 'Falha ao iniciar o pagamento. Tente novamente.', paypalUnavailable: 'O PayPal está temporariamente indisponível.' },
+  ro: { title: 'Descărcare video', tagline: 'Lipiți un link video, plătiți, iar noi vă vom trimite linkul de descărcare pe e-mail.', emailLabel: 'E-mail', emailPlaceholder: 'al@email.com', urlLabel: 'URL video', urlPlaceholder: 'https://...', subtitleCheck: 'Am nevoie de subtitrări (+0,99 $)', subtitleNote: 'Limba subtitrărilor: {lang}', totalLabel: 'Total', payBtn: 'Plătește acum', orPay: 'sau', blacklistError: 'Acest domeniu nu este acceptat.', emailRequired: 'Introduceți o adresă de e-mail validă.', urlRequired: 'Introduceți un URL video valid.', deliveryNote: 'Linkul de descărcare va fi trimis pe e-mailul dvs. în termen de 48 de ore de la plată.', processing: 'Se procesează...', purchaseError: 'Plata nu a putut fi inițiată. Încercați din nou.', paypalUnavailable: 'PayPal este temporar indisponibil.' },
+  ru: { title: 'Скачивание видео', tagline: 'Вставьте ссылку на видео, оплатите, и мы отправим ссылку для скачивания на вашу почту.', emailLabel: 'Электронная почта', emailPlaceholder: 'your@email.com', urlLabel: 'URL видео', urlPlaceholder: 'https://...', subtitleCheck: 'Мне нужны субтитры (+$0.99)', subtitleNote: 'Язык субтитров: {lang}', totalLabel: 'Итого', payBtn: 'Оплатить', orPay: 'или', blacklistError: 'Этот домен не поддерживается.', emailRequired: 'Введите корректный адрес электронной почты.', urlRequired: 'Введите корректный URL видео.', deliveryNote: 'Ссылка для скачивания будет отправлена на вашу почту в течение 48 часов после оплаты.', processing: 'Обработка...', purchaseError: 'Не удалось начать оплату. Попробуйте ещё раз.', paypalUnavailable: 'PayPal временно недоступен.' },
+  sv: { title: 'Videonedladdning', tagline: 'Klistra in en videolänk, betala, så skickar vi nedladdningslänken till din e-post.', emailLabel: 'E-post', emailPlaceholder: 'din@email.com', urlLabel: 'Video-URL', urlPlaceholder: 'https://...', subtitleCheck: 'Jag behöver undertexter (+0,99 $)', subtitleNote: 'Undertextspråk: {lang}', totalLabel: 'Totalt', payBtn: 'Betala nu', orPay: 'eller', blacklistError: 'Denna domän stöds inte.', emailRequired: 'Ange en giltig e-postadress.', urlRequired: 'Ange en giltig video-URL.', deliveryNote: 'Nedladdningslänken skickas till din e-post inom 48 timmar efter betalning.', processing: 'Bearbetar...', purchaseError: 'Det gick inte att starta betalningen. Försök igen.', paypalUnavailable: 'PayPal är tillfälligt otillgängligt.' },
+  sw: { title: 'Upakuaji wa Video', tagline: 'Bandika kiungo cha video, lipa, na tutakutumia kiungo cha kupakua kwa barua pepe.', emailLabel: 'Barua pepe', emailPlaceholder: 'yako@email.com', urlLabel: 'URL ya Video', urlPlaceholder: 'https://...', subtitleCheck: 'Nahitaji manukuu (+$0.99)', subtitleNote: 'Lugha ya manukuu: {lang}', totalLabel: 'Jumla', payBtn: 'Lipa Sasa', orPay: 'au', blacklistError: 'Kikoa hiki hakitumiki.', emailRequired: 'Weka anwani sahihi ya barua pepe.', urlRequired: 'Weka URL sahihi ya video.', deliveryNote: 'Kiungo cha kupakua kitatumwa kwa barua pepe yako ndani ya saa 48 baada ya malipo.', processing: 'Inachakata...', purchaseError: 'Imeshindwa kuanzisha malipo. Jaribu tena.', paypalUnavailable: 'PayPal haipatikani kwa muda.' },
+  ta: { title: 'வீடியோ பதிவிறக்கம்', tagline: 'வீடியோ இணைப்பை ஒட்டி, பணம் செலுத்துங்கள், பதிவிறக்க இணைப்பை உங்கள் மின்னஞ்சலுக்கு அனுப்புவோம்.', emailLabel: 'மின்னஞ்சல்', emailPlaceholder: 'your@email.com', urlLabel: 'வீடியோ URL', urlPlaceholder: 'https://...', subtitleCheck: 'எனக்கு வசன வரிகள் வேண்டும் (+$0.99)', subtitleNote: 'வசன மொழி: {lang}', totalLabel: 'மொத்தம்', payBtn: 'இப்போது செலுத்து', orPay: 'அல்லது', blacklistError: 'இந்த டொமைன் ஆதரிக்கப்படவில்லை.', emailRequired: 'சரியான மின்னஞ்சல் முகவரியை உள்ளிடவும்.', urlRequired: 'சரியான வீடியோ URL ஐ உள்ளிடவும்.', deliveryNote: 'பணம் செலுத்திய 48 மணி நேரத்திற்குள் பதிவிறக்க இணைப்பு உங்கள் மின்னஞ்சலுக்கு அனுப்பப்படும்.', processing: 'செயலாக்கப்படுகிறது...', purchaseError: 'கட்டணத்தைத் தொடங்க முடியவில்லை. மீண்டும் முயற்சிக்கவும்.', paypalUnavailable: 'PayPal தற்காலிகமாக கிடைக்கவில்லை.' },
+  te: { title: 'వీడియో డౌన్‌లోడ్', tagline: 'వీడియో లింక్‌ను అతికించండి, చెల్లించండి, డౌన్‌లోడ్ లింక్‌ను మీ ఇమెయిల్‌కు పంపుతాము.', emailLabel: 'ఇమెయిల్', emailPlaceholder: 'your@email.com', urlLabel: 'వీడియో URL', urlPlaceholder: 'https://...', subtitleCheck: 'నాకు సబ్‌టైటిల్స్ కావాలి (+$0.99)', subtitleNote: 'సబ్‌టైటిల్ భాష: {lang}', totalLabel: 'మొత్తం', payBtn: 'ఇప్పుడే చెల్లించండి', orPay: 'లేదా', blacklistError: 'ఈ డొమైన్‌కు మద్దతు లేదు.', emailRequired: 'చెల్లుబాటు అయ్యే ఇమెయిల్ చిరునామాను నమోదు చేయండి.', urlRequired: 'చెల్లుబాటు అయ్యే వీడియో URL ను నమోదు చేయండి.', deliveryNote: 'చెల్లింపు తర్వాత 48 గంటల్లోపు డౌన్‌లోడ్ లింక్ మీ ఇమెయిల్‌కు పంపబడుతుంది.', processing: 'ప్రాసెస్ అవుతోంది...', purchaseError: 'చెల్లింపు ప్రారంభించడం విఫలమైంది. మళ్లీ ప్రయత్నించండి.', paypalUnavailable: 'PayPal తాత్కాలికంగా అందుబాటులో లేదు.' },
+  th: { title: 'ดาวน์โหลดวิดีโอ', tagline: 'วางลิงก์วิดีโอ ชำระเงิน แล้วเราจะส่งลิงก์ดาวน์โหลดไปยังอีเมลของคุณ', emailLabel: 'อีเมล', emailPlaceholder: 'your@email.com', urlLabel: 'URL วิดีโอ', urlPlaceholder: 'https://...', subtitleCheck: 'ฉันต้องการคำบรรยาย (+$0.99)', subtitleNote: 'ภาษาคำบรรยาย: {lang}', totalLabel: 'รวม', payBtn: 'ชำระเงินตอนนี้', orPay: 'หรือ', blacklistError: 'ไม่รองรับโดเมนนี้', emailRequired: 'กรุณากรอกที่อยู่อีเมลที่ถูกต้อง', urlRequired: 'กรุณากรอก URL วิดีโอที่ถูกต้อง', deliveryNote: 'ลิงก์ดาวน์โหลดจะถูกส่งไปยังอีเมลของคุณภายใน 48 ชั่วโมงหลังการชำระเงิน', processing: 'กำลังดำเนินการ...', purchaseError: 'ไม่สามารถเริ่มการชำระเงินได้ กรุณาลองอีกครั้ง', paypalUnavailable: 'PayPal ไม่พร้อมใช้งานชั่วคราว' },
+  tr: { title: 'Video İndirme', tagline: 'Bir video bağlantısı yapıştırın, ödeme yapın, indirme bağlantısını e-postanıza gönderelim.', emailLabel: 'E-posta', emailPlaceholder: 'sizin@email.com', urlLabel: 'Video URL', urlPlaceholder: 'https://...', subtitleCheck: 'Altyazıya ihtiyacım var (+$0.99)', subtitleNote: 'Altyazı dili: {lang}', totalLabel: 'Toplam', payBtn: 'Şimdi Öde', orPay: 'veya', blacklistError: 'Bu alan adı desteklenmiyor.', emailRequired: 'Geçerli bir e-posta adresi girin.', urlRequired: 'Geçerli bir video URL girin.', deliveryNote: 'İndirme bağlantısı, ödemeden sonra 48 saat içinde e-postanıza gönderilecektir.', processing: 'İşleniyor...', purchaseError: 'Ödeme başlatılamadı. Lütfen tekrar deneyin.', paypalUnavailable: 'PayPal geçici olarak kullanılamıyor.' },
+  uk: { title: 'Завантаження відео', tagline: 'Вставте посилання на відео, оплатіть, і ми надішлемо посилання для завантаження на вашу пошту.', emailLabel: 'Електронна пошта', emailPlaceholder: 'your@email.com', urlLabel: 'URL відео', urlPlaceholder: 'https://...', subtitleCheck: 'Мені потрібні субтитри (+$0.99)', subtitleNote: 'Мова субтитрів: {lang}', totalLabel: 'Разом', payBtn: 'Сплатити зараз', orPay: 'або', blacklistError: 'Цей домен не підтримується.', emailRequired: 'Введіть дійсну адресу електронної пошти.', urlRequired: 'Введіть дійсний URL відео.', deliveryNote: 'Посилання для завантаження буде надіслано на вашу пошту протягом 48 годин після оплати.', processing: 'Обробка...', purchaseError: 'Не вдалося розпочати оплату. Спробуйте ще раз.', paypalUnavailable: 'PayPal тимчасово недоступний.' },
+  ur: { title: 'ویڈیو ڈاؤن لوڈ', tagline: 'ویڈیو لنک پیسٹ کریں، ادائیگی کریں، اور ہم ڈاؤن لوڈ لنک آپ کے ای میل پر بھیج دیں گے۔', emailLabel: 'ای میل', emailPlaceholder: 'your@email.com', urlLabel: 'ویڈیو URL', urlPlaceholder: 'https://...', subtitleCheck: 'مجھے سب ٹائٹلز چاہئیں (+$0.99)', subtitleNote: 'سب ٹائٹل کی زبان: {lang}', totalLabel: 'کل', payBtn: 'ابھی ادائیگی کریں', orPay: 'یا', blacklistError: 'یہ ڈومین معاون نہیں ہے۔', emailRequired: 'براہ کرم درست ای میل ایڈریس درج کریں۔', urlRequired: 'براہ کرم درست ویڈیو URL درج کریں۔', deliveryNote: 'ادائیگی کے بعد 48 گھنٹوں کے اندر ڈاؤن لوڈ لنک آپ کے ای میل پر بھیج دیا جائے گا۔', processing: 'کارروائی جاری ہے...', purchaseError: 'ادائیگی شروع نہیں ہو سکی۔ دوبارہ کوشش کریں۔', paypalUnavailable: 'PayPal عارضی طور پر دستیاب نہیں ہے۔' },
+  vi: { title: 'Tải video', tagline: 'Dán liên kết video, thanh toán, và chúng tôi sẽ gửi liên kết tải xuống qua email.', emailLabel: 'Email', emailPlaceholder: 'ban@email.com', urlLabel: 'URL video', urlPlaceholder: 'https://...', subtitleCheck: 'Tôi cần phụ đề (+$0.99)', subtitleNote: 'Ngôn ngữ phụ đề: {lang}', totalLabel: 'Tổng cộng', payBtn: 'Thanh toán ngay', orPay: 'hoặc', blacklistError: 'Tên miền này không được hỗ trợ.', emailRequired: 'Vui lòng nhập địa chỉ email hợp lệ.', urlRequired: 'Vui lòng nhập URL video hợp lệ.', deliveryNote: 'Liên kết tải xuống sẽ được gửi đến email của bạn trong vòng 48 giờ sau khi thanh toán.', processing: 'Đang xử lý...', purchaseError: 'Không thể bắt đầu thanh toán. Vui lòng thử lại.', paypalUnavailable: 'PayPal tạm thời không khả dụng.' }
+};
+
+let lang = 'en';
+
+function t(key) {
+  return (i18n[lang] && i18n[lang][key]) || i18n.en[key] || key;
+}
+
+function detectLang() {
+  const params = new URLSearchParams(window.location.search);
+  let urlLang = params.get('lang');
+  if (urlLang === 'cht') urlLang = 'zh-TW';
+  if (urlLang && i18n[urlLang]) return urlLang;
+
+  let browserLang = navigator.language || navigator.userLanguage || 'en';
+  if (/^zh\b/i.test(browserLang)) {
+    return /tw|hk|mo|hant/i.test(browserLang) ? 'zh-TW' : 'zh';
+  }
+  if (/^(no|nn)\b/i.test(browserLang)) return 'nb';
+  if (i18n[browserLang]) return browserLang;
+  const base = browserLang.split('-')[0].toLowerCase();
+  if (i18n[base]) return base;
+  return 'en';
+}
+
+function buildLangSwitcher() {
+  const sel = document.getElementById('langSelect');
+  Object.keys(i18n).forEach(code => {
+    const opt = document.createElement('option');
+    opt.value = code;
+    opt.textContent = LANG_NAMES[code] || code;
+    sel.appendChild(opt);
+  });
+}
+
+function changeLang() {
+  lang = document.getElementById('langSelect').value;
+  applyLang();
+}
+
+function applyLang() {
+  document.getElementById('langSelect').value = lang;
+  document.documentElement.lang = lang;
+  document.documentElement.dir = RTL_LANGS.includes(lang) ? 'rtl' : 'ltr';
+  document.title = t('title') + ' - EchoShorts';
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    el.textContent = t(el.getAttribute('data-i18n'));
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    el.placeholder = t(el.getAttribute('data-i18n-ph'));
+  });
+  document.getElementById('subtitleNote').textContent =
+    t('subtitleNote').replace('{lang}', LANG_NAMES[lang] || lang);
+  updateState();
+}
+
+// ── Validation & state ──
+
+function isBlacklisted(videoUrl) {
+  let host;
+  try {
+    host = new URL(videoUrl).hostname.toLowerCase();
+  } catch {
+    return false;
+  }
+  return blacklistDomains.some(d => {
+    if (d.endsWith('.*')) {
+      const name = d.slice(0, -2).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return new RegExp('(^|\\.)' + name + '\\.').test(host);
+    }
+    return host === d || host.endsWith('.' + d);
+  });
+}
+
+function currentPrice() {
+  return document.getElementById('subtitleCheck').checked ? PRICE_SUBTITLE : PRICE_BASIC;
+}
+
+function updateState() {
+  document.getElementById('totalPrice').textContent = '$' + currentPrice();
+
+  const url = document.getElementById('urlInput').value.trim();
+  const blocked = url && isBlacklisted(url);
+
+  const domainError = document.getElementById('domainError');
+  domainError.textContent = t('blacklistError');
+  domainError.style.display = blocked ? 'block' : 'none';
+  document.getElementById('urlInput').classList.toggle('input-error', !!blocked);
+
+  document.getElementById('payBtn').disabled = !!blocked;
+  document.getElementById('paypalWrap').classList.toggle('disabled', !!blocked);
+}
+
+function showError(msg) {
+  const el = document.getElementById('errorMsg');
+  el.textContent = msg;
+  el.style.display = 'block';
+  setTimeout(() => { el.style.display = 'none'; }, 5000);
+}
+
+function validateForm() {
+  const emailInput = document.getElementById('emailInput');
+  const email = emailInput.value.trim();
+  if (!email || !emailInput.validity.valid) {
+    showError(t('emailRequired'));
+    emailInput.focus();
+    return null;
+  }
+
+  const url = document.getElementById('urlInput').value.trim();
+  let parsed;
+  try { parsed = new URL(url); } catch { parsed = null; }
+  if (!parsed || (parsed.protocol !== 'http:' && parsed.protocol !== 'https:')) {
+    showError(t('urlRequired'));
+    document.getElementById('urlInput').focus();
+    return null;
+  }
+  if (isBlacklisted(url)) {
+    showError(t('blacklistError'));
+    return null;
+  }
+
+  const needSubtitle = document.getElementById('subtitleCheck').checked;
+  return {
+    email,
+    videoUrl: url,
+    needSubtitle,
+    subtitleLang: needSubtitle ? lang : null,
+    lang
+  };
+}
+
+// ── Paddle (via license worker → vnpaddle) ──
+
+async function handlePay() {
+  const form = validateForm();
+  if (!form) return;
+
+  const btn = document.getElementById('payBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>' + t('processing');
+
+  try {
+    const resp = await fetch(`${API_BASE}/download-purchase`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(form)
+    });
+    const data = await resp.json();
+    if (!resp.ok) throw new Error(data.error || t('purchaseError'));
+
+    if (data.checkoutUrl) {
+      window.location.href = data.checkoutUrl;
+    } else {
+      showError(t('purchaseError'));
+    }
+  } catch (err) {
+    console.error('Purchase error:', err);
+    showError(err.message || t('purchaseError'));
+  } finally {
+    btn.disabled = false;
+    btn.textContent = t('payBtn');
+    updateState();
+  }
+}
+
+// ── PayPal Smart Buttons ──
+
+function initPaypal() {
+  if (!PAYPAL_CLIENT_ID || PAYPAL_CLIENT_ID === 'YOUR_PAYPAL_CLIENT_ID') {
+    const el = document.getElementById('paypalUnavailable');
+    el.textContent = t('paypalUnavailable');
+    el.style.display = 'block';
+    return;
+  }
+
+  const script = document.createElement('script');
+  script.src = 'https://www.paypal.com/sdk/js?client-id=' + encodeURIComponent(PAYPAL_CLIENT_ID) + '&currency=USD&intent=capture';
+  script.onload = renderPaypalButtons;
+  script.onerror = () => {
+    const el = document.getElementById('paypalUnavailable');
+    el.textContent = t('paypalUnavailable');
+    el.style.display = 'block';
+  };
+  document.head.appendChild(script);
+}
+
+function renderPaypalButtons() {
+  paypal.Buttons({
+    style: { layout: 'horizontal', color: 'gold', shape: 'rect', label: 'paypal', tagline: false, height: 45 },
+
+    onClick(data, actions) {
+      return validateForm() ? actions.resolve() : actions.reject();
+    },
+
+    createOrder(data, actions) {
+      const form = validateForm();
+      const desc = ('Video download' + (form.needSubtitle ? ' + subtitles (' + form.subtitleLang + ')' : '') + ': ' + form.videoUrl).slice(0, 127);
+      return actions.order.create({
+        purchase_units: [{
+          amount: { value: currentPrice(), currency_code: 'USD' },
+          description: desc
+        }]
+      });
+    },
+
+    async onApprove(data, actions) {
+      const capture = await actions.order.capture();
+      const form = validateForm();
+      try {
+        await fetch(`${API_BASE}/download-paypal-record`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            ...form,
+            paypalOrderId: data.orderID,
+            captureId: capture?.purchase_units?.[0]?.payments?.captures?.[0]?.id || null
+          })
+        });
+      } catch (err) {
+        // Payment already captured by PayPal — recording failure must not block the user.
+        console.error('Order record failed:', err);
+      }
+      window.location.href = 'video-download-success.html?lang=' + encodeURIComponent(lang);
+    },
+
+    onError(err) {
+      console.error('PayPal error:', err);
+      showError(t('purchaseError'));
+    }
+  }).render('#paypal-button-container');
+}
+
+// ── Init ──
+buildLangSwitcher();
+lang = detectLang();
+applyLang();
+loadBlacklist();
+initPaypal();
+</script>
+</body>
+</html>

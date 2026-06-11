@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment Successful - EchoShorts</title>
+<style>
+  :root {
+    --bg: #0f0f0f;
+    --card-bg: #1a1a1a;
+    --text: #e0e0e0;
+    --muted: #999999;
+    --primary: #4ade80;
+    --border: #2a2a2a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    line-height: 1.6;
+  }
+
+  .container { width: 100%; max-width: 480px; }
+
+  .card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    padding: 44px 32px;
+    text-align: center;
+  }
+
+  .check-icon {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: rgba(74, 222, 128, 0.12);
+    border: 2px solid var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 22px;
+  }
+  .check-icon svg { width: 32px; height: 32px; stroke: var(--primary); }
+
+  h1 { font-size: 22px; font-weight: 600; margin-bottom: 12px; }
+  .msg { font-size: 14px; color: var(--muted); margin-bottom: 8px; }
+  .highlight { font-size: 14px; color: var(--text); margin-bottom: 26px; }
+
+  .btn-home {
+    display: inline-block;
+    background: var(--primary);
+    color: #0f0f0f;
+    border-radius: 10px;
+    padding: 12px 28px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .btn-home:hover { background: #22c55e; }
+
+  .footer { text-align: center; margin-top: 20px; font-size: 12px; }
+  .footer a { color: var(--muted); text-decoration: none; }
+  .footer a:hover { color: var(--primary); }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="card">
+    <div class="check-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    </div>
+    <h1 data-i18n="title">Payment Successful</h1>
+    <p class="msg" data-i18n="received">Your order has been received.</p>
+    <p class="highlight" data-i18n="delivery">The download link will be sent to your email within 48 hours. Please also check your spam folder.</p>
+    <a class="btn-home" href="https://echoshorts.win" data-i18n="backHome">Back to Home</a>
+  </div>
+  <div class="footer">
+    <a href="https://echoshorts.win">echoshorts.win</a>
+  </div>
+</div>
+
+<script>
+const RTL_LANGS = ['ar', 'fa', 'he', 'ur'];
+
+const i18n = {
+  en: { title: 'Payment Successful', received: 'Your order has been received.', delivery: 'The download link will be sent to your email within 48 hours. Please also check your spam folder.', backHome: 'Back to Home' },
+  zh: { title: '支付成功', received: '您的订单已收到。', delivery: '下载链接将在 48 小时内发送到您的邮箱，请同时留意垃圾邮件文件夹。', backHome: '返回首页' },
+  'zh-TW': { title: '付款成功', received: '您的訂單已收到。', delivery: '下載連結將在 48 小時內傳送到您的信箱，請同時留意垃圾郵件資料夾。', backHome: '返回首頁' },
+  ar: { title: 'تم الدفع بنجاح', received: 'تم استلام طلبك.', delivery: 'سيتم إرسال رابط التحميل إلى بريدك الإلكتروني خلال 48 ساعة. يرجى أيضًا التحقق من مجلد الرسائل غير المرغوب فيها.', backHome: 'العودة إلى الرئيسية' },
+  bn: { title: 'পেমেন্ট সফল', received: 'আপনার অর্ডার গৃহীত হয়েছে।', delivery: 'ডাউনলোড লিঙ্ক ৪৮ ঘণ্টার মধ্যে আপনার ইমেইলে পাঠানো হবে। স্প্যাম ফোল্ডারও দেখুন।', backHome: 'হোমে ফিরে যান' },
+  cs: { title: 'Platba proběhla úspěšně', received: 'Vaše objednávka byla přijata.', delivery: 'Odkaz ke stažení vám zašleme e-mailem do 48 hodin. Zkontrolujte prosím i složku spam.', backHome: 'Zpět na hlavní stránku' },
+  da: { title: 'Betaling gennemført', received: 'Din ordre er modtaget.', delivery: 'Downloadlinket sendes til din e-mail inden for 48 timer. Tjek også din spam-mappe.', backHome: 'Tilbage til forsiden' },
+  de: { title: 'Zahlung erfolgreich', received: 'Ihre Bestellung ist eingegangen.', delivery: 'Der Download-Link wird innerhalb von 48 Stunden an Ihre E-Mail gesendet. Bitte prüfen Sie auch Ihren Spam-Ordner.', backHome: 'Zurück zur Startseite' },
+  el: { title: 'Η πληρωμή ολοκληρώθηκε', received: 'Η παραγγελία σας ελήφθη.', delivery: 'Ο σύνδεσμος λήψης θα σταλεί στο email σας εντός 48 ωρών. Ελέγξτε και τον φάκελο ανεπιθύμητων.', backHome: 'Επιστροφή στην αρχική' },
+  es: { title: 'Pago realizado con éxito', received: 'Tu pedido ha sido recibido.', delivery: 'El enlace de descarga se enviará a tu correo dentro de 48 horas. Revisa también tu carpeta de spam.', backHome: 'Volver al inicio' },
+  fa: { title: 'پرداخت موفق', received: 'سفارش شما دریافت شد.', delivery: 'لینک دانلود ظرف ۴۸ ساعت به ایمیل شما ارسال می‌شود. لطفاً پوشه اسپم را نیز بررسی کنید.', backHome: 'بازگشت به خانه' },
+  fi: { title: 'Maksu onnistui', received: 'Tilauksesi on vastaanotettu.', delivery: 'Latauslinkki lähetetään sähköpostiisi 48 tunnin kuluessa. Tarkista myös roskapostikansio.', backHome: 'Takaisin etusivulle' },
+  fr: { title: 'Paiement réussi', received: 'Votre commande a bien été reçue.', delivery: 'Le lien de téléchargement sera envoyé à votre e-mail dans les 48 heures. Pensez aussi à vérifier vos spams.', backHome: "Retour à l'accueil" },
+  he: { title: 'התשלום בוצע בהצלחה', received: 'ההזמנה שלכם התקבלה.', delivery: 'קישור ההורדה יישלח לאימייל שלכם תוך 48 שעות. בדקו גם את תיקיית הספאם.', backHome: 'חזרה לדף הבית' },
+  hi: { title: 'भुगतान सफल', received: 'आपका ऑर्डर प्राप्त हो गया है।', delivery: 'डाउनलोड लिंक 48 घंटों के भीतर आपके ईमेल पर भेजा जाएगा। कृपया स्पैम फ़ोल्डर भी देखें।', backHome: 'होम पर वापस जाएं' },
+  hu: { title: 'Sikeres fizetés', received: 'Megrendelését megkaptuk.', delivery: 'A letöltési linket 48 órán belül elküldjük az e-mail címére. Kérjük, ellenőrizze a spam mappát is.', backHome: 'Vissza a főoldalra' },
+  id: { title: 'Pembayaran Berhasil', received: 'Pesanan Anda telah diterima.', delivery: 'Tautan unduhan akan dikirim ke email Anda dalam 48 jam. Periksa juga folder spam Anda.', backHome: 'Kembali ke Beranda' },
+  it: { title: 'Pagamento riuscito', received: 'Il tuo ordine è stato ricevuto.', delivery: 'Il link di download sarà inviato alla tua e-mail entro 48 ore. Controlla anche la cartella spam.', backHome: 'Torna alla home' },
+  ja: { title: 'お支払いが完了しました', received: 'ご注文を承りました。', delivery: 'ダウンロードリンクは48時間以内にメールでお送りします。迷惑メールフォルダもご確認ください。', backHome: 'ホームに戻る' },
+  km: { title: 'ការទូទាត់ជោគជ័យ', received: 'ការបញ្ជាទិញរបស់អ្នកត្រូវបានទទួល។', delivery: 'តំណទាញយកនឹងត្រូវផ្ញើទៅអ៊ីមែលរបស់អ្នកក្នុងរយៈពេល 48 ម៉ោង។ សូមពិនិត្យថត spam ផងដែរ។', backHome: 'ត្រឡប់ទៅទំព័រដើម' },
+  ko: { title: '결제 완료', received: '주문이 접수되었습니다.', delivery: '다운로드 링크는 48시간 이내에 이메일로 전송됩니다. 스팸 폴더도 확인해 주세요.', backHome: '홈으로 돌아가기' },
+  ms: { title: 'Pembayaran Berjaya', received: 'Pesanan anda telah diterima.', delivery: 'Pautan muat turun akan dihantar ke e-mel anda dalam masa 48 jam. Sila semak folder spam juga.', backHome: 'Kembali ke Laman Utama' },
+  nb: { title: 'Betaling vellykket', received: 'Bestillingen din er mottatt.', delivery: 'Nedlastingslenken sendes til e-posten din innen 48 timer. Sjekk også søppelpostmappen.', backHome: 'Tilbake til forsiden' },
+  nl: { title: 'Betaling geslaagd', received: 'Je bestelling is ontvangen.', delivery: 'De downloadlink wordt binnen 48 uur naar je e-mail gestuurd. Controleer ook je spammap.', backHome: 'Terug naar home' },
+  pl: { title: 'Płatność zakończona sukcesem', received: 'Twoje zamówienie zostało przyjęte.', delivery: 'Link do pobrania zostanie wysłany na Twój e-mail w ciągu 48 godzin. Sprawdź też folder spam.', backHome: 'Powrót do strony głównej' },
+  pt: { title: 'Pagamento concluído', received: 'Seu pedido foi recebido.', delivery: 'O link de download será enviado para o seu e-mail em até 48 horas. Verifique também a pasta de spam.', backHome: 'Voltar ao início' },
+  ro: { title: 'Plată reușită', received: 'Comanda dvs. a fost primită.', delivery: 'Linkul de descărcare va fi trimis pe e-mailul dvs. în termen de 48 de ore. Verificați și dosarul spam.', backHome: 'Înapoi la pagina principală' },
+  ru: { title: 'Оплата прошла успешно', received: 'Ваш заказ получен.', delivery: 'Ссылка для скачивания будет отправлена на вашу почту в течение 48 часов. Проверьте также папку «Спам».', backHome: 'Вернуться на главную' },
+  sv: { title: 'Betalningen lyckades', received: 'Din beställning har tagits emot.', delivery: 'Nedladdningslänken skickas till din e-post inom 48 timmar. Kolla även skräppostmappen.', backHome: 'Tillbaka till startsidan' },
+  sw: { title: 'Malipo Yamefaulu', received: 'Agizo lako limepokelewa.', delivery: 'Kiungo cha kupakua kitatumwa kwa barua pepe yako ndani ya saa 48. Tafadhali angalia pia folda ya spam.', backHome: 'Rudi Mwanzo' },
+  ta: { title: 'பணம் செலுத்தப்பட்டது', received: 'உங்கள் ஆர்டர் பெறப்பட்டது.', delivery: 'பதிவிறக்க இணைப்பு 48 மணி நேரத்திற்குள் உங்கள் மின்னஞ்சலுக்கு அனுப்பப்படும். ஸ்பேம் கோப்புறையையும் சரிபார்க்கவும்.', backHome: 'முகப்புக்குத் திரும்பு' },
+  te: { title: 'చెల్లింపు విజయవంతం', received: 'మీ ఆర్డర్ స్వీకరించబడింది.', delivery: 'డౌన్‌లోడ్ లింక్ 48 గంటల్లోపు మీ ఇమెయిల్‌కు పంపబడుతుంది. స్పామ్ ఫోల్డర్‌ను కూడా తనిఖీ చేయండి.', backHome: 'హోమ్‌కు తిరిగి వెళ్ళండి' },
+  th: { title: 'ชำระเงินสำเร็จ', received: 'ได้รับคำสั่งซื้อของคุณแล้ว', delivery: 'ลิงก์ดาวน์โหลดจะถูกส่งไปยังอีเมลของคุณภายใน 48 ชั่วโมง กรุณาตรวจสอบโฟลเดอร์สแปมด้วย', backHome: 'กลับสู่หน้าหลัก' },
+  tr: { title: 'Ödeme Başarılı', received: 'Siparişiniz alındı.', delivery: 'İndirme bağlantısı 48 saat içinde e-postanıza gönderilecektir. Lütfen spam klasörünüzü de kontrol edin.', backHome: 'Ana Sayfaya Dön' },
+  uk: { title: 'Оплата успішна', received: 'Ваше замовлення отримано.', delivery: 'Посилання для завантаження буде надіслано на вашу пошту протягом 48 годин. Перевірте також папку «Спам».', backHome: 'Повернутися на головну' },
+  ur: { title: 'ادائیگی کامیاب', received: 'آپ کا آرڈر موصول ہو گیا ہے۔', delivery: 'ڈاؤن لوڈ لنک 48 گھنٹوں کے اندر آپ کے ای میل پر بھیج دیا جائے گا۔ براہ کرم اسپام فولڈر بھی چیک کریں۔', backHome: 'ہوم پر واپس جائیں' },
+  vi: { title: 'Thanh toán thành công', received: 'Đơn hàng của bạn đã được tiếp nhận.', delivery: 'Liên kết tải xuống sẽ được gửi đến email của bạn trong vòng 48 giờ. Vui lòng kiểm tra cả thư mục spam.', backHome: 'Về trang chủ' }
+};
+
+let lang = 'en';
+
+function t(key) {
+  return (i18n[lang] && i18n[lang][key]) || i18n.en[key] || key;
+}
+
+function detectLang() {
+  const params = new URLSearchParams(window.location.search);
+  let urlLang = params.get('lang');
+  if (urlLang === 'cht') urlLang = 'zh-TW';
+  if (urlLang && i18n[urlLang]) return urlLang;
+
+  let browserLang = navigator.language || navigator.userLanguage || 'en';
+  if (/^zh\b/i.test(browserLang)) {
+    return /tw|hk|mo|hant/i.test(browserLang) ? 'zh-TW' : 'zh';
+  }
+  if (/^(no|nn)\b/i.test(browserLang)) return 'nb';
+  if (i18n[browserLang]) return browserLang;
+  const base = browserLang.split('-')[0].toLowerCase();
+  if (i18n[base]) return base;
+  return 'en';
+}
+
+lang = detectLang();
+document.documentElement.lang = lang;
+document.documentElement.dir = RTL_LANGS.includes(lang) ? 'rtl' : 'ltr';
+document.title = t('title') + ' - EchoShorts';
+document.querySelectorAll('[data-i18n]').forEach(el => {
+  el.textContent = t(el.getAttribute('data-i18n'));
+});
+</script>
+</body>
+</html>
