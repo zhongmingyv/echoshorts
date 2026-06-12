@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Refund - EchoShorts</title>
+<style>
+  :root {
+    --bg: #0f0f0f;
+    --card-bg: #1a1a1a;
+    --text: #e0e0e0;
+    --muted: #999999;
+    --primary: #4ade80;
+    --border: #2a2a2a;
+    --error: #f87171;
+    --error-bg: #2d1b1b;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    line-height: 1.6;
+  }
+  .container { width: 100%; max-width: 480px; }
+  .card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    padding: 36px 32px;
+    text-align: center;
+  }
+  h1 { font-size: 22px; font-weight: 600; margin-bottom: 12px; }
+  .body-text { font-size: 14px; color: var(--muted); margin-bottom: 24px; }
+  .btn-refund {
+    width: 100%;
+    background: var(--error);
+    color: #0f0f0f;
+    border: none;
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .btn-refund:hover:not(:disabled) { opacity: 0.9; }
+  .btn-refund:disabled { opacity: 0.4; cursor: not-allowed; }
+  .error-msg {
+    display: none;
+    background: var(--error-bg);
+    border: 1px solid var(--error);
+    color: var(--error);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 13px;
+    margin-bottom: 18px;
+    text-align: start;
+  }
+  .result-icon { font-size: 42px; font-weight: 700; margin-bottom: 14px; }
+  .result-icon.ok { color: var(--primary); }
+  .result-icon.bad { color: var(--error); }
+  .spinner {
+    display: inline-block;
+    width: 14px; height: 14px;
+    border: 2px solid rgba(0,0,0,0.3);
+    border-top-color: #0f0f0f;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    vertical-align: -2px;
+    margin-inline-end: 8px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .footer { text-align: center; margin-top: 20px; font-size: 12px; }
+  .footer a { color: var(--muted); text-decoration: none; margin: 0 6px; }
+  .footer a:hover { color: var(--primary); }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="card">
+    <div id="confirmView">
+      <h1 id="title"></h1>
+      <p class="body-text" id="bodyText"></p>
+      <div id="errorMsg" class="error-msg"></div>
+      <button class="btn-refund" id="refundBtn" onclick="confirmRefund()"></button>
+    </div>
+    <div id="resultView" style="display:none;">
+      <div class="result-icon" id="resultIcon"></div>
+      <h1 id="resultTitle"></h1>
+      <p class="body-text" id="resultBody" style="margin-bottom:0;"></p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="video-download-terms.html">Terms of Service</a>
+    <a href="https://echoshorts.win">echoshorts.win</a>
+  </div>
+</div>
+
+<script>
+const API_BASE = 'https://license.echoshorts.win';
+
+const RTL_LANGS = ['ar', 'fa', 'he', 'ur'];
+
+const i18n = {
+  en: { title: 'Confirm Your Refund', body: 'This will cancel your video download order and refund the full amount to your original payment method (usually within 3–5 business days). After refunding, the order cannot be resubmitted.', btn: 'Confirm Refund', processing: 'Processing...', doneTitle: 'Refund Issued', doneBody: 'Your refund has been issued. The amount will be returned to your original payment method, usually within 3–5 business days.', already: 'This refund has already been processed or the link is no longer valid.', error: 'The refund could not be processed. Please try again later or contact support@echoshorts.win.' },
+  zh: { title: '确认退款', body: '此操作将取消您的视频下载订单，并将全额退款原路退回您的支付方式（通常 3–5 个工作日到账）。退款后将无法再重新提交视频链接。', btn: '确认退款', processing: '处理中...', doneTitle: '退款已发起', doneBody: '您的退款已发起。款项将原路退回您的支付方式，通常 3–5 个工作日到账。', already: '该退款已处理，或此链接已失效。', error: '退款处理失败。请稍后重试，或联系 support@echoshorts.win。' },
+  'zh-TW': { title: '確認退款', body: '此操作將取消您的影片下載訂單，並將全額退款原路退回您的付款方式（通常 3–5 個工作天到帳）。退款後將無法再重新提交影片連結。', btn: '確認退款', processing: '處理中...', doneTitle: '退款已發起', doneBody: '您的退款已發起。款項將原路退回您的付款方式，通常 3–5 個工作天到帳。', already: '該退款已處理，或此連結已失效。', error: '退款處理失敗。請稍後重試，或聯絡 support@echoshorts.win。' },
+  ar: { title: 'تأكيد استرداد المبلغ', body: 'سيؤدي هذا إلى إلغاء طلب تحميل الفيديو واسترداد المبلغ بالكامل إلى وسيلة الدفع الأصلية (عادةً خلال 3–5 أيام عمل). بعد الاسترداد لا يمكن إعادة إرسال الطلب.', btn: 'تأكيد الاسترداد', processing: 'جارٍ المعالجة...', doneTitle: 'تم الاسترداد', doneBody: 'تم تنفيذ استرداد المبلغ. سيعود المبلغ إلى وسيلة الدفع الأصلية، عادةً خلال 3–5 أيام عمل.', already: 'تمت معالجة هذا الاسترداد بالفعل أو أن الرابط لم يعد صالحًا.', error: 'تعذرت معالجة الاسترداد. حاول لاحقًا أو تواصل مع support@echoshorts.win.' },
+  bn: { title: 'রিফান্ড নিশ্চিত করুন', body: 'এটি আপনার ভিডিও ডাউনলোড অর্ডার বাতিল করবে এবং সম্পূর্ণ অর্থ আপনার মূল পেমেন্ট পদ্ধতিতে ফেরত দেবে (সাধারণত ৩–৫ কর্মদিবসের মধ্যে)। রিফান্ডের পরে অর্ডারটি আর পুনরায় জমা দেওয়া যাবে না।', btn: 'রিফান্ড নিশ্চিত করুন', processing: 'প্রক্রিয়াকরণ চলছে...', doneTitle: 'রিফান্ড সম্পন্ন', doneBody: 'আপনার রিফান্ড শুরু হয়েছে। অর্থ আপনার মূল পেমেন্ট পদ্ধতিতে ফিরে যাবে, সাধারণত ৩–৫ কর্মদিবসের মধ্যে।', already: 'এই রিফান্ড ইতিমধ্যে প্রক্রিয়া করা হয়েছে বা লিঙ্কটি আর বৈধ নয়।', error: 'রিফান্ড প্রক্রিয়া করা যায়নি। পরে আবার চেষ্টা করুন বা support@echoshorts.win-এ যোগাযোগ করুন।' },
+  cs: { title: 'Potvrdit vrácení peněz', body: 'Tím se zruší vaše objednávka stažení videa a celá částka bude vrácena na původní platební metodu (obvykle do 3–5 pracovních dnů). Po vrácení peněz již nelze objednávku znovu odeslat.', btn: 'Potvrdit vrácení', processing: 'Zpracovává se...', doneTitle: 'Peníze vráceny', doneBody: 'Vrácení peněz bylo provedeno. Částka se vrátí na původní platební metodu, obvykle do 3–5 pracovních dnů.', already: 'Toto vrácení již bylo zpracováno nebo odkaz již není platný.', error: 'Vrácení peněz se nepodařilo zpracovat. Zkuste to později nebo kontaktujte support@echoshorts.win.' },
+  da: { title: 'Bekræft refusion', body: 'Dette annullerer din videodownload-ordre og refunderer hele beløbet til din oprindelige betalingsmetode (normalt inden for 3–5 hverdage). Efter refusionen kan ordren ikke genindsendes.', btn: 'Bekræft refusion', processing: 'Behandler...', doneTitle: 'Refusion gennemført', doneBody: 'Din refusion er gennemført. Beløbet returneres til din oprindelige betalingsmetode, normalt inden for 3–5 hverdage.', already: 'Denne refusion er allerede behandlet, eller linket er ikke længere gyldigt.', error: 'Refusionen kunne ikke behandles. Prøv igen senere, eller kontakt support@echoshorts.win.' },
+  de: { title: 'Rückerstattung bestätigen', body: 'Dadurch wird Ihre Video-Download-Bestellung storniert und der volle Betrag auf Ihre ursprüngliche Zahlungsmethode zurückerstattet (in der Regel innerhalb von 3–5 Werktagen). Nach der Rückerstattung kann die Bestellung nicht erneut eingereicht werden.', btn: 'Rückerstattung bestätigen', processing: 'Wird verarbeitet...', doneTitle: 'Rückerstattung veranlasst', doneBody: 'Ihre Rückerstattung wurde veranlasst. Der Betrag wird auf Ihre ursprüngliche Zahlungsmethode zurückgebucht, in der Regel innerhalb von 3–5 Werktagen.', already: 'Diese Rückerstattung wurde bereits bearbeitet oder der Link ist nicht mehr gültig.', error: 'Die Rückerstattung konnte nicht bearbeitet werden. Versuchen Sie es später erneut oder kontaktieren Sie support@echoshorts.win.' },
+  el: { title: 'Επιβεβαίωση επιστροφής χρημάτων', body: 'Αυτό θα ακυρώσει την παραγγελία λήψης βίντεο και θα επιστρέψει ολόκληρο το ποσό στην αρχική μέθοδο πληρωμής σας (συνήθως εντός 3–5 εργάσιμων ημερών). Μετά την επιστροφή, η παραγγελία δεν μπορεί να υποβληθεί ξανά.', btn: 'Επιβεβαίωση επιστροφής', processing: 'Επεξεργασία...', doneTitle: 'Η επιστροφή ολοκληρώθηκε', doneBody: 'Η επιστροφή χρημάτων σας πραγματοποιήθηκε. Το ποσό θα επιστραφεί στην αρχική μέθοδο πληρωμής, συνήθως εντός 3–5 εργάσιμων ημερών.', already: 'Αυτή η επιστροφή έχει ήδη διεκπεραιωθεί ή ο σύνδεσμος δεν είναι πλέον έγκυρος.', error: 'Δεν ήταν δυνατή η επεξεργασία της επιστροφής. Δοκιμάστε ξανά αργότερα ή επικοινωνήστε με το support@echoshorts.win.' },
+  es: { title: 'Confirmar tu reembolso', body: 'Esto cancelará tu pedido de descarga de video y reembolsará el importe completo a tu método de pago original (normalmente en 3–5 días hábiles). Después del reembolso, el pedido no se podrá volver a enviar.', btn: 'Confirmar reembolso', processing: 'Procesando...', doneTitle: 'Reembolso emitido', doneBody: 'Tu reembolso ha sido emitido. El importe volverá a tu método de pago original, normalmente en 3–5 días hábiles.', already: 'Este reembolso ya se ha procesado o el enlace ya no es válido.', error: 'No se pudo procesar el reembolso. Inténtalo más tarde o contacta con support@echoshorts.win.' },
+  fa: { title: 'تأیید بازپرداخت', body: 'این کار سفارش دانلود ویدیوی شما را لغو کرده و کل مبلغ را به روش پرداخت اصلی شما بازمی‌گرداند (معمولاً ظرف ۳ تا ۵ روز کاری). پس از بازپرداخت، سفارش قابل ارسال مجدد نیست.', btn: 'تأیید بازپرداخت', processing: 'در حال پردازش...', doneTitle: 'بازپرداخت انجام شد', doneBody: 'بازپرداخت شما انجام شد. مبلغ به روش پرداخت اصلی شما بازمی‌گردد، معمولاً ظرف ۳ تا ۵ روز کاری.', already: 'این بازپرداخت قبلاً پردازش شده یا لینک دیگر معتبر نیست.', error: 'بازپرداخت انجام نشد. بعداً دوباره تلاش کنید یا با support@echoshorts.win تماس بگیرید.' },
+  fi: { title: 'Vahvista hyvitys', body: 'Tämä peruuttaa videolataustilauksesi ja palauttaa koko summan alkuperäiseen maksutapaasi (yleensä 3–5 arkipäivässä). Hyvityksen jälkeen tilausta ei voi lähettää uudelleen.', btn: 'Vahvista hyvitys', processing: 'Käsitellään...', doneTitle: 'Hyvitys tehty', doneBody: 'Hyvityksesi on tehty. Summa palautetaan alkuperäiseen maksutapaasi, yleensä 3–5 arkipäivässä.', already: 'Tämä hyvitys on jo käsitelty tai linkki ei ole enää voimassa.', error: 'Hyvitystä ei voitu käsitellä. Yritä myöhemmin uudelleen tai ota yhteyttä support@echoshorts.win.' },
+  fr: { title: 'Confirmer votre remboursement', body: "Cela annulera votre commande de téléchargement vidéo et remboursera le montant total sur votre moyen de paiement d'origine (généralement sous 3 à 5 jours ouvrés). Après le remboursement, la commande ne pourra plus être soumise à nouveau.", btn: 'Confirmer le remboursement', processing: 'Traitement...', doneTitle: 'Remboursement effectué', doneBody: "Votre remboursement a été effectué. Le montant sera recrédité sur votre moyen de paiement d'origine, généralement sous 3 à 5 jours ouvrés.", already: "Ce remboursement a déjà été traité ou le lien n'est plus valide.", error: "Le remboursement n'a pas pu être traité. Réessayez plus tard ou contactez support@echoshorts.win." },
+  he: { title: 'אישור החזר כספי', body: 'פעולה זו תבטל את הזמנת הורדת הווידאו ותחזיר את מלוא הסכום לאמצעי התשלום המקורי שלך (בדרך כלל תוך 3–5 ימי עסקים). לאחר ההחזר לא ניתן לשלוח את ההזמנה מחדש.', btn: 'אישור החזר', processing: 'מעבד...', doneTitle: 'ההחזר בוצע', doneBody: 'ההחזר הכספי שלך בוצע. הסכום יוחזר לאמצעי התשלום המקורי, בדרך כלל תוך 3–5 ימי עסקים.', already: 'החזר זה כבר טופל או שהקישור אינו תקף עוד.', error: 'לא ניתן היה לעבד את ההחזר. נסה שוב מאוחר יותר או פנה אל support@echoshorts.win.' },
+  hi: { title: 'रिफंड की पुष्टि करें', body: 'इससे आपका वीडियो डाउनलोड ऑर्डर रद्द हो जाएगा और पूरी राशि आपके मूल भुगतान माध्यम में वापस कर दी जाएगी (आमतौर पर 3–5 कार्यदिवसों में)। रिफंड के बाद ऑर्डर दोबारा सबमिट नहीं किया जा सकता।', btn: 'रिफंड की पुष्टि करें', processing: 'प्रोसेस हो रहा है...', doneTitle: 'रिफंड जारी किया गया', doneBody: 'आपका रिफंड जारी कर दिया गया है। राशि आपके मूल भुगतान माध्यम में वापस आएगी, आमतौर पर 3–5 कार्यदिवसों में।', already: 'यह रिफंड पहले ही प्रोसेस हो चुका है या लिंक अब मान्य नहीं है।', error: 'रिफंड प्रोसेस नहीं हो सका। बाद में फिर कोशिश करें या support@echoshorts.win से संपर्क करें।' },
+  hu: { title: 'Visszatérítés megerősítése', body: 'Ez törli a videóletöltési rendelését, és a teljes összeget visszatéríti az eredeti fizetési módra (általában 3–5 munkanapon belül). A visszatérítés után a rendelés nem küldhető be újra.', btn: 'Visszatérítés megerősítése', processing: 'Feldolgozás...', doneTitle: 'Visszatérítés elindítva', doneBody: 'A visszatérítést elindítottuk. Az összeg visszakerül az eredeti fizetési módra, általában 3–5 munkanapon belül.', already: 'Ezt a visszatérítést már feldolgozták, vagy a link már nem érvényes.', error: 'A visszatérítést nem sikerült feldolgozni. Próbálja meg később, vagy írjon a support@echoshorts.win címre.' },
+  id: { title: 'Konfirmasi Pengembalian Dana', body: 'Ini akan membatalkan pesanan unduhan video Anda dan mengembalikan seluruh dana ke metode pembayaran asli Anda (biasanya dalam 3–5 hari kerja). Setelah pengembalian dana, pesanan tidak dapat dikirim ulang.', btn: 'Konfirmasi Pengembalian', processing: 'Memproses...', doneTitle: 'Dana Dikembalikan', doneBody: 'Pengembalian dana Anda telah diproses. Dana akan kembali ke metode pembayaran asli Anda, biasanya dalam 3–5 hari kerja.', already: 'Pengembalian dana ini sudah diproses atau tautan tidak lagi berlaku.', error: 'Pengembalian dana tidak dapat diproses. Coba lagi nanti atau hubungi support@echoshorts.win.' },
+  it: { title: 'Conferma il rimborso', body: "Questo annullerà il tuo ordine di download video e rimborserà l'intero importo sul metodo di pagamento originale (di solito entro 3–5 giorni lavorativi). Dopo il rimborso, l'ordine non potrà essere inviato di nuovo.", btn: 'Conferma rimborso', processing: 'Elaborazione...', doneTitle: 'Rimborso emesso', doneBody: 'Il tuo rimborso è stato emesso. L\'importo tornerà sul metodo di pagamento originale, di solito entro 3–5 giorni lavorativi.', already: 'Questo rimborso è già stato elaborato o il link non è più valido.', error: 'Impossibile elaborare il rimborso. Riprova più tardi o contatta support@echoshorts.win.' },
+  ja: { title: '返金の確認', body: 'この操作により動画ダウンロードの注文がキャンセルされ、全額が元のお支払い方法に返金されます（通常3～5営業日以内）。返金後は注文を再提出できません。', btn: '返金を確認', processing: '処理中...', doneTitle: '返金手続き完了', doneBody: '返金手続きが完了しました。金額は元のお支払い方法に返金されます（通常3～5営業日以内）。', already: 'この返金はすでに処理済みか、リンクが無効になっています。', error: '返金を処理できませんでした。後でもう一度お試しいただくか、support@echoshorts.win までご連絡ください。' },
+  km: { title: 'បញ្ជាក់ការបង្វិលប្រាក់', body: 'វានឹងបោះបង់ការបញ្ជាទិញទាញយកវីដេអូរបស់អ្នក ហើយបង្វិលប្រាក់ពេញចំនួនទៅវិធីបង់ប្រាក់ដើមរបស់អ្នក (ជាធម្មតាក្នុងរយៈពេល 3–5 ថ្ងៃធ្វើការ)។ បន្ទាប់ពីបង្វិលប្រាក់ ការបញ្ជាទិញមិនអាចដាក់ស្នើម្តងទៀតបានទេ។', btn: 'បញ្ជាក់ការបង្វិលប្រាក់', processing: 'កំពុងដំណើរការ...', doneTitle: 'បានបង្វិលប្រាក់', doneBody: 'ការបង្វិលប្រាក់របស់អ្នកត្រូវបានធ្វើឡើង។ ចំនួនទឹកប្រាក់នឹងត្រឡប់ទៅវិធីបង់ប្រាក់ដើមរបស់អ្នក ជាធម្មតាក្នុងរយៈពេល 3–5 ថ្ងៃធ្វើការ។', already: 'ការបង្វិលប្រាក់នេះត្រូវបានដំណើរការរួចហើយ ឬតំណលែងមានសុពលភាព។', error: 'មិនអាចដំណើរការការបង្វិលប្រាក់បានទេ។ សូមព្យាយាមម្តងទៀតនៅពេលក្រោយ ឬទាក់ទង support@echoshorts.win។' },
+  ko: { title: '환불 확인', body: '이 작업은 동영상 다운로드 주문을 취소하고 전액을 원래 결제 수단으로 환불합니다(보통 3~5 영업일 이내). 환불 후에는 주문을 다시 제출할 수 없습니다.', btn: '환불 확인', processing: '처리 중...', doneTitle: '환불 완료', doneBody: '환불이 처리되었습니다. 금액은 원래 결제 수단으로 반환되며, 보통 3~5 영업일이 소요됩니다.', already: '이 환불은 이미 처리되었거나 링크가 더 이상 유효하지 않습니다.', error: '환불을 처리할 수 없습니다. 나중에 다시 시도하거나 support@echoshorts.win으로 문의하세요.' },
+  ms: { title: 'Sahkan Bayaran Balik', body: 'Ini akan membatalkan pesanan muat turun video anda dan memulangkan jumlah penuh ke kaedah pembayaran asal anda (biasanya dalam 3–5 hari bekerja). Selepas bayaran balik, pesanan tidak boleh dihantar semula.', btn: 'Sahkan Bayaran Balik', processing: 'Memproses...', doneTitle: 'Bayaran Balik Selesai', doneBody: 'Bayaran balik anda telah dibuat. Jumlah akan dikembalikan ke kaedah pembayaran asal anda, biasanya dalam 3–5 hari bekerja.', already: 'Bayaran balik ini telah diproses atau pautan tidak lagi sah.', error: 'Bayaran balik tidak dapat diproses. Cuba lagi kemudian atau hubungi support@echoshorts.win.' },
+  nb: { title: 'Bekreft refusjon', body: 'Dette kansellerer videonedlastingsbestillingen din og refunderer hele beløpet til din opprinnelige betalingsmåte (vanligvis innen 3–5 virkedager). Etter refusjonen kan ikke bestillingen sendes inn på nytt.', btn: 'Bekreft refusjon', processing: 'Behandler...', doneTitle: 'Refusjon utført', doneBody: 'Refusjonen din er utført. Beløpet returneres til din opprinnelige betalingsmåte, vanligvis innen 3–5 virkedager.', already: 'Denne refusjonen er allerede behandlet, eller lenken er ikke lenger gyldig.', error: 'Refusjonen kunne ikke behandles. Prøv igjen senere eller kontakt support@echoshorts.win.' },
+  nl: { title: 'Terugbetaling bevestigen', body: 'Hiermee wordt je videodownload-bestelling geannuleerd en wordt het volledige bedrag teruggestort op je oorspronkelijke betaalmethode (meestal binnen 3–5 werkdagen). Na de terugbetaling kan de bestelling niet opnieuw worden ingediend.', btn: 'Terugbetaling bevestigen', processing: 'Verwerken...', doneTitle: 'Terugbetaling uitgevoerd', doneBody: 'Je terugbetaling is uitgevoerd. Het bedrag komt terug op je oorspronkelijke betaalmethode, meestal binnen 3–5 werkdagen.', already: 'Deze terugbetaling is al verwerkt of de link is niet meer geldig.', error: 'De terugbetaling kon niet worden verwerkt. Probeer het later opnieuw of neem contact op via support@echoshorts.win.' },
+  pl: { title: 'Potwierdź zwrot pieniędzy', body: 'Spowoduje to anulowanie zamówienia pobrania wideo i zwrot pełnej kwoty na pierwotną metodę płatności (zwykle w ciągu 3–5 dni roboczych). Po zwrocie zamówienia nie można przesłać ponownie.', btn: 'Potwierdź zwrot', processing: 'Przetwarzanie...', doneTitle: 'Zwrot zrealizowany', doneBody: 'Twój zwrot został zrealizowany. Kwota wróci na pierwotną metodę płatności, zwykle w ciągu 3–5 dni roboczych.', already: 'Ten zwrot został już zrealizowany lub link jest już nieważny.', error: 'Nie udało się przetworzyć zwrotu. Spróbuj później lub napisz na support@echoshorts.win.' },
+  pt: { title: 'Confirmar seu reembolso', body: 'Isso cancelará seu pedido de download de vídeo e reembolsará o valor total no seu método de pagamento original (geralmente em 3–5 dias úteis). Após o reembolso, o pedido não poderá ser reenviado.', btn: 'Confirmar reembolso', processing: 'Processando...', doneTitle: 'Reembolso emitido', doneBody: 'Seu reembolso foi emitido. O valor voltará ao seu método de pagamento original, geralmente em 3–5 dias úteis.', already: 'Este reembolso já foi processado ou o link não é mais válido.', error: 'Não foi possível processar o reembolso. Tente novamente mais tarde ou contate support@echoshorts.win.' },
+  ro: { title: 'Confirmă rambursarea', body: 'Aceasta îți va anula comanda de descărcare video și va rambursa întreaga sumă pe metoda de plată originală (de obicei în 3–5 zile lucrătoare). După rambursare, comanda nu mai poate fi retrimisă.', btn: 'Confirmă rambursarea', processing: 'Se procesează...', doneTitle: 'Rambursare efectuată', doneBody: 'Rambursarea ta a fost efectuată. Suma va reveni pe metoda de plată originală, de obicei în 3–5 zile lucrătoare.', already: 'Această rambursare a fost deja procesată sau linkul nu mai este valid.', error: 'Rambursarea nu a putut fi procesată. Încearcă mai târziu sau contactează support@echoshorts.win.' },
+  ru: { title: 'Подтвердите возврат средств', body: 'Это отменит ваш заказ на скачивание видео, и полная сумма будет возвращена на исходный способ оплаты (обычно в течение 3–5 рабочих дней). После возврата заказ нельзя будет отправить повторно.', btn: 'Подтвердить возврат', processing: 'Обработка...', doneTitle: 'Возврат выполнен', doneBody: 'Возврат средств выполнен. Сумма вернётся на исходный способ оплаты, обычно в течение 3–5 рабочих дней.', already: 'Этот возврат уже обработан, или ссылка больше недействительна.', error: 'Не удалось обработать возврат. Попробуйте позже или напишите на support@echoshorts.win.' },
+  sv: { title: 'Bekräfta återbetalning', body: 'Detta avbryter din videonedladdningsbeställning och återbetalar hela beloppet till din ursprungliga betalningsmetod (vanligtvis inom 3–5 arbetsdagar). Efter återbetalningen kan beställningen inte skickas in igen.', btn: 'Bekräfta återbetalning', processing: 'Bearbetar...', doneTitle: 'Återbetalning genomförd', doneBody: 'Din återbetalning har genomförts. Beloppet återförs till din ursprungliga betalningsmetod, vanligtvis inom 3–5 arbetsdagar.', already: 'Denna återbetalning har redan behandlats eller länken är inte längre giltig.', error: 'Återbetalningen kunde inte behandlas. Försök igen senare eller kontakta support@echoshorts.win.' },
+  sw: { title: 'Thibitisha Rejesho la Pesa', body: 'Hii itaghairi agizo lako la kupakua video na kurejesha kiasi chote kwa njia yako ya awali ya malipo (kwa kawaida ndani ya siku 3–5 za kazi). Baada ya rejesho, agizo haliwezi kuwasilishwa tena.', btn: 'Thibitisha Rejesho', processing: 'Inashughulikiwa...', doneTitle: 'Pesa Zimerejeshwa', doneBody: 'Rejesho lako limefanyika. Kiasi kitarudi kwa njia yako ya awali ya malipo, kwa kawaida ndani ya siku 3–5 za kazi.', already: 'Rejesho hili tayari limeshughulikiwa au kiungo si halali tena.', error: 'Rejesho halikuweza kushughulikiwa. Jaribu tena baadaye au wasiliana na support@echoshorts.win.' },
+  ta: { title: 'பணத்திருப்பத்தை உறுதிப்படுத்தவும்', body: 'இது உங்கள் வீடியோ பதிவிறக்க ஆர்டரை ரத்து செய்து, முழுத் தொகையையும் உங்கள் அசல் கட்டண முறைக்குத் திருப்பித் தரும் (பொதுவாக 3–5 வேலை நாட்களில்). பணத்திருப்பத்திற்குப் பிறகு ஆர்டரை மீண்டும் சமர்ப்பிக்க முடியாது.', btn: 'பணத்திருப்பத்தை உறுதிப்படுத்து', processing: 'செயலாக்கப்படுகிறது...', doneTitle: 'பணம் திருப்பப்பட்டது', doneBody: 'உங்கள் பணத்திருப்பம் செயல்படுத்தப்பட்டது. தொகை உங்கள் அசல் கட்டண முறைக்குத் திரும்பும், பொதுவாக 3–5 வேலை நாட்களில்.', already: 'இந்தப் பணத்திருப்பம் ஏற்கனவே செயலாக்கப்பட்டது அல்லது இணைப்பு செல்லுபடியாகாது.', error: 'பணத்திருப்பத்தைச் செயலாக்க முடியவில்லை. பின்னர் மீண்டும் முயற்சிக்கவும் அல்லது support@echoshorts.win ஐத் தொடர்பு கொள்ளவும்.' },
+  te: { title: 'రీఫండ్‌ను నిర్ధారించండి', body: 'ఇది మీ వీడియో డౌన్‌లోడ్ ఆర్డర్‌ను రద్దు చేసి, పూర్తి మొత్తాన్ని మీ అసలు చెల్లింపు పద్ధతికి తిరిగి ఇస్తుంది (సాధారణంగా 3–5 పని దినాల్లో). రీఫండ్ తర్వాత ఆర్డర్‌ను మళ్లీ సమర్పించలేరు.', btn: 'రీఫండ్‌ను నిర్ధారించండి', processing: 'ప్రాసెస్ అవుతోంది...', doneTitle: 'రీఫండ్ జారీ చేయబడింది', doneBody: 'మీ రీఫండ్ జారీ చేయబడింది. మొత్తం మీ అసలు చెల్లింపు పద్ధతికి తిరిగి వస్తుంది, సాధారణంగా 3–5 పని దినాల్లో.', already: 'ఈ రీఫండ్ ఇప్పటికే ప్రాసెస్ చేయబడింది లేదా లింక్ ఇకపై చెల్లదు.', error: 'రీఫండ్‌ను ప్రాసెస్ చేయలేకపోయాము. తర్వాత మళ్లీ ప్రయత్నించండి లేదా support@echoshorts.win ను సంప్రదించండి.' },
+  th: { title: 'ยืนยันการคืนเงิน', body: 'การดำเนินการนี้จะยกเลิกคำสั่งซื้อดาวน์โหลดวิดีโอของคุณ และคืนเงินเต็มจำนวนไปยังช่องทางการชำระเงินเดิม (โดยปกติภายใน 3–5 วันทำการ) หลังจากคืนเงินแล้ว จะไม่สามารถส่งคำสั่งซื้อใหม่ได้', btn: 'ยืนยันการคืนเงิน', processing: 'กำลังดำเนินการ...', doneTitle: 'คืนเงินเรียบร้อย', doneBody: 'ดำเนินการคืนเงินของคุณแล้ว ยอดเงินจะกลับไปยังช่องทางการชำระเงินเดิม โดยปกติภายใน 3–5 วันทำการ', already: 'การคืนเงินนี้ได้รับการดำเนินการแล้ว หรือลิงก์ไม่ถูกต้องอีกต่อไป', error: 'ไม่สามารถดำเนินการคืนเงินได้ โปรดลองอีกครั้งภายหลัง หรือติดต่อ support@echoshorts.win' },
+  tr: { title: 'İadenizi Onaylayın', body: 'Bu işlem, video indirme siparişinizi iptal eder ve tutarın tamamını orijinal ödeme yönteminize iade eder (genellikle 3–5 iş günü içinde). İadeden sonra sipariş yeniden gönderilemez.', btn: 'İadeyi Onayla', processing: 'İşleniyor...', doneTitle: 'İade Yapıldı', doneBody: 'İadeniz gerçekleştirildi. Tutar, orijinal ödeme yönteminize genellikle 3–5 iş günü içinde geri döner.', already: 'Bu iade zaten işlendi veya bağlantı artık geçerli değil.', error: 'İade işlenemedi. Daha sonra tekrar deneyin veya support@echoshorts.win ile iletişime geçin.' },
+  uk: { title: 'Підтвердьте повернення коштів', body: 'Це скасує ваше замовлення на завантаження відео, і повна сума буде повернена на початковий спосіб оплати (зазвичай протягом 3–5 робочих днів). Після повернення замовлення не можна буде надіслати повторно.', btn: 'Підтвердити повернення', processing: 'Обробка...', doneTitle: 'Кошти повернено', doneBody: 'Повернення коштів виконано. Сума повернеться на початковий спосіб оплати, зазвичай протягом 3–5 робочих днів.', already: 'Це повернення вже оброблено, або посилання більше не дійсне.', error: 'Не вдалося обробити повернення. Спробуйте пізніше або напишіть на support@echoshorts.win.' },
+  ur: { title: 'رقم کی واپسی کی تصدیق کریں', body: 'اس سے آپ کا ویڈیو ڈاؤن لوڈ آرڈر منسوخ ہو جائے گا اور پوری رقم آپ کے اصل ادائیگی کے طریقے پر واپس کر دی جائے گی (عام طور پر 3–5 کاروباری دنوں میں)۔ رقم کی واپسی کے بعد آرڈر دوبارہ جمع نہیں کیا جا سکتا۔', btn: 'واپسی کی تصدیق کریں', processing: 'کارروائی جاری ہے...', doneTitle: 'رقم واپس کر دی گئی', doneBody: 'آپ کی رقم کی واپسی کر دی گئی ہے۔ رقم آپ کے اصل ادائیگی کے طریقے پر واپس آئے گی، عام طور پر 3–5 کاروباری دنوں میں۔', already: 'یہ واپسی پہلے ہی ہو چکی ہے یا لنک اب درست نہیں ہے۔', error: 'رقم کی واپسی ممکن نہیں ہو سکی۔ بعد میں دوبارہ کوشش کریں یا support@echoshorts.win سے رابطہ کریں۔' },
+  vi: { title: 'Xác nhận hoàn tiền', body: 'Thao tác này sẽ hủy đơn hàng tải video của bạn và hoàn lại toàn bộ số tiền về phương thức thanh toán ban đầu (thường trong 3–5 ngày làm việc). Sau khi hoàn tiền, đơn hàng không thể gửi lại.', btn: 'Xác nhận hoàn tiền', processing: 'Đang xử lý...', doneTitle: 'Đã hoàn tiền', doneBody: 'Yêu cầu hoàn tiền của bạn đã được thực hiện. Số tiền sẽ trở về phương thức thanh toán ban đầu, thường trong 3–5 ngày làm việc.', already: 'Khoản hoàn tiền này đã được xử lý hoặc liên kết không còn hợp lệ.', error: 'Không thể xử lý hoàn tiền. Vui lòng thử lại sau hoặc liên hệ support@echoshorts.win.' }
+};
+
+const params = new URLSearchParams(window.location.search);
+const orderId = params.get('order');
+const token = params.get('token');
+
+let lang = params.get('lang');
+if (lang === 'cht') lang = 'zh-TW';
+if (!lang || !i18n[lang]) {
+  const bl = navigator.language || 'en';
+  if (/^zh\b/i.test(bl)) lang = /tw|hk|mo|hant/i.test(bl) ? 'zh-TW' : 'zh';
+  else if (/^(no|nn)\b/i.test(bl)) lang = 'nb';
+  else if (i18n[bl]) lang = bl;
+  else if (i18n[bl.split('-')[0].toLowerCase()]) lang = bl.split('-')[0].toLowerCase();
+  else lang = 'en';
+}
+
+function t(key) {
+  return (i18n[lang] && i18n[lang][key]) || i18n.en[key] || key;
+}
+
+document.documentElement.lang = lang;
+document.documentElement.dir = RTL_LANGS.includes(lang) ? 'rtl' : 'ltr';
+document.title = t('title') + ' - EchoShorts';
+document.getElementById('title').textContent = t('title');
+document.getElementById('bodyText').textContent = t('body');
+document.getElementById('refundBtn').textContent = t('btn');
+
+function showResult(ok, titleText, bodyText) {
+  document.getElementById('confirmView').style.display = 'none';
+  const rv = document.getElementById('resultView');
+  rv.style.display = 'block';
+  const icon = document.getElementById('resultIcon');
+  icon.textContent = ok ? '✓' : '!';
+  icon.className = 'result-icon ' + (ok ? 'ok' : 'bad');
+  document.getElementById('resultTitle').textContent = titleText;
+  document.getElementById('resultBody').textContent = bodyText;
+}
+
+function showError(msg) {
+  const el = document.getElementById('errorMsg');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+if (!orderId || !token) {
+  showResult(false, t('title'), t('already'));
+}
+
+// The refund only fires on this explicit button click (POST), never on page load,
+// so email-scanner link prefetches cannot trigger it.
+async function confirmRefund() {
+  const btn = document.getElementById('refundBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>' + t('processing');
+  document.getElementById('errorMsg').style.display = 'none';
+
+  try {
+    const resp = await fetch(`${API_BASE}/download-orders/${encodeURIComponent(orderId)}/refund`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token })
+    });
+    const data = await resp.json().catch(() => ({}));
+
+    if (resp.ok && data.success) {
+      showResult(true, t('doneTitle'), t('doneBody'));
+      return;
+    }
+    if (data.error === 'invalid_link' || data.error === 'already_refunded' || data.error === 'not_refundable') {
+      showResult(false, t('title'), t('already'));
+      return;
+    }
+    showError(t('error'));
+  } catch (err) {
+    console.error('Refund error:', err);
+    showError(t('error'));
+  } finally {
+    btn.disabled = false;
+    btn.textContent = t('btn');
+  }
+}
+</script>
+</body>
+</html>

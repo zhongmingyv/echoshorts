@@ -226,6 +226,22 @@
   .btn-send:hover { background: rgba(74,222,128,0.1); }
   .btn-resend { border-color: var(--border); color: var(--muted); }
   .btn-resend:hover { border-color: var(--primary); color: var(--primary); background: transparent; }
+  .btn-fail { border-color: #f87171; color: #f87171; margin-left: 6px; }
+  .btn-fail:hover { background: rgba(248,113,113,0.1); }
+  .tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+  .tab {
+    padding: 6px 14px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--muted);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .tab:hover { border-color: var(--primary); color: var(--primary); }
+  .tab.active { background: var(--primary); border-color: var(--primary); color: #0f0f0f; font-weight: 600; }
+  .tab .count { opacity: 0.75; margin-left: 4px; }
   .modal-overlay {
     display: none;
     position: fixed;
@@ -307,6 +323,9 @@
     <h2>Video Download Orders <span class="total-count" id="totalCount"></span></h2>
     <a href="admin-blacklist.html" class="btn-outline">Domain Blacklist</a>
   </div>
+
+  <!-- Status tabs -->
+  <div class="tabs" id="statusTabs"></div>
 
   <!-- Search -->
   <div class="search-bar">
@@ -448,19 +467,58 @@ function statusBadge(status) {
   if (s === 'completed') return '<span class="badge badge-yellow">completed</span>';
   if (s === 'failed') return '<span class="badge badge-red">failed</span>';
   if (s === 'pending') return '<span class="badge badge-gray">pending</span>';
+  if (s === 'payment_failed') return '<span class="badge badge-gray">payment_failed</span>';
+  if (s === 'refunding') return '<span class="badge badge-yellow">refunding</span>';
+  if (s === 'refunded') return '<span class="badge badge-blue">refunded</span>';
   if (s === 'paypal_claimed') return '<span class="badge badge-blue">paypal_claimed</span>';
   return '<span class="badge badge-gray">' + escHtml(s) + '</span>';
 }
 
 function actionCell(o) {
   const s = (o.status || '').toLowerCase();
-  if (s === 'completed' || s === 'paypal_claimed') {
+  if (s === 'completed') {
+    return `<button class="btn-send" onclick="openSendModal('${escHtml(o.orderId)}')">Send Link</button><button class="btn-send btn-fail" onclick="markFailed('${escHtml(o.orderId)}')">Can't Download</button>`;
+  }
+  if (s === 'paypal_claimed') {
     return `<button class="btn-send" onclick="openSendModal('${escHtml(o.orderId)}')">Send Link</button>`;
   }
   if (s === 'delivered') {
     return `<button class="btn-send btn-resend" onclick="openSendModal('${escHtml(o.orderId)}')">Resend</button>`;
   }
   return '-';
+}
+
+const STATUS_TABS = [
+  { key: 'all', label: 'All', statuses: null },
+  { key: 'pending', label: 'Pending', statuses: ['pending', 'payment_failed'] },
+  { key: 'completed', label: 'Completed', statuses: ['completed', 'paypal_claimed'] },
+  { key: 'failed', label: 'Failed', statuses: ['failed'] },
+  { key: 'refunded', label: 'Refunded', statuses: ['refunding', 'refunded'] },
+  { key: 'delivered', label: 'Delivered', statuses: ['delivered'] },
+];
+let currentTab = 'all';
+
+function tabMatches(tab, o) {
+  if (!tab.statuses) return true;
+  return tab.statuses.includes((o.status || 'pending').toLowerCase());
+}
+
+function filteredOrders() {
+  const tab = STATUS_TABS.find(t => t.key === currentTab) || STATUS_TABS[0];
+  return allOrders.filter(o => tabMatches(tab, o));
+}
+
+function renderTabs() {
+  document.getElementById('statusTabs').innerHTML = STATUS_TABS.map(t => {
+    const count = allOrders.filter(o => tabMatches(t, o)).length;
+    return `<button class="tab${t.key === currentTab ? ' active' : ''}" onclick="switchTab('${t.key}')">${t.label}<span class="count">(${count})</span></button>`;
+  }).join('');
+}
+
+function switchTab(key) {
+  currentTab = key;
+  currentPage = 1;
+  renderTable();
 }
 
 function priceOf(o) {
@@ -474,8 +532,10 @@ function renderTable() {
   const countEl = document.getElementById('totalCount');
   const paginationEl = document.getElementById('pagination');
 
-  const total = allOrders.length;
-  countEl.textContent = '(' + total + ' total)';
+  renderTabs();
+  const list = filteredOrders();
+  const total = list.length;
+  countEl.textContent = '(' + allOrders.length + ' total)';
 
   if (total === 0) {
     table.style.display = 'none';
@@ -490,7 +550,7 @@ function renderTable() {
 
   const start = (currentPage - 1) * pageSize;
   const end = Math.min(start + pageSize, total);
-  const pageData = allOrders.slice(start, end);
+  const pageData = list.slice(start, end);
 
   table.style.display = 'table';
   empty.style.display = 'none';
@@ -573,6 +633,33 @@ async function copyUrl(orderId, btn) {
   btn.innerHTML = '&#x2713;';
   btn.classList.add('copied');
   setTimeout(() => { btn.innerHTML = old; btn.classList.remove('copied'); }, 1200);
+}
+
+async function markFailed(orderId) {
+  const o = allOrders.find(x => x.orderId === orderId);
+  if (!o) return;
+  if (!confirm(`Mark this order as FAILED (can't download)?\n\nOrder: ${orderId}\nCustomer: ${o.email}\n\nThe customer will receive an email with two options: resubmit a new video URL, or get a full refund. This cannot be undone.`)) return;
+  try {
+    const res = await fetch(`${API}/admin/download-orders/${orderId}/mark-failed`, {
+      method: 'POST',
+      headers: authHeaders()
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      const msgs = {
+        order_not_found: 'Order not found.',
+        only_completed_orders_can_be_failed: 'Only completed (paid, undelivered) orders can be marked as failed. Current status: ' + (data.status || '?'),
+        resend_not_configured: 'RESEND_API_KEY is not configured on the worker.'
+      };
+      throw new Error(msgs[data.error] || data.error || 'Failed to mark order as failed');
+    }
+    const idx = allOrders.findIndex(x => x.orderId === orderId);
+    if (idx !== -1 && data.order) allOrders[idx] = data.order;
+    if (data.emailError) showError('Order marked as failed, but the customer email failed to send: ' + data.emailError);
+    renderTable();
+  } catch (err) {
+    showError(err.message);
+  }
 }
 
 let modalOrderId = null;

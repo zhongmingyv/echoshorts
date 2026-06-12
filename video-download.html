@@ -212,6 +212,7 @@
       <p class="tagline" data-i18n="tagline">Paste a video link, pay, and we will email you the download link.</p>
     </div>
 
+    <div id="formArea">
     <div id="errorMsg" class="error-msg"></div>
 
     <div class="field-group">
@@ -239,7 +240,7 @@
       </div>
     </div>
 
-    <div class="price-section">
+    <div class="price-section" id="priceSection">
       <div class="price-row">
         <span data-i18n="totalLabel">Total</span>
         <span class="amount" id="totalPrice">$1.00</span>
@@ -249,6 +250,12 @@
     <button class="btn-pay" id="payBtn" onclick="handlePay()" data-i18n="payBtn">Pay Now</button>
 
     <p class="delivery-note" data-i18n="deliveryNote">The download link will be sent to your email within 48 hours after payment.</p>
+    </div>
+
+    <div id="resultState" style="display:none; text-align:center; padding: 16px 0;">
+      <div id="resultIcon" style="font-size: 42px; font-weight: 700; margin-bottom: 14px;"></div>
+      <p id="resultText" style="font-size: 15px;"></p>
+    </div>
   </div>
 
   <div class="footer">
@@ -347,10 +354,55 @@ const i18n = {
   vi: { title: 'Tải video', tagline: 'Dán liên kết video, thanh toán, và chúng tôi sẽ gửi liên kết tải xuống qua email.', emailLabel: 'Email', emailPlaceholder: 'ban@email.com', urlLabel: 'URL video', urlPlaceholder: 'https://...', subtitleCheck: 'Tôi cần phụ đề (+$0.99)', subtitleNote: 'Ngôn ngữ phụ đề: {lang}', totalLabel: 'Tổng cộng', payBtn: 'Thanh toán ngay', blacklistError: 'Tên miền này không được hỗ trợ.', emailRequired: 'Vui lòng nhập địa chỉ email hợp lệ.', urlRequired: 'Vui lòng nhập URL video hợp lệ.', deliveryNote: 'Liên kết tải xuống sẽ được gửi đến email của bạn trong vòng 48 giờ sau khi thanh toán. Sau khi nhận được email, hãy lưu ý thời hạn hiệu lực của liên kết (tối đa 30 ngày) và tải video xuống sớm.', processing: 'Đang xử lý...', purchaseError: 'Không thể bắt đầu thanh toán. Vui lòng thử lại.' }
 };
 
+// ── Resubmit-mode i18n (separate object to keep main i18n lines unchanged) ──
+const RESUBMIT_I18N = {
+  en: { resubmitTitle: 'Resubmit Video Link', resubmitTagline: 'We could not download your original video. Paste a new video link below and we will process your order again — no extra payment needed.', confirmBtn: 'Confirm', resubmitDone: 'New link received. We will email you the download link within 48 hours.', linkInvalid: 'This link is invalid or has already been used.' },
+  zh: { resubmitTitle: '重新提交视频链接', resubmitTagline: '我们无法下载您原来的视频。请在下方粘贴新的视频链接，我们将重新处理您的订单——无需再次付款。', confirmBtn: '确认', resubmitDone: '已收到新链接。我们将在 48 小时内将下载链接发送到您的邮箱。', linkInvalid: '该链接无效或已被使用。' },
+  'zh-TW': { resubmitTitle: '重新提交影片連結', resubmitTagline: '我們無法下載您原來的影片。請在下方貼上新的影片連結，我們將重新處理您的訂單——無需再次付款。', confirmBtn: '確認', resubmitDone: '已收到新連結。我們將在 48 小時內將下載連結傳送到您的信箱。', linkInvalid: '該連結無效或已被使用。' },
+  ar: { resubmitTitle: 'إعادة إرسال رابط الفيديو', resubmitTagline: 'لم نتمكن من تحميل الفيديو الأصلي. الصق رابط فيديو جديدًا أدناه وسنعالج طلبك مرة أخرى — دون أي دفع إضافي.', confirmBtn: 'تأكيد', resubmitDone: 'تم استلام الرابط الجديد. سنرسل رابط التحميل إلى بريدك الإلكتروني خلال 48 ساعة.', linkInvalid: 'هذا الرابط غير صالح أو تم استخدامه بالفعل.' },
+  bn: { resubmitTitle: 'ভিডিও লিঙ্ক আবার জমা দিন', resubmitTagline: 'আমরা আপনার মূল ভিডিওটি ডাউনলোড করতে পারিনি। নিচে একটি নতুন ভিডিও লিঙ্ক পেস্ট করুন, আমরা আপনার অর্ডারটি আবার প্রক্রিয়া করব — অতিরিক্ত কোনো অর্থ লাগবে না।', confirmBtn: 'নিশ্চিত করুন', resubmitDone: 'নতুন লিঙ্ক পাওয়া গেছে। আমরা ৪৮ ঘণ্টার মধ্যে ডাউনলোড লিঙ্ক আপনার ইমেইলে পাঠাব।', linkInvalid: 'এই লিঙ্কটি অবৈধ বা ইতিমধ্যে ব্যবহৃত হয়েছে।' },
+  cs: { resubmitTitle: 'Znovu odeslat odkaz na video', resubmitTagline: 'Vaše původní video se nám nepodařilo stáhnout. Vložte níže nový odkaz na video a vaši objednávku zpracujeme znovu — bez dalších poplatků.', confirmBtn: 'Potvrdit', resubmitDone: 'Nový odkaz přijat. Odkaz ke stažení vám zašleme e-mailem do 48 hodin.', linkInvalid: 'Tento odkaz je neplatný nebo již byl použit.' },
+  da: { resubmitTitle: 'Indsend videolink igen', resubmitTagline: 'Vi kunne ikke downloade din oprindelige video. Indsæt et nyt videolink nedenfor, så behandler vi din ordre igen — uden ekstra betaling.', confirmBtn: 'Bekræft', resubmitDone: 'Nyt link modtaget. Vi sender downloadlinket til din e-mail inden for 48 timer.', linkInvalid: 'Dette link er ugyldigt eller er allerede brugt.' },
+  de: { resubmitTitle: 'Videolink erneut einreichen', resubmitTagline: 'Wir konnten Ihr ursprüngliches Video nicht herunterladen. Fügen Sie unten einen neuen Videolink ein, und wir bearbeiten Ihre Bestellung erneut — ohne zusätzliche Zahlung.', confirmBtn: 'Bestätigen', resubmitDone: 'Neuer Link erhalten. Wir senden Ihnen den Download-Link innerhalb von 48 Stunden per E-Mail.', linkInvalid: 'Dieser Link ist ungültig oder wurde bereits verwendet.' },
+  el: { resubmitTitle: 'Επανυποβολή συνδέσμου βίντεο', resubmitTagline: 'Δεν μπορέσαμε να κατεβάσουμε το αρχικό σας βίντεο. Επικολλήστε έναν νέο σύνδεσμο βίντεο παρακάτω και θα επεξεργαστούμε ξανά την παραγγελία σας — χωρίς επιπλέον πληρωμή.', confirmBtn: 'Επιβεβαίωση', resubmitDone: 'Ο νέος σύνδεσμος ελήφθη. Θα σας στείλουμε τον σύνδεσμο λήψης με email εντός 48 ωρών.', linkInvalid: 'Αυτός ο σύνδεσμος είναι άκυρος ή έχει ήδη χρησιμοποιηθεί.' },
+  es: { resubmitTitle: 'Reenviar enlace de video', resubmitTagline: 'No pudimos descargar tu video original. Pega un nuevo enlace de video abajo y procesaremos tu pedido de nuevo — sin pago adicional.', confirmBtn: 'Confirmar', resubmitDone: 'Nuevo enlace recibido. Te enviaremos el enlace de descarga por correo dentro de 48 horas.', linkInvalid: 'Este enlace no es válido o ya ha sido utilizado.' },
+  fa: { resubmitTitle: 'ارسال مجدد لینک ویدیو', resubmitTagline: 'نتوانستیم ویدیوی اصلی شما را دانلود کنیم. لینک ویدیوی جدیدی را در زیر وارد کنید تا سفارش شما را دوباره پردازش کنیم — بدون پرداخت اضافی.', confirmBtn: 'تأیید', resubmitDone: 'لینک جدید دریافت شد. لینک دانلود را ظرف ۴۸ ساعت به ایمیل شما ارسال می‌کنیم.', linkInvalid: 'این لینک نامعتبر است یا قبلاً استفاده شده است.' },
+  fi: { resubmitTitle: 'Lähetä videolinkki uudelleen', resubmitTagline: 'Emme voineet ladata alkuperäistä videotasi. Liitä uusi videolinkki alle, niin käsittelemme tilauksesi uudelleen — ilman lisämaksua.', confirmBtn: 'Vahvista', resubmitDone: 'Uusi linkki vastaanotettu. Lähetämme latauslinkin sähköpostiisi 48 tunnin kuluessa.', linkInvalid: 'Tämä linkki on virheellinen tai jo käytetty.' },
+  fr: { resubmitTitle: 'Soumettre un nouveau lien vidéo', resubmitTagline: "Nous n'avons pas pu télécharger votre vidéo d'origine. Collez un nouveau lien vidéo ci-dessous et nous traiterons à nouveau votre commande — sans paiement supplémentaire.", confirmBtn: 'Confirmer', resubmitDone: 'Nouveau lien reçu. Nous vous enverrons le lien de téléchargement par e-mail sous 48 heures.', linkInvalid: 'Ce lien est invalide ou a déjà été utilisé.' },
+  he: { resubmitTitle: 'שליחה מחדש של קישור הווידאו', resubmitTagline: 'לא הצלחנו להוריד את הווידאו המקורי שלך. הדבק קישור וידאו חדש למטה ונעבד את ההזמנה שלך שוב — ללא תשלום נוסף.', confirmBtn: 'אישור', resubmitDone: 'הקישור החדש התקבל. נשלח את קישור ההורדה למייל שלך תוך 48 שעות.', linkInvalid: 'קישור זה אינו תקף או שכבר נעשה בו שימוש.' },
+  hi: { resubmitTitle: 'वीडियो लिंक फिर से सबमिट करें', resubmitTagline: 'हम आपका मूल वीडियो डाउनलोड नहीं कर सके। नीचे नया वीडियो लिंक पेस्ट करें और हम आपका ऑर्डर फिर से प्रोसेस करेंगे — कोई अतिरिक्त भुगतान नहीं।', confirmBtn: 'पुष्टि करें', resubmitDone: 'नया लिंक मिल गया। हम 48 घंटों के भीतर डाउनलोड लिंक आपके ईमेल पर भेजेंगे।', linkInvalid: 'यह लिंक अमान्य है या पहले ही उपयोग किया जा चुका है।' },
+  hu: { resubmitTitle: 'Videólink újraküldése', resubmitTagline: 'Nem tudtuk letölteni az eredeti videót. Illesszen be egy új videólinket alább, és újra feldolgozzuk a rendelését — további fizetés nélkül.', confirmBtn: 'Megerősítés', resubmitDone: 'Új link megérkezett. A letöltési linket 48 órán belül elküldjük e-mailben.', linkInvalid: 'Ez a link érvénytelen vagy már felhasználták.' },
+  id: { resubmitTitle: 'Kirim Ulang Tautan Video', resubmitTagline: 'Kami tidak dapat mengunduh video asli Anda. Tempel tautan video baru di bawah dan kami akan memproses pesanan Anda lagi — tanpa pembayaran tambahan.', confirmBtn: 'Konfirmasi', resubmitDone: 'Tautan baru diterima. Kami akan mengirim tautan unduhan ke email Anda dalam 48 jam.', linkInvalid: 'Tautan ini tidak valid atau sudah digunakan.' },
+  it: { resubmitTitle: 'Invia di nuovo il link del video', resubmitTagline: 'Non siamo riusciti a scaricare il tuo video originale. Incolla un nuovo link video qui sotto e elaboreremo di nuovo il tuo ordine — senza pagamenti aggiuntivi.', confirmBtn: 'Conferma', resubmitDone: 'Nuovo link ricevuto. Ti invieremo il link di download via email entro 48 ore.', linkInvalid: 'Questo link non è valido o è già stato utilizzato.' },
+  ja: { resubmitTitle: '動画リンクを再送信', resubmitTagline: '元の動画をダウンロードできませんでした。下に新しい動画リンクを貼り付けてください。追加料金なしでご注文を再処理いたします。', confirmBtn: '確認', resubmitDone: '新しいリンクを受け取りました。48時間以内にダウンロードリンクをメールでお送りします。', linkInvalid: 'このリンクは無効か、すでに使用されています。' },
+  km: { resubmitTitle: 'ដាក់ស្នើតំណវីដេអូម្តងទៀត', resubmitTagline: 'យើងមិនអាចទាញយកវីដេអូដើមរបស់អ្នកបានទេ។ បិទភ្ជាប់តំណវីដេអូថ្មីខាងក្រោម ហើយយើងនឹងដំណើរការការបញ្ជាទិញរបស់អ្នកម្តងទៀត — មិនចាំបាច់បង់ប្រាក់បន្ថែមទេ។', confirmBtn: 'បញ្ជាក់', resubmitDone: 'បានទទួលតំណថ្មី។ យើងនឹងផ្ញើតំណទាញយកទៅអ៊ីមែលរបស់អ្នកក្នុងរយៈពេល 48 ម៉ោង។', linkInvalid: 'តំណនេះមិនត្រឹមត្រូវ ឬត្រូវបានប្រើរួចហើយ។' },
+  ko: { resubmitTitle: '동영상 링크 다시 제출', resubmitTagline: '원본 동영상을 다운로드할 수 없었습니다. 아래에 새 동영상 링크를 붙여넣으면 추가 결제 없이 주문을 다시 처리해 드립니다.', confirmBtn: '확인', resubmitDone: '새 링크를 받았습니다. 48시간 이내에 다운로드 링크를 이메일로 보내드립니다.', linkInvalid: '이 링크는 유효하지 않거나 이미 사용되었습니다.' },
+  ms: { resubmitTitle: 'Hantar Semula Pautan Video', resubmitTagline: 'Kami tidak dapat memuat turun video asal anda. Tampal pautan video baharu di bawah dan kami akan memproses pesanan anda semula — tanpa bayaran tambahan.', confirmBtn: 'Sahkan', resubmitDone: 'Pautan baharu diterima. Kami akan menghantar pautan muat turun ke e-mel anda dalam masa 48 jam.', linkInvalid: 'Pautan ini tidak sah atau telah digunakan.' },
+  nb: { resubmitTitle: 'Send inn videolenke på nytt', resubmitTagline: 'Vi kunne ikke laste ned den opprinnelige videoen din. Lim inn en ny videolenke nedenfor, så behandler vi bestillingen din på nytt — uten ekstra betaling.', confirmBtn: 'Bekreft', resubmitDone: 'Ny lenke mottatt. Vi sender nedlastingslenken til e-posten din innen 48 timer.', linkInvalid: 'Denne lenken er ugyldig eller allerede brukt.' },
+  nl: { resubmitTitle: 'Videolink opnieuw indienen', resubmitTagline: 'We konden je oorspronkelijke video niet downloaden. Plak hieronder een nieuwe videolink en we verwerken je bestelling opnieuw — zonder extra betaling.', confirmBtn: 'Bevestigen', resubmitDone: 'Nieuwe link ontvangen. We sturen de downloadlink binnen 48 uur naar je e-mail.', linkInvalid: 'Deze link is ongeldig of al gebruikt.' },
+  pl: { resubmitTitle: 'Prześlij ponownie link do wideo', resubmitTagline: 'Nie mogliśmy pobrać Twojego pierwotnego wideo. Wklej poniżej nowy link do wideo, a my ponownie zrealizujemy Twoje zamówienie — bez dodatkowych opłat.', confirmBtn: 'Potwierdź', resubmitDone: 'Otrzymaliśmy nowy link. Link do pobrania wyślemy na Twój e-mail w ciągu 48 godzin.', linkInvalid: 'Ten link jest nieprawidłowy lub został już użyty.' },
+  pt: { resubmitTitle: 'Reenviar link do vídeo', resubmitTagline: 'Não conseguimos baixar seu vídeo original. Cole um novo link de vídeo abaixo e processaremos seu pedido novamente — sem pagamento adicional.', confirmBtn: 'Confirmar', resubmitDone: 'Novo link recebido. Enviaremos o link de download para seu e-mail em até 48 horas.', linkInvalid: 'Este link é inválido ou já foi utilizado.' },
+  ro: { resubmitTitle: 'Retrimite linkul video', resubmitTagline: 'Nu am putut descărca videoclipul tău original. Lipește mai jos un nou link video și îți vom procesa din nou comanda — fără plată suplimentară.', confirmBtn: 'Confirmă', resubmitDone: 'Noul link a fost primit. Îți vom trimite linkul de descărcare pe e-mail în 48 de ore.', linkInvalid: 'Acest link este invalid sau a fost deja folosit.' },
+  ru: { resubmitTitle: 'Отправить новую ссылку на видео', resubmitTagline: 'Мы не смогли скачать ваше исходное видео. Вставьте новую ссылку на видео ниже, и мы обработаем ваш заказ заново — без дополнительной оплаты.', confirmBtn: 'Подтвердить', resubmitDone: 'Новая ссылка получена. Мы отправим ссылку для скачивания на вашу почту в течение 48 часов.', linkInvalid: 'Эта ссылка недействительна или уже была использована.' },
+  sv: { resubmitTitle: 'Skicka in videolänk igen', resubmitTagline: 'Vi kunde inte ladda ner din ursprungliga video. Klistra in en ny videolänk nedan så behandlar vi din beställning igen — utan extra betalning.', confirmBtn: 'Bekräfta', resubmitDone: 'Ny länk mottagen. Vi skickar nedladdningslänken till din e-post inom 48 timmar.', linkInvalid: 'Den här länken är ogiltig eller har redan använts.' },
+  sw: { resubmitTitle: 'Wasilisha Tena Kiungo cha Video', resubmitTagline: 'Hatukuweza kupakua video yako ya awali. Bandika kiungo kipya cha video hapa chini na tutashughulikia agizo lako tena — bila malipo ya ziada.', confirmBtn: 'Thibitisha', resubmitDone: 'Kiungo kipya kimepokelewa. Tutakutumia kiungo cha kupakua kwa barua pepe ndani ya saa 48.', linkInvalid: 'Kiungo hiki si halali au tayari kimetumika.' },
+  ta: { resubmitTitle: 'வீடியோ இணைப்பை மீண்டும் சமர்ப்பிக்கவும்', resubmitTagline: 'உங்கள் அசல் வீடியோவை எங்களால் பதிவிறக்க முடியவில்லை. கீழே புதிய வீடியோ இணைப்பை ஒட்டவும், கூடுதல் கட்டணம் இல்லாமல் உங்கள் ஆர்டரை மீண்டும் செயல்படுத்துவோம்.', confirmBtn: 'உறுதிப்படுத்து', resubmitDone: 'புதிய இணைப்பு பெறப்பட்டது. 48 மணி நேரத்திற்குள் பதிவிறக்க இணைப்பை உங்கள் மின்னஞ்சலுக்கு அனுப்புவோம்.', linkInvalid: 'இந்த இணைப்பு செல்லாதது அல்லது ஏற்கனவே பயன்படுத்தப்பட்டது.' },
+  te: { resubmitTitle: 'వీడియో లింక్‌ను మళ్లీ సమర్పించండి', resubmitTagline: 'మీ అసలు వీడియోను మేము డౌన్‌లోడ్ చేయలేకపోయాము. క్రింద కొత్త వీడియో లింక్‌ను అతికించండి, అదనపు చెల్లింపు లేకుండా మీ ఆర్డర్‌ను మళ్లీ ప్రాసెస్ చేస్తాము.', confirmBtn: 'నిర్ధారించండి', resubmitDone: 'కొత్త లింక్ అందింది. 48 గంటల్లో డౌన్‌లోడ్ లింక్‌ను మీ ఇమెయిల్‌కు పంపుతాము.', linkInvalid: 'ఈ లింక్ చెల్లదు లేదా ఇప్పటికే ఉపయోగించబడింది.' },
+  th: { resubmitTitle: 'ส่งลิงก์วิดีโอใหม่อีกครั้ง', resubmitTagline: 'เราไม่สามารถดาวน์โหลดวิดีโอเดิมของคุณได้ วางลิงก์วิดีโอใหม่ด้านล่าง แล้วเราจะดำเนินการคำสั่งซื้อของคุณอีกครั้ง — โดยไม่ต้องชำระเงินเพิ่ม', confirmBtn: 'ยืนยัน', resubmitDone: 'ได้รับลิงก์ใหม่แล้ว เราจะส่งลิงก์ดาวน์โหลดไปยังอีเมลของคุณภายใน 48 ชั่วโมง', linkInvalid: 'ลิงก์นี้ไม่ถูกต้องหรือถูกใช้ไปแล้ว' },
+  tr: { resubmitTitle: 'Video Bağlantısını Yeniden Gönder', resubmitTagline: 'Orijinal videonuzu indiremedik. Aşağıya yeni bir video bağlantısı yapıştırın, siparişinizi tekrar işleme alalım — ek ödeme gerekmez.', confirmBtn: 'Onayla', resubmitDone: 'Yeni bağlantı alındı. İndirme bağlantısını 48 saat içinde e-postanıza göndereceğiz.', linkInvalid: 'Bu bağlantı geçersiz veya zaten kullanılmış.' },
+  uk: { resubmitTitle: 'Надіслати нове посилання на відео', resubmitTagline: 'Ми не змогли завантажити ваше початкове відео. Вставте нове посилання на відео нижче, і ми опрацюємо ваше замовлення знову — без додаткової оплати.', confirmBtn: 'Підтвердити', resubmitDone: 'Нове посилання отримано. Ми надішлемо посилання для завантаження на вашу пошту протягом 48 годин.', linkInvalid: 'Це посилання недійсне або вже було використане.' },
+  ur: { resubmitTitle: 'ویڈیو لنک دوبارہ جمع کریں', resubmitTagline: 'ہم آپ کی اصل ویڈیو ڈاؤن لوڈ نہیں کر سکے۔ نیچے نیا ویڈیو لنک پیسٹ کریں اور ہم آپ کا آرڈر دوبارہ پروسیس کریں گے — کوئی اضافی ادائیگی نہیں۔', confirmBtn: 'تصدیق کریں', resubmitDone: 'نیا لنک موصول ہو گیا۔ ہم 48 گھنٹوں کے اندر ڈاؤن لوڈ لنک آپ کے ای میل پر بھیجیں گے۔', linkInvalid: 'یہ لنک غلط ہے یا پہلے ہی استعمال ہو چکا ہے۔' },
+  vi: { resubmitTitle: 'Gửi lại liên kết video', resubmitTagline: 'Chúng tôi không thể tải xuống video gốc của bạn. Dán liên kết video mới bên dưới và chúng tôi sẽ xử lý lại đơn hàng của bạn — không cần thanh toán thêm.', confirmBtn: 'Xác nhận', resubmitDone: 'Đã nhận liên kết mới. Chúng tôi sẽ gửi liên kết tải xuống đến email của bạn trong vòng 48 giờ.', linkInvalid: 'Liên kết này không hợp lệ hoặc đã được sử dụng.' }
+};
+
 let lang = 'en';
 
 function t(key) {
-  return (i18n[lang] && i18n[lang][key]) || i18n.en[key] || key;
+  return (i18n[lang] && i18n[lang][key])
+    || (RESUBMIT_I18N[lang] && RESUBMIT_I18N[lang][key])
+    || i18n.en[key]
+    || RESUBMIT_I18N.en[key]
+    || key;
 }
 
 function detectLang() {
@@ -411,6 +463,13 @@ function applyLang() {
   document.getElementById('subtitleLangLabel').textContent =
     t('subtitleNote').replace('{lang}', '').trim();
   if (!subtitleLangTouched) document.getElementById('subtitleLangSelect').value = lang;
+  if (resubmitMode) {
+    document.title = t('resubmitTitle') + ' - EchoShorts';
+    document.querySelector('[data-i18n="title"]').textContent = t('resubmitTitle');
+    document.querySelector('[data-i18n="tagline"]').textContent = t('resubmitTagline');
+    document.getElementById('payBtn').textContent = t('confirmBtn');
+    if (resultKey) document.getElementById('resultText').textContent = t(resultKey);
+  }
   updateState();
 }
 
@@ -495,6 +554,7 @@ function validateForm() {
 // ── Paddle (via license worker → vnpaddle) ──
 
 async function handlePay() {
+  if (resubmitMode) return handleResubmitConfirm();
   const form = validateForm();
   if (!form) return;
 
@@ -526,12 +586,119 @@ async function handlePay() {
   }
 }
 
+// ── Resubmit mode (customer returns via the email link after a failed order) ──
+
+let resubmitMode = false;
+let resubmitOrderId = null;
+let resubmitToken = null;
+let resultKey = null;
+
+function showResult(key, ok) {
+  resultKey = key;
+  document.getElementById('formArea').style.display = 'none';
+  const rs = document.getElementById('resultState');
+  rs.style.display = 'block';
+  const icon = document.getElementById('resultIcon');
+  icon.textContent = ok ? '✓' : '!';
+  icon.style.color = ok ? 'var(--primary)' : 'var(--error)';
+  document.getElementById('resultText').textContent = t(key);
+}
+
+async function initResubmit() {
+  try {
+    const res = await fetch(`${API_BASE}/download-orders/${encodeURIComponent(resubmitOrderId)}/resubmit-info?token=${encodeURIComponent(resubmitToken)}`);
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.success) {
+      showResult('linkInvalid', false);
+      applyLang();
+      return;
+    }
+    if (data.lang && i18n[data.lang]) lang = data.lang;
+
+    const emailInput = document.getElementById('emailInput');
+    emailInput.value = data.email || '';
+    emailInput.disabled = true;
+    document.getElementById('urlInput').value = data.videoUrl || '';
+
+    const cb = document.getElementById('subtitleCheck');
+    cb.checked = !!data.needSubtitle;
+    cb.disabled = true;
+    const sel = document.getElementById('subtitleLangSelect');
+    if (data.subtitleLang) { sel.value = data.subtitleLang; subtitleLangTouched = true; }
+    sel.disabled = true;
+
+    document.getElementById('priceSection').style.display = 'none';
+    applyLang();
+    document.getElementById('urlInput').focus();
+  } catch {
+    showResult('linkInvalid', false);
+    applyLang();
+  }
+}
+
+async function handleResubmitConfirm() {
+  const url = document.getElementById('urlInput').value.trim();
+  let parsed;
+  try { parsed = new URL(url); } catch { parsed = null; }
+  if (!parsed || (parsed.protocol !== 'http:' && parsed.protocol !== 'https:')) {
+    showError(t('urlRequired'));
+    document.getElementById('urlInput').focus();
+    return;
+  }
+  if (isBlacklisted(url)) {
+    showError(t('blacklistError'));
+    return;
+  }
+
+  const btn = document.getElementById('payBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>' + t('processing');
+
+  try {
+    const resp = await fetch(`${API_BASE}/download-orders/${encodeURIComponent(resubmitOrderId)}/resubmit`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: resubmitToken, videoUrl: url })
+    });
+    const data = await resp.json().catch(() => ({}));
+    if (resp.ok && data.success) {
+      showResult('resubmitDone', true);
+      return;
+    }
+    if (data.error === 'invalid_link' || data.error === 'not_resubmittable') {
+      showResult('linkInvalid', false);
+      return;
+    }
+    if (data.error === 'domain_blacklisted') showError(t('blacklistError'));
+    else if (data.error === 'invalid_video_url' || data.error === 'missing_video_url') showError(t('urlRequired'));
+    else showError(t('purchaseError'));
+  } catch (err) {
+    console.error('Resubmit error:', err);
+    showError(t('purchaseError'));
+  } finally {
+    btn.disabled = false;
+    btn.textContent = resubmitMode ? t('confirmBtn') : t('payBtn');
+    updateState();
+  }
+}
+
 // ── Init ──
 buildLangSwitcher();
 buildSubtitleLangSelect();
 lang = detectLang();
-applyLang();
-loadBlacklist();
+
+const initParams = new URLSearchParams(window.location.search);
+if (initParams.get('resubmit') && initParams.get('token')) {
+  resubmitMode = true;
+  resubmitOrderId = initParams.get('resubmit');
+  resubmitToken = initParams.get('token');
+  applyLang();
+  loadBlacklist();
+  initResubmit();
+} else {
+  applyLang();
+  loadBlacklist();
+}
 </script>
 </body>
 </html>
