@@ -77,6 +77,14 @@
     margin-inline-end: 8px;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
+  .spinner-dark {
+    width: 28px; height: 28px;
+    border-width: 3px;
+    border-color: var(--border);
+    border-top-color: var(--primary);
+    margin: 8px auto;
+    display: block;
+  }
   .footer { text-align: center; margin-top: 20px; font-size: 12px; }
   .footer a { color: var(--muted); text-decoration: none; margin: 0 6px; }
   .footer a:hover { color: var(--primary); }
@@ -85,7 +93,10 @@
 <body>
 <div class="container">
   <div class="card">
-    <div id="confirmView">
+    <div id="loadingView">
+      <div class="spinner spinner-dark"></div>
+    </div>
+    <div id="confirmView" style="display:none;">
       <h1 id="title"></h1>
       <p class="body-text" id="bodyText"></p>
       <div id="errorMsg" class="error-msg"></div>
@@ -176,6 +187,7 @@ document.getElementById('bodyText').textContent = t('body');
 document.getElementById('refundBtn').textContent = t('btn');
 
 function showResult(ok, titleText, bodyText) {
+  document.getElementById('loadingView').style.display = 'none';
   document.getElementById('confirmView').style.display = 'none';
   const rv = document.getElementById('resultView');
   rv.style.display = 'block';
@@ -192,9 +204,33 @@ function showError(msg) {
   el.style.display = 'block';
 }
 
-if (!orderId || !token) {
-  showResult(false, t('title'), t('already'));
+function showConfirmView() {
+  document.getElementById('loadingView').style.display = 'none';
+  document.getElementById('confirmView').style.display = 'block';
 }
+
+// On load, verify the link is still actionable (status must still be "failed" and
+// the token unconsumed) so an already-processed refund shows its state immediately
+// instead of the confirm button. The POST remains the real authority either way.
+async function checkLink() {
+  if (!orderId || !token) {
+    showResult(false, t('title'), t('already'));
+    return;
+  }
+  try {
+    const resp = await fetch(`${API_BASE}/download-orders/${encodeURIComponent(orderId)}/resubmit-info?token=${encodeURIComponent(token)}`);
+    const data = await resp.json().catch(() => ({}));
+    if (resp.ok && data.success) {
+      showConfirmView();
+    } else {
+      showResult(false, t('title'), t('already'));
+    }
+  } catch {
+    // Network hiccup: fail open to the confirm view — the POST still validates server-side.
+    showConfirmView();
+  }
+}
+checkLink();
 
 // The refund only fires on this explicit button click (POST), never on page load,
 // so email-scanner link prefetches cannot trigger it.
