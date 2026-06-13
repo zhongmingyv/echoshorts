@@ -27,11 +27,6 @@
     a { color: #4ade80; text-decoration: none; }
     a:hover { text-decoration: underline; }
 
-    /* --- Language Switcher --- */
-    .lang-switcher { width: 100%; max-width: 900px; margin: 0 auto; padding: 20px 40px 0; display: flex; justify-content: flex-end; }
-    .lang-switcher select { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px; color: #e0e0e0; font-size: 12px; padding: 5px 8px; cursor: pointer; outline: none; }
-    .lang-switcher select:hover { border-color: #4ade80; }
-
     /* --- Hero --- */
     .hero { margin-bottom: 56px; }
     .hero .logo { text-align: center; margin-bottom: 20px; }
@@ -136,7 +131,6 @@
       .features { grid-template-columns: 1fr; }
       .method { padding: 20px; }
       .privacy { padding: 20px; }
-      .lang-switcher { padding: 14px 18px 0; }
       footer { flex-direction: column; gap: 8px; }
     }
 
@@ -167,6 +161,36 @@
       transform: none;
       box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.88), 0 8px 40px rgba(0, 0, 0, 0.8);
     }
+    /* --- Fixed top banner: Chrome extension promo --- */
+    html { scroll-behavior: smooth; }
+    body { padding-top: 46px; }
+    .ext-top-banner {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; gap: 10px;
+      background: #4ade80; color: #0f0f0f;
+      padding-top: 8px; padding-bottom: 8px;
+      padding-left: max(14px, calc((100% - 900px) / 2 + 40px));
+      padding-right: max(14px, calc((100% - 900px) / 2 + 40px));
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
+    .ext-banner-link {
+      flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+      color: #0f0f0f; font-size: 14px; font-weight: 700; line-height: 1.4;
+      text-align: center; cursor: pointer; text-decoration: none !important;
+    }
+    .ext-banner-link:hover { text-decoration: underline !important; }
+    .ext-banner-lang {
+      flex-shrink: 0; background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(0, 0, 0, 0.25); border-radius: 6px;
+      color: #0f0f0f; font-size: 12px; font-weight: 600;
+      padding: 4px 8px; cursor: pointer; outline: none; max-width: 150px;
+    }
+    #extension { scroll-margin-top: 60px; }
+    @media (max-width: 700px) {
+      .ext-banner-link { font-size: 12px; }
+      .ext-banner-lang { font-size: 11px; max-width: 110px; }
+      body { padding-top: 44px; }
+    }
   </style>
   <!-- Microsoft Clarity -->
   <script type="text/javascript">
@@ -178,10 +202,12 @@
   </script>
 </head>
 <body>
-  <script src="lang-query.js"></script>
-
-  <div class="lang-switcher">
-    <select onchange="location.href=this.value">
+  <div class="ext-top-banner">
+    <a class="ext-banner-link" href="#extension">
+    <span>🧩 Installer Chrome-udvidelsen for at downloade videoer fra 99,99 % af alle websteder</span>
+    <span aria-hidden="true">→</span>
+  </a>
+    <select class="ext-banner-lang" onchange="location.href=this.value">
       <option value="home.html">English</option>
       <option value="home-zh.html">中文</option>
       <option value="home-cht.html">繁體中文</option>
@@ -221,6 +247,8 @@
       <option value="home-vi.html">Tiếng Việt</option>
     </select>
   </div>
+
+  <script src="lang-query.js"></script>
 
   <main>
 
