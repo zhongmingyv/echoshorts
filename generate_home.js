@@ -352,13 +352,17 @@ function buildTranslated(key, data) {
     html = html.replace('<strong>Parameter reference:</strong>', t.cliParams);
   }
   if (t.cliParamsPre) {
-    html = html.replace(/--source, -s[\s\S]*?--referer\s+[^\n]+/, t.cliParamsPre.trim());
+    // [^<\n] stops before the closing </pre> on the same line; a plain [^\n]
+    // swallowed it and left every page below this point inside an open <pre>.
+    html = html.replace(/--source, -s[\s\S]*?--referer[^<\n]+/, t.cliParamsPre.trim());
     html = html.replace(/See the full list of supported language codes[\s\S]*?Language Code Reference<\/a>/, t.cliLangLink);
   }
 
   html = applyHeroList(html, t, key);
   html = applyExtensionInstallUsage(html, t);
   html = applyAdvantages(html, t);
+  html = applyBanner(html, key);
+  html = applyAudioCli(html, key);
   html = applyPrivacyBlock(html, key);
   html = applyPrivacySupportLine(html, key);
   html = applyPartnerProgram(html, key);
@@ -458,6 +462,337 @@ const cliLangLinkTranslations = {
   'km': 'មើលបញ្ជីពេញនៃកូដភាសាដែលគាំទ្រសម្រាប់ <code>--source</code> និង <code>--target</code>: <a href="language-codes.html">ឯកសារយោងកូដភាសា</a>',
   'it': 'Consulta l\'elenco completo dei codici lingua supportati per <code>--source</code> e <code>--target</code>: <a href="language-codes.html">Riferimento codici lingua</a>',
 };
+
+// --- Top banner translations ---
+// The banner text lives in the English template, so without this map every
+// regenerated page would silently fall back to English.
+const bannerTranslations = {
+  'zh': '🧩 安装 Chrome 插件后，即可下载 99.99% 网站的视频',
+  'cht': '🧩 安裝 Chrome 擴充功能後，即可下載 99.99% 網站的影片',
+  'ja': '🧩 Chrome 拡張機能をインストールすれば、99.99% のサイトの動画をダウンロードできます',
+  'ko': '🧩 Chrome 확장 프로그램을 설치하면 99.99% 웹사이트의 동영상을 다운로드할 수 있습니다',
+  'es': '🧩 Instala la extensión de Chrome para descargar vídeos del 99,99 % de los sitios web',
+  'fr': '🧩 Installez l\'extension Chrome pour télécharger les vidéos de 99,99 % des sites web',
+  'de': '🧩 Installiere die Chrome-Erweiterung, um Videos von 99,99 % aller Websites herunterzuladen',
+  'ru': '🧩 Установите расширение Chrome, чтобы скачивать видео с 99,99 % сайтов',
+  'pt': '🧩 Instale a extensão do Chrome para baixar vídeos de 99,99% dos sites',
+  'it': '🧩 Installa l\'estensione Chrome per scaricare i video dal 99,99% dei siti web',
+  'ar': '🧩 ثبّت إضافة Chrome لتنزيل مقاطع الفيديو من 99.99% من المواقع',
+  'hi': '🧩 99.99% वेबसाइटों के वीडियो डाउनलोड करने के लिए Chrome एक्सटेंशन इंस्टॉल करें',
+  'th': '🧩 ติดตั้งส่วนขยาย Chrome เพื่อดาวน์โหลดวิดีโอจาก 99.99% ของเว็บไซต์',
+  'vi': '🧩 Cài đặt tiện ích Chrome để tải video từ 99,99% trang web',
+  'ms': '🧩 Pasang sambungan Chrome untuk memuat turun video daripada 99.99% laman web',
+  'id': '🧩 Pasang ekstensi Chrome untuk mengunduh video dari 99,99% situs web',
+  'tr': '🧩 %99,99 web sitesinden video indirmek için Chrome uzantısını yükleyin',
+  'pl': '🧩 Zainstaluj rozszerzenie Chrome, aby pobierać filmy z 99,99% stron internetowych',
+  'nl': '🧩 Installeer de Chrome-extensie om video\'s van 99,99% van de websites te downloaden',
+  'sv': '🧩 Installera Chrome-tillägget för att ladda ner videor från 99,99 % av alla webbplatser',
+  'da': '🧩 Installer Chrome-udvidelsen for at downloade videoer fra 99,99 % af alle websteder',
+  'nb': '🧩 Installer Chrome-utvidelsen for å laste ned videoer fra 99,99 % av nettsteder',
+  'fi': '🧩 Asenna Chrome-laajennus ja lataa videoita 99,99 %:sta verkkosivustoista',
+  'cs': '🧩 Nainstalujte rozšíření Chrome a stahujte videa z 99,99 % webů',
+  'hu': '🧩 Telepítsd a Chrome-bővítményt, és tölts le videókat a webhelyek 99,99%-áról',
+  'ro': '🧩 Instalează extensia Chrome pentru a descărca videoclipuri de pe 99,99% dintre site-uri',
+  'el': '🧩 Εγκαταστήστε την επέκταση Chrome για λήψη βίντεο από το 99,99% των ιστότοπων',
+  'he': '🧩 התקינו את תוסף Chrome כדי להוריד סרטונים מ-99.99% מהאתרים',
+  'uk': '🧩 Установіть розширення Chrome, щоб завантажувати відео з 99,99 % сайтів',
+  'bn': '🧩 ৯৯.৯৯% ওয়েবসাইটের ভিডিও ডাউনলোড করতে Chrome এক্সটেনশন ইনস্টল করুন',
+  'ta': '🧩 99.99% இணையதளங்களின் வீடியோக்களைப் பதிவிறக்க Chrome நீட்டிப்பை நிறுவுங்கள்',
+  'te': '🧩 99.99% వెబ్‌సైట్‌ల వీడియోలను డౌన్‌లోడ్ చేయడానికి Chrome ఎక్స్‌టెన్షన్‌ను ఇన్‌స్టాల్ చేయండి',
+  'ur': '🧩 99.99% ویب سائٹس کی ویڈیوز ڈاؤن لوڈ کرنے کے لیے Chrome ایکسٹینشن انسٹال کریں',
+  'fa': '🧩 افزونه Chrome را نصب کنید تا ویدیوهای ۹۹٫۹۹٪ وب‌سایت‌ها را دانلود کنید',
+  'sw': '🧩 Sakinisha kiendelezi cha Chrome ili kupakua video kutoka 99.99% ya tovuti',
+  'km': '🧩 ដំឡើងផ្នែកបន្ថែម Chrome ដើម្បីទាញយកវីដេអូពី 99.99% នៃគេហទំព័រ',
+};
+
+const BANNER_EN = '🧩 Install the Chrome extension for one-click video capture and translation';
+
+function applyBanner(html, langKey) {
+  const text = bannerTranslations[langKey];
+  return text ? html.replace(BANNER_EN, text) : html;
+}
+
+// --- Audio / dubbing CLI section translations ---
+// Keys: cmdsLabel, paramsLabel, c1..c4 (the # comment lines in the examples).
+// The flag descriptions themselves stay English, matching how cliParamsPre
+// already behaves for languages without a translation.
+const audioCliTranslations = {
+  'zh': {
+    cmdsLabel: '音频与配音命令：', paramsLabel: '音频参数说明：',
+    c1: '# 将字幕文件合成为对白音轨（语音合成）',
+    c2: '# 生成无声版视频（去掉音频，视频流直接复制）',
+    c3: '# 只保留背景音乐，去掉原始对白',
+    c4: '# 混合多条音轨，每条可单独设置音量倍数',
+  },
+  'cht': {
+    cmdsLabel: '音訊與配音命令：', paramsLabel: '音訊參數說明：',
+    c1: '# 將字幕檔合成為對白音軌（語音合成）',
+    c2: '# 產生無聲版影片（移除音訊，影片串流直接複製）',
+    c3: '# 只保留背景音樂，移除原始對白',
+    c4: '# 混合多條音軌，每條可單獨設定音量倍數',
+  },
+  'ja': {
+    cmdsLabel: '音声・吹き替えコマンド:', paramsLabel: '音声パラメータ一覧:',
+    c1: '# 字幕ファイルからセリフ音声トラックを生成（音声合成）',
+    c2: '# 無音版の動画を作成（音声を削除し、映像はそのままコピー）',
+    c3: '# 元のセリフを除き、背景音楽だけを残す',
+    c4: '# 複数のトラックを合成し、それぞれ音量倍率を指定',
+  },
+  'ko': {
+    cmdsLabel: '오디오 및 더빙 명령어:', paramsLabel: '오디오 매개변수 참조:',
+    c1: '# 자막 파일을 대사 음성 트랙으로 합성 (TTS)',
+    c2: '# 무음 버전 영상 생성 (오디오 제거, 영상 스트림은 그대로 복사)',
+    c3: '# 원본 대사를 제거하고 배경 음악만 남기기',
+    c4: '# 여러 트랙을 합성하며 트랙마다 음량 배율 지정',
+  },
+  'es': {
+    cmdsLabel: '<strong>Comandos de audio y doblaje:</strong>', paramsLabel: '<strong>Referencia de parámetros de audio:</strong>',
+    c1: '# Convierte un archivo de subtítulos en una pista de diálogo hablado (síntesis de voz)',
+    c2: '# Crea una copia muda del vídeo (audio eliminado, vídeo copiado sin recodificar)',
+    c3: '# Conserva solo la música de fondo, eliminando el diálogo original',
+    c4: '# Mezcla varias pistas, cada una con su propio multiplicador de volumen',
+  },
+  'fr': {
+    cmdsLabel: '<strong>Commandes audio et doublage :</strong>', paramsLabel: '<strong>Référence des paramètres audio :</strong>',
+    c1: '# Transforme un fichier de sous-titres en piste de dialogue parlée (synthèse vocale)',
+    c2: '# Crée une copie muette de la vidéo (audio supprimé, flux vidéo copié tel quel)',
+    c3: '# Ne conserve que la musique de fond, en supprimant le dialogue d\'origine',
+    c4: '# Mélange plusieurs pistes, chacune avec son propre multiplicateur de volume',
+  },
+  'de': {
+    cmdsLabel: '<strong>Audio- und Synchronisationsbefehle:</strong>', paramsLabel: '<strong>Audio-Parameterreferenz:</strong>',
+    c1: '# Erzeugt aus einer Untertiteldatei eine gesprochene Dialogspur (Sprachsynthese)',
+    c2: '# Erstellt eine stumme Kopie des Videos (Ton entfernt, Videospur unverändert kopiert)',
+    c3: '# Behält nur die Hintergrundmusik, der Originaldialog wird entfernt',
+    c4: '# Mischt mehrere Spuren, jede mit eigenem Lautstärkefaktor',
+  },
+  'ru': {
+    cmdsLabel: '<strong>Команды аудио и озвучивания:</strong>', paramsLabel: '<strong>Справочник аудиопараметров:</strong>',
+    c1: '# Превращает файл субтитров в озвученную дорожку диалога (синтез речи)',
+    c2: '# Создаёт беззвучную копию видео (звук удалён, видеопоток копируется как есть)',
+    c3: '# Оставляет только фоновую музыку, удаляя исходный диалог',
+    c4: '# Сводит несколько дорожек, у каждой свой множитель громкости',
+  },
+  'pt': {
+    cmdsLabel: '<strong>Comandos de áudio e dublagem:</strong>', paramsLabel: '<strong>Referência de parâmetros de áudio:</strong>',
+    c1: '# Transforma um arquivo de legendas em uma faixa de diálogo falado (síntese de voz)',
+    c2: '# Cria uma cópia muda do vídeo (áudio removido, fluxo de vídeo copiado sem recodificar)',
+    c3: '# Mantém apenas a música de fundo, removendo o diálogo original',
+    c4: '# Mistura várias faixas, cada uma com seu próprio multiplicador de volume',
+  },
+  'it': {
+    cmdsLabel: '<strong>Comandi audio e doppiaggio:</strong>', paramsLabel: '<strong>Riferimento parametri audio:</strong>',
+    c1: '# Trasforma un file di sottotitoli in una traccia di dialogo parlato (sintesi vocale)',
+    c2: '# Crea una copia muta del video (audio rimosso, flusso video copiato invariato)',
+    c3: '# Mantiene solo la musica di sottofondo, rimuovendo il dialogo originale',
+    c4: '# Miscela più tracce, ognuna con il proprio moltiplicatore di volume',
+  },
+  'nl': {
+    cmdsLabel: '<strong>Audio- en nasynchronisatieopdrachten:</strong>', paramsLabel: '<strong>Audioparameterreferentie:</strong>',
+    c1: '# Zet een ondertitelbestand om in een gesproken dialoogspoor (spraaksynthese)',
+    c2: '# Maakt een stille kopie van de video (audio verwijderd, videostream ongewijzigd gekopieerd)',
+    c3: '# Behoudt alleen de achtergrondmuziek, de originele dialoog wordt verwijderd',
+    c4: '# Mengt meerdere sporen, elk met een eigen volumefactor',
+  },
+  'pl': {
+    cmdsLabel: '<strong>Polecenia audio i dubbingu:</strong>', paramsLabel: '<strong>Opis parametrów audio:</strong>',
+    c1: '# Zamienia plik napisów w mówioną ścieżkę dialogową (synteza mowy)',
+    c2: '# Tworzy niemą kopię wideo (dźwięk usunięty, strumień wideo kopiowany bez zmian)',
+    c3: '# Zachowuje tylko muzykę w tle, usuwając oryginalny dialog',
+    c4: '# Miksuje wiele ścieżek, każda z własnym mnożnikiem głośności',
+  },
+  'tr': {
+    cmdsLabel: '<strong>Ses ve dublaj komutları:</strong>', paramsLabel: '<strong>Ses parametre referansı:</strong>',
+    c1: '# Bir altyazı dosyasını seslendirilmiş diyalog parçasına dönüştürür (konuşma sentezi)',
+    c2: '# Videonun sessiz bir kopyasını oluşturur (ses kaldırılır, video akışı olduğu gibi kopyalanır)',
+    c3: '# Yalnızca fon müziğini korur, orijinal diyaloğu kaldırır',
+    c4: '# Birden fazla parçayı harmanlar, her biri kendi ses çarpanıyla',
+  },
+  'id': {
+    cmdsLabel: '<strong>Perintah audio dan sulih suara:</strong>', paramsLabel: '<strong>Referensi parameter audio:</strong>',
+    c1: '# Mengubah berkas subtitle menjadi trek dialog terucap (sintesis suara)',
+    c2: '# Membuat salinan video tanpa suara (audio dihapus, aliran video disalin apa adanya)',
+    c3: '# Hanya menyisakan musik latar, dialog asli dihapus',
+    c4: '# Menggabungkan beberapa trek, masing-masing dengan pengali volume sendiri',
+  },
+  'vi': {
+    cmdsLabel: '<strong>Lệnh âm thanh và lồng tiếng:</strong>', paramsLabel: '<strong>Tham chiếu tham số âm thanh:</strong>',
+    c1: '# Chuyển tệp phụ đề thành bản âm thanh lời thoại (tổng hợp giọng nói)',
+    c2: '# Tạo bản video không tiếng (loại bỏ âm thanh, luồng video sao chép nguyên vẹn)',
+    c3: '# Chỉ giữ lại nhạc nền, loại bỏ lời thoại gốc',
+    c4: '# Trộn nhiều bản âm thanh, mỗi bản có hệ số âm lượng riêng',
+  },
+  'th': {
+    cmdsLabel: '<strong>คำสั่งเสียงและการพากย์:</strong>', paramsLabel: '<strong>อ้างอิงพารามิเตอร์เสียง:</strong>',
+    c1: '# แปลงไฟล์คำบรรยายเป็นแทร็กบทพูด (การสังเคราะห์เสียง)',
+    c2: '# สร้างวิดีโอเวอร์ชันไร้เสียง (ลบเสียงออก คัดลอกสตรีมวิดีโอตามเดิม)',
+    c3: '# เก็บเฉพาะดนตรีประกอบ โดยลบบทพูดต้นฉบับออก',
+    c4: '# ผสมหลายแทร็ก โดยแต่ละแทร็กกำหนดตัวคูณระดับเสียงได้เอง',
+  },
+  'ar': {
+    cmdsLabel: '<strong>أوامر الصوت والدبلجة:</strong>', paramsLabel: '<strong>مرجع معاملات الصوت:</strong>',
+    c1: '# تحويل ملف الترجمة إلى مسار حواري منطوق (تركيب الكلام)',
+    c2: '# إنشاء نسخة صامتة من الفيديو (إزالة الصوت مع نسخ مسار الفيديو كما هو)',
+    c3: '# الإبقاء على الموسيقى الخلفية فقط مع إزالة الحوار الأصلي',
+    c4: '# مزج عدة مسارات، لكل منها معامل مستوى صوت خاص',
+  },
+  'uk': {
+    cmdsLabel: '<strong>Команди аудіо та озвучення:</strong>', paramsLabel: '<strong>Довідник аудіопараметрів:</strong>',
+    c1: '# Перетворює файл субтитрів на озвучену діалогову доріжку (синтез мовлення)',
+    c2: '# Створює беззвучну копію відео (звук вилучено, відеопотік копіюється без змін)',
+    c3: '# Залишає лише фонову музику, вилучаючи оригінальний діалог',
+    c4: '# Змішує кілька доріжок, кожна зі своїм множником гучності',
+  },
+  'cs': {
+    cmdsLabel: '<strong>Příkazy pro zvuk a dabing:</strong>', paramsLabel: '<strong>Reference zvukových parametrů:</strong>',
+    c1: '# Převede soubor titulků na mluvenou dialogovou stopu (syntéza řeči)',
+    c2: '# Vytvoří němou kopii videa (zvuk odstraněn, obrazová stopa zkopírována beze změny)',
+    c3: '# Ponechá pouze hudbu na pozadí a odstraní původní dialog',
+    c4: '# Smíchá více stop, každou s vlastním násobitelem hlasitosti',
+  },
+  'sv': {
+    cmdsLabel: '<strong>Ljud- och dubbningskommandon:</strong>', paramsLabel: '<strong>Referens för ljudparametrar:</strong>',
+    c1: '# Gör om en undertextfil till ett talat dialogspår (talsyntes)',
+    c2: '# Skapar en ljudlös kopia av videon (ljudet borttaget, videoströmmen kopieras oförändrad)',
+    c3: '# Behåller endast bakgrundsmusiken och tar bort originaldialogen',
+    c4: '# Blandar flera spår, vart och ett med egen volymfaktor',
+  },
+  'da': {
+    cmdsLabel: '<strong>Lyd- og dubbingkommandoer:</strong>', paramsLabel: '<strong>Reference for lydparametre:</strong>',
+    c1: '# Laver en undertekstfil om til et talt dialogspor (talesyntese)',
+    c2: '# Opretter en lydløs kopi af videoen (lyd fjernet, videostrøm kopieret uændret)',
+    c3: '# Beholder kun baggrundsmusikken og fjerner den oprindelige dialog',
+    c4: '# Blander flere spor, hvert med sin egen lydstyrkefaktor',
+  },
+  'nb': {
+    cmdsLabel: '<strong>Lyd- og dubbekommandoer:</strong>', paramsLabel: '<strong>Referanse for lydparametre:</strong>',
+    c1: '# Gjør en undertekstfil om til et talt dialogspor (talesyntese)',
+    c2: '# Lager en lydløs kopi av videoen (lyd fjernet, videostrøm kopiert uendret)',
+    c3: '# Beholder bare bakgrunnsmusikken og fjerner den opprinnelige dialogen',
+    c4: '# Blander flere spor, hvert med sin egen volumfaktor',
+  },
+  'fi': {
+    cmdsLabel: '<strong>Ääni- ja dubbauskomennot:</strong>', paramsLabel: '<strong>Ääniparametrien viite:</strong>',
+    c1: '# Muuntaa tekstitystiedoston puhutuksi dialogiraidaksi (puhesynteesi)',
+    c2: '# Luo videosta äänettömän kopion (ääni poistettu, videoraita kopioidaan sellaisenaan)',
+    c3: '# Säilyttää vain taustamusiikin ja poistaa alkuperäisen dialogin',
+    c4: '# Sekoittaa useita raitoja, kullakin oma äänenvoimakkuuskerroin',
+  },
+  'hu': {
+    cmdsLabel: '<strong>Hang- és szinkronparancsok:</strong>', paramsLabel: '<strong>Hangparaméterek referenciája:</strong>',
+    c1: '# Feliratfájlból beszélt párbeszédsávot készít (beszédszintézis)',
+    c2: '# Néma másolatot készít a videóról (hang eltávolítva, a videosáv változatlanul másolva)',
+    c3: '# Csak a háttérzenét tartja meg, az eredeti párbeszédet eltávolítja',
+    c4: '# Több sávot kever össze, mindegyiket saját hangerőszorzóval',
+  },
+  'ro': {
+    cmdsLabel: '<strong>Comenzi audio și de dublare:</strong>', paramsLabel: '<strong>Referință parametri audio:</strong>',
+    c1: '# Transformă un fișier de subtitrare într-o pistă de dialog vorbit (sinteză vocală)',
+    c2: '# Creează o copie mută a videoclipului (audio eliminat, fluxul video copiat ca atare)',
+    c3: '# Păstrează doar muzica de fundal, eliminând dialogul original',
+    c4: '# Combină mai multe piste, fiecare cu propriul multiplicator de volum',
+  },
+  'el': {
+    cmdsLabel: '<strong>Εντολές ήχου και μεταγλώττισης:</strong>', paramsLabel: '<strong>Αναφορά παραμέτρων ήχου:</strong>',
+    c1: '# Μετατρέπει ένα αρχείο υποτίτλων σε ηχητικό κομμάτι διαλόγου (σύνθεση ομιλίας)',
+    c2: '# Δημιουργεί αθόρυβο αντίγραφο του βίντεο (αφαίρεση ήχου, η ροή βίντεο αντιγράφεται ως έχει)',
+    c3: '# Διατηρεί μόνο τη μουσική υπόκρουση, αφαιρώντας τον αρχικό διάλογο',
+    c4: '# Αναμειγνύει πολλά κομμάτια, καθένα με τον δικό του πολλαπλασιαστή έντασης',
+  },
+  'he': {
+    cmdsLabel: '<strong>פקודות אודיו ודיבוב:</strong>', paramsLabel: '<strong>מדריך פרמטרי אודיו:</strong>',
+    c1: '# הופך קובץ כתוביות לרצועת דיאלוג מדוברת (סינתזת דיבור)',
+    c2: '# יוצר עותק אילם של הסרטון (האודיו מוסר, זרם הווידאו מועתק כמות שהוא)',
+    c3: '# משאיר רק את מוזיקת הרקע ומסיר את הדיאלוג המקורי',
+    c4: '# מערבב כמה רצועות, לכל אחת מכפיל עוצמה משלה',
+  },
+  'hi': {
+    cmdsLabel: '<strong>ऑडियो और डबिंग कमांड:</strong>', paramsLabel: '<strong>ऑडियो पैरामीटर संदर्भ:</strong>',
+    c1: '# सबटाइटल फ़ाइल को बोले गए संवाद ट्रैक में बदलें (वाक् संश्लेषण)',
+    c2: '# वीडियो की मूक प्रति बनाएँ (ऑडियो हटाया गया, वीडियो स्ट्रीम ज्यों की त्यों कॉपी)',
+    c3: '# केवल पृष्ठभूमि संगीत रखें, मूल संवाद हटा दें',
+    c4: '# कई ट्रैक मिलाएँ, हर एक का अपना वॉल्यूम गुणक',
+  },
+  'bn': {
+    cmdsLabel: '<strong>অডিও ও ডাবিং কমান্ড:</strong>', paramsLabel: '<strong>অডিও প্যারামিটার রেফারেন্স:</strong>',
+    c1: '# সাবটাইটেল ফাইলকে কথ্য সংলাপ ট্র্যাকে রূপান্তর করুন (স্পিচ সিনথেসিস)',
+    c2: '# ভিডিওর নিঃশব্দ কপি তৈরি করুন (অডিও সরানো, ভিডিও স্ট্রিম অপরিবর্তিত কপি)',
+    c3: '# শুধু আবহ সঙ্গীত রাখুন, মূল সংলাপ সরিয়ে দিন',
+    c4: '# একাধিক ট্র্যাক মেশান, প্রতিটির নিজস্ব ভলিউম গুণক',
+  },
+  'ta': {
+    cmdsLabel: '<strong>ஒலி மற்றும் டப்பிங் கட்டளைகள்:</strong>', paramsLabel: '<strong>ஒலி அளவுரு குறிப்பு:</strong>',
+    c1: '# வசன கோப்பை பேசும் உரையாடல் தடமாக மாற்றும் (பேச்சு தொகுப்பு)',
+    c2: '# வீடியோவின் ஒலியற்ற நகலை உருவாக்கும் (ஒலி நீக்கப்படும், வீடியோ அப்படியே நகலெடுக்கப்படும்)',
+    c3: '# பின்னணி இசையை மட்டும் வைத்து, அசல் உரையாடலை நீக்கும்',
+    c4: '# பல தடங்களை கலக்கும், ஒவ்வொன்றுக்கும் தனி ஒலியளவு பெருக்கி',
+  },
+  'te': {
+    cmdsLabel: '<strong>ఆడియో మరియు డబ్బింగ్ ఆదేశాలు:</strong>', paramsLabel: '<strong>ఆడియో పారామీటర్ సూచన:</strong>',
+    c1: '# ఉపశీర్షిక ఫైల్‌ను మాట్లాడే సంభాషణ ట్రాక్‌గా మారుస్తుంది (వాక్ సంశ్లేషణ)',
+    c2: '# వీడియో నిశ్శబ్ద కాపీని సృష్టిస్తుంది (ఆడియో తొలగింపు, వీడియో స్ట్రీమ్ యథాతథంగా కాపీ)',
+    c3: '# నేపథ్య సంగీతాన్ని మాత్రమే ఉంచి, అసలు సంభాషణను తొలగిస్తుంది',
+    c4: '# అనేక ట్రాక్‌లను కలుపుతుంది, ఒక్కొక్కదానికి సొంత వాల్యూమ్ గుణకం',
+  },
+  'ur': {
+    cmdsLabel: '<strong>آڈیو اور ڈبنگ کمانڈز:</strong>', paramsLabel: '<strong>آڈیو پیرامیٹر حوالہ:</strong>',
+    c1: '# سب ٹائٹل فائل کو بولے گئے مکالمے کے ٹریک میں بدلیں (تقریری ترکیب)',
+    c2: '# ویڈیو کی خاموش نقل بنائیں (آڈیو ہٹا دی گئی، ویڈیو اسٹریم جوں کی توں نقل)',
+    c3: '# صرف پس منظر کی موسیقی رکھیں، اصل مکالمہ ہٹا دیں',
+    c4: '# کئی ٹریکس ملائیں، ہر ایک کا اپنا والیوم ضرب',
+  },
+  'fa': {
+    cmdsLabel: '<strong>دستورهای صدا و دوبله:</strong>', paramsLabel: '<strong>مرجع پارامترهای صدا:</strong>',
+    c1: '# تبدیل فایل زیرنویس به یک قطعه گفت‌وگوی گفتاری (سنتز گفتار)',
+    c2: '# ساخت نسخهٔ بی‌صدای ویدیو (حذف صدا، کپی بدون تغییر جریان ویدیو)',
+    c3: '# نگه داشتن فقط موسیقی پس‌زمینه و حذف گفت‌وگوی اصلی',
+    c4: '# ترکیب چند قطعه صوتی، هرکدام با ضریب صدای خود',
+  },
+  'ms': {
+    cmdsLabel: '<strong>Perintah audio dan alih suara:</strong>', paramsLabel: '<strong>Rujukan parameter audio:</strong>',
+    c1: '# Menukar fail sari kata kepada trek dialog bersuara (sintesis pertuturan)',
+    c2: '# Menghasilkan salinan video tanpa bunyi (audio dibuang, strim video disalin seadanya)',
+    c3: '# Mengekalkan muzik latar sahaja, dialog asal dibuang',
+    c4: '# Menggabungkan beberapa trek, setiap satu dengan pengganda kelantangan sendiri',
+  },
+  'sw': {
+    cmdsLabel: '<strong>Amri za sauti na udabishaji:</strong>', paramsLabel: '<strong>Marejeo ya vigezo vya sauti:</strong>',
+    c1: '# Hubadilisha faili ya manukuu kuwa wimbo wa mazungumzo yaliyotamkwa (usanisi wa sauti)',
+    c2: '# Hutengeneza nakala ya video isiyo na sauti (sauti imeondolewa, mkondo wa video umenakiliwa kama ulivyo)',
+    c3: '# Huhifadhi muziki wa mandharinyuma pekee, mazungumzo asilia yakiondolewa',
+    c4: '# Huchanganya nyimbo kadhaa, kila moja na kizidishi chake cha sauti',
+  },
+  'km': {
+    cmdsLabel: '<strong>ពាក្យបញ្ជាសំឡេង និងការដាក់សំឡេង:</strong>', paramsLabel: '<strong>ឯកសារយោងប៉ារ៉ាម៉ែត្រសំឡេង:</strong>',
+    c1: '# បម្លែងឯកសារចំណងជើងរងទៅជាបទសន្ទនាដែលនិយាយ (សំយោគសំឡេង)',
+    c2: '# បង្កើតវីដេអូគ្មានសំឡេង (លុបសំឡេង ចម្លងស្ទ្រីមវីដេអូដដែល)',
+    c3: '# រក្សាតែតន្ត្រីផ្ទៃខាងក្រោយ ដោយលុបការសន្ទនាដើម',
+    c4: '# លាយបទជាច្រើន ដោយបទនីមួយៗមានមេគុណកម្រិតសំឡេងរៀងខ្លួន',
+  },
+};
+
+const AUDIO_CLI_EN = {
+  cmdsLabel: '<strong>Audio &amp; dubbing commands:</strong>',
+  paramsLabel: '<strong>Audio parameter reference:</strong>',
+  c1: '# Turn a subtitle file into a spoken dialogue track (text-to-speech)',
+  c2: '# Make a silent copy of the video (audio removed, video stream copied as-is)',
+  c3: '# Keep only the background music, with the original dialogue removed',
+  c4: '# Blend tracks together, each with its own volume multiplier',
+};
+
+function applyAudioCli(html, langKey) {
+  const a = audioCliTranslations[langKey];
+  if (!a) return html;
+  // CJK labels are supplied bare; keep the <strong> wrapper the template uses.
+  const wrap = (s) => (s.startsWith('<') ? s : `<strong>${s}</strong>`);
+  return html
+    .replace(AUDIO_CLI_EN.cmdsLabel, wrap(a.cmdsLabel))
+    .replace(AUDIO_CLI_EN.paramsLabel, wrap(a.paramsLabel))
+    .replace(AUDIO_CLI_EN.c1, a.c1)
+    .replace(AUDIO_CLI_EN.c2, a.c2)
+    .replace(AUDIO_CLI_EN.c3, a.c3)
+    .replace(AUDIO_CLI_EN.c4, a.c4);
+}
 
 const heroIntroByLang = {
   ja: 'EchoShortsPlayerとは',
@@ -798,21 +1133,7 @@ function applyZhBaiduDownloadButton(html) {
             <li>&#10003; 自动更新</li>
           </ul>
           <div class="btn-row">
-            <a class="btn btn-green" href="ms-windows-store://pdp/?productid=9N06RSDW81SN">下载 Store 版</a>
-          </div>
-        </div>
-        <div class="channel-card">
-          <div class="channel-header">
-            <span class="channel-icon">&#128230;</span>
-            <h4>独立安装包</h4>
-          </div>
-          <ul class="channel-features">
-            <li>&#10003; 百度网盘下载</li>
-            <li>&#9888; 需要单独购买激活码</li>
-          </ul>
-          <div class="btn-row">
-            <a class="btn btn-outline" href="https://pan.baidu.com/s/17DYHiy6ysiePFQw8MwVwqg?pwd=6c8v" target="_blank" rel="noopener noreferrer">百度网盘下载</a>
-            <a class="btn btn-green" href="https://echoshorts.win/purchase.html?appid=echoshortsplayer&lang=zh" target="_blank">购买激活码</a>
+            <a class="btn btn-green" href="#install" onclick='alert("Coming soon"); return false;'>获取 Store 版</a>
           </div>
         </div>
       </div>`;
@@ -873,7 +1194,9 @@ function buildOther(key, data) {
       html = html.replace('<strong>Parameter reference:</strong>', t.cliParams);
     }
     if (t.cliParamsPre) {
-      html = html.replace(/--source, -s[\s\S]*?--referer\s+[^\n]+/, t.cliParamsPre.trim());
+      // [^<\n] stops before the closing </pre> on the same line; a plain [^\n]
+    // swallowed it and left every page below this point inside an open <pre>.
+    html = html.replace(/--source, -s[\s\S]*?--referer[^<\n]+/, t.cliParamsPre.trim());
     }
     if (t.cliLangLink) {
       html = html.replace(/See the full list of supported language codes[\s\S]*?Language Code Reference<\/a>/, t.cliLangLink);
@@ -907,6 +1230,9 @@ function buildOther(key, data) {
     html = html.replace('>Download from Microsoft Store<', `>${storeLabel.replace(/Microsoft Store/g, 'Windows Store')}<`);
   }
   html = html.replace('>Download EchoShortsPlayer<', `>${getInstallBtnLabel(key, t)}<`);
+
+  html = applyBanner(html, key);
+  html = applyAudioCli(html, key);
 
   // Apply CLI "Parameter reference:" label (fallback for languages without full translations)
   const cliParamsLabel = cliParamsLabelTranslations[key];

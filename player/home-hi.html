@@ -314,7 +314,7 @@
       <p>EchoShortsPlayer वह डेस्कटॉप एप्लिकेशन है जो AI मॉडल को स्थानीय रूप से चलाता है। ब्राउज़र एक्सटेंशन और CLI इस पर निर्भर हैं। नीचे दी गई किसी भी विधि का उपयोग करने से पहले इसे पहले इंस्टॉल करें।</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="ms-windows-store://pdp/?productid=9N06RSDW81SN">Windows Store से डाउनलोड करें</a>
+        <a class="btn btn-green" href="#install" onclick='alert("Coming soon"); return false;'>Get EchoShortsPlayer</a>
       </div>
 
       <p><strong>सिस्टम आवश्यकताएँ:</strong> Windows 10/11, 8 GB या अधिक VRAM वाला NVIDIA GPU, CUDA ड्राइवर इंस्टॉल।</p>
@@ -329,12 +329,12 @@
       <p>Chrome एक्सटेंशन <code>webRequest</code> API का उपयोग करके ब्राउज़र स्तर पर सभी नेटवर्क अनुरोधों को इंटरसेप्ट करता है, m3u8/HLS स्ट्रीम, MP4 फ़ाइलें और अन्य मीडिया फ़ॉर्मेट का पता लगाता है। यह वीडियो एलिमेंट और डाउनलोड लिंक के लिए पेज DOM को भी स्कैन करता है।</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>एक्सटेंशन डाउनलोड करें (.zip)</a>
+        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>Get Extension Package (.zip)</a>
       </div>
 
       <p><strong>इंस्टॉलेशन (डेवलपर मोड):</strong></p>
       <ol>
-        <li>ऊपर दी गई एक्सटेंशन zip डाउनलोड करें और एक फ़ोल्डर में एक्सट्रैक्ट करें।</li>
+        <li>Get the extension package above and extract it to a folder.</li>
         <li>Chrome खोलें और <code>chrome://extensions/</code> पर जाएँ।</li>
         <li><strong>डेवलपर मोड</strong> सक्षम करें (ऊपर-दाएँ टॉगल)।</li>
         <li><strong>Load unpacked</strong> पर क्लिक करें और <code>echoshorts-extension</code> फ़ोल्डर चुनें।</li>
@@ -392,14 +392,28 @@ resources\backend\backend.exe --cli translate C:\Videos\
 # सभी विकल्प: स्रोत भाषा, Whisper मॉडल, अनुवाद इंजन, शोर हटाना, प्रोसेसिंग मोड
 resources\backend\backend.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
 
-# एक रिमोट m3u8 या MP4 डाउनलोड करें
+# Fetch a remote m3u8 or MP4
 resources\backend\backend.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
 
-# एक ही चरण में डाउनलोड और अनुवाद करें
+# Fetch and translate in one step
 resources\backend\backend.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
 
 # एक मौजूदा SRT फ़ाइल का अनुवाद करें
 resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
+
+      <p><strong>ऑडियो और डबिंग कमांड:</strong></p>
+      <pre>
+# सबटाइटल फ़ाइल को बोले गए संवाद ट्रैक में बदलें (वाक् संश्लेषण)
+resources\backend\backend.exe --cli speak-srt video.zh.srt --model kokoro-multi-lang-v1.1 --gender female
+
+# वीडियो की मूक प्रति बनाएँ (ऑडियो हटाया गया, वीडियो स्ट्रीम ज्यों की त्यों कॉपी)
+resources\backend\backend.exe --cli strip-audio video.mp4
+
+# केवल पृष्ठभूमि संगीत रखें, मूल संवाद हटा दें
+resources\backend\backend.exe --cli extract-bgm video.mp4
+
+# कई ट्रैक मिलाएँ, हर एक का अपना वॉल्यूम गुणक
+resources\backend\backend.exe --cli mix-audio --input video.zh.m4a 1.75 --input video.bgm.m4a 0.4 --output video.dubbed.m4a --duration first</pre>
 
       <p><strong>पैरामीटर संदर्भ:</strong></p>
       <pre>
@@ -411,7 +425,27 @@ resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --tra
 --mode            serial|parallel (डिफ़ॉल्ट: serial)
 --output, -o      आउटपुट फ़ाइल पथ
 --url             मीडिया URL (m3u8 / MP4)
---referer         Referer हेडर
+--referer         Referer हेडर</pre>
+
+      <p><strong>ऑडियो पैरामीटर संदर्भ:</strong></p>
+      <pre>
+speak-srt
+  --lang, -l      Language to speak (default: read from the filename)
+  --model, -m     TTS model key (default: fastest model for the language)
+  --voice, -v     Voice id within the model (overrides --gender)
+  --gender, -g    male|female
+  --ref-audio     Voice sample to clone (voice-cloning models only)
+  --ref-text      Verbatim transcript of --ref-audio
+  --duration      Pin the track to this many seconds
+
+strip-audio / extract-bgm
+  --bitrate       AAC bitrate (default: 192k)
+  --output, -o    Output path
+
+mix-audio
+  --input, -i     FILE GAIN - repeat once per track (1.0 = unchanged)
+  --duration      longest|first|shortest (default: longest)
+  --sample-rate   Output sample rate (default: 44100)</pre>
 
       <p><code>--source</code> और <code>--target</code> के लिए समर्थित भाषा कोड की पूरी सूची देखें: <a href="language-codes.html">भाषा कोड संदर्भ</a></p>
     </div>

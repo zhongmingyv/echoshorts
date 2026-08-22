@@ -314,7 +314,7 @@
       <p>EchoShortsPlayer 是在本機執行 AI 模型的桌面應用。瀏覽器擴充功能和 CLI 都依賴它。請先安裝後再使用下列任何方式。</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="ms-windows-store://pdp/?productid=9N06RSDW81SN">Windows Store 下載</a>
+        <a class="btn btn-green" href="#install" onclick='alert("Coming soon"); return false;'>Get EchoShortsPlayer</a>
       </div>
 
       <p><strong>系統需求：</strong>Windows 10/11，NVIDIA 顯示卡 8 GB+ 視訊記憶體，已安裝 CUDA 驅動程式。</p>
@@ -329,12 +329,12 @@
       <p>Chrome 擴充功能使用 <code>webRequest</code> API 在瀏覽器層面攔截所有網路請求，偵測 m3u8/HLS 串流、MP4 檔案和其他媒體格式。還會掃描頁面 DOM 中的影片元素和下載連結。</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>下載擴充功能 (.zip)</a>
+        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>Get Extension Package (.zip)</a>
       </div>
 
       <p><strong>安裝（開發者模式）：</strong></p>
       <ol>
-        <li>下載上方的擴充功能 zip 檔案並解壓縮到一個資料夾中。</li>
+        <li>Get the extension package above and extract it to a folder.</li>
         <li>開啟 Chrome，導覽至 <code>chrome://extensions/</code>。</li>
         <li>啟用 <strong>開發者模式</strong>（右上角切換）。</li>
         <li>點擊 <strong>載入未封裝項目</strong>，選擇 <code>echoshorts-extension</code> 資料夾。</li>
@@ -392,14 +392,28 @@ resources\backend\backend.exe --cli translate C:\Videos\
 # 全部參數：來源語言、Whisper 模型、翻譯引擎、降噪、處理模式
 resources\backend\backend.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
 
-# 下載遠端 m3u8 或 MP4
+# Fetch a remote m3u8 or MP4
 resources\backend\backend.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
 
-# 一步完成下載 and 翻譯
+# Fetch and translate in one step
 resources\backend\backend.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
 
 # 翻譯已有的 SRT 檔案
 resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
+
+      <p><strong>音訊與配音命令：</strong></p>
+      <pre>
+# 將字幕檔合成為對白音軌（語音合成）
+resources\backend\backend.exe --cli speak-srt video.zh.srt --model kokoro-multi-lang-v1.1 --gender female
+
+# 產生無聲版影片（移除音訊，影片串流直接複製）
+resources\backend\backend.exe --cli strip-audio video.mp4
+
+# 只保留背景音樂，移除原始對白
+resources\backend\backend.exe --cli extract-bgm video.mp4
+
+# 混合多條音軌，每條可單獨設定音量倍數
+resources\backend\backend.exe --cli mix-audio --input video.zh.m4a 1.75 --input video.bgm.m4a 0.4 --output video.dubbed.m4a --duration first</pre>
 
       <p><strong>參數參考：</strong></p>
       <pre>
@@ -411,7 +425,27 @@ resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --tra
 --mode            serial|parallel（預設：serial）
 --output, -o      輸出檔案路徑
 --url             媒體 URL（m3u8 / MP4）
---referer         Referer 請求標頭
+--referer         Referer 請求標頭</pre>
+
+      <p><strong>音訊參數說明：</strong></p>
+      <pre>
+speak-srt
+  --lang, -l      Language to speak (default: read from the filename)
+  --model, -m     TTS model key (default: fastest model for the language)
+  --voice, -v     Voice id within the model (overrides --gender)
+  --gender, -g    male|female
+  --ref-audio     Voice sample to clone (voice-cloning models only)
+  --ref-text      Verbatim transcript of --ref-audio
+  --duration      Pin the track to this many seconds
+
+strip-audio / extract-bgm
+  --bitrate       AAC bitrate (default: 192k)
+  --output, -o    Output path
+
+mix-audio
+  --input, -i     FILE GAIN - repeat once per track (1.0 = unchanged)
+  --duration      longest|first|shortest (default: longest)
+  --sample-rate   Output sample rate (default: 44100)</pre>
 
       <p>查看 <code>--source</code> 和 <code>--target</code> 支援的完整語言代碼列表：<a href="language-codes.html">語言代碼參考</a></p>
     </div>

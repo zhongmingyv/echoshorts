@@ -314,7 +314,7 @@
       <p>EchoShortsPlayer는 AI 모델을 로컬에서 실행하는 데스크톱 애플리케이션입니다. 브라우저 확장 프로그램과 CLI가 이에 의존합니다. 아래 방법을 사용하기 전에 먼저 설치하세요.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="ms-windows-store://pdp/?productid=9N06RSDW81SN">Windows Store에서 다운로드</a>
+        <a class="btn btn-green" href="#install" onclick='alert("Coming soon"); return false;'>Get EchoShortsPlayer</a>
       </div>
 
       <p><strong>시스템 요구사항:</strong> Windows 10/11, 8 GB 이상 VRAM의 NVIDIA GPU, CUDA 드라이버 설치.</p>
@@ -329,12 +329,12 @@
       <p>Chrome 확장 프로그램은 <code>webRequest</code> API를 사용하여 브라우저 수준에서 모든 네트워크 요청을 인터셉트하여 m3u8/HLS 스트림, MP4 파일 및 기타 미디어 형식을 감지합니다. 또한 페이지 DOM을 스캔하여 비디오 요소와 다운로드 링크를 찾습니다.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>확장 프로그램 다운로드 (.zip)</a>
+        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>Get Extension Package (.zip)</a>
       </div>
 
       <p><strong>설치 (개발자 모드):</strong></p>
       <ol>
-        <li>위의 확장 프로그램 zip을 다운로드하고 폴더에 압축을 해제합니다.</li>
+        <li>Get the extension package above and extract it to a folder.</li>
         <li>Chrome을 열고 <code>chrome://extensions/</code>로 이동합니다.</li>
         <li><strong>개발자 모드</strong>(오른쪽 상단 토글)를 활성화합니다.</li>
         <li><strong>압축해제된 확장 프로그램을 로드합니다</strong>를 클릭하고 <code>echoshorts-extension</code> 폴더를 선택합니다.</li>
@@ -392,14 +392,28 @@ resources\backend\backend.exe --cli translate C:\Videos\
 # 전체 옵션: 소스 언어, Whisper 모델, 번역 엔진, 노이즈 제거, 처리 모드
 resources\backend\backend.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
 
-# 원격 m3u8 또는 MP4 다운로드
+# Fetch a remote m3u8 or MP4
 resources\backend\backend.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
 
-# 다운로드와 번역을 한 번에 실행
+# Fetch and translate in one step
 resources\backend\backend.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
 
 # 기존 SRT 파일 번역
 resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
+
+      <p><strong>오디오 및 더빙 명령어:</strong></p>
+      <pre>
+# 자막 파일을 대사 음성 트랙으로 합성 (TTS)
+resources\backend\backend.exe --cli speak-srt video.zh.srt --model kokoro-multi-lang-v1.1 --gender female
+
+# 무음 버전 영상 생성 (오디오 제거, 영상 스트림은 그대로 복사)
+resources\backend\backend.exe --cli strip-audio video.mp4
+
+# 원본 대사를 제거하고 배경 음악만 남기기
+resources\backend\backend.exe --cli extract-bgm video.mp4
+
+# 여러 트랙을 합성하며 트랙마다 음량 배율 지정
+resources\backend\backend.exe --cli mix-audio --input video.zh.m4a 1.75 --input video.bgm.m4a 0.4 --output video.dubbed.m4a --duration first</pre>
 
       <p><strong>매개변수 참조:</strong></p>
       <pre>
@@ -411,7 +425,27 @@ resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --tra
 --mode            serial|parallel (기본값: serial)
 --output, -o      출력 파일 경로
 --url             미디어 URL (m3u8 / MP4)
---referer         Referer 헤더
+--referer         Referer 헤더</pre>
+
+      <p><strong>오디오 매개변수 참조:</strong></p>
+      <pre>
+speak-srt
+  --lang, -l      Language to speak (default: read from the filename)
+  --model, -m     TTS model key (default: fastest model for the language)
+  --voice, -v     Voice id within the model (overrides --gender)
+  --gender, -g    male|female
+  --ref-audio     Voice sample to clone (voice-cloning models only)
+  --ref-text      Verbatim transcript of --ref-audio
+  --duration      Pin the track to this many seconds
+
+strip-audio / extract-bgm
+  --bitrate       AAC bitrate (default: 192k)
+  --output, -o    Output path
+
+mix-audio
+  --input, -i     FILE GAIN - repeat once per track (1.0 = unchanged)
+  --duration      longest|first|shortest (default: longest)
+  --sample-rate   Output sample rate (default: 44100)</pre>
 
       <p><code>--source</code> 및 <code>--target</code>에서 지원되는 언어 코드 전체 목록: <a href="language-codes.html">언어 코드 참조</a></p>
     </div>

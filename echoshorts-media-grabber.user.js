@@ -2,7 +2,7 @@
 // @name         EchoShortsPlayer Media Grabber
 // @namespace    https://echoshorts.win
 // @version      1.0.0
-// @description  Detect m3u8/HLS streams and MP4 video links on any webpage. Send to EchoShortsPlayer for download or translation.
+// @description  Detect m3u8/HLS streams and MP4 video links on any webpage. Send to EchoShortsPlayer for local processing or translation.
 // @author       EchoShortsPlayer
 // @match        *://*/*
 // @grant        GM_xmlhttpRequest
@@ -299,7 +299,7 @@
 
       const urlDiv = document.createElement('div');
       urlDiv.className = 'echo-item-url';
-      urlDiv.textContent = url;
+      urlDiv.textContent = `${info.type || 'MEDIA'} · ${info.source || 'unknown'} · hidden`;
       item.appendChild(urlDiv);
 
       const btns = document.createElement('div');

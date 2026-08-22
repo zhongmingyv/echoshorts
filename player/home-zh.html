@@ -313,35 +313,8 @@
 
       <p>EchoShortsPlayer 是在本地运行 AI 模型的桌面应用。浏览器扩展和 CLI 都依赖它。请先安装后再使用下列任何方式。</p>
 
-      <div class="install-channels">
-        <div class="channel-card">
-          <div class="channel-header">
-            <span class="channel-icon">&#127979;</span>
-            <h4>Microsoft Store 版</h4>
-          </div>
-          <ul class="channel-features">
-            <li>&#10003; 含免费试用期</li>
-            <li>&#10003; 通过 Store 购买/续费</li>
-            <li>&#10003; 自动更新</li>
-          </ul>
-          <div class="btn-row">
-            <a class="btn btn-green" href="ms-windows-store://pdp/?productid=9N06RSDW81SN">下载 Store 版</a>
-          </div>
-        </div>
-        <div class="channel-card">
-          <div class="channel-header">
-            <span class="channel-icon">&#128230;</span>
-            <h4>独立安装包</h4>
-          </div>
-          <ul class="channel-features">
-            <li>&#10003; 百度网盘下载</li>
-            <li>&#9888; 需要单独购买激活码</li>
-          </ul>
-          <div class="btn-row">
-            <a class="btn btn-outline" href="https://pan.baidu.com/s/17DYHiy6ysiePFQw8MwVwqg?pwd=6c8v" target="_blank" rel="noopener noreferrer">百度网盘下载</a>
-            <a class="btn btn-green" href="https://echoshorts.win/purchase.html?appid=echoshortsplayer&lang=zh" target="_blank">购买激活码</a>
-          </div>
-        </div>
+      <div class="btn-row">
+        <a class="btn btn-green" href="#install" onclick='alert("Coming soon"); return false;'>Get EchoShortsPlayer</a>
       </div>
 
       <p><strong>系统要求：</strong>Windows 10/11，NVIDIA 显卡 8 GB+ 显存，已安装 CUDA 驱动。</p>
@@ -356,12 +329,12 @@
       <p>Chrome 扩展使用 <code>webRequest</code> API 在浏览器层面拦截所有网络请求，检测 m3u8/HLS 流、MP4 文件和其他媒体格式。还会扫描页面 DOM 中的视频元素 and 下载链接。</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>下载扩展 (.zip)</a>
+        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>Get Extension Package (.zip)</a>
       </div>
 
       <p><strong>安装（开发者模式）：</strong></p>
       <ol>
-        <li>下载上方的扩展 zip 文件并解压到一个文件夹中。</li>
+        <li>Get the extension package above and extract it to a folder.</li>
         <li>打开 Chrome，导航到 <code>chrome://extensions/</code>。</li>
         <li>启用 <strong>开发者模式</strong>（右上角开关）。</li>
         <li>点击 <strong>加载已解压的扩展程序</strong>，选择 <code>echoshorts-extension</code> 文件夹。</li>
@@ -419,14 +392,28 @@ resources\backend\backend.exe --cli translate C:\Videos\
 # 全部参数：源语言、Whisper 模型、翻译引擎、降噪、处理模式
 resources\backend\backend.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
 
-# 下载远程 m3u8 或 MP4
+# Fetch a remote m3u8 or MP4
 resources\backend\backend.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
 
-# 一步完成下载和翻译
+# Fetch and translate in one step
 resources\backend\backend.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
 
 # 翻译已有的 SRT 文件
 resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
+
+      <p><strong>音频与配音命令：</strong></p>
+      <pre>
+# 将字幕文件合成为对白音轨（语音合成）
+resources\backend\backend.exe --cli speak-srt video.zh.srt --model kokoro-multi-lang-v1.1 --gender female
+
+# 生成无声版视频（去掉音频，视频流直接复制）
+resources\backend\backend.exe --cli strip-audio video.mp4
+
+# 只保留背景音乐，去掉原始对白
+resources\backend\backend.exe --cli extract-bgm video.mp4
+
+# 混合多条音轨，每条可单独设置音量倍数
+resources\backend\backend.exe --cli mix-audio --input video.zh.m4a 1.75 --input video.bgm.m4a 0.4 --output video.dubbed.m4a --duration first</pre>
 
       <p><strong>参数参考：</strong></p>
       <pre>
@@ -438,7 +425,27 @@ resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --tra
 --mode            serial|parallel（默认：serial）
 --output, -o      输出文件路径
 --url             媒体 URL（m3u8 / MP4）
---referer         Referer 请求头
+--referer         Referer 请求头</pre>
+
+      <p><strong>音频参数说明：</strong></p>
+      <pre>
+speak-srt
+  --lang, -l      Language to speak (default: read from the filename)
+  --model, -m     TTS model key (default: fastest model for the language)
+  --voice, -v     Voice id within the model (overrides --gender)
+  --gender, -g    male|female
+  --ref-audio     Voice sample to clone (voice-cloning models only)
+  --ref-text      Verbatim transcript of --ref-audio
+  --duration      Pin the track to this many seconds
+
+strip-audio / extract-bgm
+  --bitrate       AAC bitrate (default: 192k)
+  --output, -o    Output path
+
+mix-audio
+  --input, -i     FILE GAIN - repeat once per track (1.0 = unchanged)
+  --duration      longest|first|shortest (default: longest)
+  --sample-rate   Output sample rate (default: 44100)</pre>
 
       <p>查看 <code>--source</code> 和 <code>--target</code> 支持的完整语言代码列表：<a href="language-codes.html">语言代码参考</a></p>
     </div>

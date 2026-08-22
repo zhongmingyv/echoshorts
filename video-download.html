@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- TEMP: redirect ad traffic (utm_source=tj) to Microsoft Store for download-willingness test. Remove to restore. -->
+<!-- Redirect all visitors to the player home page. -->
 <script>
-  if (new URLSearchParams(location.search).get('utm_source') === 'tj') {
-    location.replace('https://apps.microsoft.com/detail/9N06RSDW81SN');
-  }
+  location.replace('https://echoshorts.win/player/home.html');
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">

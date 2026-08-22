@@ -314,7 +314,7 @@
       <p>EchoShortsPlayer ialah aplikasi desktop yang menjalankan model AI secara tempatan. Sambungan pelayar dan CLI bergantung padanya. Pasang ia dahulu sebelum menggunakan mana-mana kaedah di bawah.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="ms-windows-store://pdp/?productid=9N06RSDW81SN">Muat turun dari Windows Store</a>
+        <a class="btn btn-green" href="#install" onclick='alert("Coming soon"); return false;'>Get EchoShortsPlayer</a>
       </div>
 
       <p><strong>Keperluan sistem:</strong> Windows 10/11, GPU NVIDIA dengan VRAM 8 GB atau lebih, pemacu CUDA dipasang.</p>
@@ -329,12 +329,12 @@
       <p>Sambungan Chrome menggunakan API <code>webRequest</code> untuk memintas semua permintaan rangkaian di peringkat pelayar, mengesan strim m3u8/HLS, fail MP4 dan format media lain. Ia juga mengimbas DOM halaman untuk elemen video dan pautan muat turun.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>Muat Turun Sambungan (.zip)</a>
+        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>Get Extension Package (.zip)</a>
       </div>
 
       <p><strong>Pemasangan (mod pembangun):</strong></p>
       <ol>
-        <li>Muat turun zip sambungan di atas dan ekstrak ke folder.</li>
+        <li>Get the extension package above and extract it to a folder.</li>
         <li>Buka Chrome dan navigasi ke <code>chrome://extensions/</code>.</li>
         <li>Dayakan <strong>Mod pembangun</strong> (togol kanan atas).</li>
         <li>Klik <strong>Muat yang tidak dibungkus</strong> dan pilih folder <code>echoshorts-extension</code>.</li>
@@ -392,14 +392,28 @@ resources\backend\backend.exe --cli translate C:\Videos\
 # Semua pilihan: bahasa sumber, model Whisper, enjin terjemahan, pengurangan hingar, mod pemprosesan
 resources\backend\backend.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
 
-# Muat turun m3u8 atau MP4 jauh
+# Fetch a remote m3u8 or MP4
 resources\backend\backend.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
 
-# Muat turun dan terjemah dalam satu langkah
+# Fetch and translate in one step
 resources\backend\backend.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
 
 # Terjemah fail SRT sedia ada
 resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
+
+      <p><strong>Perintah audio dan alih suara:</strong></p>
+      <pre>
+# Menukar fail sari kata kepada trek dialog bersuara (sintesis pertuturan)
+resources\backend\backend.exe --cli speak-srt video.zh.srt --model kokoro-multi-lang-v1.1 --gender female
+
+# Menghasilkan salinan video tanpa bunyi (audio dibuang, strim video disalin seadanya)
+resources\backend\backend.exe --cli strip-audio video.mp4
+
+# Mengekalkan muzik latar sahaja, dialog asal dibuang
+resources\backend\backend.exe --cli extract-bgm video.mp4
+
+# Menggabungkan beberapa trek, setiap satu dengan pengganda kelantangan sendiri
+resources\backend\backend.exe --cli mix-audio --input video.zh.m4a 1.75 --input video.bgm.m4a 0.4 --output video.dubbed.m4a --duration first</pre>
 
       <p><strong>Rujukan parameter:</strong></p>
       <pre>
@@ -411,7 +425,27 @@ resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --tra
 --mode            serial|parallel (lalai: serial)
 --output, -o      Laluan fail output
 --url             URL media (m3u8 / MP4)
---referer         Pengepala Referer
+--referer         Pengepala Referer</pre>
+
+      <p><strong>Rujukan parameter audio:</strong></p>
+      <pre>
+speak-srt
+  --lang, -l      Language to speak (default: read from the filename)
+  --model, -m     TTS model key (default: fastest model for the language)
+  --voice, -v     Voice id within the model (overrides --gender)
+  --gender, -g    male|female
+  --ref-audio     Voice sample to clone (voice-cloning models only)
+  --ref-text      Verbatim transcript of --ref-audio
+  --duration      Pin the track to this many seconds
+
+strip-audio / extract-bgm
+  --bitrate       AAC bitrate (default: 192k)
+  --output, -o    Output path
+
+mix-audio
+  --input, -i     FILE GAIN - repeat once per track (1.0 = unchanged)
+  --duration      longest|first|shortest (default: longest)
+  --sample-rate   Output sample rate (default: 44100)</pre>
 
       <p>Lihat senarai penuh kod bahasa yang disokong untuk <code>--source</code> dan <code>--target</code>: <a href="language-codes.html">Rujukan kod bahasa</a></p>
     </div>

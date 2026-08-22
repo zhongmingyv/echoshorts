@@ -314,7 +314,7 @@
       <p>EchoShortsPlayer est l'application de bureau qui exécute les modèles d'IA localement. L'extension de navigateur et la CLI en dépendent. Installez-la en premier avant d'utiliser l'une des méthodes ci-dessous.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="ms-windows-store://pdp/?productid=9N06RSDW81SN">Télécharger depuis le Windows Store</a>
+        <a class="btn btn-green" href="#install" onclick='alert("Coming soon"); return false;'>Get EchoShortsPlayer</a>
       </div>
 
       <p><strong>Configuration requise :</strong> Windows 10/11, GPU NVIDIA avec 8 Go ou plus de VRAM, pilotes CUDA installés.</p>
@@ -329,12 +329,12 @@
       <p>L'extension Chrome utilise l'API <code>webRequest</code> pour intercepter toutes les requêtes réseau au niveau du navigateur, détectant les flux m3u8/HLS, les fichiers MP4 et autres formats multimédias. Elle scanne également le DOM de la page pour trouver les éléments vidéo et les liens de téléchargement.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>Télécharger l'Extension (.zip)</a>
+        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>Get Extension Package (.zip)</a>
       </div>
 
       <p><strong>Installation (mode développeur) :</strong></p>
       <ol>
-        <li>Téléchargez le zip de l'extension ci-dessus et extrayez-le dans un dossier.</li>
+        <li>Get the extension package above and extract it to a folder.</li>
         <li>Ouvrez Chrome et accédez à <code>chrome://extensions/</code>.</li>
         <li>Activez le <strong>Mode développeur</strong> (interrupteur en haut à droite).</li>
         <li>Cliquez sur <strong>Charger l'extension non empaquetée</strong> et sélectionnez le dossier <code>echoshorts-extension</code>.</li>
@@ -392,14 +392,28 @@ resources\backend\backend.exe --cli translate C:\Videos\
 # Toutes les options : langue source, modèle Whisper, moteur de traduction, réduction du bruit, mode de traitement
 resources\backend\backend.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
 
-# Télécharger un m3u8 ou MP4 distant
+# Fetch a remote m3u8 or MP4
 resources\backend\backend.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
 
-# Télécharger et traduire en une seule étape
+# Fetch and translate in one step
 resources\backend\backend.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
 
 # Traduire un fichier SRT existant
 resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
+
+      <p><strong>Commandes audio et doublage :</strong></p>
+      <pre>
+# Transforme un fichier de sous-titres en piste de dialogue parlée (synthèse vocale)
+resources\backend\backend.exe --cli speak-srt video.zh.srt --model kokoro-multi-lang-v1.1 --gender female
+
+# Crée une copie muette de la vidéo (audio supprimé, flux vidéo copié tel quel)
+resources\backend\backend.exe --cli strip-audio video.mp4
+
+# Ne conserve que la musique de fond, en supprimant le dialogue d'origine
+resources\backend\backend.exe --cli extract-bgm video.mp4
+
+# Mélange plusieurs pistes, chacune avec son propre multiplicateur de volume
+resources\backend\backend.exe --cli mix-audio --input video.zh.m4a 1.75 --input video.bgm.m4a 0.4 --output video.dubbed.m4a --duration first</pre>
 
       <p><strong>Référence des paramètres :</strong></p>
       <pre>
@@ -411,7 +425,27 @@ resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --tra
 --mode            serial|parallel (par défaut : serial)
 --output, -o      Chemin du fichier de sortie
 --url             URL média (m3u8 / MP4)
---referer         En-tête Referer
+--referer         En-tête Referer</pre>
+
+      <p><strong>Référence des paramètres audio :</strong></p>
+      <pre>
+speak-srt
+  --lang, -l      Language to speak (default: read from the filename)
+  --model, -m     TTS model key (default: fastest model for the language)
+  --voice, -v     Voice id within the model (overrides --gender)
+  --gender, -g    male|female
+  --ref-audio     Voice sample to clone (voice-cloning models only)
+  --ref-text      Verbatim transcript of --ref-audio
+  --duration      Pin the track to this many seconds
+
+strip-audio / extract-bgm
+  --bitrate       AAC bitrate (default: 192k)
+  --output, -o    Output path
+
+mix-audio
+  --input, -i     FILE GAIN - repeat once per track (1.0 = unchanged)
+  --duration      longest|first|shortest (default: longest)
+  --sample-rate   Output sample rate (default: 44100)</pre>
 
       <p>Voir la liste complète des codes de langue pris en charge pour <code>--source</code> et <code>--target</code> : <a href="language-codes.html">Référence des codes de langue</a></p>
     </div>

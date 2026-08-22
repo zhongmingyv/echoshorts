@@ -314,7 +314,7 @@
       <p>EchoShortsPlayer is the desktop application that runs the AI models locally. The browser extension and CLI depend on it. Install it first before using any of the methods below.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="ms-windows-store://pdp/?productid=9N06RSDW81SN">Windows Store থেকে ডাউনলোড করুন</a>
+        <a class="btn btn-green" href="#install" onclick='alert("Coming soon"); return false;'>Get EchoShortsPlayer</a>
       </div>
 
       <p><strong>System requirements:</strong> Windows 10/11, NVIDIA GPU with 8 GB+ VRAM, CUDA drivers installed.</p>
@@ -329,12 +329,12 @@
       <p>The Chrome extension uses the <code>webRequest</code> API to intercept all network requests at the browser level, detecting m3u8/HLS streams, MP4 files, and other media formats. It also scans the page DOM for video elements and download links.</p>
 
       <div class="btn-row">
-        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>Download Extension (.zip)</a>
+        <a class="btn btn-green" href="https://echoshorts.win/echoshorts-extension.zip" download>Get Extension Package (.zip)</a>
       </div>
 
       <p><strong>ইনস্টলেশন (ডেভেলপার মোড):</strong></p>
       <ol>
-        <li>উপরের এক্সটেনশন zip ডাউনলোড করে একটি ফোল্ডারে আনজিপ করুন।</li>
+        <li>Get the extension package above and extract it to a folder.</li>
         <li>Chrome খুলুন এবং <code>chrome://extensions/</code> এ যান।</li>
         <li>ডানদিকে উপরের টগল দিয়ে <strong>Developer mode</strong> চালু করুন।</li>
         <li><strong>Load unpacked</strong> ক্লিক করে <code>echoshorts-extension</code> ফোল্ডার নির্বাচন করুন।</li>
@@ -392,14 +392,28 @@ resources\backend\backend.exe --cli translate C:\Videos\
 # Full options: source language, whisper model, translation engine, denoising, processing mode
 resources\backend\backend.exe --cli translate video.mp4 --source auto --target ja --whisper distil-large-v3 --translation qwen3-8b --denoise vocal --mode parallel
 
-# Download a remote m3u8 or MP4
+# Fetch a remote m3u8 or MP4
 resources\backend\backend.exe --cli download --url "https://example.com/video.m3u8" --referer "https://example.com/"
 
-# Download and translate in one step
+# Fetch and translate in one step
 resources\backend\backend.exe --cli download-and-translate --url "https://example.com/video.mp4" --referer "https://example.com/" --target zh --whisper base --translation opus-mt
 
 # Translate an existing SRT file
 resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --translation qwen3-8b</pre>
+
+      <p><strong>অডিও ও ডাবিং কমান্ড:</strong></p>
+      <pre>
+# সাবটাইটেল ফাইলকে কথ্য সংলাপ ট্র্যাকে রূপান্তর করুন (স্পিচ সিনথেসিস)
+resources\backend\backend.exe --cli speak-srt video.zh.srt --model kokoro-multi-lang-v1.1 --gender female
+
+# ভিডিওর নিঃশব্দ কপি তৈরি করুন (অডিও সরানো, ভিডিও স্ট্রিম অপরিবর্তিত কপি)
+resources\backend\backend.exe --cli strip-audio video.mp4
+
+# শুধু আবহ সঙ্গীত রাখুন, মূল সংলাপ সরিয়ে দিন
+resources\backend\backend.exe --cli extract-bgm video.mp4
+
+# একাধিক ট্র্যাক মেশান, প্রতিটির নিজস্ব ভলিউম গুণক
+resources\backend\backend.exe --cli mix-audio --input video.zh.m4a 1.75 --input video.bgm.m4a 0.4 --output video.dubbed.m4a --duration first</pre>
 
       <p><strong>প্যারামিটার রেফারেন্স:</strong></p>
       <pre>
@@ -410,8 +424,28 @@ resources\backend\backend.exe --cli translate-srt video.en.srt --target ja --tra
 --denoise, -d     off|light|vocal (default: off)
 --mode            serial|parallel (default: serial)
 --output, -o      Output file path
---url             Media URL (m3u8 / MP4)
+--url             Media source (m3u8 / MP4)
 --referer         Referer header</pre>
+
+      <p><strong>অডিও প্যারামিটার রেফারেন্স:</strong></p>
+      <pre>
+speak-srt
+  --lang, -l      Language to speak (default: read from the filename)
+  --model, -m     TTS model key (default: fastest model for the language)
+  --voice, -v     Voice id within the model (overrides --gender)
+  --gender, -g    male|female
+  --ref-audio     Voice sample to clone (voice-cloning models only)
+  --ref-text      Verbatim transcript of --ref-audio
+  --duration      Pin the track to this many seconds
+
+strip-audio / extract-bgm
+  --bitrate       AAC bitrate (default: 192k)
+  --output, -o    Output path
+
+mix-audio
+  --input, -i     FILE GAIN - repeat once per track (1.0 = unchanged)
+  --duration      longest|first|shortest (default: longest)
+  --sample-rate   Output sample rate (default: 44100)</pre>
 
       <p><code>--source</code> এবং <code>--target</code>-এর জন্য সমর্থিত ভাষা কোডের সম্পূর্ণ তালিকা দেখুন: <a href="language-codes.html">ভাষা কোড রেফারেন্স</a></p>
     </div>
