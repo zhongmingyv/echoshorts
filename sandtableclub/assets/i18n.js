@@ -156,9 +156,11 @@
     if (!appInfo) return '…';
     var base = appInfo.price_usd || 0;
     // 后台没填展示价(0)时不显示 $0.00,实价由 Paddle 结账页给出
-    if (discount && discount.money !== undefined) {
+    // 优惠价同理:价格没登记进 vnpaddle 价格表时后台答 0,那是「查不到」不是「免费」
+    if (discount && discount.money > 0) {
       return (base > 0 ? '<s>' + money(base) + '</s> ' : '') + '<strong>' + money(discount.money) + '</strong>';
     }
+    if (discount) return '<span class="muted">' + b.priceAtCheckout + '</span>';
     return base > 0 ? '<strong>' + money(base) + '</strong>' : '<span class="muted">' + b.priceAtCheckout + '</span>';
   }
 
