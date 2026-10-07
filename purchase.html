@@ -1020,6 +1020,10 @@ async function handlePay() {
 
   const appid = getAppId();
   const discountCode = document.getElementById('discountInput').value.trim() || undefined;
+  // purchase-success.html 据此显示「打开 <软件名>」
+  try {
+    localStorage.setItem('es-last-purchase', JSON.stringify({ appid, name: (appInfo && appInfo.name) || appid, at: Date.now() }));
+  } catch (e) {}
 
   const btn = document.getElementById('payBtn');
   btn.disabled = true;

@@ -1,13 +1,234 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="refresh" content="0;url=player/home.html?lang=en-US" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EchoShorts.Win</title>
-  <script>location.replace('player/home.html?lang=en-US');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EchoShorts.Win</title>
+<meta name="description" content="EchoShorts.Win — official store for EchoShortsPlayer and SandTable Club activation codes.">
+<style>
+  :root {
+    --bg: #0f0f0f;
+    --panel: #161616;
+    --border: #2a2a2a;
+    --text: #e8e8e8;
+    --muted: #9a9a9a;
+    --green: #4ade80;
+    --gold: #d8a94e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "PingFang SC", Roboto, sans-serif;
+    line-height: 1.7;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  a { color: var(--green); text-decoration: none; }
+  header {
+    display: flex; align-items: center; gap: 12px;
+    max-width: 1080px; width: 100%; margin: 0 auto; padding: 20px 24px;
+  }
+  header .brand { font-size: 20px; font-weight: 700; letter-spacing: 0.5px; }
+  header .brand span { color: var(--green); }
+  header .spacer { flex: 1; }
+  #lang {
+    background: var(--panel); color: var(--text);
+    border: 1px solid var(--border); border-radius: 6px; padding: 4px 8px; font-size: 14px; cursor: pointer;
+  }
+  main { flex: 1; max-width: 1080px; width: 100%; margin: 0 auto; padding: 16px 24px 64px; }
+  .intro { text-align: center; margin: 24px 0 40px; }
+  .intro h1 { font-size: 34px; line-height: 1.3; }
+  .intro p { color: var(--muted); font-size: 17px; margin-top: 10px; }
+  .products { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .product {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 14px;
+    overflow: hidden; display: flex; flex-direction: column;
+  }
+  .product .shot { display: block; aspect-ratio: 900 / 470; background: #000; }
+  .product .shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .product .body { padding: 22px 24px 24px; display: flex; flex-direction: column; flex: 1; }
+  .product h2 { font-size: 22px; }
+  .product .tag { color: var(--muted); font-size: 14px; margin-top: 2px; }
+  .product ul { list-style: none; margin: 16px 0 22px; flex: 1; }
+  .product li { color: #cfcfcf; font-size: 15px; padding-left: 20px; position: relative; margin-bottom: 6px; }
+  .product li::before { content: "✦"; position: absolute; left: 0; color: var(--accent); font-size: 12px; top: 3px; }
+  .product .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 15px;
+    border: 1px solid var(--accent); color: var(--accent);
+  }
+  .btn:hover { background: color-mix(in srgb, var(--accent) 14%, transparent); }
+  .btn.primary { background: var(--accent); color: #111; }
+  .btn.primary:hover { filter: brightness(1.08); background: var(--accent); }
+  .player { --accent: var(--green); }
+  .stc { --accent: var(--gold); }
+  .assure {
+    margin-top: 40px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;
+  }
+  .assure div { border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .assure b { display: block; font-size: 15px; margin-bottom: 4px; }
+  .assure span { color: var(--muted); font-size: 14px; }
+  footer { border-top: 1px solid #1e1e1e; padding: 22px 24px; text-align: center; color: var(--muted); font-size: 14px; }
+  footer a { color: var(--muted); text-decoration: underline; }
+  @media (max-width: 760px) {
+    header { padding: 16px; }
+    main { padding: 8px 16px 48px; }
+    .intro h1 { font-size: 26px; }
+    .products, .assure { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
 <body>
-  <p><a href="player/home.html?lang=en-US">Continue to EchoShorts.Win</a></p>
+<header>
+  <div class="brand">EchoShorts<span>.Win</span></div>
+  <div class="spacer"></div>
+  <select id="lang" aria-label="Language">
+    <option value="en">English</option>
+    <option value="zh">简体中文</option>
+  </select>
+</header>
+
+<main>
+  <section class="intro">
+    <h1 data-t="h1"></h1>
+    <p data-t="sub"></p>
+  </section>
+
+  <section class="products">
+    <article class="product player">
+      <a class="shot" data-href="playerHome"><img src="hub/player.jpg" alt="EchoShortsPlayer"></a>
+      <div class="body">
+        <h2>EchoShortsPlayer</h2>
+        <div class="tag" data-t="pTag"></div>
+        <ul>
+          <li data-t="p1"></li>
+          <li data-t="p2"></li>
+          <li data-t="p3"></li>
+          <li data-t="p4"></li>
+        </ul>
+        <div class="actions">
+          <a class="btn primary" data-href="playerBuy" data-t="buy"></a>
+          <a class="btn" data-href="playerHome" data-t="more"></a>
+        </div>
+      </div>
+    </article>
+
+    <article class="product stc">
+      <a class="shot" data-href="stcHome"><img src="hub/sandtableclub.jpg" alt="SandTable Club"></a>
+      <div class="body">
+        <h2 data-t="sName"></h2>
+        <div class="tag" data-t="sTag"></div>
+        <ul>
+          <li data-t="s1"></li>
+          <li data-t="s2"></li>
+          <li data-t="s3"></li>
+          <li data-t="s4"></li>
+        </ul>
+        <div class="actions">
+          <a class="btn primary" data-href="stcBuy" data-t="buy"></a>
+          <a class="btn" data-href="stcHome" data-t="more"></a>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="assure">
+    <div><b data-t="a1t"></b><span data-t="a1"></span></div>
+    <div><b data-t="a2t"></b><span data-t="a2"></span></div>
+    <div><b data-t="a3t"></b><span data-t="a3"></span></div>
+  </section>
+</main>
+
+<footer>
+  <span data-t="support"></span> <a href="mailto:supports@echoshorts.win">supports@echoshorts.win</a>
+  <div style="margin-top: 6px;">© 2026 EchoShorts.Win</div>
+</footer>
+
+<script>
+(function () {
+  var S = {
+    en: {
+      h1: 'Activation codes for our software',
+      sub: 'Buy here, receive your code by email in minutes, paste it into the app — done.',
+      pTag: 'AI video translation & subtitles',
+      p1: 'Translate online videos while they play, or batch-translate offline files',
+      p2: 'Download or record from 10,000+ sites via the browser extension',
+      p3: 'Private by design — nothing is collected',
+      p4: '99+ languages, multiple AI models',
+      sName: 'SandTable Club',
+      sTag: 'Campaign simulator · build-your-own-rules wargame platform',
+      s1: 'Visual editor for units, stats, formulas, triggers, maps and UI',
+      s2: 'AI assistant that builds rules and maps from plain language',
+      s3: 'Online matches, replays, spectating and AI-controlled seats',
+      s4: 'Make your own wargame from a blank sand table',
+      buy: 'Buy activation code',
+      more: 'Learn more',
+      a1t: 'Instant delivery', a1: 'Your code is emailed as soon as payment clears.',
+      a2t: 'Secure checkout', a2: 'Payments are handled by Paddle — cards, PayPal and more.',
+      a3t: 'Real support', a3: 'Lost your email or code? Write to us and we will sort it out.',
+      support: 'Support:',
+    },
+    zh: {
+      h1: '软件激活码官方购买站',
+      sub: '在这里下单，几分钟内激活码发到邮箱，粘贴进软件即可使用。',
+      pTag: 'AI 视频翻译与字幕',
+      p1: '在线视频边播边译，或离线批量翻译本地文件',
+      p2: '通过浏览器扩展一键下载或录制 10000+ 网站的视频',
+      p3: '隐私优先，不记录、不收集',
+      p4: '支持 99+ 语言与多种大模型',
+      sName: '沙盘俱乐部 SandTable Club',
+      sTag: '战役模拟器 · 自制规则的兵棋对战平台',
+      s1: '可视化编辑单位、数值、公式、触发器、地图与界面',
+      s2: 'AI 制作助手：用自然语言描述玩法，自动生成规则与地图',
+      s3: '联机对战、回放、观战，也能让 AI 托管座位',
+      s4: '从一张空白沙盘开始，造出你自己的兵棋',
+      buy: '购买激活码',
+      more: '了解详情',
+      a1t: '即时发码', a1: '支付完成后激活码自动发送到你的邮箱。',
+      a2t: '安全支付', a2: '由 Paddle 处理支付，支持银行卡、PayPal 等方式。',
+      a3t: '人工售后', a3: '邮件丢了、码找不到，写信给我们就能处理。',
+      support: '售后与技术支持：',
+    },
+  };
+  var LINKS = {
+    en: {
+      playerHome: 'player/home.html?lang=en-US',
+      playerBuy: 'purchase.html?appid=echoshortsplayer&lang=en',
+      stcHome: 'sandtableclub/index.html?lang=en',
+      stcBuy: 'sandtableclub/buy.html?lang=en',
+    },
+    zh: {
+      playerHome: 'player/home-zh.html',
+      playerBuy: 'purchase.html?appid=echoshortsplayer&lang=zh',
+      stcHome: 'sandtableclub/index.html?lang=zh',
+      stcBuy: 'sandtableclub/buy.html?lang=zh',
+    },
+  };
+
+  function detect() {
+    var m = location.search.match(/[?&]lang=([\w-]+)/);
+    if (m) return m[1].toLowerCase().indexOf('zh') === 0 ? 'zh' : 'en';
+    try { var saved = localStorage.getItem('es-hub-lang'); if (S[saved]) return saved; } catch (e) {}
+    return (navigator.language || 'en').toLowerCase().indexOf('zh') === 0 ? 'zh' : 'en';
+  }
+
+  var cur = detect();
+  function render() {
+    var s = S[cur], l = LINKS[cur];
+    document.documentElement.lang = cur === 'zh' ? 'zh-CN' : 'en';
+    document.querySelectorAll('[data-t]').forEach(function (el) { el.textContent = s[el.getAttribute('data-t')]; });
+    document.querySelectorAll('[data-href]').forEach(function (el) { el.href = l[el.getAttribute('data-href')]; });
+    document.getElementById('lang').value = cur;
+  }
+  document.getElementById('lang').addEventListener('change', function () {
+    cur = this.value;
+    try { localStorage.setItem('es-hub-lang', cur); } catch (e) {}
+    render();
+  });
+  render();
+})();
+</script>
 </body>
 </html>

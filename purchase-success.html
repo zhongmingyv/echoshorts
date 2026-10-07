@@ -646,6 +646,13 @@ function applyLang() {
     document.querySelectorAll('[data-i18n]').forEach(function(el) {
         el.textContent = t(el.getAttribute('data-i18n'));
     });
+    // 同一套结账也卖别的软件(如 sandtableclub/buy.html):那边下单前在同域留了记号,把软件名换过来
+    var last = null;
+    try { last = JSON.parse(localStorage.getItem('es-last-purchase') || 'null'); } catch (e) {}
+    if (last && last.name && last.appid !== 'echoshortsplayer' && Date.now() - (last.at || 0) < 864e5) {
+        var step1 = document.querySelector('[data-i18n="step1"]');
+        if (step1) step1.textContent = step1.textContent.replace('EchoShortsPlayer', last.name);
+    }
     document.documentElement.lang = lang;
 }
 
